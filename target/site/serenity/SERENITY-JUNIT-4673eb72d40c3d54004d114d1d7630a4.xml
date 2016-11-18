@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="com.serenity.appium.poc.serenityAppiumPOC.FlipkartAppTestCopy" skipped="0" tests="1" time="0.0" timestamp="2016-11-322 06:40:59"><testcase classname="com.serenity.appium.poc.serenityAppiumPOC.FlipkartAppTestCopy" name="Initialisation"><error message="The appium.platformName needs to be specified (either IOS or ANDROID)" type="net.thucydides.core.webdriver.ThucydidesConfigurationException">The appium.platformName needs to be specified (either IOS or ANDROID)</error><system-err>The appium.platformName needs to be specified (either IOS or ANDROID)
-org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
-org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
-org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
-org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:678)
-org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
-org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
-</system-err></testcase></testsuite>
