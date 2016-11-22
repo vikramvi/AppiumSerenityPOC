@@ -12,6 +12,11 @@ import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.FlipkartLoginSteps;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import static com.serenity.appium.poc.AppiumServerVikram.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerVikram.stopAppiumServer;
 
 @RunWith(SerenityRunner.class)
 public class FlipkartAppTest{
@@ -21,10 +26,24 @@ public class FlipkartAppTest{
     
     @Steps
     public FlipkartLoginSteps userSteps;
-            
+     
+    @BeforeClass
+    public static void startAppium() {
+        startAppiumServer();
+    }
+
+    @AfterClass
+    public static void stopAppium() {
+        stopAppiumServer();
+    }
+     
     @Test
     public void verifyInvalidLogin(){
-	userSteps.loginPageInvalidDataInput();
+    	try{        	
+            	userSteps.loginPageInvalidDataInput();     	
+    	}catch(Exception e){	    
+    	        e.printStackTrace();
+    	}
     }
       
 }
