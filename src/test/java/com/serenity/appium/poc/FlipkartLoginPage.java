@@ -29,15 +29,19 @@ public class FlipkartLoginPage extends PageObject {
     public void gotoLoginPage(){
 	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/btn_mlogin")) );
-        element(existingUsersignIn).click();
-        
+        element(existingUsersignIn).click();                
+    }
+    
+    public void enterInvalidCredentials(){
         element(userId).sendKeys("dummyName");
-        element(password).sendKeys("invalidPwd");
-        
+        element(password).sendKeys("invalidPwd");       
         element(login_Button).click();
-        
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/pageLevelError")) );
-        element(error_text).getText().contentEquals("Invalid login details");
+    }
+    
+    public boolean isErrorMessageShown(){
+	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/pageLevelError")) );
+        return element(error_text).getText().contentEquals("Invalid login details");
     }
     
 }

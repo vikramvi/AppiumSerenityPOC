@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebDriver;
 
-import com.serenity.appium.poc.FlipkartLoginSteps;
+import com.serenity.appium.poc.cucumber_related.FlipkartLoginSteps;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -40,7 +40,9 @@ public class FlipkartAppTest{
     @Test
     public void verifyInvalidLogin(){
     	try{        	
-            	userSteps.loginPageInvalidDataInput();     	
+            	userSteps.loginPageInvalidDataInput();    
+            	userSteps.enterLoginData();
+            	userSteps.checkErrorMessage();
     	}catch(Exception e){	    
     	        e.printStackTrace();
     	}
