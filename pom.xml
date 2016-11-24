@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>serenity-appium-grid</groupId>
-    <artifactId>serenity-appium-grid</artifactId>
+    <groupId>serenity-appium-mobile-native-app-automation</groupId>
+    <artifactId>serenity-appium-mobile-native-app-automation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Test project with serenity and appium</name>
+    <name>Test project with Serenity and Appium to perform UI tests on native mobile app</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -70,6 +70,11 @@
             <artifactId>assertj-core</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <dependency>
+           <groupId>com.github.cukedoctor</groupId>
+           <artifactId>Cukedoctor-converter</artifactId>
+           <version>1.0.6</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -88,20 +93,21 @@
 		                        <no.reset>true</no.reset>
 		                        <appium.log>info</appium.log>
 	                    </systemPropertyVariables>
-	                    <!--   <skip>true</skip> -->
+	                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>10</threadCount>
+                    <!-- <parallel>methods</parallel>
+                    <threadCount>10</threadCount> -->
                     <includes>
-                        <include>**/*Test.java</include>
-                        <include>**/Test*.java</include>
+                        <!-- <include>**/*Test.java</include>
+                        <include>**/Test*.java</include> -->
                         <include>**/When*.java</include>
                         <include>**/*Story.java</include>
+                        <include>**/*Cucumber.java</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>
@@ -137,6 +143,27 @@
                     </execution>
                 </executions>
             </plugin>
+	        <plugin>
+			    <groupId>com.github.cukedoctor</groupId>
+			    <artifactId>cukedoctor-maven-plugin</artifactId>
+			    <version>1.0.6</version>
+			         <configuration>
+				            <outputFileName>documentation</outputFileName>
+				            <outputDir>cukedoctor-output</outputDir>
+				            <format>html</format>
+				            <toc>left</toc>
+				            <numbered>true</numbered>
+				            <docVersion>${project.version}</docVersion>
+			         </configuration>
+			        <executions>
+			            <execution>
+			                <goals>
+			                    <goal>execute</goal>
+			                </goals>
+			                <phase>verify</phase>
+			            </execution>
+			        </executions>
+	       </plugin>
         </plugins>
     </build>
 </project>
