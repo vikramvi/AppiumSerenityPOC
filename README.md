@@ -16,6 +16,19 @@ Note:
 2. If you think something needs to be improved; please file issue or submit PR.
 
 
+How To Run From Command Line
+
+1. mvn clean verify
+
+
+
+Living Documentation
+
+1. http://vikramvi.github.io/AppiumSerenityPOC
+
+
+
+
 Interrogating Methods:
 
 Method 1:
