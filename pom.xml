@@ -143,11 +143,12 @@
                     </execution>
                 </executions>
             </plugin>
-	        <plugin>
+	        <!-- <plugin>
 			    <groupId>com.github.cukedoctor</groupId>
 			    <artifactId>cukedoctor-maven-plugin</artifactId>
 			    <version>1.0.6</version>
 			         <configuration>
+			                <featuresDir>cucumber_json</featuresDir>
 				            <outputFileName>documentation</outputFileName>
 				            <outputDir>cukedoctor-output</outputDir>
 				            <format>html</format>
@@ -163,7 +164,36 @@
 			                <phase>verify</phase>
 			            </execution>
 			        </executions>
-	       </plugin>
+	       </plugin> -->
+	       <plugin>
+				    <groupId>com.github.cukedoctor</groupId>
+				    <artifactId>cukedoctor-maven-plugin</artifactId>
+				    <version>1.0.6</version>
+				    <configuration>
+				         <featuresDir>target/cucumber_json</featuresDir>
+				        <outputFileName>index</outputFileName>
+				        <outputDir></outputDir> 
+				        <!--pdf and html5 -->
+				        <format>all</format>
+				        <hideSummarySection>true</hideSummarySection>
+				        <hideScenarioKeyword>true</hideScenarioKeyword>
+				        <hideStepTime>true</hideStepTime>
+				        <hideFeaturesSection>true</hideFeaturesSection>
+				        <hideTags>true</hideTags>
+				        <sourceHighlighter>coderay</sourceHighlighter>
+				        <toc>center</toc>
+				        <numbered>true</numbered>
+				        <!--  <docVersion>${project.version}</docVersion> -->
+				    </configuration>
+				    <executions>
+				        <execution>
+				            <goals>
+				                <goal>execute</goal>
+				            </goals>
+				            <phase>verify</phase>
+				        </execution>
+				    </executions>
+           </plugin>
         </plugins>
     </build>
 </project>

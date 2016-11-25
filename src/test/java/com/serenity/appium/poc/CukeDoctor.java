@@ -30,10 +30,10 @@ public class CukeDoctor {
 		    .sectAnchors(true).sectLink(true);
 
 	CukedoctorConverter converter = Cukedoctor.instance(features, attrs);
-	converter.setFilename("living_documentation.adoc");
+	converter.setFilename("target/living_documentation.adoc");
 
 	converter.saveDocumentation();
-	assertThat(FileUtil.loadFile("living_documentation.adoc")).exists();
+	assertThat(FileUtil.loadFile("target/living_documentation.adoc")).exists();
 	}catch(Exception e){
 	    e.printStackTrace();
 	}
