@@ -3,11 +3,10 @@ This project shows Appium and Serenity framework integration to run sample test 
 ### Before Run Settings
 
 1.  Have a android emulator or device connected and running
-2.  Appium server needs to be started externally
-3.  ANDROID_HOME to be set
-4.  appium.platformVersion  =  set_valid_value
-5.  appium.deviceName  =  set_valid_value
-6. appium.app  =  set_full_path
+2.  ANDROID_HOME environment varialbe to be set ( + For Eclipse Run As > Run Configurations .... > Environment )
+3.  appium.platformVersion  =  set_valid_value
+4.  appium.deviceName  =  set_valid_value
+5.  appium.app  =  set_full_path
 <br><br>
 
 
