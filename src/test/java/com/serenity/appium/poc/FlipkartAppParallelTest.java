@@ -59,6 +59,18 @@ public class FlipkartAppParallelTest {
 	    }
 	  }
     
+     //Check manually first java -jar selenium-server-standalone-3.0.1.jar -role hub ( http://elementalselenium.com/tips/52-grid )
+    /*14:52:12.889 INFO - Selenium build info: version: '3.0.1', revision: '1969d75'
+	14:52:12.890 INFO - Launching Selenium Grid hub
+	2016-12-22 14:52:13.418:INFO::main: Logging initialized @838ms
+	14:52:13.432 INFO - Will listen on 4444
+	2016-12-22 14:52:13.483:INFO:osjs.Server:main: jetty-9.2.15.v20160210
+	2016-12-22 14:52:13.508:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@33cb5951{/,null,AVAILABLE}
+	2016-12-22 14:52:13.532:INFO:osjs.ServerConnector:main: Started ServerConnector@6a396c1e{HTTP/1.1}{0.0.0.0:4444}
+	2016-12-22 14:52:13.533:INFO:osjs.Server:main: Started @952ms
+	14:52:13.534 INFO - Nodes should register to http://192.168.2.48:4444/grid/register/
+	14:52:13.534 INFO - Selenium Grid hub is up and running*/
+
      //Selenium Users google group - Programmatically open Selenium Hub and Node - ErrorDefaultRemoteProxy unknown version
      Hub hub = null;
      public void startSeleniumHub(){
@@ -72,7 +84,7 @@ public class FlipkartAppParallelTest {
         	        
         	        hub = new Hub(config);
         	        hub.start();
-        
+                        //?? check if hub is started properly ??//
         	        
         	        //
 /*        	        RegistrationRequest req = new RegistrationRequest();
@@ -160,13 +172,30 @@ public class FlipkartAppParallelTest {
      }
      
      //Check manually if you're able to register node with Hub
-     //appium --nodeconfig EMULATOR_Nexus_4_1.json
+     
+     //http://www.vimalselvam.com/2016/05/15/selenium-grid-for-appium-mobile-automation/ 
+     //appium --nodeconfig EMULATOR_Nexus_4_1.json -p 4723 -bp 4724 -U <<s4 device id>>
+     /*//[Appium] Welcome to Appium v1.6.3
+     [Appium] Non-default server args:
+	 [Appium]   nodeconfig: 'EMULATOR_Nexus_4_1.json'
+	 [debug] [Appium] Starting auto register thread for grid. Will try to register every 10000 ms.
+	 [Appium] Appium REST http interface listener started on 0.0.0.0:4723
+	 [debug] [Appium] Appium successfully registered with the grid on 127.0.0.1:4444
+	 [HTTP] --> GET /wd/hub/status {}*/
+     //Selenium HUB output >> Registered a node http://0.0.0.0:4723
+     
+     //correct json format refer to https://github.com/Tanmoyray/AppiumParallelExecutionSample/tree/master/GITSERVER/JSONS
+     
      //https://discuss.appium.io/t/unable-to-start-appium-service-by-appiumdriverlocalserivce/6324/18
      //https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/grid.md
+     
      //https://github.com/appium/appium/issues/1704
      //https://github.com/appium/java-client/tree/master/src/main/java/io/appium/java_client/service/local/flags
+     
      //http://appium.io/slate/en/master/?ruby#appium-server-arguments - Appium Server Arguments
      //https://github.com/saikrishna321/AppiumTestDistribution/blob/c9b065cb084fa6d83272514784da455f7cf076fe/src/main/java/com/appium/manager/AppiumManager.java
+     
+     
      public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
 	 try{
         	 String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_1.json";
@@ -188,6 +217,23 @@ public class FlipkartAppParallelTest {
         					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
         	//Logger.info("Server url: " + driverLocalService.getUrl());
         	driverLocalService.start();
+        	//??Check if node is registered properly and appium server has started ??
+        	
+        	
+        	nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_2.json";
+        	driverLocalService = AppiumDriverLocalService
+			.buildService(new AppiumServiceBuilder()
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+					.usingDriverExecutable(new File("/usr/local/bin/node"))					
+					.usingPort(4446)
+					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
+					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
+	
+	         driverLocalService.start();
+        	
+        	
+        	
         	System.out.println("test");
 	 }catch(Exception e){
 	     e.printStackTrace();
