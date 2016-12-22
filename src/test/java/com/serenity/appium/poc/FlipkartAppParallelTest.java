@@ -173,8 +173,9 @@ public class FlipkartAppParallelTest {
      
      //Check manually if you're able to register node with Hub
      
+     //METHOD 1
      //http://www.vimalselvam.com/2016/05/15/selenium-grid-for-appium-mobile-automation/ 
-     //appium --nodeconfig EMULATOR_Nexus_4_1.json -p 4723 -bp 4724 -U <<s4 device id>>
+     //appium --nodeconfig EMULATOR_Nexus_4_1.json -p 4723 -bp 4724 -U <<s4 device id>>   
      /*//[Appium] Welcome to Appium v1.6.3
      [Appium] Non-default server args:
 	 [Appium]   nodeconfig: 'EMULATOR_Nexus_4_1.json'
@@ -183,6 +184,19 @@ public class FlipkartAppParallelTest {
 	 [debug] [Appium] Appium successfully registered with the grid on 127.0.0.1:4444
 	 [HTTP] --> GET /wd/hub/status {}*/
      //Selenium HUB output >> Registered a node http://0.0.0.0:4723
+     
+     //METHOD 2
+     //https://mattfritz.github.io/2015/05/08/scale-mobile-testing-using-appium-and-selenium-grid/  
+     //appium --nodeconfig EMULATOR_Nexus_4_2.json -p 4823 -bp 4824  ( UDID is in json file itself )
+     /*[Appium] Welcome to Appium v1.6.3
+        [Appium] Non-default server args:
+        [Appium]   port: 4823
+        [Appium]   bootstrapPort: 4824
+        [Appium]   nodeconfig: 'EMULATOR_Nexus_4_2.json'
+        [debug] [Appium] Starting auto register thread for grid. Will try to register every 10000 ms.
+        [Appium] Appium REST http interface listener started on 0.0.0.0:4823
+        [debug] [Appium] Appium successfully registered with the grid on 127.0.0.1:4444
+        [HTTP] --> GET /wd/hub/status {}*/
      
      //correct json format refer to https://github.com/Tanmoyray/AppiumParallelExecutionSample/tree/master/GITSERVER/JSONS
      
@@ -203,15 +217,10 @@ public class FlipkartAppParallelTest {
         	 AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
         			.buildService(new AppiumServiceBuilder()
         					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-        					.usingDriverExecutable(new File("/usr/local/bin/node"))
-        					//.withIPAddress("127.0.0.1")
+        					.usingDriverExecutable(new File("/usr/local/bin/node"))       				
         					.usingPort(4445)
-        					//.withArgument(GeneralServerFlag.UIID, "123456")    					
-        					//.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
-        					//		"" + 2252)
-        					//.withArgument(GeneralServerFlag.CHROME_DRIVER_PORT,
-        					//		"" + client.getChromeDriverport())
-        					//.withArgument(GeneralServerFlag.NO_RESET)
+        					//.withArgument(GeneralServerFlag.UIID, "emulator-5554")			
+        					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
         					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
         					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
         					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
