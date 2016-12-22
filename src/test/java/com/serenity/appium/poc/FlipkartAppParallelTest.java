@@ -218,9 +218,9 @@ public class FlipkartAppParallelTest {
         			.buildService(new AppiumServiceBuilder()
         					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
         					.usingDriverExecutable(new File("/usr/local/bin/node"))       				
-        					.usingPort(4445)
+        					.usingPort(4723)
         					//.withArgument(GeneralServerFlag.UIID, "emulator-5554")			
-        					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
+        					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4724")
         					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
         					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
         					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
@@ -234,7 +234,8 @@ public class FlipkartAppParallelTest {
 			.buildService(new AppiumServiceBuilder()
 					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 					.usingDriverExecutable(new File("/usr/local/bin/node"))					
-					.usingPort(4446)
+					.usingPort(4823)
+					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
 					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
 					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
 					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
