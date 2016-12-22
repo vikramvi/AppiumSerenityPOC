@@ -1,0 +1,1 @@
+{"capabilities":[{"browserName":"Nexus_4_1","version":"4.4.2","maxInstances":1,"platform":"ANDROID"}],"configuration":{"cleanUpCycle":2000,"timeout":180000,"registerCycle":5000,"proxy":"org.openqa.grid.selenium.proxy.DefaultRemoteProxy","url":"http://127.0.0.1:4001/wd/hub","host":"127.0.0.1","port":4001,"maxSession":1,"register":true,"hubPort":"4444","hubHost":"localhost"}}
