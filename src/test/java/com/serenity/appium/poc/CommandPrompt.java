@@ -27,6 +27,7 @@ public class CommandPrompt {
         			p = builder.start();
         		}
         		else{ // If Mac
+        		       //https://bugs.eclipse.org/bugs/show_bug.cgi?id=509628
         		       String[] temp = { "/Users/vikram-anna/Library/Android/sdk/platform-tools/adb", "dummy_command"};
         		       temp[1] = command;
         			p = Runtime.getRuntime().exec(temp);

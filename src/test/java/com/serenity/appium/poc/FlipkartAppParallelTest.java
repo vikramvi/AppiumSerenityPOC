@@ -42,7 +42,7 @@ public class FlipkartAppParallelTest {
     private static SelfRegisteringRemote remote;
    
     
-    @Test
+    //@Test
     public void onStart() {
 	    try {
 		       getDevices();

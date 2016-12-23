@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.2.1-rc.4</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.2.2-rc.4</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
         <serenity.cucumber.version>1.1.13</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
@@ -78,12 +78,13 @@
     </dependencies>
     <build>
         <plugins>
+        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-	                    <systemPropertyVariables>
+	                    <!-- <systemPropertyVariables>
 		                        <file>Flipkart.3.0.apk</file>
 		                        <appium.host>127.0.0.1</appium.host>
 		                        <appium.port>4723</appium.port>
@@ -92,19 +93,47 @@
 		                        <device.name>d6e4f8d6</device.name>
 		                        <no.reset>true</no.reset>
 		                        <appium.log>info</appium.log>
-	                    </systemPropertyVariables>
+	                    </systemPropertyVariables> -->
 	                    <skip>true</skip>
                 </configuration>
             </plugin>
+            
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                   <includes>
+                        <include>FlipkartAppTest.java</include>
+                    </includes>
+                    <!-- http://stackoverflow.com/questions/32987998/junit-and-surefire-parallel-tests-forkcount-threadcount -->
+                    <parallel>methods</parallel>
+                    <threadCount>1</threadCount>
+                    <reuseForks>${run.parallel}</reuseForks>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                    <systemPropertyVariables>
+                        <tags>${tags}</tags>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <!-- <parallel>methods</parallel>
-                    <threadCount>10</threadCount> -->
+                    <parallel>methods</parallel>
+                    <threadCount>10</threadCount>
                     <includes>
-                        <!-- <include>**/*Test.java</include>
-                        <include>**/Test*.java</include> -->
+                        <include>**/*Test.java</include>
+                        <include>**/Test*.java</include>
                         <include>**/When*.java</include>
                         <include>**/*Story.java</include>
                         <include>**/*Cucumber.java</include>
@@ -119,7 +148,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

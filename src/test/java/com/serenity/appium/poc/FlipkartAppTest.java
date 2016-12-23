@@ -27,18 +27,29 @@ public class FlipkartAppTest{
     @Steps
     public FlipkartLoginSteps userSteps;
      
-    @BeforeClass
+    //@BeforeClass
     public static void startAppium() {
         startAppiumServer();
     }
 
-    @AfterClass
+    //@AfterClass
     public static void stopAppium() {
         stopAppiumServer();
     }
      
     @Test
     public void verifyInvalidLogin(){
+    	try{        	
+            	userSteps.loginPageInvalidDataInput();    
+            	userSteps.enterLoginData();
+            	userSteps.checkErrorMessage();
+    	}catch(Exception e){	    
+    	        e.printStackTrace();
+    	}
+    }
+    
+    @Test
+    public void verifyInvalidLogin2(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
             	userSteps.enterLoginData();
