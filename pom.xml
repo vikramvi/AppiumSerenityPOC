@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.2.2-rc.4</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.2.2</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
         <serenity.cucumber.version>1.1.13</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
@@ -107,13 +107,14 @@
                         <include>FlipkartAppTest.java</include>
                     </includes>
                     <!-- http://stackoverflow.com/questions/32987998/junit-and-surefire-parallel-tests-forkcount-threadcount -->
-                    <parallel>methods</parallel>
-                    <threadCount>1</threadCount>
-                    <reuseForks>${run.parallel}</reuseForks>
+                     <parallel>all</parallel>
+                    <threadCount>2</threadCount>
+                    <reuseForks>true</reuseForks>
+<!--                     <reuseForks>${run.parallel}</reuseForks>
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <systemPropertyVariables>
                         <tags>${tags}</tags>
-                    </systemPropertyVariables>
+                    </systemPropertyVariables> -->
                 </configuration>
                 <executions>
                     <execution>

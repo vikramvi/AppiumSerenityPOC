@@ -38,6 +38,12 @@ public class FlipkartLoginPage extends PageObject {
         element(login_Button).click();
     }
     
+    public void enterInvalidCredentials2(){
+        element(userId).sendKeys("123456789");
+        element(password).sendKeys("123456789");       
+        element(login_Button).click();
+    }
+    
     public boolean isErrorMessageShown(){
 	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
 	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/pageLevelError")) );

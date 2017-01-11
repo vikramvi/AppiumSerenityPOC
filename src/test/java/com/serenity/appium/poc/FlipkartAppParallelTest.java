@@ -37,6 +37,11 @@ public class FlipkartAppParallelTest {
     //2. Kill appium server if already up 
     //3. start grid server
     //get connected android emulators
+    //get free ports
+    //create json dynamically
+    //OpenSTF Integration - http://www.vimalselvam.com/2016/08/07/appium-parallel-execution-on-openstf/
+    //https://github.com/appium/appium-docker-android
+    
     
     //private static Hub hub;
     private static SelfRegisteringRemote remote;
@@ -175,7 +180,7 @@ public class FlipkartAppParallelTest {
      
      //METHOD 1
      //http://www.vimalselvam.com/2016/05/15/selenium-grid-for-appium-mobile-automation/ 
-     //appium --nodeconfig EMULATOR_Nexus_4_1.json -p 4723 -bp 4724 -U <<s4 device id>>   
+     //appium --nodeconfig EMULATOR_Nexus_4_1.json -p 4723 -bp 4724   
      /*//[Appium] Welcome to Appium v1.6.3
      [Appium] Non-default server args:
 	 [Appium]   nodeconfig: 'EMULATOR_Nexus_4_1.json'
@@ -209,6 +214,10 @@ public class FlipkartAppParallelTest {
      //http://appium.io/slate/en/master/?ruby#appium-server-arguments - Appium Server Arguments
      //https://github.com/saikrishna321/AppiumTestDistribution/blob/c9b065cb084fa6d83272514784da455f7cf076fe/src/main/java/com/appium/manager/AppiumManager.java
      
+     //https://github.com/appium/java-client/blob/master/docs/The-starting-of-an-app-using-Appium-node-server-started-programmatically.md#which-parameters-also-can-be-defined
+     //https://github.com/appium/appium/blob/9441a89f7e368f0c621db3a0cf9ab074c045ac3a/docs/en/writing-running-appium/server-args.md
+     
+     //https://github.com/appium/java-client/issues/544
      
      public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
 	 try{

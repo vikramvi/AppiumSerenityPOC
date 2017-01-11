@@ -27,14 +27,14 @@ public class FlipkartAppTest{
     @Steps
     public FlipkartLoginSteps userSteps;
      
-    //@BeforeClass
+    @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+        //startAppiumServer();
     }
 
-    //@AfterClass
+    @AfterClass
     public static void stopAppium() {
-        stopAppiumServer();
+        //stopAppiumServer();
     }
      
     @Test
@@ -49,10 +49,10 @@ public class FlipkartAppTest{
     }
     
     @Test
-    public void verifyInvalidLogin2(){
+    public void verifyYahooInvalid(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
-            	userSteps.enterLoginData();
+            	userSteps.enterLoginData2();
             	userSteps.checkErrorMessage();
     	}catch(Exception e){	    
     	        e.printStackTrace();
@@ -61,3 +61,13 @@ public class FlipkartAppTest{
       
 }
 
+
+//Notes
+//1. appium.platformName = Android
+//appium.platformVersion = 4.4.2
+//appium.deviceName  = Nexus_4_1
+//appium.app =  /Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/com.microsoft.office.word_16.0.7668.4775-2001376635_minAPI19(x86)(nodpi)_APKdot.com.apk
+//appium.hub = http://localhost:4723/wd/hub
+
+
+//2. mvn clean verify -Dappium.hub=http://127.0.0.1:4444/wd/hub -Dwebdriver.driver=appium -Dappium.platformName=Android -Dappium.app=Flipkart.3.0.apk -Dappium.deviceName=dummy
