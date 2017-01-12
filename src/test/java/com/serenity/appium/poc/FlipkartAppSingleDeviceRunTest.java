@@ -7,7 +7,6 @@ import net.thucydides.core.annotations.Managed;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.cucumber_related.FlipkartLoginSteps;
@@ -19,16 +18,14 @@ import static com.serenity.appium.poc.AppiumServerVikram.startAppiumServer;
 import static com.serenity.appium.poc.AppiumServerVikram.stopAppiumServer;
 
 @RunWith(SerenityRunner.class)
-public class FlipkartAppTest{
-    
+public class FlipkartAppSingleDeviceRunTest {
     @Managed 
     WebDriver appiumDriver;
     
     @Steps
     public FlipkartLoginSteps userSteps;
      
-   //Not needed in case of parallel run 
-    /*@BeforeClass
+    @BeforeClass
     public static void startAppium() {
         startAppiumServer();
     }
@@ -36,9 +33,9 @@ public class FlipkartAppTest{
     @AfterClass
     public static void stopAppium() {
         stopAppiumServer();
-    }*/
+    }
      
-    //Selenium Grid setup POC - parallel run on multiple devices 
+    //Single device run POC
     @Test
     public void verifyInvalidLogin(){
     	try{        	
@@ -49,17 +46,4 @@ public class FlipkartAppTest{
     	        e.printStackTrace();
     	}
     }
-    
-    @Test
-    public void verifyYahooInvalid(){
-    	try{        	
-            	userSteps.loginPageInvalidDataInput();    
-            	userSteps.enterLoginData2();
-            	userSteps.checkErrorMessage();
-    	}catch(Exception e){	    
-    	        e.printStackTrace();
-    	}
-    }
-      
 }
-
