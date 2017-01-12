@@ -2,27 +2,20 @@ package com.serenity.appium.poc;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.grid.common.GridRole;
-
-import org.openqa.grid.common.RegistrationRequest;
-
 import org.openqa.grid.internal.utils.GridHubConfiguration;
 import org.openqa.grid.internal.utils.SelfRegisteringRemote;
-import org.openqa.grid.selenium.proxy.DefaultRemoteProxy;
 import org.openqa.grid.web.Hub;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.server.SeleniumServer;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -31,6 +24,7 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.AndroidServerFlag;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+
 import net.serenitybdd.junit.runners.SerenityRunner;
 
 @RunWith(SerenityRunner.class)
@@ -46,6 +40,7 @@ public class FlipkartAppParallelTest {
     //OpenSTF Integration - http://www.vimalselvam.com/2016/08/07/appium-parallel-execution-on-openstf/
     //https://github.com/appium/appium-docker-android
     //wait for grid server to be sucessfully up & running
+    //Get connected devices' count, create new json file and finish setup for automation
     
     
     //private static Hub hub;
@@ -94,6 +89,13 @@ public class FlipkartAppParallelTest {
         	        
         	        hub = new Hub(config);
         	        hub.start();
+        	        
+        	        if(isSeleniumHubRunning(10)){
+        	            System.out.println("Selenium Grid is Running");
+        	        }else{
+        	            System.err.println("*** Selenium Grid is down");
+        	        }
+        	        
                         //?? check if hub is started properly ??//
         	        
         	        //
@@ -139,37 +141,58 @@ public class FlipkartAppParallelTest {
 	 }
      }
     
+     public boolean isSeleniumHubRunning(int timeOut){
+	 int count = 0 ;
+	 while(count < timeOut){
+        	  try{    
+        	             Thread.sleep(1000);
+                 	     URL u = new URL ( "http://localhost:4444/grid/console");
+                 	     HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection (); 
+                 	     huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD"); 
+                 	     huc.connect () ; 
+                 	     int code = huc.getResponseCode() ;
+                 	     System.out.println(code);
+                 	     return true;
+         	     }catch(Exception e){
+         		 System.err.println("Selenium Grid is still down.....");  		 
+         		 count++;
+         		 //return false;
+         	     } 
+	 }
+	 System.err.println("Selenium Grid failed to start up even after   " + timeOut + "  seconds");
+	 return false;
+     }
+     
      public void stopAllServers(){
 	 try{
         	     String s = null;
         	     String PID  = null;
-        	     
-        	     //Stop Selenim HUB - Method 1
-        	     Process p = Runtime.getRuntime().exec("pgrep -f selenium-server-standalone");
-        	 
-        	     BufferedReader stdInput = new BufferedReader(new 
-        	                 InputStreamReader(p.getInputStream()));
-        	     
-        	     while ((s = stdInput.readLine()) != null) {
-        	                System.out.println(s);
-        	                PID = s;
-        	            }
-        	     
-        	     Runtime.getRuntime().exec("kill -9 " + PID);
+        	     Process p = null;
+        	     BufferedReader stdInput = null;
         	     
         	     //Stop appium
         	     p = Runtime.getRuntime().exec("pgrep -f  appium");
         	  		 
-        	      stdInput = new BufferedReader(new 
-        	                 InputStreamReader(p.getInputStream()));
+        	     stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        	     
+        	     while ((s = stdInput.readLine()) != null) {
+        	                System.out.println("Appium Server Found   " + s);
+        	                PID = s;
+        	                Runtime.getRuntime().exec("kill -9 " + PID );
+        	     }
+        	           	         	     
+        	     //Stop Selenim HUB - Method 1      	   Not Working
+        	     /*p = Runtime.getRuntime().exec("pgrep -f selenium-server-standalone");
+        	 
+        	     stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
         	     
         	     while ((s = stdInput.readLine()) != null) {
         	                System.out.println(s);
         	                PID = s;
-        	            }
-        	    
-        	     Runtime.getRuntime().exec("kill -9 " + PID );
+        	                Runtime.getRuntime().exec("kill -9 " + PID);
+        	     }*/
         	     
+        	            	     
         	   //Stop Selenim HUB - Method 2
         	     if (hub != null) { 
         		   hub.stop(); 
@@ -254,6 +277,12 @@ public class FlipkartAppParallelTest {
                         .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "000007CF003ACABB"))));
                 driverLocalService1.start();
         	
+                if( isAppiumServerRunning(15) ){
+                    System.out.println("Appium Server is Running");
+	        }else{
+	            System.err.println("*** Appium Server is down");
+	        }
+                
         	
         	nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_2.json";
         	
@@ -269,13 +298,62 @@ public class FlipkartAppParallelTest {
         	.withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "192.168.2.193:5555"))));
         	
 	         driverLocalService2.start();
+	         if( isAppiumServerRunning(15) ){
+	                    System.out.println("Appium Server is Running");
+		  }else{
+		            System.err.println("*** Appium Server is down");
+		 }
         	
         	
-        	
-        	System.out.println("test");
+        	System.out.println("Devices Registration Is Sucess");
 	 }catch(Exception e){
 	     e.printStackTrace();
 	 }
+     }
+     
+     public ArrayList<String> PID_Devices = new ArrayList<String>();
+     public static int globalDevicesCount = 0;
+     public boolean isAppiumServerRunning(int timeOut){
+	 int count = 0;
+	 String s = null;
+	 //String PID  = null;
+	 Process p = null;
+	 BufferedReader stdInput = null;
+	 int localDeviceCount = 0; 
+	 PID_Devices.clear();
+	 
+	 while(count < timeOut){
+        	 try{
+                	           Thread.sleep(1000);
+                	           p = Runtime.getRuntime().exec("pgrep -f  appium");
+        	  		 
+                          	   stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                          	     
+                          	     while ((s = stdInput.readLine()) != null) {
+                          	                System.out.println("Appium Server Found   " + s);
+                          	                PID_Devices.add(s);                 	              
+                          	     }
+                          	     
+                          	     if ( PID_Devices.size() > 0 ){
+                          		localDeviceCount = PID_Devices.size();
+                          	     }
+                          	     
+                          	     if( localDeviceCount > globalDevicesCount ){ 
+                          		globalDevicesCount = localDeviceCount;
+                	                 return true;
+                          	     }else{
+                          		 count++;
+                          		 System.err.println("Appium Server is still down.....");  
+                          		 continue;
+                          	     }
+        	 }catch(Exception e){
+        	     e.printStackTrace();
+        	     count++;  
+        	 }
+	 }
+	 
+	 System.err.println("Appium Server failed to start even after   " + timeOut + "  seconds");
+	 return false;
      }
      
      //Works
