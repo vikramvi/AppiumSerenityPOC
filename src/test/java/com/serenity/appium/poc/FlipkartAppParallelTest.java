@@ -24,6 +24,9 @@ import org.openqa.grid.web.Hub;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.server.SeleniumServer;
 
+import com.google.common.collect.ImmutableMap;
+
+import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.AndroidServerFlag;
@@ -35,25 +38,27 @@ public class FlipkartAppParallelTest {
 
     //1. start appium server for each of the connected devices
     //2. Kill appium server if already up 
-    //3. start grid server
+    //3. start grid server 
+    //4. wait for grid server to be sucessfully up & running
     //get connected android emulators
     //get free ports
     //create json dynamically
     //OpenSTF Integration - http://www.vimalselvam.com/2016/08/07/appium-parallel-execution-on-openstf/
     //https://github.com/appium/appium-docker-android
+    //wait for grid server to be sucessfully up & running
     
     
     //private static Hub hub;
     private static SelfRegisteringRemote remote;
    
     
-    //@Test
+    @Test
     public void onStart() {
 	    try {
-		       getDevices();
-		       stopAllServers();
-		       startSeleniumHub();
-		       startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB();
+		       getDevices(); //working
+		       stopAllServers(); //working
+		       startSeleniumHub(); //working
+		       startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(); //working
 		       stopAllServers();
 		      //generate_node_config
                        System.out.println("stop here");
@@ -223,33 +228,47 @@ public class FlipkartAppParallelTest {
 	 try{
         	 String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_1.json";
         	 
-        	 AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
+        	/* AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
         			.buildService(new AppiumServiceBuilder()
         					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
         					.usingDriverExecutable(new File("/usr/local/bin/node"))       				
-        					.usingPort(4723)
-        					//.withArgument(GeneralServerFlag.UIID, "emulator-5554")			
+        					.usingPort(4723)      								
         					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4724")
         					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
         					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-        					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
+        					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath))
+        			 .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "emulator-5554")) ));
         	//Logger.info("Server url: " + driverLocalService.getUrl());
-        	driverLocalService.start();
+        	driverLocalService.start();*/
         	//??Check if node is registered properly and appium server has started ??
+        	
+        	AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
+                        .buildService(new AppiumServiceBuilder()
+                        	.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.usingDriverExecutable(new File("/usr/local/bin/node"))
+                                .usingPort(4723)
+                                .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4724")
+                                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                                .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
+                                .withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath)
+                        .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "000007CF003ACABB"))));
+                driverLocalService1.start();
         	
         	
         	nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_2.json";
-        	driverLocalService = AppiumDriverLocalService
+        	
+        	AppiumDriverLocalService driverLocalService2 = AppiumDriverLocalService
 			.buildService(new AppiumServiceBuilder()
-					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-					.usingDriverExecutable(new File("/usr/local/bin/node"))					
-					.usingPort(4823)
-					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
-					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
-	
-	         driverLocalService.start();
+				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.usingDriverExecutable(new File("/usr/local/bin/node"))
+                                .usingPort(4823)
+                                .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
+                                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                                .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
+                                .withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath)
+        	.withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "192.168.2.193:5555"))));
+        	
+	         driverLocalService2.start();
         	
         	
         	
@@ -292,25 +311,25 @@ public class FlipkartAppParallelTest {
      }*/
      
      //Get connected devices https://github.com/sameer49/Appium-Grid-For-Android/blob/master/src/libs/DeviceConfiguration.java
-        CommandPrompt cmd = new CommandPrompt();
-	Map<String, String> devices = new HashMap<String, String>();
+     CommandPrompt cmd = new CommandPrompt();
+     Map<String, String> devices = new HashMap<String, String>();
 	
-             public void startADB() throws Exception{
-        		String output = cmd.runCommand("start-server");
-        		String[] lines = output.split("\n");
-        		if(lines.length==1)
-        			System.out.println("adb service already started");
-        		else if(lines[1].equalsIgnoreCase("* daemon started successfully *"))
-        			System.out.println("adb service started");
-        		else if(lines[0].contains("internal or external command")){
-        			System.out.println("adb path not set in system varibale");
-        			System.exit(0);
-        		}
-        	}
+     public void startADB() throws Exception{
+		String output = cmd.runCommand("start-server");
+		String[] lines = output.split("\n");
+		if(lines.length==1)
+			System.out.println("adb service already started");
+		else if(lines[1].equalsIgnoreCase("* daemon started successfully *"))
+			System.out.println("adb service started");
+		else if(lines[0].contains("internal or external command")){
+			System.out.println("adb path not set in system varibale");
+			System.exit(0);
+		}
+     }
      
-             public void stopADB() throws Exception{
-        	 cmd.runCommand("kill-server");
-             }
+     public void stopADB() throws Exception{
+	 	cmd.runCommand("kill-server");
+     }
 	
      public Map<String, String> getDevices() throws Exception{
 		
