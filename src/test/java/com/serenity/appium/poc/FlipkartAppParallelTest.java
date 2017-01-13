@@ -2,13 +2,20 @@ package com.serenity.appium.poc;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.jar.JarException;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.grid.internal.utils.GridHubConfiguration;
@@ -48,14 +55,14 @@ public class FlipkartAppParallelTest {
    
     
     @Test
-    public void onStart() {
+    public void SetupSeleniumGridAndAppiumNodesTest() {
 	    try {
-		       getDevices(); //working
+		       getDevices().size(); //working
 		       stopAllServers(); //working
 		       startSeleniumHub(); //working
-		       startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(); //working
+		       generate_node_config(deviceIds.size());//working       
+		       startAppiumServerToRegisterNodeWithSeleniumHUB(deviceIds.size()); //working
 		       stopAllServers();
-		      //generate_node_config
                        System.out.println("stop here");
 	        
 	    } catch (Exception e) {
@@ -247,11 +254,95 @@ public class FlipkartAppParallelTest {
      
      //https://github.com/appium/java-client/issues/544
      
-     public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
+     public void generate_node_config(int devicesCount){
+             int localCount = 1;
+	     int portNumber = 4700;
+             
+	 while(localCount <= devicesCount){
+                	 //?? put sequence is not maintained
+                	  JSONObject capData = new JSONObject();	
+                	  capData.put("applicationName", "dummy Android 1");
+                	  capData.put("browserName", "Android");
+                	  capData.put("platformName", "ANDROID");
+                	  capData.put("maxInstances", 1);
+                
+                	  JSONArray capArray = new JSONArray();
+                	  capArray.add(capData);
+                  
+                	  JSONObject parentData = new JSONObject();
+                	  JSONObject configData = new JSONObject();
+                	  
+                	  configData.put("cleanUpCycle", 2000);
+                	  configData.put("timeout", 30000);
+                	  configData.put("proxy", "org.openqa.grid.selenium.proxy.DefaultRemoteProxy");
+                	  configData.put("host", "127.0.0.1");
+                	  configData.put("port", portNumber);
+                	  configData.put("maxSession", 1);
+                	  configData.put("register", true);
+                	  configData.put("registerCycle", 5000);
+                	  configData.put("hubPort", 4444);
+                	  configData.put("hubHost", "192.168.2.48");
+                                
+                          parentData.put("capabilities", capArray);
+                          parentData.put("configuration", configData);
+                	           
+                	  try (FileWriter file = new FileWriter("/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/node_configs/device_" + localCount + ".json")) {
+                		file.write(parentData.toJSONString());
+                		System.out.println("Successfully Copied JSON Object to File...");
+                		System.out.println("\nJSON Object: " + parentData);
+                	} catch (Exception e) {
+                	    e.printStackTrace();
+                	}
+                	  
+                	  localCount++;
+                	  portNumber++;
+	 }
+	  
+	 System.out.println("generate_node_config is Success"); 
+     }
+     
+     public void startAppiumServerToRegisterNodeWithSeleniumHUB(int devicesCount){
+	 int localCount = 1;
+	 int portNumber = 4700;
+	 int bootstrapPortNumber = 4800;
+	 String UDID = null;
+	 
+	 while(localCount <= devicesCount){
+	     String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/node_configs/device_" + localCount + ".json";
+	     UDID = deviceIds.get(localCount-1);
+	     
+        	     AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
+                             .buildService(new AppiumServiceBuilder()
+                             	.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+        				.usingDriverExecutable(new File("/usr/local/bin/node"))
+                                     .usingPort(portNumber)
+                                     .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, Integer.toString(bootstrapPortNumber) )
+                                     .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                                     .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
+                                     .withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath)
+                             .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, UDID))));
+                     
+        	     driverLocalService1.start();
+             	
+                     if( isAppiumServerRunning(15) ){
+                         System.out.println("Appium Server is Running");
+        	     }else{
+        	            System.err.println("*** Appium Server is down");
+        	    }
+	     
+                     localCount++;
+                     portNumber++;
+                     bootstrapPortNumber++;
+	 }
+	 System.out.println("startAppiumServerToRegisterNodeWithSeleniumHUB is Success");
+     }
+     
+     
+     /*public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
 	 try{
         	 String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_1.json";
         	 
-        	/* AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
+        	 AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
         			.buildService(new AppiumServiceBuilder()
         					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
         					.usingDriverExecutable(new File("/usr/local/bin/node"))       				
@@ -262,7 +353,7 @@ public class FlipkartAppParallelTest {
         					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath))
         			 .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "emulator-5554")) ));
         	//Logger.info("Server url: " + driverLocalService.getUrl());
-        	driverLocalService.start();*/
+        	driverLocalService.start();
         	//??Check if node is registered properly and appium server has started ??
         	
         	AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
@@ -309,7 +400,7 @@ public class FlipkartAppParallelTest {
 	 }catch(Exception e){
 	     e.printStackTrace();
 	 }
-     }
+     }*/
      
      public ArrayList<String> PID_Devices = new ArrayList<String>();
      public static int globalDevicesCount = 0;
@@ -409,6 +500,7 @@ public class FlipkartAppParallelTest {
 	 	cmd.runCommand("kill-server");
      }
 	
+     public static List<String> deviceIds = new ArrayList<String>(); 
      public Map<String, String> getDevices() throws Exception{
 		
 		startADB(); // start adb service
@@ -427,6 +519,8 @@ public class FlipkartAppParallelTest {
 			if(lines[i].contains("device")){
 				lines[i]=lines[i].replaceAll("device", "");
 				String deviceID = lines[i];
+				deviceIds.add(deviceID);
+				
 				String model = cmd.runCommand("-s "+deviceID+" shell getprop ro.product.model").replaceAll("\\s+", "");
 				String brand = cmd.runCommand("-s "+deviceID+" shell getprop ro.product.brand").replaceAll("\\s+", "");
 				String osVersion = cmd.runCommand("-s "+deviceID+" shell getprop ro.build.version.release").replaceAll("\\s+", "");
