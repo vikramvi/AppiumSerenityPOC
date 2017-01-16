@@ -1,4 +1,6 @@
 [caps]
-platformName = "android"
-app = "Flipkart.3.0.apk"
-deviceName = "d6e4f8d6"
+platformName = "Android"
+deviceName = "dummy device name"
+app = "FULL_PATH_IS_MUST_FOR_ARC/com.flipkart.android.apk"
+appActivity = "com.flipkart.android.SplashActivity"
+appPackage = "com.flipkart.android"
