@@ -2,5 +2,3 @@
 platformName = "Android"
 deviceName = "dummy device name"
 app = "FULL_PATH_IS_MUST_FOR_ARC/com.flipkart.android.apk"
-appActivity = "com.flipkart.android.SplashActivity"
-appPackage = "com.flipkart.android"
