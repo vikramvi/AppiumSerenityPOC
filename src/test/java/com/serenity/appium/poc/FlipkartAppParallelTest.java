@@ -3,30 +3,31 @@ package com.serenity.appium.poc;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.JarException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.openqa.grid.internal.utils.GridHubConfiguration;
 import org.openqa.grid.internal.utils.SelfRegisteringRemote;
 import org.openqa.grid.web.Hub;
-
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.google.common.collect.ImmutableMap;
 
 import io.appium.java_client.remote.MobileCapabilityType;
+
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.AndroidServerFlag;
@@ -37,6 +38,12 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 @RunWith(SerenityRunner.class)
 public class FlipkartAppParallelTest {
 
+    //1. get Android Devices
+    //2. get Android Device Data
+    //3. get iOS Devices
+    //4. get iOS Device Data
+    //create log file for each of the nodes
+    
     //1. start appium server for each of the connected devices
     //2. Kill appium server if already up 
     //3. start grid server 
@@ -52,11 +59,12 @@ public class FlipkartAppParallelTest {
     
     //private static Hub hub;
     private static SelfRegisteringRemote remote;
-   
+    private String projectDirectory;
     
     @Test
     public void SetupSeleniumGridAndAppiumNodesTest() {
-	    try {
+	    try{
+		       projectDirectory = System.getProperty("user.dir");
 		       getDevices().size(); //working
 		       stopAllServers(); //working
 		       startSeleniumHub(); //working
@@ -65,9 +73,8 @@ public class FlipkartAppParallelTest {
 		       stopAllServers();
                        System.out.println("stop here");
 	        
-	    } catch (Exception e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
+	    }catch (Exception e) {
+	       e.printStackTrace();
 	    }
 	  }
     
@@ -286,7 +293,7 @@ public class FlipkartAppParallelTest {
                           parentData.put("capabilities", capArray);
                           parentData.put("configuration", configData);
                 	           
-                	  try (FileWriter file = new FileWriter("/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/node_configs/device_" + localCount + ".json")) {
+                	  try (FileWriter file = new FileWriter(projectDirectory + "/node_configs/device_" + localCount + ".json")) {
                 		file.write(parentData.toJSONString());
                 		System.out.println("Successfully Copied JSON Object to File...");
                 		System.out.println("\nJSON Object: " + parentData);
@@ -308,7 +315,7 @@ public class FlipkartAppParallelTest {
 	 String UDID = null;
 	 
 	 while(localCount <= devicesCount){
-	     String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/node_configs/device_" + localCount + ".json";
+	     String nodeConfigFilePath = projectDirectory + "/node_configs/device_" + localCount + ".json";
 	     UDID = deviceIds.get(localCount-1);
 	     
         	     AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
@@ -336,72 +343,7 @@ public class FlipkartAppParallelTest {
 	 }
 	 System.out.println("startAppiumServerToRegisterNodeWithSeleniumHUB is Success");
      }
-     
-     
-     /*public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
-	 try{
-        	 String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_1.json";
-        	 
-        	 AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
-        			.buildService(new AppiumServiceBuilder()
-        					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-        					.usingDriverExecutable(new File("/usr/local/bin/node"))       				
-        					.usingPort(4723)      								
-        					.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4724")
-        					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-        					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-        					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath))
-        			 .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "emulator-5554")) ));
-        	//Logger.info("Server url: " + driverLocalService.getUrl());
-        	driverLocalService.start();
-        	//??Check if node is registered properly and appium server has started ??
-        	
-        	AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
-                        .buildService(new AppiumServiceBuilder()
-                        	.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-				.usingDriverExecutable(new File("/usr/local/bin/node"))
-                                .usingPort(4723)
-                                .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4724")
-                                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                                .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-                                .withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath)
-                        .withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "000007CF003ACABB"))));
-                driverLocalService1.start();
-        	
-                if( isAppiumServerRunning(15) ){
-                    System.out.println("Appium Server is Running");
-	        }else{
-	            System.err.println("*** Appium Server is down");
-	        }
-                
-        	
-        	nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_2.json";
-        	
-        	AppiumDriverLocalService driverLocalService2 = AppiumDriverLocalService
-			.buildService(new AppiumServiceBuilder()
-				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-				.usingDriverExecutable(new File("/usr/local/bin/node"))
-                                .usingPort(4823)
-                                .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,"4824")
-                                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                                .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-                                .withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath)
-        	.withCapabilities(new DesiredCapabilities(ImmutableMap.of(MobileCapabilityType.UDID, "192.168.2.193:5555"))));
-        	
-	         driverLocalService2.start();
-	         if( isAppiumServerRunning(15) ){
-	                    System.out.println("Appium Server is Running");
-		  }else{
-		            System.err.println("*** Appium Server is down");
-		 }
-        	
-        	
-        	System.out.println("Devices Registration Is Sucess");
-	 }catch(Exception e){
-	     e.printStackTrace();
-	 }
-     }*/
-     
+         
      public ArrayList<String> PID_Devices = new ArrayList<String>();
      public static int globalDevicesCount = 0;
      public boolean isAppiumServerRunning(int timeOut){
@@ -446,39 +388,7 @@ public class FlipkartAppParallelTest {
 	 System.err.println("Appium Server failed to start even after   " + timeOut + "  seconds");
 	 return false;
      }
-     
-     //Works
-     /*Before you run this program, make sure to try it out from command line with below command
-      * appium --nodeconfig EMULATOR_Nexus_4_1.json --port 4445
-      * In case you do something wrong as appium --nodeconfig EMULATOR_Nexus_4_1.json --bp 2252, you will get nice output about flags usage
-     */
-     /*public void startAppiumServerToRegisterEmulatorNodeWithSeleniumHUB(){
-	 try{
-        	 String nodeConfigFilePath = "/Users/vikram-anna/Documents/Noa/Workspace/Mobile-Automation/Android-Automation/serenityAppiumFlipkart/EMULATOR_Nexus_4_1.json";
-        	 
-        	 AppiumDriverLocalService driverLocalService = AppiumDriverLocalService
-        			.buildService(new AppiumServiceBuilder()
-        					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-        					.usingDriverExecutable(new File("/usr/local/bin/node"))
-        					//.withIPAddress("127.0.0.1")
-        					.usingPort(4445)
-        					//.withArgument(GeneralServerFlag.UIID, "123456")    					
-        					//.withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
-        					//		"" + 2252)
-        					//.withArgument(GeneralServerFlag.CHROME_DRIVER_PORT,
-        					//		"" + client.getChromeDriverport())
-        					//.withArgument(GeneralServerFlag.NO_RESET)
-        					.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-        					.withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
-        					.withArgument(GeneralServerFlag.CONFIGURATION_FILE, nodeConfigFilePath));
-        	//Logger.info("Server url: " + driverLocalService.getUrl());
-        	driverLocalService.start();
-        	System.out.println("test");
-	 }catch(Exception e){
-	     e.printStackTrace();
-	 }
-     }*/
-     
+            
      //Get connected devices https://github.com/sameer49/Appium-Grid-For-Android/blob/master/src/libs/DeviceConfiguration.java
      CommandPrompt cmd = new CommandPrompt();
      Map<String, String> devices = new HashMap<String, String>();
@@ -548,50 +458,12 @@ public class FlipkartAppParallelTest {
 		}
 		return devices;
 	}
-     
-       /* Process p;
-	ProcessBuilder builder;
-     public String runCommand(String command) throws InterruptedException, IOException
-	{
-	    try{
-     		String os = System.getProperty("os.name");
-     		//System.out.println(os);
-     		
-     		// build cmd proccess according to os
-     		if(os.contains("Windows")) // if windows
-     		{
-     			builder = new ProcessBuilder("cmd.exe","/c", command);
-     			builder.redirectErrorStream(true);
-     			Thread.sleep(1000);
-     			p = builder.start();
-     		}
-     		else{ // If Mac
-     		        String[] temp = { "/Users/vikram-anna/Library/Android/sdk/platform-tools/adb", "start-server" };
-     		        p = Runtime.getRuntime().exec(temp);
-     			//p = Runtime.getRuntime().exec(command);
-     		}
-     		
-     		// get std output
-     		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-     		String line="";
-     		String allLine="";
-     		int i=1;
-     		while((line=r.readLine()) != null){
-     	//		System.out.println(i+". "+line);
-     			allLine=allLine+""+line+"\n";
-     			if(line.contains("Console LogLevel: debug"))
-     				break;
-     			i++;
-     		}
-     		return allLine;
-	}catch(Exception e){
-	    e.printStackTrace();
-	    return null;
-	}
-	}*/
-     
+                 
      //Get free ports https://github.com/sameer49/Appium-Grid-For-Android/blob/master/src/libs/AvailabelPorts.java
      
-     
-    
+     /*Before you run this program, make sure to try it out from command line with below command
+      * appium --nodeconfig EMULATOR_Nexus_4_1.json --port 4445
+      * In case you do something wrong as appium --nodeconfig EMULATOR_Nexus_4_1.json --bp 2252, you will get nice output about flags usage
+     */
+              
 }
