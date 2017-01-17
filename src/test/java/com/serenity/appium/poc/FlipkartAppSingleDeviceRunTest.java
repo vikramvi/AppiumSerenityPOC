@@ -40,7 +40,7 @@ public class FlipkartAppSingleDeviceRunTest {
     public void verifyInvalidLogin(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
-            	userSteps.enterLoginData();
+            	userSteps.enterLoginData("single device");
             	userSteps.checkErrorMessage();
     	}catch(Exception e){	    
     	        e.printStackTrace();

@@ -43,7 +43,7 @@ public class FlipkartAppTest{
     public void verifyInvalidLogin(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
-            	userSteps.enterLoginData();
+            	userSteps.enterLoginData("123456");
             	userSteps.checkErrorMessage();
     	}catch(Exception e){	    
     	        e.printStackTrace();
@@ -54,12 +54,23 @@ public class FlipkartAppTest{
     public void verifyYahooInvalid(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
-            	userSteps.enterLoginData2();
+            	userSteps.enterLoginData("Yahoo");
             	userSteps.checkErrorMessage();
     	}catch(Exception e){	    
     	        e.printStackTrace();
     	}
     }
       
+    @Test
+    public void verifyGmailInvalid(){
+    	try{        	
+            	userSteps.loginPageInvalidDataInput();    
+            	userSteps.enterLoginData("Gmail");
+            	userSteps.checkErrorMessage();
+    	}catch(Exception e){	    
+    	        e.printStackTrace();
+    	}
+    }
+    
 }
 

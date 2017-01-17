@@ -19,7 +19,7 @@ public class FlipkartLoginScenarioSteps {
         
 	@When("Enter invalid credentials")
 	public void enterInvalidData(){
-	    loginSteps.enterLoginData();
+	    loginSteps.enterLoginData("cucumber invalid step");
 	}
 	
 	@Then("User is shown error message")

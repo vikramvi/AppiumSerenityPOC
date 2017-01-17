@@ -27,27 +27,33 @@ public class FlipkartLoginPage extends PageObject {
      
     
     public void gotoLoginPage(){
-	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/btn_mlogin")) );
-        element(existingUsersignIn).click();                
+      try{
+        	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/btn_mlogin")) );
+                if( element(existingUsersignIn).isDisplayed() ){
+                     element(existingUsersignIn).click();               
+                }else{
+                    System.out.println("SIGN IN LINK MISSING");
+                }
+      }catch(Exception e){
+	  e.printStackTrace();
+      }
     }
     
-    public void enterInvalidCredentials(){
-        element(userId).sendKeys("dummyName");
-        element(password).sendKeys("invalidPwd");       
-        element(login_Button).click();
+    public void enterInvalidCredentials(String input){
+	if( element(userId).isDisplayed() ){
+            element(userId).sendKeys(input);
+            element(password).sendKeys("invalidPwd");       
+            element(login_Button).click();
+	}else{
+	    System.out.println("EMAIL INPUT FIELD IS MISSING");
+	}
     }
-    
-    public void enterInvalidCredentials2(){
-        element(userId).sendKeys("123456789");
-        element(password).sendKeys("123456789");       
-        element(login_Button).click();
-    }
-    
+        
     public boolean isErrorMessageShown(){
 	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
 	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/pageLevelError")) );
-        return element(error_text).getText().contentEquals("Invalid login details");
+        return element(error_text).getText().contentEquals("Please enter valid Email ID/Mobile Number");
     }
     
 }

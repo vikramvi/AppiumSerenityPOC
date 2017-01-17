@@ -16,15 +16,10 @@ public class FlipkartLoginSteps extends ScenarioSteps{
      }
      
      @Step
-     public void enterLoginData(){
-	 loginPage.enterInvalidCredentials();
+     public void enterLoginData(String input){
+	 loginPage.enterInvalidCredentials(input);
      }
-     
-     @Step
-     public void enterLoginData2(){
-	 loginPage.enterInvalidCredentials2();
-     }
-     
+    
      @Step
      public void checkErrorMessage(){
 	 assertThat( loginPage.isErrorMessageShown() ).isTrue();

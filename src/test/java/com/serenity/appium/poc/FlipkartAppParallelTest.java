@@ -325,7 +325,7 @@ public class FlipkartAppParallelTest {
         	     driverLocalService1.start();
              	
                      if( isAppiumServerRunning(15) ){
-                         System.out.println("Appium Server is Running");
+                         System.out.println("Appium Server is Running For Device   " + UDID );
         	     }else{
         	            System.err.println("*** Appium Server is down");
         	    }
