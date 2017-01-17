@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -65,6 +66,8 @@ public class FlipkartAppParallelTest {
     public void SetupSeleniumGridAndAppiumNodesTest() {
 	    try{
 		       projectDirectory = System.getProperty("user.dir");
+		       FileUtils.cleanDirectory(new File( projectDirectory + "/appium_device_log/") );
+		       
 		       getDevices().size(); //working
 		       stopAllServers(); //working
 		       startSeleniumHub(); //working
@@ -316,6 +319,8 @@ public class FlipkartAppParallelTest {
 	 
 	 while(localCount <= devicesCount){
 	     String nodeConfigFilePath = projectDirectory + "/node_configs/device_" + localCount + ".json";
+	     File logFile = new File( projectDirectory + "/appium_device_log/device_log" + localCount + ".log");
+	     
 	     UDID = deviceIds.get(localCount-1);
 	     
         	     AppiumDriverLocalService driverLocalService1 = AppiumDriverLocalService
@@ -323,6 +328,7 @@ public class FlipkartAppParallelTest {
                              	.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
         				.usingDriverExecutable(new File("/usr/local/bin/node"))
                                      .usingPort(portNumber)
+                                     .withLogFile(logFile)
                                      .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER, Integer.toString(bootstrapPortNumber) )
                                      .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                                      .withArgument(GeneralServerFlag.LOG_LEVEL, "debug")
