@@ -20,6 +20,8 @@ This project shows Appium and Serenity framework integration to run sample test 
 ### How To Run From Command Line
 
 1. mvn clean verify
+2. From Eclipse FlipkartAppCucumber , verifyInvalidLogin  Run or Debug As JUnit Test
+
 <br><br>
 
 
