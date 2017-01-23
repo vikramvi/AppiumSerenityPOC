@@ -39,6 +39,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 @RunWith(SerenityRunner.class)
 public class FlipkartAppParallelTest {
 
+    //https://github.com/isonic1/appium-mobile-grid 
     //1. get Android Devices
     //2. get Android Device Data
     //3. get iOS Devices
@@ -311,6 +312,8 @@ public class FlipkartAppParallelTest {
 	 System.out.println("generate_node_config is Success"); 
      }
      
+     //https://github.com/appium/java-client/blob/master/docs/The-starting-of-an-app-using-Appium-node-server-started-programmatically.md
+     //http://appium.github.io/java-client/io/appium/java_client/service/local/AppiumServiceBuilder.html#withLogFile-java.io.File-
      public void startAppiumServerToRegisterNodeWithSeleniumHUB(int devicesCount){
 	 int localCount = 1;
 	 int portNumber = 4700;

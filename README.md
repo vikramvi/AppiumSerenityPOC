@@ -20,6 +20,8 @@ This project shows Appium and Serenity framework integration to run sample test 
 ### How To Run From Command Line
 
 1. mvn clean verify
+
+2.  mvn clean verify -Dappium.hub=http://127.0.0.1:4444/wd/hub -Dwebdriver.driver=appium -Dappium.platformName=Android -Dappium.app=/Users/.../serenityAppiumFlipkart/com.flipkart.android.apk -Dappium.deviceName=dummy
 <br><br>
 
 
