@@ -114,7 +114,7 @@
                     </includes>
                     <!-- http://stackoverflow.com/questions/32987998/junit-and-surefire-parallel-tests-forkcount-threadcount -->
                      <parallel>all</parallel>
-                    <threadCount>2</threadCount>
+                    <threadCount>20</threadCount>
                     <reuseForks>true</reuseForks>
 <!--                     <reuseForks>${run.parallel}</reuseForks>
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
