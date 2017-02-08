@@ -3,8 +3,8 @@ package com.serenity.appium.poc;
 import cucumber.api.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
 
-import static com.serenity.appium.poc.AppiumServerVikram.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerVikram.stopAppiumServer;
+import static com.serenity.appium.poc.AppiumServerActions.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerActions.stopAppiumServer;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

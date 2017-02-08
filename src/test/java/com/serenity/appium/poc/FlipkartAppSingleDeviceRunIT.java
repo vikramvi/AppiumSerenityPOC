@@ -14,11 +14,11 @@ import com.serenity.appium.poc.cucumber_related.FlipkartLoginSteps;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import static com.serenity.appium.poc.AppiumServerVikram.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerVikram.stopAppiumServer;
+import static com.serenity.appium.poc.AppiumServerActions.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerActions.stopAppiumServer;
 
 @RunWith(SerenityRunner.class)
-public class FlipkartAppSingleDeviceRunTest {
+public class FlipkartAppSingleDeviceRunIT {
     @Managed 
     WebDriver appiumDriver;
     
@@ -37,7 +37,7 @@ public class FlipkartAppSingleDeviceRunTest {
      
     //Single device run POC
     @Test
-    public void verifyInvalidLogin(){
+    public void singleDeviceTestCase(){
     	try{        	
             	userSteps.loginPageInvalidDataInput();    
             	userSteps.enterLoginData("single device");

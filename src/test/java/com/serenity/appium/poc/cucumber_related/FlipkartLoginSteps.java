@@ -12,7 +12,7 @@ public class FlipkartLoginSteps extends ScenarioSteps{
        
      @Step
      public void loginPageInvalidDataInput(){
-	 loginPage.gotoLoginPage();
+	 assertThat( loginPage.gotoLoginPage() ).isTrue();
      }
      
      @Step

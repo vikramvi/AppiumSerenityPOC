@@ -12,7 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.2.2</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.2.3-rc.4</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.maven.version>1.2.2</serenity.maven.version>
         <serenity.cucumber.version>1.1.13</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
@@ -84,43 +85,20 @@
 
     <build>
         <plugins>
-        
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+        		     
+		     <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-	                    <!-- <systemPropertyVariables>
-		                        <file>Flipkart.3.0.apk</file>
-		                        <appium.host>127.0.0.1</appium.host>
-		                        <appium.port>4723</appium.port>
-		                        <implicit.wait>20</implicit.wait>
-		                        <platform.name>Android</platform.name>
-		                        <device.name>d6e4f8d6</device.name>
-		                        <no.reset>true</no.reset>
-		                        <appium.log>info</appium.log>
-	                    </systemPropertyVariables> -->
-	                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                   <includes>
+                    <includes>
                         <include>FlipkartAppTest.java</include>
                     </includes>
-                    <!-- http://stackoverflow.com/questions/32987998/junit-and-surefire-parallel-tests-forkcount-threadcount -->
-                     <parallel>all</parallel>
-                    <threadCount>20</threadCount>
-                    <reuseForks>true</reuseForks>
-<!--                     <reuseForks>${run.parallel}</reuseForks>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                    <systemPropertyVariables>
-                        <tags>${tags}</tags>
-                    </systemPropertyVariables> -->
+                    <excludes>
+                        <exclude>FlipkartAppSingleDeviceRunIT.java</exclude>
+                    </excludes>
+                    <parallel>classes</parallel>
+                    <threadCount>3</threadCount>
+                    <forkCount>3</forkCount>
                 </configuration>
                 <executions>
                     <execution>
@@ -130,46 +108,28 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            
-            <!-- <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>10</threadCount>
-                    <includes>
-                        <include>**/*Test.java</include>
-                        <include>**/Test*.java</include>
-                        <include>**/When*.java</include>
-                        <include>**/*Story.java</include>
-                        <include>**/*Cucumber.java</include>
-                    </includes>
-                    <argLine>-Xmx512m</argLine>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
-            
+            </plugin>         
+		              		              
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
-                <version>${serenity.version}</version>
+                <version>${serenity.maven.version}</version>
+                <dependencies>
+                  <dependency>
+                    <groupId>net.serenity-bdd</groupId>
+                    <artifactId>serenity-core</artifactId>
+                    <version>${serenity.version}</version>
+                  </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
@@ -179,58 +139,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-	        <!-- <plugin>
-			    <groupId>com.github.cukedoctor</groupId>
-			    <artifactId>cukedoctor-maven-plugin</artifactId>
-			    <version>1.0.6</version>
-			         <configuration>
-			                <featuresDir>cucumber_json</featuresDir>
-				            <outputFileName>documentation</outputFileName>
-				            <outputDir>cukedoctor-output</outputDir>
-				            <format>html</format>
-				            <toc>left</toc>
-				            <numbered>true</numbered>
-				            <docVersion>${project.version}</docVersion>
-			         </configuration>
-			        <executions>
-			            <execution>
-			                <goals>
-			                    <goal>execute</goal>
-			                </goals>
-			                <phase>verify</phase>
-			            </execution>
-			        </executions>
-	       </plugin> -->
-	       <plugin>
-				    <groupId>com.github.cukedoctor</groupId>
-				    <artifactId>cukedoctor-maven-plugin</artifactId>
-				    <version>1.0.6</version>
-				    <configuration>
-				         <featuresDir>target/cucumber_json</featuresDir>
-				        <outputFileName>index</outputFileName>
-				        <outputDir></outputDir> 
-				        <!--pdf and html5 -->
-				        <format>all</format>
-				        <hideSummarySection>true</hideSummarySection>
-				        <hideScenarioKeyword>true</hideScenarioKeyword>
-				        <hideStepTime>true</hideStepTime>
-				        <hideFeaturesSection>true</hideFeaturesSection>
-				        <hideTags>true</hideTags>
-				        <sourceHighlighter>coderay</sourceHighlighter>
-				        <toc>center</toc>
-				        <numbered>true</numbered>
-				        <!--  <docVersion>${project.version}</docVersion> -->
-				    </configuration>
-				    <executions>
-				        <execution>
-				            <goals>
-				                <goal>execute</goal>
-				            </goals>
-				            <phase>verify</phase>
-				        </execution>
-				    </executions>
-           </plugin>
+            </plugin>	       
         </plugins>
     </build>
 </project>

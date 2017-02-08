@@ -26,17 +26,20 @@ public class FlipkartLoginPage extends PageObject {
      private WebElement error_text;
      
     
-    public void gotoLoginPage(){
+    public boolean gotoLoginPage(){
       try{
-        	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+        	WebDriverWait wait = new WebDriverWait(getDriver(), 120);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/btn_mlogin")) );
                 if( element(existingUsersignIn).isDisplayed() ){
-                     element(existingUsersignIn).click();               
+                     element(existingUsersignIn).click();
+                     return true;
                 }else{
                     System.out.println("SIGN IN LINK MISSING");
+                    return false;
                 }
       }catch(Exception e){
 	  e.printStackTrace();
+	  return false;
       }
     }
     

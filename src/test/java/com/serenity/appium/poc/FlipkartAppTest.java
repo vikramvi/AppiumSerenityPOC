@@ -15,8 +15,7 @@ import com.serenity.appium.poc.cucumber_related.FlipkartLoginSteps;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import static com.serenity.appium.poc.AppiumServerVikram.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerVikram.stopAppiumServer;
+import com.serenity.appium.poc.AppiumGridSetup;
 
 @RunWith(SerenityRunner.class)
 public class FlipkartAppTest{
@@ -26,16 +25,17 @@ public class FlipkartAppTest{
     
     @Steps
     public FlipkartLoginSteps userSteps;
-     
-   //Not needed in case of parallel run 
-    /*@BeforeClass
+         
+    /*static FlipkartAppParallelTest mobileGrid = new FlipkartAppParallelTest();
+    
+    @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+	mobileGrid.mobileGridSetup();
     }
 
     @AfterClass
     public static void stopAppium() {
-        stopAppiumServer();
+	mobileGrid.mobileGridTearDown();
     }*/
      
     //Selenium Grid setup POC - parallel run on multiple devices 

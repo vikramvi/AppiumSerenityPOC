@@ -9,7 +9,7 @@ import static io.appium.java_client.service.local.AppiumDriverLocalService.build
 
 import java.io.File;
 
-public final class AppiumServerVikram {
+public final class AppiumServerActions {
 
     private final static AppiumDriverLocalService service;
 

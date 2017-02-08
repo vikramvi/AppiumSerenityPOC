@@ -37,7 +37,7 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import net.serenitybdd.junit.runners.SerenityRunner;
 
 @RunWith(SerenityRunner.class)
-public class FlipkartAppParallelTest {
+public class AppiumGridSetup {
 
     //https://github.com/isonic1/appium-mobile-grid 
     //1. get Android Devices
@@ -62,6 +62,26 @@ public class FlipkartAppParallelTest {
     //private static Hub hub;
     private static SelfRegisteringRemote remote;
     private String projectDirectory;
+    
+    public void mobileGridSetup(){
+	try{
+	       projectDirectory = System.getProperty("user.dir");
+	       FileUtils.cleanDirectory(new File( projectDirectory + "/appium_device_log/") );
+	       
+	       getDevices().size();
+	       stopAllServers(); 
+	       startSeleniumHub();
+	       generate_node_config(deviceIds.size());       
+	       startAppiumServerToRegisterNodeWithSeleniumHUB(deviceIds.size());
+	       //wait till all actions are successful or throw an error
+	}catch(Exception e){
+	    e.printStackTrace();
+	}
+    }
+    
+    public void mobileGridTearDown(){
+	stopAllServers();
+    }
     
     @Test
     public void SetupSeleniumGridAndAppiumNodesTest() {
