@@ -1,4 +1,15 @@
 [caps]
+##### Android CAPS #####
+## https://github.com/appium/appium-uiautomator2-driver ##
+automationName = "uiautomator2"
 platformName = "android"
-app = "Flipkart.3.0.apk"
-deviceName = "d6e4f8d6"
+deviceName = "Nexus_5_API_23"
+app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/org.wordpress.android_8.1.apk"
+appActivity = "org.wordpress.android.ui.accounts.LoginActivity"
+##### iOS CAPS #####
+## https://github.com/appium/appium-xcuitest-driver ##
+##automationName = "XCUITest"
+##platformName = "iOS"
+##platformVersion = "10.3"
+##deviceName = "iPhone 7"
+##app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/WordPress.app"
