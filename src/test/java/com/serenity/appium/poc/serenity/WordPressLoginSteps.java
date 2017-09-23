@@ -12,20 +12,17 @@ public class WordPressLoginSteps extends ScenarioSteps{
        
      @Step
      public void loginPageInvalidDataInput(){
-	 //loginPage.gotoLoginPage();
-         loginPage.gotoWPLoginPage();
+        loginPage.gotoWPLoginPage();
      }
      
      @Step
      public void enterLoginData(){
-	  //loginPage.enterInvalidCredentials();
-          loginPage.enterInvalidEmailIdWPLoginPage();
+        loginPage.enterInvalidEmailIdWPLoginPage();
      }
      
      @Step
      public void checkErrorMessage(){
-	   //assertThat( loginPage.isErrorMessageShown() ).isTrue();
-          assertThat(loginPage.isErrorMessageShownWPLoginPage()).isTrue();
+        assertThat(loginPage.isErrorMessageShownWPLoginPage()).isTrue();
      }
      
 }

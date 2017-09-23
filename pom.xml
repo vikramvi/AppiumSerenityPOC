@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.5.11</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.5.12</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
         <serenity.cucumber.version>1.5.7</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 

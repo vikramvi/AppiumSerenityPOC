@@ -67,7 +67,7 @@ public class WordPressLoginPage extends MobilePageObject {
 
     public boolean isErrorMessageShownWPLoginPage(){
         WPLogInPageNextButton.click();
-        return WPLogInPageInvalidEmailErrorMessage.getText().contentEquals("This email is not registered on WordPress.com");
+        return WPLogInPageInvalidEmailErrorMessage.getText().contains("is not registered on WordPress.com");
     }
 
 
