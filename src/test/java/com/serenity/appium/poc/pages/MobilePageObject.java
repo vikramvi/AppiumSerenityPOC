@@ -18,6 +18,8 @@ import net.thucydides.core.webdriver.WebDriverFacade;
 //https://github.com/serenity-bdd/serenity-core/issues/936
 
 public class MobilePageObject extends PageObject {
+    //https://github.com/ricardorlg/serenityappiumbug/issues/1
+    //WhenUsingCustomLogicForElementsInit.java, PageObject.java
     public MobilePageObject(final WebDriver driver) {
         super(driver, new Predicate<PageObject>() {
             @Override

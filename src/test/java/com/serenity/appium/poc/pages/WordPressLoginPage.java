@@ -21,7 +21,6 @@ public class WordPressLoginPage extends MobilePageObject {
     //https://github.com/appium/java-client/blob/master/docs/Page-objects.md
     //Appium Java client has facilities which components to Page Object design pattern and Selenium PageFactory.
 
-
      @AndroidFindBy(xpath="//android.widget.Button[@text='Log In']")
      @iOSFindBy(xpath="//XCUIElementTypeButton[@label='Log In']")
      private WebElement WPLogInButton;
@@ -37,22 +36,6 @@ public class WordPressLoginPage extends MobilePageObject {
      @AndroidFindBy(id="org.wordpress.android:id/textinput_error")
      @iOSFindBy(xpath="//XCUIElementTypeStaticText[contains(@name,'not registered')]")
      private WebElement WPLogInPageInvalidEmailErrorMessage;
-
-     @FindBy(id="com.flipkart.android:id/btn_mlogin")
-     private WebElement existingUsersignIn;
-     
-     @FindBy(id="com.flipkart.android:id/mobileNo")
-     private WebElement userId;
-     
-     @FindBy(id="com.flipkart.android:id/et_password")
-     private WebElement password;
-     
-     @FindBy(id="com.flipkart.android:id/btn_mlogin")
-     private WebElement login_Button;
-     
-     @FindBy(id="com.flipkart.android:id/pageLevelError")
-     private WebElement error_text;
-
 
     public void gotoWPLoginPage(){
         //WebDriverWait wait = new WebDriverWait(getDriver(), 60);
@@ -70,23 +53,4 @@ public class WordPressLoginPage extends MobilePageObject {
         return WPLogInPageInvalidEmailErrorMessage.getText().contains("is not registered on WordPress.com");
     }
 
-
-    public void gotoLoginPage(){
-        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/btn_mlogin")) );
-        element(existingUsersignIn).click();                
-    }
-    
-    public void enterInvalidCredentials(){
-        element(userId).sendKeys("dummyName");
-        element(password).sendKeys("invalidPwd");       
-        element(login_Button).click();
-    }
-    
-    public boolean isErrorMessageShown(){
-	WebDriverWait wait = new WebDriverWait(getDriver(), 60);
-	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.flipkart.android:id/pageLevelError")) );
-        return element(error_text).getText().contentEquals("Invalid login details");
-    }
-    
 }
