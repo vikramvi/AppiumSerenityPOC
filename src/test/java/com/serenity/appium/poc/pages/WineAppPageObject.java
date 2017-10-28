@@ -43,6 +43,9 @@ public class WineAppPageObject extends MobilePageObject{
     @iOSFindBy(xpath="//XCUIElementTypeOther[contains(@name,'Price (highest first)')]")
     private WebElement SortByPriceHighestFirstOption;
 
+
+    //@iOSFindBy(xpath="//XCUIElementTypeOther[contains(@name,'Name (Z-A)')]")
+
     @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-apply']")
     @iOSFindBy(xpath="//XCUIElementTypeButton[@name='button-apply']")
     private WebElement DoneButton;
@@ -95,7 +98,10 @@ public class WineAppPageObject extends MobilePageObject{
     public boolean performSortActionByHighPrice(){
         try{
             SortButton.click();
-            SortByPriceHighestFirstOption.click();
+            //SortByPriceHighestFirstOption.click();
+
+            getDriver().findElements(By.xpath("//XCUIElementTypeOther[contains(@name,'Name (Z-A)')]")).get(13).click();
+
             if(DoneButton.isDisplayed()) {
                 DoneButton.click();
             }else{

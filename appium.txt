@@ -1,15 +1,15 @@
 [caps]
 ##### Android CAPS #####
 ## https://github.com/appium/appium-uiautomator2-driver ##
-automationName = "uiautomator2"
-platformName = "android"
-deviceName = "NNLVTGIBEEVO4T6P"
-app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/app-releaseDev.apk"
-appActivity = "com.totalwine.app.MainActivity"
+#automationName = "uiautomator2"
+#platformName = "android"
+#deviceName = "NNLVTGIBEEVO4T6P"
+#app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/app-releaseDev.apk"
+#appActivity = "com.totalwine.app.MainActivity"
 ##### iOS CAPS #####
 ## https://github.com/appium/appium-xcuitest-driver ##
-#automationName = "XCUITest"
-#platformName = "iOS"
-#platformVersion = "11.0"
-#deviceName = "iPhone 7"
-#app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/tw_mobile.app"
+automationName = "XCUITest"
+platformName = "iOS"
+platformVersion = "11.0"
+deviceName = "iPhone 7"
+app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/tw_mobile.app"
