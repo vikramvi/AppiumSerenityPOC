@@ -3,13 +3,13 @@
 ## https://github.com/appium/appium-uiautomator2-driver ##
 automationName = "uiautomator2"
 platformName = "android"
-deviceName = "Nexus_5_API_23"
-app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/org.wordpress.android_8.1.apk"
-appActivity = "org.wordpress.android.ui.accounts.LoginActivity"
+deviceName = "NNLVTGIBEEVO4T6P"
+app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/app-releaseDev.apk"
+appActivity = "com.totalwine.app.MainActivity"
 ##### iOS CAPS #####
 ## https://github.com/appium/appium-xcuitest-driver ##
-##automationName = "XCUITest"
-##platformName = "iOS"
-##platformVersion = "10.3"
-##deviceName = "iPhone 7"
-##app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/WordPress.app"
+#automationName = "XCUITest"
+#platformName = "iOS"
+#platformVersion = "11.0"
+#deviceName = "iPhone 7"
+#app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/tw_mobile.app"
