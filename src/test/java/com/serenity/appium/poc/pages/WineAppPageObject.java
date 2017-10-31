@@ -2,12 +2,15 @@ package com.serenity.appium.poc.pages;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebElement;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.WebDriver;
+
+import java.util.HashMap;
 
 public class WineAppPageObject extends MobilePageObject{
 
@@ -61,7 +64,22 @@ public class WineAppPageObject extends MobilePageObject{
             LetsBeginButton.click();
             AllowLocationButton.click();
 
-            if(getDriver().findElements(By.id("com.android.packageinstaller:id/permission_allow_button")).size() > 0 ) {
+            boolean isAlertPresent = true;
+
+            if(getDriver().findElements(By.xpath("//XCUIElementTypeAlert[contains(@name,'access your location while you are using the app')]")).size() > 0 && isAlertPresent ) {
+
+                JavascriptExecutor js = (JavascriptExecutor) getDriver();
+
+                HashMap<String, String> tapObject = new HashMap<String, String>();
+                tapObject.put("action", "accept");
+                tapObject.put("label", "Allow");
+
+                js.executeScript("mobile:alert", tapObject);
+
+                isAlertPresent = false;
+            }
+
+            if(getDriver().findElements(By.id("com.android.packageinstaller:id/permission_allow_button")).size() > 0 && isAlertPresent ) {
                 getDriver().findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
             }
 
