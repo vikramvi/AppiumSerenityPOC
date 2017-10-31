@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.5.12</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
-        <serenity.cucumber.version>1.5.7</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <serenity.version>1.6.6</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.cucumber.version>1.5.15</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
     <repositories>
@@ -145,57 +145,6 @@
                     </execution>
                 </executions>
             </plugin>
-	        <!-- <plugin>
-			    <groupId>com.github.cukedoctor</groupId>
-			    <artifactId>cukedoctor-maven-plugin</artifactId>
-			    <version>1.0.6</version>
-			         <configuration>
-			                <featuresDir>cucumber_json</featuresDir>
-				            <outputFileName>documentation</outputFileName>
-				            <outputDir>cukedoctor-output</outputDir>
-				            <format>html</format>
-				            <toc>left</toc>
-				            <numbered>true</numbered>
-				            <docVersion>${project.version}</docVersion>
-			         </configuration>
-			        <executions>
-			            <execution>
-			                <goals>
-			                    <goal>execute</goal>
-			                </goals>
-			                <phase>verify</phase>
-			            </execution>
-			        </executions>
-	       </plugin> -->
-	       <!--<plugin>
-				    <groupId>com.github.cukedoctor</groupId>
-				    <artifactId>cukedoctor-maven-plugin</artifactId>
-				    <version>1.0.6</version>
-				    <configuration>
-				         <featuresDir>target/cucumber_json</featuresDir>
-				        <outputFileName>index</outputFileName>
-				        <outputDir></outputDir> 
-				        &lt;!&ndash;pdf and html5 &ndash;&gt;
-				        <format>all</format>
-				        <hideSummarySection>true</hideSummarySection>
-				        <hideScenarioKeyword>true</hideScenarioKeyword>
-				        <hideStepTime>true</hideStepTime>
-				        <hideFeaturesSection>true</hideFeaturesSection>
-				        <hideTags>true</hideTags>
-				        <sourceHighlighter>coderay</sourceHighlighter>
-				        <toc>center</toc>
-				        <numbered>true</numbered>
-				        &lt;!&ndash;  <docVersion>${project.version}</docVersion> &ndash;&gt;
-				    </configuration>
-				    <executions>
-				        <execution>
-				            <goals>
-				                <goal>execute</goal>
-				            </goals>
-				            <phase>verify</phase>
-				        </execution>
-				    </executions>
-           </plugin>-->
         </plugins>
     </build>
 </project>
