@@ -1,6 +1,8 @@
 package com.serenity.appium.poc;
 
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -28,7 +30,7 @@ public class SauceLabsDriver implements DriverSource {
             capabilities.setCapability("app", "sauce-storage:tw_mobile.zip");
             capabilities.setCapability("deviceOrientation", "portrait");
             //capabilities.setCapability("appiumVersion", "1.6.5");
-            WebDriver driver= new IOSDriver<IOSElement>(new URL(URL), capabilities);
+            WebDriver driver= new AppiumDriver<MobileElement>(new URL(URL), capabilities);
             return driver;
         } catch (MalformedURLException e) {
             throw new Error(e);
