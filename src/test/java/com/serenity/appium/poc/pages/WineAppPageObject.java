@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 
+import org.jruby.RubyProcess;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
@@ -58,7 +59,9 @@ public class WineAppPageObject extends MobilePageObject{
         super(driver);
     }
 
-
+    //TBD
+    //How To Achieve The Best Lookup Performance
+    //https://github.com/facebook/WebDriverAgent/wiki/How-To-Achieve-The-Best-Lookup-Performance
     public boolean completeSpalshScreenActions(){
         try{
             LetsBeginButton.click();
@@ -66,8 +69,10 @@ public class WineAppPageObject extends MobilePageObject{
 
             boolean isAlertPresent = true;
 
-            if(getDriver().findElements(By.xpath("//XCUIElementTypeAlert[contains(@name,'access your location while you are using the app')]")).size() > 0 && isAlertPresent ) {
+            //if(getDriver().findElements(By.xpath("//XCUIElementTypeAlert[contains(@name,'access your location while you are using the app')]")).size() > 0 && isAlertPresent ) {
 
+            try {
+                Thread.sleep(3000);
                 JavascriptExecutor js = (JavascriptExecutor) getDriver();
 
                 HashMap<String, String> tapObject = new HashMap<String, String>();
@@ -75,13 +80,16 @@ public class WineAppPageObject extends MobilePageObject{
                 tapObject.put("label", "Allow");
 
                 js.executeScript("mobile:alert", tapObject);
+            }catch (Exception e){
+                System.out.println("caught");
+            }
 
                 isAlertPresent = false;
-            }
+            //}
 
-            if(getDriver().findElements(By.id("com.android.packageinstaller:id/permission_allow_button")).size() > 0 && isAlertPresent ) {
-                getDriver().findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
-            }
+            //if(getDriver().findElements(By.id("com.android.packageinstaller:id/permission_allow_button")).size() > 0 && isAlertPresent ) {
+              //  getDriver().findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
+            //}
 
             not_right_now_link.click();
             no_thanks_link.click();

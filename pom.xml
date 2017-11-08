@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.6.6</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
-        <serenity.cucumber.version>1.5.15</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <serenity.version>1.7.0</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
     <repositories>
@@ -85,17 +85,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-	                    <systemPropertyVariables>
-		                        <file>Flipkart.3.0.apk</file>
-		                        <appium.host>127.0.0.1</appium.host>
-		                        <appium.port>4723</appium.port>
-		                        <implicit.wait>20</implicit.wait>
-		                        <platform.name>Android</platform.name>
-		                        <device.name>d6e4f8d6</device.name>
-		                        <no.reset>true</no.reset>
-		                        <appium.log>info</appium.log>
-	                    </systemPropertyVariables>
-	                    <skip>true</skip>
+	                    <skip>false</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -107,9 +97,9 @@
                     <includes>
                         <!-- <include>**/*Test.java</include>
                         <include>**/Test*.java</include> -->
-                        <include>**/When*.java</include>
+                        <!--<include>**/When*.java</include>
                         <include>**/*Story.java</include>
-                        <include>**/*Cucumber.java</include>
+                        <include>**/*Cucumber.java</include>-->
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>

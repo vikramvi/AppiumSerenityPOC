@@ -16,11 +16,11 @@ public class WineAppCucumber {
 
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+        //startAppiumServer();
     }
 
     @AfterClass
     public static void stopAppium() {
-        stopAppiumServer();
+        //stopAppiumServer();
     }
 }
