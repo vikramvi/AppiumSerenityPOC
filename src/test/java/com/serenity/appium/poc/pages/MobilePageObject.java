@@ -11,6 +11,8 @@ import com.google.common.base.Predicate;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 //https://github.com/serenity-bdd/serenity-core/issues/660
@@ -30,10 +32,28 @@ public class MobilePageObject extends PageObject {
                                 page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
                 return true;
             }
-
         });
-
     }
 
+    //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
+    private static boolean isIOS;
+    private static boolean isAndroid;
 
+    public static void setAndroid(boolean android) {
+        isAndroid = android;
+    }
+
+    public static boolean isAndroid() {
+        return isAndroid;
+    }
+
+    public static void setIOS(boolean iOS) {
+        isIOS = iOS;
+    }
+
+    public static boolean isIOS() {
+        return isIOS;
+    }
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(MobilePageObject.class);
 }
