@@ -14,29 +14,29 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.5.12</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
-        <serenity.cucumber.version>1.5.7</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <serenity.version>1.7.0</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
     <repositories>
-      <repository>
-	        <snapshots>
-	        	<enabled>false</enabled>
-	        </snapshots>
-	        <id>central</id>
-	        <name>bintray</name>
-	        <url>http://jcenter.bintray.com</url>
-      </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
     </repositories>
     <pluginRepositories>
-      <pluginRepository>
-	        <snapshots>
-	        	<enabled>false</enabled>
-	        </snapshots>
-	        <id>central</id>
-	        <name>bintray-plugins</name>
-	        <url>http://jcenter.bintray.com</url>
-      </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray-plugins</name>
+            <url>http://jcenter.bintray.com</url>
+        </pluginRepository>
     </pluginRepositories>
 
     <dependencies>
@@ -49,7 +49,7 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
             <version>${serenity.cucumber.version}</version>
-        </dependency>			
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -85,17 +85,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-	                    <systemPropertyVariables>
-		                        <file>Flipkart.3.0.apk</file>
-		                        <appium.host>127.0.0.1</appium.host>
-		                        <appium.port>4723</appium.port>
-		                        <implicit.wait>20</implicit.wait>
-		                        <platform.name>Android</platform.name>
-		                        <device.name>d6e4f8d6</device.name>
-		                        <no.reset>true</no.reset>
-		                        <appium.log>info</appium.log>
-	                    </systemPropertyVariables>
-	                    <skip>true</skip>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -104,12 +94,14 @@
                 <configuration>
                     <!-- <parallel>methods</parallel>
                     <threadCount>10</threadCount> -->
+                    <forkCount>0</forkCount>
                     <includes>
                         <!-- <include>**/*Test.java</include>
                         <include>**/Test*.java</include> -->
-                        <include>**/When*.java</include>
+                        <include>**/*.java</include> <!-- added by jph -->
+                        <!--include>**/When*.java</include>
                         <include>**/*Story.java</include>
-                        <include>**/*Cucumber.java</include>
+                        <include>**/*Cucumber.java</include>-->
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>
@@ -145,57 +137,6 @@
                     </execution>
                 </executions>
             </plugin>
-	        <!-- <plugin>
-			    <groupId>com.github.cukedoctor</groupId>
-			    <artifactId>cukedoctor-maven-plugin</artifactId>
-			    <version>1.0.6</version>
-			         <configuration>
-			                <featuresDir>cucumber_json</featuresDir>
-				            <outputFileName>documentation</outputFileName>
-				            <outputDir>cukedoctor-output</outputDir>
-				            <format>html</format>
-				            <toc>left</toc>
-				            <numbered>true</numbered>
-				            <docVersion>${project.version}</docVersion>
-			         </configuration>
-			        <executions>
-			            <execution>
-			                <goals>
-			                    <goal>execute</goal>
-			                </goals>
-			                <phase>verify</phase>
-			            </execution>
-			        </executions>
-	       </plugin> -->
-	       <!--<plugin>
-				    <groupId>com.github.cukedoctor</groupId>
-				    <artifactId>cukedoctor-maven-plugin</artifactId>
-				    <version>1.0.6</version>
-				    <configuration>
-				         <featuresDir>target/cucumber_json</featuresDir>
-				        <outputFileName>index</outputFileName>
-				        <outputDir></outputDir> 
-				        &lt;!&ndash;pdf and html5 &ndash;&gt;
-				        <format>all</format>
-				        <hideSummarySection>true</hideSummarySection>
-				        <hideScenarioKeyword>true</hideScenarioKeyword>
-				        <hideStepTime>true</hideStepTime>
-				        <hideFeaturesSection>true</hideFeaturesSection>
-				        <hideTags>true</hideTags>
-				        <sourceHighlighter>coderay</sourceHighlighter>
-				        <toc>center</toc>
-				        <numbered>true</numbered>
-				        &lt;!&ndash;  <docVersion>${project.version}</docVersion> &ndash;&gt;
-				    </configuration>
-				    <executions>
-				        <execution>
-				            <goals>
-				                <goal>execute</goal>
-				            </goals>
-				            <phase>verify</phase>
-				        </execution>
-				    </executions>
-           </plugin>-->
         </plugins>
     </build>
 </project>
