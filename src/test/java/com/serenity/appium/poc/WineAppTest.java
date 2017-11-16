@@ -80,26 +80,16 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25239
-//    @Category({Regression1.class, FindStore.class})
-//    public void verifyOptionToChangeStores(){
-//        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test //DOT-25134
-//    @Category({Regression1.class, FindStore.class})
-//    public void verifyClosestStoreOnHomepage(){
-//        try{
-//            wineAppSteps.completeOnboardingAllowingLocation();
-//            wineAppSteps.verifyHomepageStoreDetails("BOYNTON BEACH", "Boynton Town Center");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    @Test //DOT-25239
+    @Category({Regression1.class, FindStore.class})
+    public void verifyOptionToChangeStores(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     @Test //DOT-25134
     @Category({Regression1.class, FindStore.class})
     public void verifyClosestStoreOnHomepage(){
