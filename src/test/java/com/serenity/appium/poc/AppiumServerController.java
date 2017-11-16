@@ -14,31 +14,31 @@ public final class AppiumServerController {
     private final static AppiumDriverLocalService service;
 
     static {
-	System.out.println(APPIUM_HOST +"    "+ APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL );
-	
+        System.out.println(APPIUM_HOST + "    " + APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL);
+
         service = buildService(new AppiumServiceBuilder().
-        	                                     withIPAddress("127.0.0.1").
-        	                                     usingPort(Integer.parseInt("4723"))
-        	       .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-                       .withArgument(GeneralServerFlag.LOG_LEVEL, "info"));
+                withIPAddress("127.0.0.1").
+                usingPort(Integer.parseInt("4723"))
+                .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                .withArgument(GeneralServerFlag.LOG_LEVEL, "info"));
     }
 
     public static void startAppiumServer() {
-	try{
-                 service.start();
-	}catch(Exception e){
-	    e.printStackTrace();
-	}
+        try {
+            service.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void stopAppiumServer() {
-    	try{
-                    if (service.isRunning()) {
-                         service.stop();
-                    }
-    	}catch(Exception e){
-    	    	e.printStackTrace();
-    	}
+        try {
+            if (service.isRunning()) {
+                service.stop();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
 }
