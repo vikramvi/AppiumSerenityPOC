@@ -11,15 +11,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class StoreSearchPage extends MobilePageObject {
 
-//    private By BY_FIELD_geoSearch = isAndroid()
-//                                        ? MobileBy.AccessibilityId("field-search-stores")
-//                                        : MobileBy.AccessibilityId("\uE820 CITY, STATE OR ZIP SEARCH");
 
     @AndroidFindBy(accessibility = "field-search-stores")
-    @iOSFindBy(accessibility = "\\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(accessibility = "\\uE820 CITY, STATE OR ZIP SEARCH")
+    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
+    @iOSFindBy(accessibility = "SEARCH") // not needed if \n is added on search term
     private WebElement FIELD_searchButton;
 
     public StoreSearchPage(WebDriver driver) {
