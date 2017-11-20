@@ -1,12 +1,11 @@
 package com.serenity.appium.poc.serenity;
 
-import com.serenity.appium.poc.pages.MyStoreHeaderPageObject;
+import com.serenity.appium.poc.pages.*;
+import com.serenity.appium.poc.pages.Home.SearchSectionPageObject;
 import com.serenity.appium.poc.pages.Onboarding.LocationPageObject;
 import com.serenity.appium.poc.pages.Onboarding.LoyaltyPageObject;
 import com.serenity.appium.poc.pages.Onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.Onboarding.SplashPageObject;
-import com.serenity.appium.poc.pages.StoreSearchPage;
-import com.serenity.appium.poc.pages.WineAppPageObject;
 
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -25,10 +24,13 @@ public class WineAppSteps extends ScenarioSteps {
     private LoyaltyPageObject loyaltyPageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private StoreSearchPage storeSearchPage;
+    private SearchSectionPageObject searchSection;
+    private ProductSearchPageObject productSearchPageObject;
+    private ProductSearchResultsPageObject productSearchResultsPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WineAppSteps.class);
 
-    String winName = "Sweet Red Wine";
+    String wineName = "Krug Vintage";
 
     @Step
     public void completeOnboardingAllowingLocation() {
@@ -50,12 +52,15 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void doWineSearch() {
-        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
+        assertThat(searchSection.initiateProductSearch()).isTrue();
+//        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
+        assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
     }
 
     @Step
-    public void selectWineNameFromSearchResultView() {
-        assertThat(wineAppPageObject.selectWineNameFromSearchResults(winName)).isTrue();
+    public void selectProductNameFromSearchSuggestions() {
+//        assertThat(wineAppPageObject.selectWineNameFromSearchResults(wineName)).isTrue();
+        assertThat(productSearchPageObject.selectSearchSuggestion(wineName)).isTrue();
     }
 
     @Step

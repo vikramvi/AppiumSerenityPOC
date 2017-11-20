@@ -23,7 +23,7 @@ public class WineAppScenarioSteps {
 
     @When("User selects wine name from search result")
     public void selectWineNameFromSearchResults(){
-        wineAppSteps.selectWineNameFromSearchResultView();
+        wineAppSteps.selectProductNameFromSearchSuggestions();
     }
 
     @Then("User can do sort action")
