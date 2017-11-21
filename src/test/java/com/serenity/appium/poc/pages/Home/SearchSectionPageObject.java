@@ -15,7 +15,7 @@ public class SearchSectionPageObject extends MobilePageObject {
 
     public SearchSectionPageObject(WebDriver driver) { super(driver); }
 
-    public boolean initiateProductSearch(){
+    public boolean triggerSearchPage(){
         try {
             FIELD_searchPlaceholder.click();
             return true;

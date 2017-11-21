@@ -51,20 +51,23 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void doWineSearch() {
-        assertThat(searchSection.initiateProductSearch()).isTrue();
+    public void initiateProductSearch() {
+        LOGGER.info("Initiating a product search...");
+        assertThat(searchSection.triggerSearchPage()).isTrue();
 //        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
         assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
     }
 
     @Step
     public void selectProductNameFromSearchSuggestions() {
+        LOGGER.info("Selecting search suggestion...");
 //        assertThat(wineAppPageObject.selectWineNameFromSearchResults(wineName)).isTrue();
         assertThat(productSearchPageObject.selectSearchSuggestion(wineName)).isTrue();
     }
 
     @Step
     public void performSortAction() {
+        LOGGER.info("Performing sort action...");
         assertThat(wineAppPageObject.performSortActionByHighPrice()).isTrue();
     }
 
@@ -81,5 +84,11 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
         assertThat(storeSearchPage.isSearchFieldPresent()).isTrue();
+    }
+
+    @Step
+    public void verifySearchResultCount() {
+        LOGGER.info("Checking the number of search results...");
+        assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo("1");
     }
 }

@@ -18,7 +18,7 @@ public class WineAppScenarioSteps {
 
     @When("User enters valid wine name")
     public void enterValidWineName(){
-        wineAppSteps.doWineSearch();
+        wineAppSteps.initiateProductSearch();
     }
 
     @When("User selects wine name from search result")
