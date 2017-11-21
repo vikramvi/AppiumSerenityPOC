@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -73,6 +74,15 @@ public class Utils {
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+    public static boolean tryClicking(WebElement element) {
+        try {
+            element.click();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

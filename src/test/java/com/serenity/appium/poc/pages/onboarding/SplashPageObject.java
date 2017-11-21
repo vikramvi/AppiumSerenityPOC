@@ -1,10 +1,9 @@
-package com.serenity.appium.poc.pages.Onboarding;
+package com.serenity.appium.poc.pages.onboarding;
 
 
 import com.serenity.appium.poc.pages.MobilePageObject;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

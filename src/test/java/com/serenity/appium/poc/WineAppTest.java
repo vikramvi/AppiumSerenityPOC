@@ -56,7 +56,7 @@ public class WineAppTest {
         //stopAppiumServer();
     }
 
-//    @Test
+    //    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
@@ -86,20 +86,14 @@ public class WineAppTest {
 //        }
 //    }
     @Test //DOT-25137
-    @Category({Regression1.class, FindStore.class})
-    public void verifyClosestStoreOnHomepage(){
-        Properties properties = new Properties();
-        String expectedTitle = "BOYNTON BEACH";
-        String expectedLocation = "Boynton Town Center";
-        if (properties.isSauceLabsRun()) {
-            expectedTitle = "FREMONT";
-            expectedLocation = "Pacific Commons";
-        }
-        try{
-            wineAppSteps.completeOnboardingAllowingLocation();
+    @Category({FindStore.class})
+    public void verifyNewStoreDetails() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
             wineAppSteps.verifySelectNewStore();
-        }catch (Exception e){
+            wineAppSteps.verifyStoreDetailsIcons();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

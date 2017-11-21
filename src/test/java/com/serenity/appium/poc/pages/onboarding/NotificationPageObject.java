@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.pages.Onboarding;
+package com.serenity.appium.poc.pages.onboarding;
 
 
 import com.serenity.appium.poc.pages.MobilePageObject;

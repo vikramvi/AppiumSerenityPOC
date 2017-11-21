@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.pages.Home;
+package com.serenity.appium.poc.pages.home;
 
 
 import com.serenity.appium.poc.pages.MobilePageObject;

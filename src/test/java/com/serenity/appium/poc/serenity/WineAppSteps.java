@@ -1,13 +1,14 @@
 package com.serenity.appium.poc.serenity;
 
 import com.serenity.appium.poc.pages.*;
-import com.serenity.appium.poc.pages.Home.MyStoreHeaderPageObject;
-import com.serenity.appium.poc.pages.Home.SearchSectionPageObject;
-import com.serenity.appium.poc.pages.Onboarding.LocationPageObject;
-import com.serenity.appium.poc.pages.Onboarding.LoyaltyPageObject;
-import com.serenity.appium.poc.pages.Onboarding.NotificationPageObject;
-import com.serenity.appium.poc.pages.Onboarding.SplashPageObject;
+import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
+import com.serenity.appium.poc.pages.home.SearchSectionPageObject;
+import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
+import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
+import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
+import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 
+import com.serenity.appium.poc.pages.storeDetails.StoreIconsPageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.core.annotations.Step;
@@ -26,6 +27,7 @@ public class WineAppSteps extends ScenarioSteps {
     private ProductSearchResultsPageObject productSearchResultsPageObject;
     private SearchSectionPageObject searchSection;
     private SplashPageObject splashPageObject;
+    private StoreIconsPageObject storeIconsPageObject;
     private StoreSearchPageObject storeSearchPageObject;
     private WineAppPageObject wineAppPageObject;
 
@@ -97,6 +99,14 @@ public class WineAppSteps extends ScenarioSteps {
 
     public void verifySelectNewStore() {
         LOGGER.info("Selecting the first store in the list and inspecting its details page...");
-        storeSearchPageObject.selectStore("SHOPPES AT ISLA VERDE");
+        assertThat(storeSearchPageObject.enterSearchToken("33435")).isTrue();
+        assertThat(storeSearchPageObject.selectStore("SHOPPES AT ISLA VERDE")).isTrue();
+    }
+
+    public void verifyStoreDetailsIcons() {
+        LOGGER.info("Verifying that the top 3 icons are present on the store details page...");
+        assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
+        assertThat(storeIconsPageObject.isGetDirectionsIconPresent()).isTrue();
+        assertThat(storeIconsPageObject.isMyStoreIconPresent()).isTrue();
     }
 }
