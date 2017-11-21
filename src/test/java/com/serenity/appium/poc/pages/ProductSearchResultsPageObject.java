@@ -9,15 +9,16 @@ import org.openqa.selenium.WebElement;
 
 public class ProductSearchResultsPageObject extends MobilePageObject {
 
+    @AndroidFindBy(accessibility="search results count")
+    @iOSFindBy(accessibility="search results count")
+    private WebElement TEXT_searchResultsCount;
+
+    public String getResultsCount() {
+        String itemCount = TEXT_searchResultsCount.getText();
+        return itemCount.replace(" ITEM", "");
+    }
 
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
     }
-
-    public String getResultsCount() {
-        String itemCount = getDriver().findElement(MobileBy.AccessibilityId("search results count")).getText();
-        return itemCount.replace(" ITEM", "");
-
-    }
-
 }

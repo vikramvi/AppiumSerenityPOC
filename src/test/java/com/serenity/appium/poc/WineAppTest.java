@@ -18,9 +18,6 @@ import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.serenity.WineAppSteps;
 
-import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
-
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
 
@@ -32,7 +29,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+        //startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -56,41 +53,39 @@ public class WineAppTest {
 
     @AfterClass
     public static void stopAppium() {
-        stopAppiumServer();
+        //stopAppiumServer();
     }
 
-    //    @Test
+//    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.doWineSearch();
-//            wineAppSteps.selectWineNameFromSearchResultView();
+//            wineAppSteps.initiateProductSearch();
+//            wineAppSteps.selectProductNameFromSearchSuggestions();
+//            wineAppSteps.verifySearchResultCount(1);
 //            wineAppSteps.performSortAction();
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25238
+//    @Test //DOT-25134
 //    @Category({Regression1.class, FindStore.class})
-//    public void verifyDefaultStoreOnHomescreen(){
+//    public void verifyClosestStoreOnHomepage(){
+//        Properties properties = new Properties();
+//        String expectedTitle = "BOYNTON BEACH";
+//        String expectedLocation = "Boynton Town Center";
+//        if (properties.isSauceLabsRun()) {
+//            expectedTitle = "FREMONT";
+//            expectedLocation = "Pacific Commons";
+//        }
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
+//            wineAppSteps.completeOnboardingAllowingLocation();
+//            wineAppSteps.verifyHomepageStoreDetails(expectedTitle, expectedLocation);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25239
-    @Category({Regression1.class, FindStore.class})
-    public void verifyOptionToChangeStores(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @Test //DOT-25134
+    @Test //DOT-25137
     @Category({Regression1.class, FindStore.class})
     public void verifyClosestStoreOnHomepage(){
         Properties properties = new Properties();
@@ -102,9 +97,30 @@ public class WineAppTest {
         }
         try{
             wineAppSteps.completeOnboardingAllowingLocation();
-            wineAppSteps.verifyHomepageStoreDetails(expectedTitle, expectedLocation);
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectNewStore();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+//    @Test //DOT-25238
+//    @Category({Regression1.class, FindStore.class})
+//    public void verifyDefaultStoreOnHomescreen(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25239
+//    @Category({Regression1.class, FindStore.class})
+//    public void verifyOptionToChangeStores(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }

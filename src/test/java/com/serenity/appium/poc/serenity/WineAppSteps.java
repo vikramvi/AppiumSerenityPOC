@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.serenity;
 
 import com.serenity.appium.poc.pages.*;
+import com.serenity.appium.poc.pages.Home.MyStoreHeaderPageObject;
 import com.serenity.appium.poc.pages.Home.SearchSectionPageObject;
 import com.serenity.appium.poc.pages.Onboarding.LocationPageObject;
 import com.serenity.appium.poc.pages.Onboarding.LoyaltyPageObject;
@@ -17,16 +18,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WineAppSteps extends ScenarioSteps {
 
-    private WineAppPageObject wineAppPageObject;
-    private SplashPageObject splashPageObject;
     private LocationPageObject locationPageObject;
-    private NotificationPageObject notificationPageObject;
     private LoyaltyPageObject loyaltyPageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
-    private StoreSearchPage storeSearchPage;
-    private SearchSectionPageObject searchSection;
+    private NotificationPageObject notificationPageObject;
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
+    private SearchSectionPageObject searchSection;
+    private SplashPageObject splashPageObject;
+    private StoreSearchPageObject storeSearchPageObject;
+    private WineAppPageObject wineAppPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WineAppSteps.class);
 
@@ -53,6 +54,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void initiateProductSearch() {
         LOGGER.info("Initiating a product search...");
+        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
 //        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
         assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
@@ -82,13 +84,19 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyChangeStoreLookupOption() {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
+        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
-        assertThat(storeSearchPage.isSearchFieldPresent()).isTrue();
+        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
     }
 
     @Step
-    public void verifySearchResultCount() {
+    public void verifySearchResultCount(int expected) {
         LOGGER.info("Checking the number of search results...");
-        assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo("1");
+        assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
+    }
+
+    public void verifySelectNewStore() {
+        LOGGER.info("Selecting the first store in the list and inspecting its details page...");
+        storeSearchPageObject.selectStore("SHOPPES AT ISLA VERDE");
     }
 }

@@ -1,6 +1,7 @@
-package com.serenity.appium.poc.pages;
+package com.serenity.appium.poc.pages.Home;
 
 
+import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -99,6 +100,14 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
         return result;
     }
 
+    public boolean isChangeStoreOptionPresent() {
+        try {
+            return BUTTON_changeStore.isDisplayed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+     }
     public boolean clickChangeStore() {
         try {
             BUTTON_changeStore.click();
@@ -107,6 +116,5 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
             e.printStackTrace();
             return false;
         }
-
     }
 }

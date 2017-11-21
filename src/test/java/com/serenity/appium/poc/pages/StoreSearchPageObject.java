@@ -9,19 +9,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StoreSearchPage extends MobilePageObject {
+public class StoreSearchPageObject extends MobilePageObject {
 
 
     @AndroidFindBy(accessibility = "field-search-stores")
-//    @iOSFindBy(accessibility = "\\uE820 CITY, STATE OR ZIP SEARCH")
-    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
+    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
+//    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"\uE820 CITY, STATE OR ZIP SEARCH\"]")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
     @iOSFindBy(accessibility = "SEARCH") // not needed if \n is added on search term
     private WebElement FIELD_searchButton;
 
-    public StoreSearchPage(WebDriver driver) {
+    public StoreSearchPageObject(WebDriver driver) {
         super(driver);
     }
 
@@ -45,14 +46,14 @@ public class StoreSearchPage extends MobilePageObject {
     }
 
     //@TODO
-//    public void selectStore(String storeFragment) {
-//        String xpath = String.format("(//XCUIElementTypeOther[contains(@name,'%s')])", storeFragment);
-//        new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
-//        int index = getDriver().findElements(By.xpath(xpath)).size();
-//        System.out.println(">>> Select Store index = " + index);
-//        String suffix = String.format("[%s]", index);
-//        getDriver().findElement(By.xpath(xpath + suffix)).click();
-//    }
+    public void selectStore(String storeFragment) {
+        String xpath = String.format("(//XCUIElementTypeOther[contains(@name,'%s')])", storeFragment);
+        new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
+        int index = getDriver().findElements(By.xpath(xpath)).size();
+        System.out.println(">>> Select Store index = " + index);
+        String suffix = String.format("[%s]", index);
+        getDriver().findElement(By.xpath(xpath + suffix)).click();
+    }
 //
 //    private String XPATH_storeNumberPattern = "(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[%d]/android.widget.TextView[1]";
 //    public void selectStore(int storeNumber) {
