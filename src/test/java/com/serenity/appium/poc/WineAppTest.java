@@ -71,65 +71,77 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25134 -- verified on iOS
-    @Category({Regression1.class, FindStore.class})
-    public void verifyClosestStoreOnHomepage(){
-        Properties properties = new Properties();
-        String expectedTitle = "BOYNTON BEACH";
-        String expectedLocation = "Boynton Town Center";
-        if (properties.isSauceLabsRun()) {
-            expectedTitle = "FREMONT";
-            expectedLocation = "Pacific Commons";
-        }
-        try{
-            wineAppSteps.completeOnboardingAllowingLocation();
-            wineAppSteps.verifyHomepageStoreDetails(expectedTitle, expectedLocation);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @Test //DOT-25137 -- verified on iOS
+//    @Test //DOT-25134 -- verified on iOS
+//    @Category({Regression1.class, FindStore.class})
+//    public void verifyClosestStoreOnHomepage(){
+//        Properties properties = new Properties();
+//        String expectedTitle = "BOYNTON BEACH";
+//        String expectedLocation = "Boynton Town Center";
+//        if (properties.isSauceLabsRun()) {
+//            expectedTitle = "FREMONT";
+//            expectedLocation = "Pacific Commons";
+//        }
+//        try{
+//            wineAppSteps.completeOnboardingAllowingLocation();
+//            wineAppSteps.verifyHomepageStoreDetails(expectedTitle, expectedLocation);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25137 -- verified on iOS
+//    @Category({FindStore.class})
+//    public void verifyNewStoreIcons() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectNewStore();
+//            wineAppSteps.verifyStoreDetailsIcons();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25138 -- verified on iOS
+//    @Category({FindStore.class})
+//    public void verifyNewStoreMap() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectNewStore();
+//            wineAppSteps.verifyStoreDetailsMapLoad();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    @Test //DOT-25139
     @Category({FindStore.class})
-    public void verifyNewStoreIcons() {
+    public void verifyNewStoreHours() {
         try {
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
             wineAppSteps.verifySelectNewStore();
-            wineAppSteps.verifyStoreDetailsIcons();
+            wineAppSteps.verifyStoreDetailsStoreHours();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    @Test //DOT-25138 -- verified on iOS
-    @Category({FindStore.class})
-    public void verifyNewStoreMap() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore();
-            wineAppSteps.verifyStoreDetailsMapLoad();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test //DOT-25238 -- verified on iOS
-    @Category({Regression1.class, FindStore.class})
-    public void verifyDefaultStoreOnHomescreen(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @Test //DOT-25239 -- verified on iOS
-    @Category({Regression1.class, FindStore.class})
-    public void verifyOptionToChangeStores(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test //DOT-25238 -- verified on iOS
+//    @Category({Regression1.class, FindStore.class})
+//    public void verifyDefaultStoreOnHomescreen(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25239 -- verified on iOS
+//    @Category({Regression1.class, FindStore.class})
+//    public void verifyOptionToChangeStores(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }

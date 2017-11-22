@@ -8,8 +8,7 @@ import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
 import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 
-import com.serenity.appium.poc.pages.storeDetails.StoreIconsPageObject;
-import com.serenity.appium.poc.pages.storeDetails.StoreMapPageObject;
+import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.core.annotations.Step;
@@ -28,6 +27,9 @@ public class WineAppSteps extends ScenarioSteps {
     private ProductSearchResultsPageObject productSearchResultsPageObject;
     private SearchSectionPageObject searchSection;
     private SplashPageObject splashPageObject;
+    private SpiritsHoursPageObject spiritsHoursPageObject;
+    private StoreHoursPageObject storeHoursPageObject;
+    private TastingHoursPageObject tastingHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
     private StoreSearchPageObject storeSearchPageObject;
@@ -79,7 +81,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void verifyHomepageStoreDetails(String expectedTitle, String expectedLocation) {
-        LOGGER.info("Verifying homepage store details:  \nExpected title = " +expectedTitle+ "\nExpected address = " +expectedLocation);
+        LOGGER.info("Verifying homepage store details:  \nExpected title = " + expectedTitle + "\nExpected address = " + expectedLocation);
         assertThat(myStoreHeaderPageObject.getTitleFromStoreData()).isEqualTo(expectedTitle);
         assertThat(myStoreHeaderPageObject.getLocationFromStoreData()).isEqualTo(expectedLocation);
         assertThat(myStoreHeaderPageObject.getOpenInfoFromStoreData()).matches(StoreDataParser.openCloseRegex);
@@ -120,5 +122,12 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
         assertThat(storeMapPageObject.clickStoreMapThumbnail()).isTrue();
         assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
+    }
+
+    @Step
+    public void verifyStoreDetailsStoreHours() {
+        LOGGER.info("Verifying that the store hours contains all days...");
+        assertThat(storeHoursPageObject.isStoreHoursTabPresent()).isTrue();
+        assertThat(storeHoursPageObject.isShowingHoursForAllDays()).isTrue();
     }
 }

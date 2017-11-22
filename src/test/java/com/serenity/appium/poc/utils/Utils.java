@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.utils;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -101,5 +102,19 @@ public class Utils {
             System.out.println("Caught exception trying to click Allow!");
             return false;
         }
+    }
+    public static String getAllAndroidGridData(String gridElementXpath) {
+        String result = "";
+        String gridElementXpathPattern = gridElementXpath + "[%d]";
+        int totalGridItems = getDriver().findElements(MobileBy.xpath(gridElementXpath)).size();
+        for (int i=1; i<=(totalGridItems); i++) {
+            String xpath = String.format(gridElementXpathPattern, i);
+            boolean itemExists = (getDriver().findElements(MobileBy.xpath(xpath)).size() > 0);
+            if (itemExists) {
+                String text = getDriver().findElement(MobileBy.xpath(xpath)).getText() + " ";
+                result = result + text;
+            }
+        }
+        return result;
     }
 }
