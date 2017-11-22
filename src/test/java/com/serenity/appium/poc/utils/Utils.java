@@ -1,15 +1,15 @@
 package com.serenity.appium.poc.utils;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class Utils {
     public static String getPlatform(AppiumDriver driver) {
@@ -83,6 +83,22 @@ public class Utils {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean tryClickingAllow() {
+        try {
+            Thread.sleep(3000);
+            JavascriptExecutor js = (JavascriptExecutor) getDriver();
+
+            HashMap<String, String> tapObject = new HashMap<String, String>();
+            tapObject.put("action", "accept");
+            tapObject.put("label", "Allow");
+
+            js.executeScript("mobile:alert", tapObject);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Caught exception trying to click Allow!");
             return false;
         }
     }

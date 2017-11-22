@@ -2,6 +2,7 @@ package com.serenity.appium.poc.pages.onboarding;
 
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.By;
@@ -33,21 +34,8 @@ public class LocationPageObject extends MobilePageObject {
                 if (getDriver().findElements(BUTTON_androidConfirmAllowLocation).size() > 0) {
                     getDriver().findElement(BUTTON_androidConfirmAllowLocation).click();
                 }
-                // if needed for iOS too:
-                //By BUTTON_iosConfirmAllowLocation = By.xpath("//XCUIElementTypeButton[@name='Allow']");
             } else {
-                try {
-                    Thread.sleep(3000);
-                    JavascriptExecutor js = (JavascriptExecutor) getDriver();
-
-                    HashMap<String, String> tapObject = new HashMap<String, String>();
-                    tapObject.put("action", "accept");
-                    tapObject.put("label", "Allow");
-
-                    js.executeScript("mobile:alert", tapObject);
-                } catch (Exception e) {
-                    System.out.println("Caught exception trying to click Allow on Location!");
-                }
+                Utils.tryClickingAllow();
             }
             return true;
         } catch (Exception e) {

@@ -9,6 +9,7 @@ import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 
 import com.serenity.appium.poc.pages.storeDetails.StoreIconsPageObject;
+import com.serenity.appium.poc.pages.storeDetails.StoreMapPageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.core.annotations.Step;
@@ -28,6 +29,7 @@ public class WineAppSteps extends ScenarioSteps {
     private SearchSectionPageObject searchSection;
     private SplashPageObject splashPageObject;
     private StoreIconsPageObject storeIconsPageObject;
+    private StoreMapPageObject storeMapPageObject;
     private StoreSearchPageObject storeSearchPageObject;
     private WineAppPageObject wineAppPageObject;
 
@@ -97,16 +99,26 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
     }
 
+    @Step
     public void verifySelectNewStore() {
         LOGGER.info("Selecting the first store in the list and inspecting its details page...");
         assertThat(storeSearchPageObject.enterSearchToken("33435")).isTrue();
         assertThat(storeSearchPageObject.selectStore("SHOPPES AT ISLA VERDE")).isTrue();
     }
 
+    @Step
     public void verifyStoreDetailsIcons() {
         LOGGER.info("Verifying that the top 3 icons are present on the store details page...");
         assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isGetDirectionsIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isMyStoreIconPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyStoreDetailsMapLoad() {
+        LOGGER.info("Verifying that the map is present on the store details page...");
+        assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
+        assertThat(storeMapPageObject.clickStoreMapThumbnail()).isTrue();
+        assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
     }
 }

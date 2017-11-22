@@ -36,8 +36,6 @@ public class StoreSearchPageObject extends MobilePageObject {
             if (isIOS()) {
                 token = token + "\n";
             }
-//            FIELD_geoSearch.clear();
-//            FIELD_geoSearch.click();
             FIELD_geoSearch.sendKeys(token);
             if (isAndroid()) {
                 clickSearchButtonOnly();

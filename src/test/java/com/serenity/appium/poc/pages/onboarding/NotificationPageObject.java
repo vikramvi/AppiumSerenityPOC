@@ -10,8 +10,6 @@ import org.openqa.selenium.WebElement;
 public class NotificationPageObject extends MobilePageObject {
 
     @AndroidFindBy(xpath="//android.widget.TextView[@text='not right now']")
-//    @AndroidFindBy(accessibility = "link-decline")
-//    @iOSFindBy(xpath="//XCUIElementTypeButton[@name='link-decline']")
     @iOSFindBy(accessibility = "link-decline")
     private WebElement LINK_notRightNow;
 
