@@ -2,6 +2,7 @@ package com.serenity.appium.poc.pages.home;
 
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -102,12 +103,18 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
 
     public boolean isChangeStoreOptionPresent() {
         try {
+            By BY_changeStore = MobileBy.AccessibilityId("button-change-store");
+            //TODO: neither of these is working for iOS!
+//            Scrolling.verticalSwipe(Scrolling.Direction.DOWN);
+//            Scrolling.verticalSwipe(Scrolling.Direction.UP);
+            Scrolling.iosScroll(Scrolling.IosDirection.DOWN, BUTTON_changeStore);
             return BUTTON_changeStore.isDisplayed();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-     }
+    }
+
     public boolean clickChangeStore() {
         try {
             BUTTON_changeStore.click();
