@@ -18,10 +18,7 @@ import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver
 
 public class Scrolling {
 
-    public enum Axis {X, Y}
-
-    ;
-
+    public enum Axis {X, Y};
     public static int getScreenDimension(Axis axis) {
         Dimension dim = getDriver().manage().window().getSize();
         int result = 0;
@@ -45,8 +42,6 @@ public class Scrolling {
         }
     }
 
-    ;
-
     public static void androidSwipe(AndroidDirection direction) {
         int height = getScreenDimension(Axis.Y);
         int width = getScreenDimension(Axis.X);
@@ -63,9 +58,7 @@ public class Scrolling {
         touchAction.press(x, startY).waitAction(duration).moveTo(x, endY).release().perform();
     }
 
-    public enum IosDirection {DOWN, UP, RIGHT, LEFT}
-
-    ;
+    public enum IosDirection {DOWN, UP, RIGHT, LEFT};
 
     public static void iosScroll(IosDirection direction, WebElement BUTTON_changeStore) {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();

@@ -32,7 +32,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+        //startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -56,7 +56,8 @@ public class WineAppTest {
 
     @AfterClass
     public static void stopAppium() {
-        stopAppiumServer();
+
+        //stopAppiumServer();
     }
 
     //    @Test
@@ -112,28 +113,28 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25139
-    @Category({FindStore.class})
-    public void verifyNewStoreHours() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore();
-            wineAppSteps.verifyStoreDetailsStoreHours();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-//    @Test //DOT-25238 -- verified on iOS
-//    @Category({Regression1.class, FindStore.class})
-//    public void verifyDefaultStoreOnHomescreen(){
-//        try{
+//    @Test //DOT-25139
+//    @Category({FindStore.class})
+//    public void verifyNewStoreHours() {
+//        try {
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
-//        }catch (Exception e){
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectNewStore();
+//            wineAppSteps.verifyStoreDetailsStoreHours();
+//        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
+    @Test //DOT-25238 -- verified on iOS
+    @Category({Regression1.class, FindStore.class})
+    public void verifyDefaultStoreOnHomescreen(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 //    @Test //DOT-25239 -- verified on iOS
 //    @Category({Regression1.class, FindStore.class})
 //    public void verifyOptionToChangeStores(){
