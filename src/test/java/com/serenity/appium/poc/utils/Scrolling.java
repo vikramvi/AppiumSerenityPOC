@@ -56,23 +56,26 @@ public class Scrolling {
 
         Duration duration = Duration.ofSeconds(2);
         touchAction.press(x, startY).waitAction(duration).moveTo(x, endY).release().perform();
+        //touchAction.press(x, startY).moveTo(element).release();
+        //((MobileDriver) driver).performTouchAction(touchAction);
     }
 
     public enum IosDirection {DOWN, UP, RIGHT, LEFT};
 
-    public static void iosScroll(IosDirection direction, WebElement BUTTON_changeStore) {
+    public static void iosScroll(IosDirection direction, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         HashMap<String, String> scrollObject = new HashMap<String, String>();
         scrollObject.put("direction", direction.toString().toLowerCase());
+//        scrollObject.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: scroll", scrollObject);
     }
 
-    public static void iosScroll(IosDirection direction, IOSElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        HashMap<String, String> scrollObject = new HashMap<String, String>();
-        scrollObject.put("direction", direction.toString().toLowerCase());
-        scrollObject.put("element", ((RemoteWebElement) element).getId());
-        js.executeScript("mobile: scroll", scrollObject);
-    }
+//    public static void iosScroll(IosDirection direction, IOSElement element) {
+//        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+//        HashMap<String, String> scrollObject = new HashMap<String, String>();
+//        scrollObject.put("direction", direction.toString().toLowerCase());
+//        scrollObject.put("element", ((RemoteWebElement) element).getId());
+//        js.executeScript("mobile: scroll", scrollObject);
+//    }
 }
 
