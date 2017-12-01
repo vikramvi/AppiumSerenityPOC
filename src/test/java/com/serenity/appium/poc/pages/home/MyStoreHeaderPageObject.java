@@ -14,8 +14,8 @@ import org.openqa.selenium.WebElement;
 public class MyStoreHeaderPageObject extends MobilePageObject {
 
     @iOSFindBy(accessibility = "button-change-store")
-    //@AndroidFindBy(accessibility = "button-change-store")
-    @AndroidFindBy(accessibility = "button-change-store-title")
+    @AndroidFindBy(accessibility = "button-change-store")
+    //@AndroidFindBy(accessibility = "button-change-store-title")
     private WebElement BUTTON_changeStore;
 
     @iOSFindBy(accessibility = "text-address1")
@@ -40,25 +40,25 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
 
     private static final String noResultsFound = "NOT_FOUND!";
 
-    private String XPATH_storeDataPattern = "//android.widget.Button[@content-desc=\"button-change-store\"]/android.widget.TextView[%s]";
-    private String XPATH_storeTitle = String.format(XPATH_storeDataPattern, "1");
-    public String getTitleFromStoreData() {
-        LOGGER.info("Getting Title from store data...");
-        String result = isAndroid()
-                ? BUTTON_changeStore.getText()
-                : BUTTON_changeStore.getText().replace(" \uE827", "");
-        return result;
-    }
+//    private String XPATH_storeDataPattern = "//android.widget.Button[@content-desc=\"button-change-store\"]/android.widget.TextView[%s]";
+//    private String XPATH_storeTitle = String.format(XPATH_storeDataPattern, "1");
+//    public String getTitleFromStoreData() {
+//        LOGGER.info("Getting Title from store data...");
+//        String result = isAndroid()
+//                ? BUTTON_changeStore.getText()
+//                : BUTTON_changeStore.getText().replace(" \uE827", "");
+//        return result;
+//    }
 
-    private String XPATH_storeLocation = String.format(XPATH_storeDataPattern, "2");
-    private By TEXT_storeLocation = MobileBy.xpath(XPATH_storeLocation);
+//    private String XPATH_storeLocation = String.format(XPATH_storeDataPattern, "2");
+//    private By TEXT_storeLocation = MobileBy.xpath(XPATH_storeLocation);
     public String getLocationFromStoreData() {
         String result = TEXT_address1.getText();
         return result;
     }
 
-    private String XPATH_storeOpenData = String.format(XPATH_storeDataPattern, "3");
-    private By TEXT_storeOpenData = MobileBy.xpath(XPATH_storeOpenData);
+//    private String XPATH_storeOpenData = String.format(XPATH_storeDataPattern, "3");
+//    private By TEXT_storeOpenData = MobileBy.xpath(XPATH_storeOpenData);
     public String getOpenInfoFromStoreData() {
         String result = TEXT_openUntilAtHour.getText();
         return result;
