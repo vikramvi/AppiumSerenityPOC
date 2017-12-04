@@ -64,9 +64,9 @@ public class WineAppTest {
     public void verifyWineAppSearchByValidWineNameAndSortActions(){
         try{
             wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.initiateProductSearch("Billecart Salmon");
-            wineAppSteps.selectProductNameFromSearchSuggestions("Billecart Salmon");
-            wineAppSteps.selectProductFromSearchResults("Billecart Salmon Brut Rose");
+            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
+            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
+            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
 //            wineAppSteps.verifySearchResultCount(1);
 //            wineAppSteps.performSortAction();
         }catch (Exception e){
