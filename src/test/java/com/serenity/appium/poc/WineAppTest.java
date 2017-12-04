@@ -60,18 +60,19 @@ public class WineAppTest {
         //stopAppiumServer();
     }
 
-    //    @Test
-//    public void verifyWineAppSearchByValidWineNameAndSortActions(){
-//        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.initiateProductSearch();
-//            wineAppSteps.selectProductNameFromSearchSuggestions();
+    @Test
+    public void verifyWineAppSearchByValidWineNameAndSortActions(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.initiateProductSearch("Billecart Salmon");
+            wineAppSteps.selectProductNameFromSearchSuggestions("Billecart Salmon");
+            wineAppSteps.selectProductFromSearchResults("Billecart Salmon Brut Rose");
 //            wineAppSteps.verifySearchResultCount(1);
 //            wineAppSteps.performSortAction();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 //    @Test //DOT-25134 -- verified on iOS
 //    @Category({Regression1.class, FindStore.class})
 //    public void verifyClosestStoreOnHomepage(){
@@ -113,19 +114,19 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25139
-    @Category({FindStore.class})
-    public void verifyNewStoreHours() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore();
-            wineAppSteps.verifyStoreDetailsStoreHours();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-//    @Test //DOT-25238 -- verified on Android
+//    @Test //DOT-25139 -- verified on iOS, but incomplete
+//    @Category({FindStore.class})
+//    public void verifyNewStoreHours() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectNewStore();
+//            wineAppSteps.verifyStoreDetailsStoreHours();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25238 -- verified on iOS and Android
 //    @Category({Regression1.class, FindStore.class})
 //    public void verifyDefaultStoreOnHomescreen(){
 //        try{

@@ -18,12 +18,12 @@ public class WineAppScenarioSteps {
 
     @When("User enters valid wine name")
     public void enterValidWineName(){
-        wineAppSteps.initiateProductSearch();
+        wineAppSteps.initiateProductSearch("Billecart Salmon");
     }
 
     @When("User selects wine name from search result")
     public void selectWineNameFromSearchResults(){
-        wineAppSteps.selectProductNameFromSearchSuggestions();
+        wineAppSteps.selectProductNameFromSearchSuggestions("Billecart Salmon");
     }
 
     @Then("User can do sort action")

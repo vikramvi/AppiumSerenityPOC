@@ -16,10 +16,12 @@ public class Utils {
     public static String getPlatform(AppiumDriver driver) {
         return String.valueOf(driver.getCapabilities().getCapability("platformName"));
     }
+
     public static boolean isIosPlatform(AppiumDriver driver) {
         String platform = getPlatform(driver);
         return platform.equalsIgnoreCase("ios");
     }
+
     public static boolean isAndroidPlatform(AppiumDriver driver) {
         return getPlatform(driver).equalsIgnoreCase("android");
     }
@@ -36,6 +38,7 @@ public class Utils {
         } else throw new IllegalStateException("Platform not iOS or Android!");
         return message;
     }
+
     public static String stripFrontRegex(String stream, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(stream);
@@ -50,6 +53,7 @@ public class Utils {
         }
         return result;
     }
+
     public static String stripAnyRegex(String stream, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(stream);
@@ -64,12 +68,14 @@ public class Utils {
         }
         return result;
     }
+
     public static String trimFinalSpace(String string) {
         if (string != null && string.length() > 0 && string.charAt(string.length() - 1) == ' ') {
             string = string.substring(0, string.length() - 1);
         }
         return string;
     }
+
     public static boolean isVisible(WebDriver driver, By reference, int seconds) {
         try {
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
@@ -78,6 +84,12 @@ public class Utils {
             return false;
         }
     }
+
+    public static boolean tryClicking(String xpath) {
+        WebElement element = getDriver().findElement(By.xpath(xpath));
+        return tryClicking(element);
+    }
+
     public static boolean tryClicking(WebElement element) {
         try {
             element.click();
@@ -87,6 +99,7 @@ public class Utils {
             return false;
         }
     }
+
     public static boolean tryClickingAllow() {
         try {
             Thread.sleep(3000);
@@ -103,11 +116,12 @@ public class Utils {
             return false;
         }
     }
+
     public static String getAllAndroidGridData(String gridElementXpath) {
         String result = "";
         String gridElementXpathPattern = gridElementXpath + "[%d]";
         int totalGridItems = getDriver().findElements(MobileBy.xpath(gridElementXpath)).size();
-        for (int i=1; i<=(totalGridItems); i++) {
+        for (int i = 1; i <= (totalGridItems); i++) {
             String xpath = String.format(gridElementXpathPattern, i);
             boolean itemExists = (getDriver().findElements(MobileBy.xpath(xpath)).size() > 0);
             if (itemExists) {

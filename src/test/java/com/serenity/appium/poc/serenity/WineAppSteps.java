@@ -58,19 +58,27 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void initiateProductSearch() {
+    public void initiateProductSearch(String searchToken) {
         LOGGER.info("Initiating a product search...");
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
 //        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
-        assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
+//        assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
+        assertThat(productSearchPageObject.typeSearchTerm(searchToken)).isTrue();
     }
 
     @Step
-    public void selectProductNameFromSearchSuggestions() {
+    public void selectProductNameFromSearchSuggestions(String suggestion) {
         LOGGER.info("Selecting search suggestion...");
 //        assertThat(wineAppPageObject.selectWineNameFromSearchResults(wineName)).isTrue();
-        assertThat(productSearchPageObject.selectSearchSuggestion(wineName)).isTrue();
+//        assertThat(productSearchPageObject.selectSearchSuggestion(wineName)).isTrue();
+        assertThat(productSearchPageObject.selectSearchSuggestion(suggestion)).isTrue();
+    }
+
+    @Step
+    public void selectProductFromSearchResults(String productName) {
+        LOGGER.info("Selecting product from search results...");
+        assertThat(productSearchResultsPageObject.selectProductForAndroid(productName)).isTrue();
     }
 
     @Step
