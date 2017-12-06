@@ -1,17 +1,16 @@
 package com.serenity.appium.poc.pages;
 
-
-import org.jruby.RubyProcess;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSDriver;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.util.SystemEnvironmentVariables;
+import net.thucydides.core.webdriver.WebDriverFacade;
+import org.openqa.selenium.*;
 import io.appium.java_client.pagefactory.*;
-import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class WineAppPageObject extends MobilePageObject{
 
@@ -54,15 +53,37 @@ public class WineAppPageObject extends MobilePageObject{
     @iOSFindBy(xpath="//XCUIElementTypeButton[@name='button-apply']")
     private WebElement DoneButton;
 
+    @iOSFindBy(xpath="//XCUIElementTypeButton[@label='ADD TO CART']")
+    private WebElement AddToCartButton;
+
+    @iOSFindBy(xpath="//XCUIElementTypeButton[@label='VIEW CART']")
+    private WebElement ViewCartButton;
+
+    @iOSFindBy(xpath="//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[contains(@name,\"$\") and contains(@name,\"ML\") and contains(@name,\"$\") and contains(@name,\"ML\") ]")
+    private WebElement itemsViewTopRow;
+
 
     public WineAppPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    String appiumDriverType, iOSDeviceType;
+
+    public void getSerenityPropertiesValues(){
+        EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
+
+        String baseUrl = variables.getProperty(ThucydidesSystemProperty.WEBDRIVER_BASE_URL);
+        appiumDriverType = variables.getProperty("appium.platformName");
+        iOSDeviceType    = variables.getProperty("appium.deviceName");
     }
 
     //TBD
     //How To Achieve The Best Lookup Performance
     //https://github.com/facebook/WebDriverAgent/wiki/How-To-Achieve-The-Best-Lookup-Performance
     public boolean completeSpalshScreenActions(){
+
+        getSerenityPropertiesValues();
+
         try{
             LetsBeginButton.click();
             AllowLocationButton.click();
@@ -71,20 +92,27 @@ public class WineAppPageObject extends MobilePageObject{
 
             //if(getDriver().findElements(By.xpath("//XCUIElementTypeAlert[contains(@name,'access your location while you are using the app')]")).size() > 0 && isAlertPresent ) {
 
-            try {
-                Thread.sleep(3000);
-                JavascriptExecutor js = (JavascriptExecutor) getDriver();
-
-                HashMap<String, String> tapObject = new HashMap<String, String>();
-                tapObject.put("action", "accept");
-                tapObject.put("label", "Allow");
-
-                js.executeScript("mobile:alert", tapObject);
-            }catch (Exception e){
-                System.out.println("caught");
+            if(appiumDriverType.equals("Android")){
+                if(getDriver().findElement(By.xpath("//android.widget.Button[@text='Allow']")).isDisplayed()) {
+                    getDriver().findElement(By.xpath("//android.widget.Button[@text='Allow']")).click();
+                }
             }
+            else if(appiumDriverType.equals("iOS")) {
+                try {
+                    Thread.sleep(3000);
+                    JavascriptExecutor js = (JavascriptExecutor) getDriver();
+
+                    HashMap<String, String> tapObject = new HashMap<String, String>();
+                    tapObject.put("action", "accept");
+                    tapObject.put("label", "Allow");
+
+                    js.executeScript("mobile:alert", tapObject);
+                } catch (Exception e) {
+                    System.out.println("caught");
+                }
 
                 isAlertPresent = false;
+            }
             //}
 
             //if(getDriver().findElements(By.id("com.android.packageinstaller:id/permission_allow_button")).size() > 0 && isAlertPresent ) {
@@ -134,6 +162,150 @@ public class WineAppPageObject extends MobilePageObject{
                 return false;
             }
             return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean addAllItemsShownToUser_OnScreenForParticularSearchTermToCart(){
+        try{
+
+            if(appiumDriverType.equals("iOS")){
+                return iOS_addAllItemsShownToUser_OnScreenForParticularSearchTermToCart();
+            }else {
+
+                //tapTopRowLeftSideItem
+                //tapTopRowRightSideItem
+                //tapBottomRowLeftSideItem
+                //tapBottomRowLeftSideItem
+                //get string for first row, extract 2 names for comparison
+
+                //Android
+
+                List<WebElement> wineBarnds = getDriver().findElements(By.xpath("//android.widget.TextView[2]"));
+
+                int counter = 0;
+
+                for (WebElement element : wineBarnds) {
+                    //    if( element.getText().equals(wineBrandName) ){
+                    element.click();
+                    //  }
+                    counter++;
+                }
+
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //Works fine with iPhone 7, iPhone SE, iPhone X, iPhone 8 Plus
+    public boolean iOS_addAllItemsShownToUser_OnScreenForParticularSearchTermToCart(){
+        try{
+
+            Dimension mobileDimension = getDriver().manage().window().getSize();
+            int xMobileCoordinate = mobileDimension.getWidth();
+            int yMobileCoordinate = mobileDimension.getHeight();
+
+
+            Point elementToClick = getDriver().findElement(By.xpath("//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[contains(@name,\"$\") and contains(@name,\"ML\") and contains(@name,\"$\") and contains(@name,\"ML\") ]")).getLocation();
+            int xElementCoordinate = mobileDimension.getWidth();
+            int yElementCoordinate = mobileDimension.getHeight();
+
+
+            //TouchAction tapCoordinates = new TouchAction((MobileDriver)getDriver());
+            TouchAction tapCoordinates = new TouchAction(((IOSDriver)((WebDriverFacade) getDriver()).getProxiedDriver()));
+
+            //1st Item 1t row
+            tapCoordinates.tap(xMobileCoordinate/4, yMobileCoordinate/3).perform();
+            AddToCartButton.click();
+            ViewCartButton.click();
+
+            //Bug add same button from other screens
+            //Refer to Add To Cart Page expected value : //XCUIElementTypeButton[@name="button-floating-return"]
+            //Workaround click with co-ordinates on back button
+            if(getDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name=\"ADD A COUPON\"]")).size() > 0) {
+
+                if(!iOSDeviceType.equals("iPhone X")) {
+                    tapCoordinates.tap(xMobileCoordinate / 9, (yMobileCoordinate / 11) * 10).perform();
+                }else {
+                    tapCoordinates.tap(40, 755).perform();
+                }
+
+            }else{
+                System.out.println("FAILED");
+            }
+
+
+
+            //2nd Item 1st row
+            if(itemsViewTopRow.isDisplayed()) {
+                tapCoordinates.tap(xMobileCoordinate * 3 / 4, yMobileCoordinate / 3).perform();
+                AddToCartButton.click();
+                ViewCartButton.click();
+                //Bug add same button from other screens
+                if (getDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name=\"ADD A COUPON\"]")).size() > 0) {
+
+                    if(!iOSDeviceType.equals("iPhone X")) {
+                        tapCoordinates.tap(xMobileCoordinate / 9, (yMobileCoordinate / 11) * 10).perform();
+                    }else {
+                        tapCoordinates.tap(42, 755).perform();
+                    }
+
+                } else {
+                    System.out.println("FAILED - 2");
+                }
+            }else{
+                System.out.println("FAILED - 2");
+            }
+
+            //1st Item 2nd row
+            if(itemsViewTopRow.isDisplayed()) {
+                tapCoordinates.tap(xMobileCoordinate / 4, yMobileCoordinate * 2 / 3).perform();
+                AddToCartButton.click();
+                ViewCartButton.click();
+                //Bug add same button from other screens
+                if (getDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name=\"ADD A COUPON\"]")).size() > 0) {
+
+                    if(!iOSDeviceType.equals("iPhone X")) {
+                        tapCoordinates.tap(xMobileCoordinate / 9, (yMobileCoordinate / 11) * 10).perform();
+                    }else {
+                        tapCoordinates.tap(42, 755).perform();
+                    }
+
+                } else {
+                    System.out.println("FAILED");
+                }
+            }else{
+                System.out.println("FAILED - 2");
+            }
+
+            //2nd Item 2nd row
+            if(itemsViewTopRow.isDisplayed()) {
+                tapCoordinates.tap(xMobileCoordinate * 3 / 4, yMobileCoordinate * 2 / 3).perform();
+                AddToCartButton.click();
+                ViewCartButton.click();
+                //Bug add same button from other screens
+                if (getDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name=\"ADD A COUPON\"]")).size() > 0) {
+
+                    if(!iOSDeviceType.equals("iPhone X")) {
+                        tapCoordinates.tap(xMobileCoordinate / 9, (yMobileCoordinate / 11) * 10).perform();
+                    }else {
+                        tapCoordinates.tap(42, 755).perform();
+                    }
+                } else {
+                    System.out.println("FAILED");
+                }
+            }else{
+                System.out.println("FAILED - 2");
+            }
+
+            return true;
+
         }catch (Exception e){
             e.printStackTrace();
             return false;

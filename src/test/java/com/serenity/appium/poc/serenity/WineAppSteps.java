@@ -27,6 +27,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void selectWineNameFromSearchResultView(){
       assertThat( wineAppPageObject.selectWineNameFromSearchResults(winName) ).isTrue();
+      wineAppPageObject.addAllItemsShownToUser_OnScreenForParticularSearchTermToCart();
     }
 
     @Step

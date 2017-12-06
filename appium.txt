@@ -10,6 +10,6 @@
 ## https://github.com/appium/appium-xcuitest-driver ##
 automationName = "XCUITest"
 platformName = "iOS"
-platformVersion = "11.0"
+platformVersion = "11.2"
 deviceName = "iPhone 7"
 app = "/Users/vikramanna/Documents/vikram/AppiumSerenityPOC/tw_mobile.app"
