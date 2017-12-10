@@ -2,6 +2,8 @@ package com.serenity.appium.poc.utils;
 
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.Dimension;
@@ -52,7 +54,7 @@ public class Scrolling {
         //TouchAction touchAction = new TouchAction((AppiumDriver)getDriver());
         WebDriver facade = getDriver();
         WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
-        TouchAction touchAction = new TouchAction((MobileDriver) driver);
+        TouchAction touchAction = new TouchAction((AndroidDriver) driver);
 
         Duration duration = Duration.ofSeconds(2);
         touchAction.press(x, startY).waitAction(duration).moveTo(x, endY).release().perform();
@@ -62,8 +64,8 @@ public class Scrolling {
 
     public enum IosDirection {DOWN, UP, RIGHT, LEFT};
 
-    public static void iosScroll(IosDirection direction, WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+    public static void iosScroll(IosDirection direction) { // , WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor)(IOSDriver)((WebDriverFacade) getDriver()).getProxiedDriver();
         HashMap<String, String> scrollObject = new HashMap<String, String>();
         scrollObject.put("direction", direction.toString().toLowerCase());
 //        scrollObject.put("element", ((RemoteWebElement) element).getId());

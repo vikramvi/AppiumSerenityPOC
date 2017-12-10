@@ -1,6 +1,8 @@
 package com.serenity.appium.poc.pages;
 
+import com.serenity.appium.poc.utils.Scrolling;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.By;
@@ -8,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class StoreSearchPageObject extends MobilePageObject {
 
@@ -55,6 +59,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     public boolean selectStore(String storeFragment) {
         try {
             if (isIOS()) {
+                //Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
                 String xpath = String.format("(//XCUIElementTypeOther[contains(@name,'%s')])", storeFragment);
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
                 int index = getDriver().findElements(By.xpath(xpath)).size();
@@ -62,7 +67,15 @@ public class StoreSearchPageObject extends MobilePageObject {
                 String suffix = String.format("[%s]", index);
                 getDriver().findElement(By.xpath(xpath + suffix)).click();
             } else {
-                throw new IllegalStateException("selectStore not yet supported for Android!");
+                Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                List<WebElement> elements = getDriver().findElements(By.xpath("//android.widget.TextView[@content-desc='store-address1']"));
+                for (WebElement element:elements) {
+                    if (element.getText().equalsIgnoreCase(storeFragment)) {
+                        element.click();
+                        break;
+                    }
+                }
+                //throw new IllegalStateException("selectStore not yet supported for Android!");
             }
             return true;
         } catch (Exception e) {

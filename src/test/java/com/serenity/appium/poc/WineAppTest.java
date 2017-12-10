@@ -60,20 +60,20 @@ public class WineAppTest {
         //stopAppiumServer();
     }
 
-    @Test
-    public void verifyWineAppSearchByValidWineNameAndSortActions(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
-            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
-            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
-//            wineAppSteps.verifySearchResultCount(1);
-//            wineAppSteps.performSortAction();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-//    @Test //DOT-25134 -- verified on iOS
+//    @Test
+//    public void verifyWineAppSearchByValidWineNameAndSortActions(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
+//            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
+//            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
+////            wineAppSteps.verifySearchResultCount(1);
+////            wineAppSteps.performSortAction();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test //DOT-25134 -- verified on iOS, Android on 12/10/17
 //    @Category({Regression1.class, FindStore.class})
 //    public void verifyClosestStoreOnHomepage(){
 //        Properties properties = new Properties();
@@ -90,7 +90,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25137 -- verified on iOS
+//    @Test //DOT-25137 -- verified on iOS, Android on 12/10/17
 //    @Category({FindStore.class})
 //    public void verifyNewStoreIcons() {
 //        try {
@@ -102,18 +102,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25138 -- verified on iOS
-//    @Category({FindStore.class})
-//    public void verifyNewStoreMap() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore();
-//            wineAppSteps.verifyStoreDetailsMapLoad();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test //DOT-25138 -- verified on iOS, Android on 12/10/17
+    @Category({FindStore.class})
+    public void verifyNewStoreMap() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectNewStore();
+            wineAppSteps.verifyStoreDetailsMapLoad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test //DOT-25139 -- verified on iOS, but incomplete
 //    @Category({FindStore.class})
 //    public void verifyNewStoreHours() {
