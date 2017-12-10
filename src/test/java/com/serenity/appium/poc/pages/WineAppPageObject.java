@@ -1,6 +1,8 @@
 package com.serenity.appium.poc.pages;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.util.EnvironmentVariables;
@@ -8,9 +10,15 @@ import net.thucydides.core.util.SystemEnvironmentVariables;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.*;
 import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.remote.RemoteWebElement;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
+
+//import static io.appium.java_client.touch.WaitOptions.waitOptions;  ??
+
+import static java.time.Duration.ofSeconds;
 
 public class WineAppPageObject extends MobilePageObject{
 
@@ -60,8 +68,10 @@ public class WineAppPageObject extends MobilePageObject{
     private WebElement ViewCartButton;
 
     @iOSFindBy(xpath="//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[contains(@name,\"$\") and contains(@name,\"ML\") and contains(@name,\"$\") and contains(@name,\"ML\") ]")
-    private WebElement itemsViewTopRow;
+    private MobileElement itemsViewTopRow;
 
+    @iOSFindBy(xpath="//XCUIElementTypeScrollView/XCUIElementTypeOther[contains(@name,'CUSTOMERS WHO VIEWED')]//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
+    private List<MobileElement> suggestedItemsRow;
 
     public WineAppPageObject(WebDriver driver) {
         super(driver);
@@ -311,5 +321,164 @@ public class WineAppPageObject extends MobilePageObject{
             return false;
         }
     }
+
+
+    //Automating mobile gestures
+    //https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/touch-actions.md
+
+    public boolean performSwipe(){
+        try{
+
+            if(appiumDriverType.equals("iOS")){
+                return performiOSSwipeAction();
+            }else {
+                return performAndroidSwipeAction();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //https://github.com/appium/java-client/blob/master/src/test/java/io/appium/java_client/android/AndroidTouchTest.java
+    //https://github.com/appium/java-client/issues/783
+
+    public boolean performAndroidSwipeAction(){
+        try {
+
+            //This method does Swipe action on Android device in Up, Down, Left, Right directions
+
+            //1. Swipe action is implemented based on co-ordinates of as per device's dimension
+            //2. TBD - Come up with formula based on device/ emulator size for startX, startY, endX and endY
+            //3. TBD - Calculate element's dimension on run time and populate startX, startY, endX and endY
+
+            //Android
+
+            Dimension mobileDimension = getDriver().manage().window().getSize();
+            int xMobileCoordinate = mobileDimension.getWidth();
+            int yMobileCoordinate = mobileDimension.getHeight();
+
+            TouchAction tapCoordinates = new TouchAction(((AndroidDriver) ((WebDriverFacade) getDriver()).getProxiedDriver()));
+
+            //Works but does lots of swipe - Method 1
+            //tapCoordinates.press(115, 650).moveTo(0, -300).release().perform();
+
+            //Works pefectly - Method 2
+
+            //Swipe Up 1 row
+            tapCoordinates.press(115, 650).waitAction(ofSeconds(1)).moveTo(115, 350).release().perform();
+
+            //Swipe Down 1 row
+            tapCoordinates.press(115, 350).waitAction(ofSeconds(1)).moveTo(115, 650).release().perform();
+
+            //Swipe Left
+            tapCoordinates.press(385, 575).waitAction(ofSeconds(1)).moveTo(155, 575).release().perform();
+
+            //Swipe Right
+            tapCoordinates.press(155, 575).waitAction(ofSeconds(1)).moveTo(385, 575).release().perform();
+
+            return true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean performiOSSwipeAction(){
+        try{
+            //iOS
+
+            //Swipe / Scroll up, down , left , right
+            //TBD?? Find exact difference between Swipe and Scroll
+
+            Dimension mobileDimension = getDriver().manage().window().getSize();
+            int xMobileCoordinate = mobileDimension.getWidth();
+            int yMobileCoordinate = mobileDimension.getHeight();
+            Duration waitTime = ofSeconds(2000);
+
+            JavascriptExecutor js = (JavascriptExecutor) (IOSDriver)((WebDriverFacade) getDriver()).getProxiedDriver();
+
+            HashMap<String, String> swipeObject = new HashMap<String, String>();
+            //scrollObject.put("direction", "down");
+            //scrollObject.put("element", ((RemoteWebElement) element).getId());
+
+
+            //Worked - Way 2 Swipe Up
+            //TBD - does more swipe than expected ??
+            /*swipeObject.put("element", itemsViewTopRow.getId());
+            swipeObject.put("direction", "up");
+            js.executeScript("mobile: swipe", swipeObject);*/
+
+
+            //TBD ??
+            //Instead of PageFactory, intended to get MobileElements on run time but getting compilation error as below
+            //required ...java_client.MobileElement but found ..selenium.WebElement
+
+            //MobileElement horizontalSwipeGetItem1 = ((WebDriverFacade) getDriver()).getProxiedDriver().findElements(By.xpath("//XCUIElementTypeScrollView/XCUIElementTypeOther[contains(@name,'CUSTOMERS WHO VIEWED')]//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")).get(1);
+
+
+            //TBD ??
+            //Scroll left and right action step is very slow, this has slowed after introducing "List<MobileElement> suggestedItemsRow"
+            //One can see lots of appium server logs related to xpath "...@name,'CUSTOMERS WHO VIEWED...."
+            //Not sure if this is appium bug or needs to handled efficiently in automation code
+            //This has slowed down subsequent steps as well
+            //Find solution to swipe with co-ordinates
+
+            //IMP: Goto "ITEM ADDED" screen which shows row with suggested Items in bottom of screen
+
+            //Scroll left
+            swipeObject.put("element", suggestedItemsRow.get(1).getId());
+            swipeObject.put("direction", "right");
+            swipeObject.put("toVisible", "true");
+            js.executeScript("mobile: scroll", swipeObject);
+
+            //Scroll right
+            swipeObject.put("element", suggestedItemsRow.get(2).getId());
+            swipeObject.put("direction", "left");
+            swipeObject.put("toVisible", "true");
+            js.executeScript("mobile: scroll", swipeObject);
+
+
+            //IMP: Goto "Search Query XX ITEMS screen showing 4 items in screen"
+
+            //Way 3   Scroll Up
+            swipeObject.put("element", itemsViewTopRow.getId());
+            swipeObject.put("direction", "down");
+            swipeObject.put("toVisible", "true");
+            js.executeScript("mobile: scroll", swipeObject);
+
+
+            //Scroll Down
+            swipeObject.put("element", itemsViewTopRow.getId());
+            swipeObject.put("direction", "up");
+            swipeObject.put("toVisible", "true");
+            js.executeScript("mobile: scroll", swipeObject);
+
+
+
+            //Worked - Way 1  Swipe Up
+            //TBD - does more swipe than expected ??
+            //HashMap<String, String> swipeObject = new HashMap<String, String>();
+            /*swipeObject.put("direction", "up");
+            swipeObject.put("startX", "90");
+            swipeObject.put("startY", "400");
+            swipeObject.put("endX", "90"); //"90");
+            swipeObject.put("endY", "200"); //"200");
+            //swipeObject.put("duration", "0.5");
+            js.executeScript("mobile: swipe", swipeObject); //iOS */
+            //js.executeScript("mobile: scroll", swipeObject);
+
+             return true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
