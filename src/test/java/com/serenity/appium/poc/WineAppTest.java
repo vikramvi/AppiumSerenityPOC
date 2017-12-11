@@ -102,30 +102,31 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25138 -- verified on iOS, Android on 12/10/17
-    @Category({FindStore.class})
-    public void verifyNewStoreMap() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore();
-            wineAppSteps.verifyStoreDetailsMapLoad();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-//    @Test //DOT-25139 -- verified on iOS, but incomplete
+//    @Test //DOT-25138 -- verified on iOS, Android on 12/10/17
 //    @Category({FindStore.class})
-//    public void verifyNewStoreHours() {
+//    public void verifyNewStoreMap() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
 //            wineAppSteps.verifySelectNewStore();
-//            wineAppSteps.verifyStoreDetailsStoreHours();
+//            wineAppSteps.verifyStoreDetailsMapLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
+    @Test //DOT-25139 -- verified on iOS, but incomplete
+    @Category({FindStore.class})
+    public void verifyNewStoreHours() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectNewStore();
+            wineAppSteps.verifyStoreDetailsStoreHours();
+            wineAppSteps.verifyStoreTastingHours();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test //DOT-25238 -- verified on iOS and Android
 //    @Category({Regression1.class, FindStore.class})
 //    public void verifyDefaultStoreOnHomescreen(){

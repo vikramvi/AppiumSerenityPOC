@@ -2,6 +2,9 @@ package com.serenity.appium.poc.utils;
 
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +45,25 @@ public class ScheduleParser {
             }
         }
         return found;
+    }
+    public static List<DayOfWeek> getDayTimeDaysFromScheduleStream(String hoursStream) {
+        String streamCopy = hoursStream;
+        List<DayOfWeek> result = new ArrayList<DayOfWeek>();
+        Pattern pattern = Pattern.compile(tastingDayTime);
+        Matcher matcher = pattern.matcher(streamCopy);
+        while (matcher.find()) {
+            System.out.println("found (all) --> " + matcher.group());
+            //int index = matcher.start();
+            System.out.println("found 1 --> " + matcher.group(1));
+            result.add(DayOfWeek.valueOf(matcher.group(1).toUpperCase()));
+            if (isTypeDayTimeFound(streamCopy)) {
+                streamCopy = stripTypeDayTime(streamCopy);
+            } else {
+                streamCopy = stripDayTime(streamCopy);
+            }
+            matcher = pattern.matcher(streamCopy);
+        }
+        return result;
     }
     public static String stripTypeDayTime(String hoursStream) {
         return stripFrontRegex(hoursStream, tastingTypeDayTime);

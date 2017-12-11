@@ -15,6 +15,12 @@ import net.thucydides.core.annotations.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WineAppSteps extends ScenarioSteps {
@@ -139,5 +145,13 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying that the store hours contains all days...");
         assertThat(storeHoursPageObject.isStoreHoursTabPresent()).isTrue();
         assertThat(storeHoursPageObject.isShowingHoursForAllDays()).isTrue();
+    }
+
+    public void verifyStoreTastingHours() {
+        LOGGER.info("Verifying that the store tasting hours contain only specific days...");
+        assertThat(tastingHoursPageObject.isTastingHoursTabPresent()).isTrue();
+        assertThat(tastingHoursPageObject.clickTastingHoursTab()).isTrue();
+        List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+        assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingDays)).isTrue();
     }
 }

@@ -6,13 +6,11 @@ import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 import static com.serenity.appium.poc.utils.Utils.getAllAndroidGridData;
 
@@ -26,9 +24,10 @@ public class TastingHoursPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "grid-tasting-hours")
     private WebElement TEXT_GRID_tastingHours;
 
-//    private By TEXT_TABNAME_tastingHours = Utils.isAndroidPlatform(driver)
-//            ? MobileBy.xpath("//*[@text='TASTING HOURS']")
-//            : MobileBy.xpath("//*[@name='TASTING HOURS']");
+    public TastingHoursPageObject(WebDriver driver) {
+        super(driver);
+    }
+
     public boolean isTastingHoursTabPresent() {
         try {
             return TEXT_TABNAME_tastingHours.isDisplayed();
@@ -36,10 +35,11 @@ public class TastingHoursPageObject extends MobilePageObject {
             return false;
         }
     }
-    public void clickTastingHoursTab() {
-        Utils.tryClicking(TEXT_TABNAME_tastingHours);
+
+    public boolean clickTastingHoursTab() {
+        return Utils.tryClicking(TEXT_TABNAME_tastingHours);
     }
-//    private By TEXT_GRID_tastingHours = MobileBy.AccessibilityId("grid-tasting-hours");
+
     public boolean isTastingHoursGridPresent() {
         try {
             return TEXT_GRID_tastingHours.isDisplayed();
@@ -47,9 +47,12 @@ public class TastingHoursPageObject extends MobilePageObject {
             return false;
         }
     }
+
     public enum TastingType {WINE, BEER, SPIRITS};
+
     private final String XPATH_androidTastingGridElement = "//android.view.ViewGroup[@content-desc='grid-tasting-hours']/android.widget.TextView";
     private String XPATH_androidTastingGridElementPattern = XPATH_androidTastingGridElement + "[%d]";
+
     public String getTastingHours(TastingType type, DayOfWeek day) {
         String result = "NOT FOUND!";
         boolean typeEnded = false;
@@ -57,7 +60,7 @@ public class TastingHoursPageObject extends MobilePageObject {
             int totalGridItems = getDriver().findElements(MobileBy.xpath(XPATH_androidTastingGridElement)).size();
             int typeStartIndex = 0;
             int typeEndIndex = 0;
-            for (int i=1; i<=(totalGridItems-2); i+=3) {
+            for (int i = 1; i <= (totalGridItems - 2); i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i);
                 int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col1 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
@@ -67,12 +70,12 @@ public class TastingHoursPageObject extends MobilePageObject {
                     typeEndIndex = i;
                 }
             }
-            for (int i=typeStartIndex; i<=typeEndIndex; i+=3) {
-                String xpath = String.format(XPATH_androidTastingGridElementPattern, i+1);
+            for (int i = typeStartIndex; i <= typeEndIndex; i += 3) {
+                String xpath = String.format(XPATH_androidTastingGridElementPattern, i + 1);
                 int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col2 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
                 if (col2.equalsIgnoreCase(day.toString())) {
-                    xpath = String.format(XPATH_androidTastingGridElementPattern, i+2);
+                    xpath = String.format(XPATH_androidTastingGridElementPattern, i + 2);
                     result = getDriver().findElement(MobileBy.xpath(xpath)).getText();
                     break;
                 }
@@ -114,6 +117,7 @@ public class TastingHoursPageObject extends MobilePageObject {
         }
         return result;
     }
+
     //    public String getAllTastingData() {
 //        String result = "";
 //        if (Utils.isAndroidPlatform(driver)) {
@@ -141,7 +145,10 @@ public class TastingHoursPageObject extends MobilePageObject {
         return result;
     }
 
-    public TastingHoursPageObject(WebDriver driver) {
-        super(driver);
+    public boolean isShowingHoursForSelectDays(List<DayOfWeek> expectedDays) {
+        String hoursStream = getAllTastingHoursData();
+        List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream);
+        return actualDays.equals(expectedDays);
     }
+
 }

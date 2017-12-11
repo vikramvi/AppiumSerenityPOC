@@ -3,16 +3,15 @@ package com.serenity.appium.poc.pages.storeDetails;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.ScheduleParser;
 import com.serenity.appium.poc.utils.Utils;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StoreHoursPageObject extends MobilePageObject {
 
@@ -24,25 +23,16 @@ public class StoreHoursPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "grid-store-hours")
     private WebElement TEXT_GRID_storeHours;
 
-//    private By TEXT_TABNAME_storeHours = Utils.isAndroidPlatform(driver)
-//            ? MobileBy.xpath("//*[@text='STORE HOURS']")
-//            : MobileBy.xpath("//*[@name='STORE HOURS']");
     public boolean isStoreHoursTabPresent() {
         try {
-            //driver.findElement(TEXT_TABNAME_storeHours);
             return TEXT_TABNAME_storeHours.isDisplayed();
         } catch (Exception e) {
             return false;
         }
     }
-    public void clickStoreHoursTab() {
-        //driver.findElement(TEXT_TABNAME_storeHours).click();
-        Utils.tryClicking(TEXT_TABNAME_storeHours);
+    public boolean clickStoreHoursTab() {
+        return Utils.tryClicking(TEXT_TABNAME_storeHours);
     }
-//    private By TEXT_GRID_storeHours =
-//            Utils.isAndroidPlatform(driver)
-//                    ? MobileBy.xpath("//android.view.ViewGroup[@content-desc=\"grid-store-hours\"]")
-//                    : MobileBy.AccessibilityId("grid-store-hours");
     public boolean isStoreHoursGridPresent() {
         try {
             return TEXT_GRID_storeHours.isDisplayed();
@@ -50,11 +40,11 @@ public class StoreHoursPageObject extends MobilePageObject {
             return false;
         }
     }
-    private final String XPATH_androidStoreGridElement = "//android.view.ViewGroup[@content-desc='grid-store-hours']/android.widget.TextView";
+    private final String XPATH_androidStoreHoursGridElement = "//android.view.ViewGroup[@content-desc='grid-store-hours']/android.widget.TextView";
     public String getAllStoreHoursData() {
         String result = "";
         if (isAndroid()) {
-            result = Utils.getAllAndroidGridData(XPATH_androidStoreGridElement);
+            result = Utils.getAllAndroidGridData(XPATH_androidStoreHoursGridElement);
         } else {
             //result = driver.findElement(TEXT_GRID_storeHours).getText();
             result = TEXT_GRID_storeHours.getText();
@@ -74,6 +64,8 @@ public class StoreHoursPageObject extends MobilePageObject {
 
     public boolean isShowingHoursForAllDays() {
         String hoursStream = getAllStoreHoursData();
-        return true ;
+        List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream);
+        List<DayOfWeek> expectedDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.values()));
+        return actualDays.equals(expectedDays);
     }
 }

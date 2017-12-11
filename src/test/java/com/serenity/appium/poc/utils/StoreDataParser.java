@@ -69,7 +69,8 @@ public class StoreDataParser {
     public static String getLocation(String storeDataStream) {
         String result = Utils.stripFrontRegex(storeDataStream, titleRegex);
         result = Utils.stripAnyRegex(result, openCloseRegex);
-        return Utils.trimFinalSpace(result);
+//        return Utils.trimFinalSpace(result);
+        return result.trim();
     }
     public static String getAddress(String storeDataStream) {
         String result = noResultFound;

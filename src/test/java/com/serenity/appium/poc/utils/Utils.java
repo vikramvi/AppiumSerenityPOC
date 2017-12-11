@@ -40,6 +40,7 @@ public class Utils {
     }
 
     public static String stripFrontRegex(String stream, String regex) {
+        stream = stream.trim();
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(stream);
         String result = "NOT IN POSITION 0 !";
@@ -55,6 +56,7 @@ public class Utils {
     }
 
     public static String stripAnyRegex(String stream, String regex) {
+        stream = stream.trim();
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(stream);
         String result = "NOT FOUND!";
