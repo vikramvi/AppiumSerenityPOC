@@ -17,10 +17,11 @@ public class StoreSearchPageObject extends MobilePageObject {
 
 
     @AndroidFindBy(accessibility = "field-search-stores")
-//    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
 //    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
 //    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"\uE820 CITY, STATE OR ZIP SEARCH\"]")
-    @iOSFindBy(xpath = "(//XCUIElementTypeOther[@name=\"CITY, STATE OR ZIP\"])[4]")
+//    @iOSFindBy(xpath = "(//XCUIElementTypeOther[@name=\"CITY, STATE OR ZIP\"])[4]")
+//    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"\uE820 CITY, STATE OR ZIP SEARCH\"]")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
@@ -32,7 +33,8 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        return FIELD_geoSearch.isDisplayed();
+        boolean result = FIELD_geoSearch.isDisplayed();
+        return result;
     }
 
     public boolean enterSearchToken(String token) {
