@@ -1,5 +1,6 @@
 package com.serenity.appium.poc.pages;
 
+import com.openhtmltopdf.util.Util;
 import com.serenity.appium.poc.utils.Scrolling;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
@@ -57,27 +58,29 @@ public class StoreSearchPageObject extends MobilePageObject {
         FIELD_searchButton.click();
     }
 
-    //@TODO
+    private String XPATH_PATTERN_iosStoreName = "(//XCUIElementTypeOther[contains(@name,'%s')])";
+    private final String XPATH_androidStoreName = "//android.widget.TextView[@content-desc='store-address1']";
     public boolean selectStore(String storeFragment) {
         try {
             if (isIOS()) {
                 //Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
-                String xpath = String.format("(//XCUIElementTypeOther[contains(@name,'%s')])", storeFragment);
+                String xpath = String.format(XPATH_PATTERN_iosStoreName, storeFragment);
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
                 int index = getDriver().findElements(By.xpath(xpath)).size();
                 System.out.println(">>> Select Store index = " + index);
                 String suffix = String.format("[%s]", index);
                 getDriver().findElement(By.xpath(xpath + suffix)).click();
             } else {
+//                Util.sleep(10000);
+                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(XPATH_androidStoreName)));
                 Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
-                List<WebElement> elements = getDriver().findElements(By.xpath("//android.widget.TextView[@content-desc='store-address1']"));
+                List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreName));
                 for (WebElement element:elements) {
                     if (element.getText().equalsIgnoreCase(storeFragment)) {
                         element.click();
                         break;
                     }
                 }
-                //throw new IllegalStateException("selectStore not yet supported for Android!");
             }
             return true;
         } catch (Exception e) {
