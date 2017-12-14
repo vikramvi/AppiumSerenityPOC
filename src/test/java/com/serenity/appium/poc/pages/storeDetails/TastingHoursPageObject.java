@@ -118,23 +118,6 @@ public class TastingHoursPageObject extends MobilePageObject {
         return result;
     }
 
-    //    public String getAllTastingData() {
-//        String result = "";
-//        if (Utils.isAndroidPlatform(driver)) {
-//            int totalGridItems = driver.findElements(MobileBy.xpath(XPATH_androidTastingGridElement)).size();
-//            for (int i=1; i<=(totalGridItems); i++) {
-//                String xpath = String.format(XPATH_androidTastingGridElementPattern, i);
-//                boolean itemExists = (driver.findElements(MobileBy.xpath(xpath)).size() > 0);
-//                if (itemExists) {
-//                    String text = driver.findElement(MobileBy.xpath(xpath)).getText() + " ";
-//                    result = result + text;
-//                }
-//            }
-//        } else {
-//            result = driver.findElement(TEXT_GRID_tastingHours).getText();
-//        }
-//        return result;
-//    }
     public String getAllTastingHoursData() {
         String result = "";
         if (isAndroid()) {
@@ -150,5 +133,4 @@ public class TastingHoursPageObject extends MobilePageObject {
         List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream);
         return actualDays.equals(expectedDays);
     }
-
 }

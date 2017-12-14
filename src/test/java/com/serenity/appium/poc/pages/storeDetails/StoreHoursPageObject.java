@@ -46,7 +46,6 @@ public class StoreHoursPageObject extends MobilePageObject {
         if (isAndroid()) {
             result = Utils.getAllAndroidGridData(XPATH_androidStoreHoursGridElement);
         } else {
-            //result = driver.findElement(TEXT_GRID_storeHours).getText();
             result = TEXT_GRID_storeHours.getText();
         }
         return result;

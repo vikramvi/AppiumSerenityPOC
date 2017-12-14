@@ -8,9 +8,8 @@ import org.openqa.selenium.WebElement;
 
 public class SearchSectionPageObject extends MobilePageObject {
 
-    //    @AndroidFindBy(xpath="//android.widget.TextView[@content-desc='inactive-search-bar-field']") // pending tw_mobile update
     @AndroidFindBy(xpath="//android.widget.TextView[@text='WHAT CAN WE HELP YOU FIND?']")
-    @iOSFindBy(xpath="//XCUIElementTypeOther[@name='WHAT CAN WE HELP YOU FIND?']")
+    @iOSFindBy(accessibility="WHAT CAN WE HELP YOU FIND?")
     private WebElement FIELD_searchPlaceholder;
 
     public SearchSectionPageObject(WebDriver driver) { super(driver); }

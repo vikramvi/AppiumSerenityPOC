@@ -20,28 +20,18 @@ public class SpiritsHoursPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "grid-spirits-hours")
     private WebElement TEXT_GRID_spiritsHours;
 
-//    private By TEXT_TABNAME_spiritsHours = Utils.isAndroidPlatform(driver)
-//            ? MobileBy.xpath("//*[@text='SPIRITS HOURS']")
-//            : MobileBy.xpath("//*[@name='SPIRITS HOURS']");
     public boolean isSpiritsHoursTabPresent() {
         try {
-            //driver.findElement(TEXT_TABNAME_spiritsHours);
             return TEXT_TABNAME_spiritsHours.isDisplayed();
         } catch (Exception e) {
             return false;
         }
     }
     public void clickSpiritsHoursTab() {
-        //driver.findElement(TEXT_TABNAME_spiritsHours).click();
         Utils.tryClicking(TEXT_TABNAME_spiritsHours);
     }
-//    private By TEXT_GRID_spiritsHours =
-//            Utils.isAndroidPlatform(driver)
-//                    ? MobileBy.xpath("//android.view.ViewGroup[@content-desc=\"grid-spirits-hours\"]")
-//                    : MobileBy.AccessibilityId("grid-spirits-hours");
     public boolean isSpiritsHoursGridPresent() {
         try {
-            //driver.findElement(TEXT_GRID_spiritsHours);
             return TEXT_GRID_spiritsHours.isDisplayed();
         } catch (Exception e) {
             return false;

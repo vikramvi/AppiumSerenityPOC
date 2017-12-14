@@ -8,9 +8,8 @@ import org.openqa.selenium.WebElement;
 
 public class ProductSearchPageObject extends MobilePageObject {
 
-    //    @AndroidFindBy(xpath="//android.widget.EditText[@content-desc='active-search-field']") // pending tw_mobile update
-    @AndroidFindBy(xpath="//android.widget.EditText[@text='WHAT CAN WE HELP YOU FIND?']")
-    @iOSFindBy(xpath="//XCUIElementTypeOther[contains(@name,'WHAT CAN WE HELP YOU FIND?')]")
+    @AndroidFindBy(accessibility = "search field")
+    @iOSFindBy(accessibility="search view")
     private WebElement FIELD_searchProduct;
 
     public ProductSearchPageObject(WebDriver driver) { super(driver); }
@@ -39,5 +38,4 @@ public class ProductSearchPageObject extends MobilePageObject {
             return false;
         }
     }
-
 }

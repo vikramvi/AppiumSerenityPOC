@@ -1,9 +1,7 @@
 package com.serenity.appium.poc.pages;
 
-import com.openhtmltopdf.util.Util;
 import com.serenity.appium.poc.utils.Scrolling;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.By;
@@ -16,13 +14,9 @@ import java.util.List;
 
 public class StoreSearchPageObject extends MobilePageObject {
 
-
     @AndroidFindBy(accessibility = "field-search-stores")
     @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
 //    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
-//    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"\uE820 CITY, STATE OR ZIP SEARCH\"]")
-//    @iOSFindBy(xpath = "(//XCUIElementTypeOther[@name=\"CITY, STATE OR ZIP\"])[4]")
-//    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"\uE820 CITY, STATE OR ZIP SEARCH\"]")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")

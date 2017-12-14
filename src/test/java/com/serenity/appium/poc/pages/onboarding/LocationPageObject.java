@@ -6,11 +6,8 @@ import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.HashMap;
 
 public class LocationPageObject extends MobilePageObject {
 
