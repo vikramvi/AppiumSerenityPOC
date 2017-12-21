@@ -47,7 +47,7 @@ public class Utils {
         if (matcher.find()) {
             if (matcher.start() == 0) {
                 String matched = matcher.group();
-                result = stream.replace(matched, "");
+                result = stream.replaceFirst(matched, "");
             } else {
                 throw new IllegalStateException("Cannot strip expression when it is not in position 0!");
             }

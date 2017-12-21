@@ -58,22 +58,30 @@ public class StoreSearchPageObject extends MobilePageObject {
         try {
             if (isIOS()) {
                 //Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
-                String xpath = String.format(XPATH_PATTERN_iosStoreName, storeFragment);
+                String xpath = String.format(XPATH_PATTERN_iosStoreName, storeFragment.toUpperCase());
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
                 int index = getDriver().findElements(By.xpath(xpath)).size();
                 System.out.println(">>> Select Store index = " + index);
                 String suffix = String.format("[%s]", index);
                 getDriver().findElement(By.xpath(xpath + suffix)).click();
             } else {
-//                Util.sleep(10000);
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(XPATH_androidStoreName)));
-                Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
-                List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreName));
-                for (WebElement element:elements) {
-                    if (element.getText().equalsIgnoreCase(storeFragment)) {
-                        element.click();
-                        break;
+                int i=0;
+                boolean found = false;
+                while ((!found) && (i<3)) {
+                    List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreName));
+                    for (WebElement element:elements) {
+                        String storeName = element.getText();
+                        System.out.println("StoreName = " + storeName);
+                        if (storeName.equalsIgnoreCase(storeFragment)) {
+                            element.click();
+                            found = true;
+                        }
                     }
+                    if (!found) {
+                        Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                    }
+                    i++;
                 }
             }
             return true;

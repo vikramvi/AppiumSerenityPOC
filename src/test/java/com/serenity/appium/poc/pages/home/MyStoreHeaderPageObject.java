@@ -4,7 +4,6 @@ import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

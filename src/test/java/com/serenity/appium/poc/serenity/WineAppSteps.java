@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +26,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     private LocationPageObject locationPageObject;
     private LoyaltyPageObject loyaltyPageObject;
+    private MobilePageObject mobilePageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private NotificationPageObject notificationPageObject;
     private ProductSearchPageObject productSearchPageObject;
@@ -118,10 +118,10 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifySelectNewStore() {
+    public void verifySelectNewStore(String searchToken, String storeName) {
         LOGGER.info("Selecting the first store in the list and inspecting its details page...");
-        assertThat(storeSearchPageObject.enterSearchToken("33435")).isTrue();
-        assertThat(storeSearchPageObject.selectStore("SHOPPES AT ISLA VERDE")).isTrue();
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+        assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
     }
 
     @Step
@@ -147,11 +147,22 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(storeHoursPageObject.isShowingHoursForAllDays()).isTrue();
     }
 
-    public void verifyStoreTastingHours() {
-        LOGGER.info("Verifying that the store tasting hours contain only specific days...");
+    @Step
+    public void verifyShowTastingHours() {
+        LOGGER.info("Clicking tab to show tasting hours...");
         assertThat(tastingHoursPageObject.isTastingHoursTabPresent()).isTrue();
         assertThat(tastingHoursPageObject.clickTastingHoursTab()).isTrue();
-        List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-        assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingDays)).isTrue();
+    }
+
+    @Step
+    public void verifyStoreTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays) {
+        LOGGER.info("Verifying that tasting hours for " +tastingType.name()+ " are only on specific days...");
+        assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingType, tastingDays)).isTrue();
+    }
+
+    @Step
+    public void verifyReturn() {
+        LOGGER.info("Returning back one screen...");
+        tastingHoursPageObject.clickReturnButton();
     }
 }
