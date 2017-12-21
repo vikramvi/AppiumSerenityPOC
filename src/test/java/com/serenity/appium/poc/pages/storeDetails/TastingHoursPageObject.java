@@ -76,7 +76,6 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
             int typeEndIndex = 0;
             for (int i = 1; i <= (totalGridItems - 2); i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i);
-//                int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col1 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
                 if (col1.equalsIgnoreCase(type.toString())) {
                     typeStartIndex = i;
@@ -86,7 +85,6 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
             }
             for (int i = typeStartIndex; i <= typeEndIndex; i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i + 1);
-//                int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col2 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
                 if (col2.equalsIgnoreCase(day.toString())) {
                     xpath = String.format(XPATH_androidTastingGridElementPattern, i + 2);
@@ -141,7 +139,6 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
             int typeEndIndex = 0;
             for (int i = 1; i <= (totalGridItems - 2); i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i);
-//                int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col1 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
 //                if (col1.equalsIgnoreCase(type.toString())) {
 //                    typeStartIndex = i;
@@ -152,16 +149,15 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
                     if (col1.equalsIgnoreCase(type.toString())) {
                         typeStartIndex = i;
                         typeEndIndex = i;
-                    } else {
+                    } else if (typeStartIndex > 0) {
                         break;
                     }
-                } else {
+                } else if (typeStartIndex > 0) {
                     typeEndIndex = i;
                 }
             }
             for (int i = typeStartIndex; i <= typeEndIndex; i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i + 1);
-//                int x = getDriver().findElements(MobileBy.xpath(xpath)).size();
                 String col2 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
                 try {
                     days.add(DayOfWeek.valueOf(col2.toUpperCase()));

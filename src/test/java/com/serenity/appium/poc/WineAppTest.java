@@ -162,6 +162,7 @@ public class WineAppTest {
             wineAppSteps.verifyShowTastingHours();
             List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
             wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
             wineAppSteps.verifyReturn();
         }catch (Exception e){
             e.printStackTrace();
