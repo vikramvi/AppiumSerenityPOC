@@ -38,7 +38,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        //startAppiumServer();
+        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -63,7 +63,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-        //stopAppiumServer();
+        stopAppiumServer();
     }
 
 //    @Test
@@ -154,16 +154,20 @@ public class WineAppTest {
 //    }
     @Test //DOT-25248 -- in progress...
     @Category({Regression1.class, FindStore.class})
-    public void verifyAllTastingHourTypes(){
+    public void DOT_25248_verifyAllTastingHourTypes(){
         try{
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore("MD", "Laurel (Corridor)");
+            wineAppSteps.verifySelectNewStore("MD", "", "Laurel Corridor");
             wineAppSteps.verifyShowTastingHours();
             List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
             wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
             wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
             wineAppSteps.verifyReturn();
+            wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
+            wineAppSteps.verifyShowTastingHours();
+            tastingDays.remove(DayOfWeek.THURSDAY);
+            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
         }catch (Exception e){
             e.printStackTrace();
         }

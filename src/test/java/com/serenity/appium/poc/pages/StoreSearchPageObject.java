@@ -16,15 +16,29 @@ public class StoreSearchPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "field-search-stores")
     @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(xpath = "//XCUIElementTypeOther[starts-with(@name,'\uE820') and ends-with(@name,'SEARCH')]")
 //    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
-    @iOSFindBy(accessibility = "SEARCH") // not needed if \n is added on search term
+    @iOSFindBy(accessibility = "SEARCH")
     private WebElement FIELD_searchButton;
 
     public StoreSearchPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    private final String defaultSearchBoxText = "CITY, STATE OR ZIP";
+    private String searchBoxAccessibilityPattern = "\uE820 %s SEARCH";
+    private WebElement getIosSearchBoxElement(String oldSearchText) {
+        WebElement result;
+        String text = null;
+        if (oldSearchText.isEmpty()) {
+            text = String.format(searchBoxAccessibilityPattern, defaultSearchBoxText);
+        } else {
+            text = String.format(searchBoxAccessibilityPattern, oldSearchText);
+        }
+        return getDriver().findElement(MobileBy.AccessibilityId(text));
     }
 
     public boolean isSearchFieldPresent() {
@@ -32,13 +46,14 @@ public class StoreSearchPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean enterSearchToken(String token) {
+    public boolean enterSearchToken(String token, String oldToken) {
         try {
             if (isIOS()) {
                 token = token + "\n";
-            }
-            FIELD_geoSearch.sendKeys(token);
-            if (isAndroid()) {
+                WebElement searchBox = getIosSearchBoxElement(oldToken);
+                searchBox.sendKeys(token);
+            } else {
+                FIELD_geoSearch.sendKeys(token);
                 clickSearchButtonOnly();
             }
             return true;
@@ -90,14 +105,5 @@ public class StoreSearchPageObject extends MobilePageObject {
             return false;
         }
     }
-//
-//    private String XPATH_storeNumberPattern = "(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[%d]/android.widget.TextView[1]";
-//    public void selectStore(int storeNumber) {
-//        String xpath = String.format(XPATH_storeNumberPattern, storeNumber);
-//        new WebDriverWait(getDriver(), 25)
-//                .until(ExpectedConditions
-//                        .visibilityOfElementLocated(MobileBy.xpath(xpath)))
-//                .click();
-//    }
 }
 

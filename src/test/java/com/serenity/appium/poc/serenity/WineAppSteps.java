@@ -104,7 +104,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void verifyChangeStoreLookupOption() {
-        LOGGER.info("Scrolling to store, clicking change store and verifying that the geo search field is displayed...");
+        LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
 //        assertThat(myStoreHeaderPageObject.scrollToStore()).isTrue();
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
@@ -118,9 +118,9 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifySelectNewStore(String searchToken, String storeName) {
-        LOGGER.info("Selecting the first store in the list and inspecting its details page...");
-        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+    public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
+        LOGGER.info("Entering search token then selecting the specified store in the list...");
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken, oldSearchToken)).isTrue();
         assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
     }
 
@@ -142,7 +142,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void verifyStoreDetailsStoreHours() {
-        LOGGER.info("Verifying that the store hours contains all days...");
+        LOGGER.info("Verifying that the store hours contains all days of the week...");
         assertThat(storeHoursPageObject.isStoreHoursTabPresent()).isTrue();
         assertThat(storeHoursPageObject.isShowingHoursForAllDays()).isTrue();
     }

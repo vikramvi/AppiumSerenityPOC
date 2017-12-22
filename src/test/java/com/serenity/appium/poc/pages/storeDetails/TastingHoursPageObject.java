@@ -140,11 +140,6 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
             for (int i = 1; i <= (totalGridItems - 2); i += 3) {
                 String xpath = String.format(XPATH_androidTastingGridElementPattern, i);
                 String col1 = getDriver().findElement(MobileBy.xpath(xpath)).getText();
-//                if (col1.equalsIgnoreCase(type.toString())) {
-//                    typeStartIndex = i;
-//                } else if ((typeStartIndex > 0) && (col1.isEmpty())) {
-//                    typeEndIndex = i;
-//                }
                 if (!col1.isEmpty()) {
                     if (col1.equalsIgnoreCase(type.toString())) {
                         typeStartIndex = i;
