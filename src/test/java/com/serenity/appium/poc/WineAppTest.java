@@ -38,7 +38,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+//        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -63,7 +63,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-        stopAppiumServer();
+//        stopAppiumServer();
     }
 
 //    @Test
@@ -79,9 +79,9 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25134 -- verified on iOS, Android on 12/18/17
+//    @Test // verified on iOS, Android on 12/22/17
 //    @Category({Regression1.class, FindStore.class})
-//    public void verifyClosestStoreOnHomepage(){
+//    public void DOT_25134_verifyClosestStoreOnHomepage(){
 //        Properties properties = new Properties();
 //        String expectedTitle = "BOYNTON BEACH";
 //        String expectedLocation = "Boynton Town Center";
@@ -96,9 +96,9 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25137 -- verified on iOS, Android on 12/18/17
+//    @Test // verified on iOS, Android on 12/18/17
 //    @Category({FindStore.class})
-//    public void verifyNewStoreIcons() {
+//    public void DOT_25137_verifyNewStoreIcons() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
@@ -108,9 +108,9 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25138 -- verified on iOS, Android on 12/18/17
+//    @Test // verified on iOS, Android on 12/18/17
 //    @Category({FindStore.class})
-//    public void verifyNewStoreMap() {
+//    public void DOT_25138_verifyNewStoreMap() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
@@ -120,21 +120,22 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25139 -- verified on iOS, Android on 12/18/17
-//    public void verifyNewStoreHours() {
+//    @Test // verified on iOS, Android on 12/18/17
+//    public void DOT_25139_verifyNewStoreHours() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
 //            wineAppSteps.verifySelectNewStore("33435", "SHOPPES AT ISLA VERDE");
 //            wineAppSteps.verifyStoreDetailsStoreHours();
-//            wineAppSteps.verifyStoreTastingHours();
+//            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25238 -- verified on iOS and Android on 12/18/17
+//    @Test // verified on iOS and Android on 12/22/17
 //    @Category({Regression1.class, FindStore.class})
-//    public void verifyDefaultStoreOnHomescreen(){
+//    public void DOT_25238_verifyDefaultStoreOnHomescreen(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
@@ -142,9 +143,9 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //DOT-25239 -- verified on iOS, Android on 12/18/17
+//    @Test // verified on iOS, Android on 12/22/17
 //    @Category({Regression1.class, FindStore.class})
-//    public void verifyOptionToChangeStores(){
+//    public void DOT_25239_verifyOptionToChangeStores(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
@@ -152,24 +153,44 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //DOT-25248 -- in progress...
-    @Category({Regression1.class, FindStore.class})
-    public void DOT_25248_verifyAllTastingHourTypes(){
-        try{
+//    @Test // verified on iOS on 12/22/17
+//    @Category({Regression1.class, FindStore.class})
+//    public void DOT_25248_verifyAllTastingHourTypes(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectNewStore("MD", "Laurel Corridor");
+//            wineAppSteps.verifyShowTastingHours();
+//            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+//            wineAppSteps.verifyReturn();
+//            wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
+//            wineAppSteps.verifyShowTastingHours();
+//            tastingDays.remove(DayOfWeek.THURSDAY);
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+    @Test // in progress...
+    @Category({FindStore.class})
+    public void DOT_25245_verifyStoreAddress() {
+        try {
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore("MD", "", "Laurel Corridor");
-            wineAppSteps.verifyShowTastingHours();
-            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
-            wineAppSteps.verifyReturn();
-            wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
-            wineAppSteps.verifyShowTastingHours();
-            tastingDays.remove(DayOfWeek.THURSDAY);
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
-        }catch (Exception e){
+            wineAppSteps.verifySelectNewStore(
+                    "Coral Springs, FL",
+                    "Royal University Plaza");
+            wineAppSteps.verifyStoreDetailsHeaderData(
+                    "Royal University Plaza",
+                    "2564 N. University Drive",
+                    "Coral Springs, FL 33065",
+                    "Open Until 11 PM"
+            );
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

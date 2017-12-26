@@ -2,6 +2,7 @@ package com.serenity.appium.poc.pages.home;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
+import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +36,25 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     private static final String noResultsFound = "NOT_FOUND!";
+
+    public boolean clickTouchableStoreData() {
+        boolean result = false;
+        if (isAndroid()) {
+            if (Utils.isVisible(getDriver(), TEXT_storeTitle, 5)) {
+                result = Utils.tryClicking(TEXT_storeTitle);
+            } else {
+                throw new IllegalStateException("Touchable store data not present to click!");
+            }
+        } else {
+            if (Utils.isVisible(getDriver(), TOUCHABLE_TEXT_storeData, 5)) {
+                result = Utils.tryClicking(TOUCHABLE_TEXT_storeData);
+            } else {
+                throw new IllegalStateException("Touchable store data not present to click!");
+            }
+        }
+        return result;
+    }
+
 
     public String getStoreDataForIos() {
         String result = noResultsFound;
@@ -83,21 +103,23 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isChangeStoreOptionPresent() {
-        try {
-            return BUTTON_changeStore.isDisplayed();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+//        try {
+//            return BUTTON_changeStore.isDisplayed();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+        return Utils.isVisible(getDriver(), BUTTON_changeStore, 5);
     }
 
     public boolean clickChangeStore() {
-        try {
-            BUTTON_changeStore.click();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+//        try {
+//            BUTTON_changeStore.click();
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+        return Utils.tryClicking(BUTTON_changeStore);
     }
 }

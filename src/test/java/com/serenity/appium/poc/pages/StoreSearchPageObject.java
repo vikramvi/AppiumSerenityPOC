@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Scrolling;
+import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -42,7 +43,8 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        boolean result = FIELD_geoSearch.isDisplayed();
+//        boolean result = FIELD_geoSearch.isDisplayed();
+        boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 2);
         return result;
     }
 

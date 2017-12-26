@@ -87,6 +87,15 @@ public class Utils {
         }
     }
 
+    public static boolean isVisible(WebDriver driver, WebElement element, int seconds) {
+        try {
+            new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOf(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static boolean tryClicking(String xpath) {
         WebElement element = getDriver().findElement(By.xpath(xpath));
         return tryClicking(element);

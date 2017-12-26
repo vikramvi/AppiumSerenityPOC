@@ -32,13 +32,14 @@ public class WineAppSteps extends ScenarioSteps {
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
     private SearchSectionPageObject searchSection;
-    private SplashPageObject splashPageObject;
     private SpiritsHoursPageObject spiritsHoursPageObject;
+    private SplashPageObject splashPageObject;
+    private StoreDataHeaderPageObject storeDataHeaderPageObject;
     private StoreHoursPageObject storeHoursPageObject;
-    private TastingHoursPageObject tastingHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
     private StoreSearchPageObject storeSearchPageObject;
+    private TastingHoursPageObject tastingHoursPageObject;
     private WineAppPageObject wineAppPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WineAppSteps.class);
@@ -103,6 +104,12 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifyHomepageToStoreDetails() {
+        LOGGER.info("Clicking touchable store data to see store details page...");
+        assertThat(myStoreHeaderPageObject.clickTouchableStoreData()).isTrue();
+    }
+
+    @Step
     public void verifyChangeStoreLookupOption() {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
 //        assertThat(myStoreHeaderPageObject.scrollToStore()).isTrue();
@@ -117,6 +124,9 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
     }
 
+    public void verifySelectNewStore(String searchToken, String storeName) {
+        verifySelectNewStore(searchToken, "", storeName);
+    }
     @Step
     public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
         LOGGER.info("Entering search token then selecting the specified store in the list...");
@@ -130,6 +140,15 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isGetDirectionsIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isMyStoreIconPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyStoreDetailsHeaderData(String address1, String address2, String cityStateZip, String openCloseHour) {
+        LOGGER.info("Verifying the store address and open until/at data...");
+        assertThat(storeDataHeaderPageObject.getAddress1()).isEqualTo(address1);
+        assertThat(storeDataHeaderPageObject.getAddress2()).isEqualTo(address2);
+        assertThat(storeDataHeaderPageObject.getCityStateZip()).isEqualTo(cityStateZip);
+        assertThat(storeDataHeaderPageObject.getOpenCloseHour()).isEqualTo(openCloseHour);
     }
 
     @Step
