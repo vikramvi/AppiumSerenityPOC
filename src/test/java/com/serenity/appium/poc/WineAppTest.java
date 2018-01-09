@@ -38,7 +38,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-//        startAppiumServer();
+        //startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -63,7 +63,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-//        stopAppiumServer();
+        //stopAppiumServer();
     }
 
 //    @Test
@@ -127,6 +127,7 @@ public class WineAppTest {
 //            wineAppSteps.verifyChangeStoreLookupOption();
 //            wineAppSteps.verifySelectNewStore("33435", "SHOPPES AT ISLA VERDE");
 //            wineAppSteps.verifyStoreDetailsStoreHours();
+//            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //        } catch (Exception e) {
@@ -173,6 +174,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+
     @Test // in progress...
     @Category({FindStore.class})
     public void DOT_25245_verifyStoreAddress() {
@@ -180,12 +182,12 @@ public class WineAppTest {
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
             wineAppSteps.verifySelectNewStore(
-                    "Coral Springs, FL",
-                    "Royal University Plaza");
+                    "MD",
+                    "Laurel Corridor");
             wineAppSteps.verifyStoreDetailsHeaderData(
-                    "Royal University Plaza",
-                    "2564 N. University Drive",
-                    "Coral Springs, FL 33065",
+                    "Laurel Corridor",
+                    "3335 Corridor Marketplace",
+                    "Laurel, MD 20724",
                     "Open Until 11 PM"
             );
         } catch (Exception e) {

@@ -145,10 +145,10 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyStoreDetailsHeaderData(String address1, String address2, String cityStateZip, String openCloseHour) {
         LOGGER.info("Verifying the store address and open until/at data...");
-        assertThat(storeDataHeaderPageObject.getAddress1()).isEqualTo(address1);
-        assertThat(storeDataHeaderPageObject.getAddress2()).isEqualTo(address2);
-        assertThat(storeDataHeaderPageObject.getCityStateZip()).isEqualTo(cityStateZip);
-        assertThat(storeDataHeaderPageObject.getOpenCloseHour()).isEqualTo(openCloseHour);
+        assertThat(storeDataHeaderPageObject.getAddress1()).isEqualToIgnoringCase(address1);
+        assertThat(storeDataHeaderPageObject.getAddress2()).isEqualToIgnoringCase(address2);
+        assertThat(storeDataHeaderPageObject.getCityStateZip()).isEqualToIgnoringCase(cityStateZip);
+        assertThat(storeDataHeaderPageObject.getOpenCloseHour()).isEqualToIgnoringCase(openCloseHour);
     }
 
     @Step
