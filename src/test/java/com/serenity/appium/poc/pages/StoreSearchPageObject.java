@@ -16,7 +16,8 @@ import java.util.List;
 public class StoreSearchPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "field-search-stores")
-    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+    @iOSFindBy(xpath = "(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")
 //    @iOSFindBy(xpath = "//XCUIElementTypeOther[starts-with(@name,'\uE820') and ends-with(@name,'SEARCH')]")
 //    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
     private WebElement FIELD_geoSearch;
@@ -48,12 +49,17 @@ public class StoreSearchPageObject extends MobilePageObject {
         return result;
     }
 
+    By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
     public boolean enterSearchToken(String token, String oldToken) {
         try {
             if (isIOS()) {
                 token = token + "\n";
-                WebElement searchBox = getIosSearchBoxElement(oldToken);
-                searchBox.sendKeys(token);
+//                WebElement searchBox = getIosSearchBoxElement(oldToken);
+//                searchBox.sendKeys(token);
+//                FIELD_geoSearch.sendKeys(token);
+                //getDriver().findElement(By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")).sendKeys(token);
+                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(BY_searchField));
+                getDriver().findElement(BY_searchField).sendKeys(token);
             } else {
                 FIELD_geoSearch.sendKeys(token);
                 clickSearchButtonOnly();
