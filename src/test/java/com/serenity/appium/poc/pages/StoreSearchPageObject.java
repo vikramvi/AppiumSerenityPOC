@@ -16,8 +16,8 @@ import java.util.List;
 public class StoreSearchPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "field-search-stores")
-//    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
-    @iOSFindBy(xpath = "(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")
+    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(xpath = "(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")
 //    @iOSFindBy(xpath = "//XCUIElementTypeOther[starts-with(@name,'\uE820') and ends-with(@name,'SEARCH')]")
 //    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
     private WebElement FIELD_geoSearch;
