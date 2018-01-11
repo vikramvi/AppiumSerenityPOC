@@ -38,7 +38,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+        //startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -63,7 +63,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-        stopAppiumServer();
+        //stopAppiumServer();
     }
 
 //    @Test
@@ -102,7 +102,7 @@ public class WineAppTest {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "SHOPPES AT ISLA VERDE");
+//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsIcons();
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -114,7 +114,7 @@ public class WineAppTest {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "SHOPPES AT ISLA VERDE");
+//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsMapLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -125,7 +125,7 @@ public class WineAppTest {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "SHOPPES AT ISLA VERDE");
+//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsStoreHours();
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
@@ -154,46 +154,46 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test // verified on iOS on 1/9/18
-    @Category({Regression1.class, FindStore.class})
-    public void DOT_25248_verifyAllTastingHourTypes(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectNewStore("MD", "Laurel Corridor");
-            wineAppSteps.verifyShowTastingHours();
-            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
-            wineAppSteps.verifyReturn();
-            //wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
-            wineAppSteps.verifySelectNewStore("Chesterfield", "Clarkson Square");
-            wineAppSteps.verifyShowTastingHours();
-            tastingDays.remove(DayOfWeek.THURSDAY);
-            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
 //    @Test // verified on iOS on 1/9/18
-//    @Category({FindStore.class})
-//    public void DOT_25245_verifyStoreAddress() {
-//        try {
+//    @Category({Regression1.class, FindStore.class})
+//    public void DOT_25248_verifyAllTastingHourTypes(){
+//        try{
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore(
-//                    "MD",
-//                    "Laurel Corridor");
-//            wineAppSteps.verifyStoreDetailsHeaderData(
-//                    "Laurel Corridor",
-//                    "3335 Corridor Marketplace",
-//                    "Laurel, MD 20724",
-//                    "Open Until 11 PM"
-//            );
-//        } catch (Exception e) {
+//            wineAppSteps.verifySelectNewStore("MD", "Laurel (Corridor)");
+//            wineAppSteps.verifyShowTastingHours();
+//            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+//            wineAppSteps.verifyReturn();
+//            //wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
+//            wineAppSteps.verifySelectNewStore("Chesterfield", "Chesterfield");
+//            wineAppSteps.verifyShowTastingHours();
+//            tastingDays.remove(DayOfWeek.THURSDAY);
+//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+//        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }
+
+    @Test // verified on iOS on 1/9/18
+    @Category({FindStore.class})
+    public void DOT_25245_verifyStoreAddress() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectNewStore(
+                    "MD",
+                    "Laurel (Corridor)");
+            wineAppSteps.verifyStoreDetailsHeaderData(
+                    "Laurel Corridor",
+                    "3335 Corridor Marketplace",
+                    "Laurel, MD 20724",
+                    "Open Until 11 PM"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

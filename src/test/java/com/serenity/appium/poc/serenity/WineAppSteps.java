@@ -130,7 +130,8 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
         LOGGER.info("Entering search token then selecting the specified store in the list...");
-        assertThat(storeSearchPageObject.enterSearchToken(searchToken, oldSearchToken)).isTrue();
+//        assertThat(storeSearchPageObject.enterSearchToken(searchToken, oldSearchToken)).isTrue();
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
         assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
     }
 

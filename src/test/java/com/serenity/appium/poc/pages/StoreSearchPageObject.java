@@ -50,7 +50,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
-    public boolean enterSearchToken(String token, String oldToken) {
+    public boolean enterSearchToken(String token){ //}, String oldToken) {
         try {
             if (isIOS()) {
                 token = token + "\n";

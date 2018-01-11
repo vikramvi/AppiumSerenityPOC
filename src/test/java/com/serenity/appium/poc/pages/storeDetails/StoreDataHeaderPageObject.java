@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 
 public class StoreDataHeaderPageObject extends StoreDetailsCommonPageObject {
 
-    @AndroidFindBy(accessibility = "text-store-title")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-title\"]/android.widget.TextView")
     @iOSFindBy(accessibility = "text-store-title")
     private WebElement TEXT_storeAddress1;
 
@@ -17,11 +17,11 @@ public class StoreDataHeaderPageObject extends StoreDetailsCommonPageObject {
     @iOSFindBy(accessibility = "text-store-address")
     private WebElement TEXT_storeAddress2;
 
-    @AndroidFindBy(accessibility = "text-store-cityStateZip")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-cityStateZip\"]/android.widget.TextView")
     @iOSFindBy(accessibility = "text-store-cityStateZip")
     private WebElement TEXT_cityStateZip;
 
-    @AndroidFindBy(accessibility = "text-store-openCloseHour")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-openCloseHour\"]/android.widget.TextView")
     @iOSFindBy(accessibility = "text-store-openCloseHour")
     private WebElement TEXT_openCloseHour;
 
