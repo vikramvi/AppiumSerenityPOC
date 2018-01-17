@@ -11,6 +11,7 @@ public class StoreDataParser {
     private static String stateRegex = "([A-Z]{2})";
     private static String zipRegex = "([0-9]{5}(-[0-9]{4})?)";
     private static String cityStateZipRegex = "(" + cityRegex + "\\s" + stateRegex + "\\s" + zipRegex + ")";
+    private static String phoneNumberRegex = "(\\([0-9]{3}\\)\\s[0-9]{3}\\-[0-9]{4})";
     private static String daysRegex = "((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\\s)?";
     public static String openCloseRegex = "((Opens|Open)\\s" +daysRegex+ "(at|Until)\\s(1[012]|[1-9])\\s(AM|PM))";
     private static String fullStoreData = titleRegex+addressRegex+"?\\s?("+cityRegex+"\\s"+stateRegex
@@ -54,6 +55,10 @@ public class StoreDataParser {
     public static String stripCityStateZip(String storeDataStream) {
         return Utils.stripFrontRegex(storeDataStream, cityStateZipRegex);
     }
+    public static String stripPhoneNumber(String storeDataStream) {
+        return Utils.stripFrontRegex(storeDataStream, phoneNumberRegex);
+    }
+
     public static final String noResultFound = "NOT FOUND!";
     public static String getTitle(String storeDataStream) {
         String result = noResultFound;
@@ -78,7 +83,7 @@ public class StoreDataParser {
         Matcher matcher = pattern.matcher(storeDataStream);
         if (matcher.find()) {
 //            result = matcher.group(4);
-            result = matcher.group(1); // 4th in typical group);
+            result = matcher.group(1);
         } else {
             throw new IllegalStateException("No match for address in " + storeDataStream + "!");
         }
@@ -129,6 +134,17 @@ public class StoreDataParser {
             result = matcher.group(1);
         } else {
             throw new IllegalStateException("No match for zip in " + storeDataStream + "!");
+        }
+        return result;
+    }
+    public static String getPhoneNumber(String storeDataStream) {
+        String result = noResultFound;
+        Pattern pattern = Pattern.compile(phoneNumberRegex);
+        Matcher matcher = pattern.matcher(storeDataStream);
+        if (matcher.find()) {
+            result = matcher.group(1);
+        } else {
+            throw new IllegalStateException("No match for phone number in " + storeDataStream + "!");
         }
         return result;
     }

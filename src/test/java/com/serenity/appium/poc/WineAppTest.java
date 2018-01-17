@@ -79,7 +79,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on iOS on 1/15/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25134_verifyClosestStoreOnHomepage(){
 //        Properties properties = new Properties();
@@ -175,8 +175,8 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-
-    @Test // verified on iOS on 1/9/18
+//
+    @Test // verified on iOS, Android on 1/11/18
     @Category({FindStore.class})
     public void DOT_25245_verifyStoreAddress() {
         try {
@@ -186,6 +186,7 @@ public class WineAppTest {
                     "MD",
                     "Laurel (Corridor)");
             wineAppSteps.verifyStoreDetailsHeaderData(
+                    "Laurel (Corridor)",
                     "Laurel Corridor",
                     "3335 Corridor Marketplace",
                     "Laurel, MD 20724",

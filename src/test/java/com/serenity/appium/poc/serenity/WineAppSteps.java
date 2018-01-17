@@ -124,11 +124,12 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
     }
 
-    public void verifySelectNewStore(String searchToken, String storeName) {
-        verifySelectNewStore(searchToken, "", storeName);
-    }
+//    public void verifySelectNewStore(String searchToken, String storeName) {
+//        verifySelectNewStore(searchToken, "", storeName);
+//    }
     @Step
-    public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
+//    public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
+    public void verifySelectNewStore(String searchToken, String storeName) {
         LOGGER.info("Entering search token then selecting the specified store in the list...");
 //        assertThat(storeSearchPageObject.enterSearchToken(searchToken, oldSearchToken)).isTrue();
         assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
@@ -144,8 +145,9 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyStoreDetailsHeaderData(String address1, String address2, String cityStateZip, String openCloseHour) {
+    public void verifyStoreDetailsHeaderData(String title, String address1, String address2, String cityStateZip, String openCloseHour) {
         LOGGER.info("Verifying the store address and open until/at data...");
+        assertThat(storeDataHeaderPageObject.getTitle()).isEqualToIgnoringCase(title);
         assertThat(storeDataHeaderPageObject.getAddress1()).isEqualToIgnoringCase(address1);
         assertThat(storeDataHeaderPageObject.getAddress2()).isEqualToIgnoringCase(address2);
         assertThat(storeDataHeaderPageObject.getCityStateZip()).isEqualToIgnoringCase(cityStateZip);

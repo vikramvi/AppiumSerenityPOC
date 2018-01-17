@@ -11,6 +11,10 @@ public class StoreDataHeaderPageObject extends StoreDetailsCommonPageObject {
 
     @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-title\"]/android.widget.TextView")
     @iOSFindBy(accessibility = "text-store-title")
+    private WebElement TEXT_storeTitle;
+
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-address1\"]/android.widget.TextView")
+    @iOSFindBy(accessibility = "text-store-address1")
     private WebElement TEXT_storeAddress1;
 
     @AndroidFindBy(accessibility = "text-store-address")
@@ -28,6 +32,17 @@ public class StoreDataHeaderPageObject extends StoreDetailsCommonPageObject {
     public boolean isAddress1Displayed() {
         return Utils.isVisible(getDriver(), TEXT_storeAddress1, 5);
     }
+    public String getTitle() {
+        String result = "NOT FOUND!";
+        try {
+            result = TEXT_storeTitle.getText();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalStateException("Can't retrieve Title text!");
+        }
+        return result;
+    }
+
     public String getAddress1() {
         String result = "NOT FOUND!";
         try {

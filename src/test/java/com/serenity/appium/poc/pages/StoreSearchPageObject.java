@@ -76,7 +76,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     private String XPATH_PATTERN_iosStoreName = "(//XCUIElementTypeOther[contains(@name,'%s')])";
-    private final String XPATH_androidStoreName = "//android.widget.TextView[@content-desc='store-address1']";
+    private final String XPATH_androidStoreName = "//android.widget.TextView[@content-desc='store-title']";
     public boolean selectStore(String storeFragment) {
         try {
             if (isIOS()) {

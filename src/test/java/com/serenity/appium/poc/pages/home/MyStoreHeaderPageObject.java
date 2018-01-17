@@ -103,23 +103,10 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isChangeStoreOptionPresent() {
-//        try {
-//            return BUTTON_changeStore.isDisplayed();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
         return Utils.isVisible(getDriver(), BUTTON_changeStore, 5);
     }
 
     public boolean clickChangeStore() {
-//        try {
-//            BUTTON_changeStore.click();
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
         return Utils.tryClicking(BUTTON_changeStore);
     }
 }
