@@ -17,8 +17,8 @@ import static com.serenity.appium.poc.utils.Utils.getAllAndroidGridData;
 
 public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
 
-    @AndroidFindBy(xpath = "//*[@text='TASTING HOURS']")
-    @iOSFindBy(xpath = "//*[@name='TASTING HOURS']")
+    @AndroidFindBy(xpath = "//*[@text='SAMPLING HOURS']")
+    @iOSFindBy(xpath = "//*[@name='SAMPLING HOURS']")
     private WebElement TEXT_TABNAME_tastingHours;
 
     @AndroidFindBy(accessibility = "grid-tasting-hours")
