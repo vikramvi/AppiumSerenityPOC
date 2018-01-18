@@ -35,6 +35,8 @@ public class MobilePageObject extends PageObject {
         });
     }
 
+    protected static final String noResultsFound = "NOT_FOUND!";
+
     //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
     private static boolean isIOS;
     private static boolean isAndroid;

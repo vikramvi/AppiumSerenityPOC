@@ -35,7 +35,6 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
         super(driver);
     }
 
-    private static final String noResultsFound = "NOT_FOUND!";
 
     public boolean clickTouchableStoreData() {
         boolean result = false;

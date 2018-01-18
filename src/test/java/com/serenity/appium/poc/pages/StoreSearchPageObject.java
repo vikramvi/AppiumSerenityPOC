@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Scrolling;
+import com.serenity.appium.poc.utils.StoreDataParser;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class StoreSearchPageObject extends MobilePageObject {
 
@@ -75,24 +77,24 @@ public class StoreSearchPageObject extends MobilePageObject {
         FIELD_searchButton.click();
     }
 
-    private String XPATH_PATTERN_iosStoreName = "(//XCUIElementTypeOther[contains(@name,'%s')])";
-    private final String XPATH_androidStoreName = "//android.widget.TextView[@content-desc='store-title']";
+    private String XPATH_PATTERN_iosStoreTitle = "(//XCUIElementTypeOther[contains(@name,'%s')])";
+    private final String XPATH_androidStoreTitle = "//android.widget.TextView[@content-desc='store-title']";
     public boolean selectStore(String storeFragment) {
         try {
             if (isIOS()) {
                 //Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
-                String xpath = String.format(XPATH_PATTERN_iosStoreName, storeFragment.toUpperCase());
+                String xpath = String.format(XPATH_PATTERN_iosStoreTitle, storeFragment.toUpperCase());
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
                 int index = getDriver().findElements(By.xpath(xpath)).size();
                 System.out.println(">>> Select Store index = " + index);
                 String suffix = String.format("[%s]", index);
                 getDriver().findElement(By.xpath(xpath + suffix)).click();
             } else {
-                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(XPATH_androidStoreName)));
+                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(XPATH_androidStoreTitle)));
                 int i=0;
                 boolean found = false;
                 while ((!found) && (i<3)) {
-                    List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreName));
+                    List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
                     for (WebElement element:elements) {
                         String storeName = element.getText();
                         System.out.println("StoreName = " + storeName);
@@ -112,6 +114,60 @@ public class StoreSearchPageObject extends MobilePageObject {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String XPATH_PATTERN_iosStoreTitleInList = "(//XCUIElementTypeOther[starts-with(@name,'%s')])[2]";
+    public String getStoreDataForIos(String storeTitle) {
+        String result = noResultsFound;
+        try {
+            String xpath = String.format(XPATH_PATTERN_iosStoreTitleInList, storeTitle.toUpperCase());
+            result = getDriver().findElement(By.xpath(xpath)).getText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getAddress1FromStoreDataForIos(String storeTitle) {
+        String result = noResultsFound;
+        try {
+            String stream = getStoreDataForIos(storeTitle);
+            result = StoreDataParser.getAddress(stream).trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getOpenCloseHourFromStoreDataForIos(String storeTitle) {
+        String result = noResultsFound;
+        try {
+            String stream = getStoreDataForIos(storeTitle);
+            result = StoreDataParser.getOpenCloseHour(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean verifyStoreInList(String title, String address1, String address2, String cityStateZip, String phoneNumber, String openCloseHour) {
+        boolean result = false;
+        try {
+            if (isIOS()) {
+                String stream = getStoreDataForIos(title);
+                StringJoiner join = new StringJoiner(" ");
+                join.add(title.toUpperCase()).add(address1).add(address2).add(cityStateZip).add(phoneNumber).add(openCloseHour);
+                String expected = join.toString();
+                result = stream.contains(expected);
+
+            } else {
+                throw new IllegalStateException("not implemented for Android yet!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return result;
     }
 }
 

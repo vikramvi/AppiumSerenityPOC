@@ -16,8 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -124,15 +122,18 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
     }
 
-//    public void verifySelectNewStore(String searchToken, String storeName) {
-//        verifySelectNewStore(searchToken, "", storeName);
-//    }
     @Step
-//    public void verifySelectNewStore(String searchToken, String oldSearchToken, String storeName) {
-    public void verifySelectNewStore(String searchToken, String storeName) {
-        LOGGER.info("Entering search token then selecting the specified store in the list...");
-//        assertThat(storeSearchPageObject.enterSearchToken(searchToken, oldSearchToken)).isTrue();
+    public void verifyStoreDataInNewSearchResults(String searchToken, String title, String address1, String address2,
+                                                  String cityStateZip, String phoneNumber, String openCloseHour) {
+        LOGGER.info("Entering search token then verifying the specified store data is in the list...");
         assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+        assertThat(storeSearchPageObject.verifyStoreInList(title, address1, address2, cityStateZip,
+                        phoneNumber, openCloseHour)).isTrue();
+    }
+
+    @Step
+    public void verifySelectStoreFromSearchResults(String storeName) {
+        LOGGER.info("Selecting the specified store in the search results list...");
         assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
     }
 
@@ -145,7 +146,8 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyStoreDetailsHeaderData(String title, String address1, String address2, String cityStateZip, String openCloseHour) {
+    public void verifyStoreDetailsHeaderData(String title, String address1, String address2,
+                                             String cityStateZip, String openCloseHour) {
         LOGGER.info("Verifying the store address and open until/at data...");
         assertThat(storeDataHeaderPageObject.getTitle()).isEqualToIgnoringCase(title);
         assertThat(storeDataHeaderPageObject.getAddress1()).isEqualToIgnoringCase(address1);
