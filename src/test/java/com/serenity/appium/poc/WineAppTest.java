@@ -66,20 +66,20 @@ public class WineAppTest {
         //stopAppiumServer();
     }
 
-//    @Test
-//    public void verifyWineAppSearchByValidWineNameAndSortActions(){
-//        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
-//            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
-//            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
-////            wineAppSteps.verifySearchResultCount(1);
-////            wineAppSteps.performSortAction();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS on 1/15/18
+    @Test
+    public void verifyWineAppSearchByValidWineNameAndSortActions(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
+            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
+            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
+//            wineAppSteps.verifySearchResultCount(1);
+//            wineAppSteps.performSortAction();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25134_verifyClosestStoreOnHomepage(){
 //        Properties properties = new Properties();
@@ -96,36 +96,36 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({FindStore.class})
 //    public void DOT_25137_verifyNewStoreIcons() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsIcons();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({FindStore.class})
 //    public void DOT_25138_verifyNewStoreMap() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsMapLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    public void DOT_25139_verifyNewStoreHours() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("33435", "Boca Raton");
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
 //            wineAppSteps.verifyStoreDetailsStoreHours();
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
@@ -134,7 +134,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25238_verifyDefaultStoreOnHomescreen(){
 //        try{
@@ -144,7 +144,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25239_verifyOptionToChangeStores(){
 //        try{
@@ -154,20 +154,20 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 1/9/18
+//    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25248_verifyAllTastingHourTypes(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectNewStore("MD", "Laurel (Corridor)");
+//            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
 //            wineAppSteps.verifyReturn();
 //            //wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
-//            wineAppSteps.verifySelectNewStore("Chesterfield", "Chesterfield");
+//            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
 //            wineAppSteps.verifyShowTastingHours();
 //            tastingDays.remove(DayOfWeek.THURSDAY);
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
@@ -176,7 +176,7 @@ public class WineAppTest {
 //        }
 //    }
 
-    @Test // verified on iOS, Android on 1/11/18
+    @Test // verified on Android, iOS on 1/22/18
     @Category({FindStore.class})
     public void DOT_25245_verifyStoreAddress() {
         String title = "Laurel (Corridor)";

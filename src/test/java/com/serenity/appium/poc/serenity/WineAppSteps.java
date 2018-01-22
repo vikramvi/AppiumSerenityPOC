@@ -138,6 +138,13 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifySelectStoreFromSearchResults(String searchToken, String storeName) {
+        LOGGER.info("Entering search term then selecting the specified store in the search results list...");
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+        assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
+    }
+
+    @Step
     public void verifyStoreDetailsIcons() {
         LOGGER.info("Verifying that the top 3 icons are present on the store details page...");
         assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
