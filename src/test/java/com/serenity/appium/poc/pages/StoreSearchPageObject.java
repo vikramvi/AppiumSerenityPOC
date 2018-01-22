@@ -46,20 +46,15 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-//        boolean result = FIELD_geoSearch.isDisplayed();
         boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 2);
         return result;
     }
 
     By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
-    public boolean enterSearchToken(String token){ //}, String oldToken) {
+    public boolean enterSearchToken(String token) {
         try {
             if (isIOS()) {
                 token = token + "\n";
-//                WebElement searchBox = getIosSearchBoxElement(oldToken);
-//                searchBox.sendKeys(token);
-//                FIELD_geoSearch.sendKeys(token);
-                //getDriver().findElement(By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")).sendKeys(token);
                 new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(BY_searchField));
                 getDriver().findElement(BY_searchField).sendKeys(token);
             } else {
@@ -150,8 +145,49 @@ public class StoreSearchPageObject extends MobilePageObject {
         return result;
     }
 
+    private int getStoreIndexForAndroid(String expectedTitle) {
+        int result = -1;
+        for (int i=1; i<=2; i++) {
+            String xpath = StoreListData.TITLE.getXpath(getDriver(), i);
+            if (Utils.isVisible(getDriver(), By.xpath(xpath), 2)) {
+                String title = StoreListData.TITLE.getValue(getDriver(), i);
+                if (title.equalsIgnoreCase(expectedTitle)) {
+                    result = i;
+                }
+            }
+        }
+        return result;
+    }
+
+    public enum StoreListData {
+        TITLE("(//android.widget.TextView[@content-desc=\"store-title\"])[%d]"),
+        ADDRESS1("(//android.widget.TextView[@content-desc=\"store-address1\"])[%d]"),
+        ADDRESS2("(//android.widget.TextView[@content-desc=\"store-address2\"])[%d]"),
+        CITY_STATE_ZIP("(//android.widget.TextView[@content-desc=\"store-city-state-zip\"])[%d]"),
+        PHONE_NUMBER("(//android.widget.TextView[@content-desc=\"touchable-call-phoneNumber\"])[%d]"),
+        OPEN_CLOSE_HOUR("(//android.widget.TextView[@content-desc=\"store-hours\"])[%d]");
+        String pattern;
+        StoreListData(String pattern) {
+            this.pattern = pattern;
+        }
+        String getValue(WebDriver driver, int index) {
+            String result = getElement(driver, index).getText();
+            return result;
+        }
+        WebElement getElement(WebDriver driver, int index) {
+            String xpath = String.format(pattern, index);
+            WebElement result = driver.findElement(By.xpath(xpath));
+            return result;
+        }
+        String getXpath(WebDriver driver, int index) {
+            String result = String.format(pattern, index);
+            return result;
+        }
+    }
+
     public boolean verifyStoreInList(String title, String address1, String address2, String cityStateZip, String phoneNumber, String openCloseHour) {
         boolean result = false;
+        String xpath = "";
         try {
             if (isIOS()) {
                 String stream = getStoreDataForIos(title);
@@ -159,9 +195,26 @@ public class StoreSearchPageObject extends MobilePageObject {
                 join.add(title.toUpperCase()).add(address1).add(address2).add(cityStateZip).add(phoneNumber).add(openCloseHour);
                 String expected = join.toString();
                 result = stream.contains(expected);
-
             } else {
-                throw new IllegalStateException("not implemented for Android yet!");
+                int index = getStoreIndexForAndroid(title);
+                if (index > 0) {
+                    String actualAddress1 = StoreListData.ADDRESS1.getValue(getDriver(), index);
+                    if (address1.equalsIgnoreCase(actualAddress1)) {
+                        String actualAddress2 = StoreListData.ADDRESS2.getValue(getDriver(), index);
+                        if (address2.equalsIgnoreCase(actualAddress2)) {
+                            String actualCityStateZip = StoreListData.CITY_STATE_ZIP.getValue(getDriver(), index);
+                            if (cityStateZip.equalsIgnoreCase(actualCityStateZip)) {
+                                String actualPhoneNumber = StoreListData.PHONE_NUMBER.getValue(getDriver(), index);
+                                if (phoneNumber.equalsIgnoreCase(actualPhoneNumber)) {
+                                    String actualOpenCloseHour = StoreListData.OPEN_CLOSE_HOUR.getValue(getDriver(), index);
+                                    if (openCloseHour.equalsIgnoreCase(actualOpenCloseHour)) {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
