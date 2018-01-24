@@ -96,6 +96,13 @@ public class Utils {
         }
     }
 
+    public static boolean isLastInstanceVisible(WebDriver driver, String xpath) {
+        int lastInstance = driver.findElements(By.xpath(xpath)).size();
+        boolean result = ((lastInstance > 0) &&
+                (driver.findElement(By.xpath(xpath)).isDisplayed()));
+        return result;
+    }
+
     public static boolean tryClicking(String xpath) {
         WebElement element = getDriver().findElement(By.xpath(xpath));
         return tryClicking(element);

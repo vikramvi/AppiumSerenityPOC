@@ -46,15 +46,12 @@ public class Scrolling {
         int startY = (int) (height * direction.yStartPercentage);
         int endY = (int) (height * direction.yEndPercentage);
 
-        //TouchAction touchAction = new TouchAction((AppiumDriver)getDriver());
         WebDriver facade = getDriver();
         WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
         TouchAction touchAction = new TouchAction((AndroidDriver) driver);
 
         Duration duration = Duration.ofSeconds(2);
         touchAction.press(x, startY).waitAction(duration).moveTo(x, endY).release().perform();
-        //touchAction.press(x, startY).moveTo(element).release();
-        //((MobileDriver) driver).performTouchAction(touchAction);
     }
 
     public enum IosDirection {DOWN, UP, RIGHT, LEFT};

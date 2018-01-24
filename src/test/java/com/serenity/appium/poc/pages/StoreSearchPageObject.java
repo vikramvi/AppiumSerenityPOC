@@ -19,17 +19,22 @@ public class StoreSearchPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "field-search-stores")
     @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
-//    @iOSFindBy(xpath = "(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]")
-//    @iOSFindBy(xpath = "//XCUIElementTypeOther[starts-with(@name,'\uE820') and ends-with(@name,'SEARCH')]")
-//    @iOSFindBy(accessibility = "CITY, STATE OR ZIP")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
     @iOSFindBy(accessibility = "SEARCH")
     private WebElement FIELD_searchButton;
 
+    @AndroidFindBy(accessibility =  "button-floating-return")
+    @iOSFindBy(accessibility = "button-floating-return")
+    private WebElement BUTTON_return;
+
     public StoreSearchPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean clickReturn() {
+        return Utils.tryClicking(BUTTON_return);
     }
 
     private final String defaultSearchBoxText = "CITY, STATE OR ZIP";
@@ -72,22 +77,32 @@ public class StoreSearchPageObject extends MobilePageObject {
         FIELD_searchButton.click();
     }
 
-    private String XPATH_PATTERN_iosStoreTitle = "(//XCUIElementTypeOther[contains(@name,'%s')])";
+    private String XPATH_PATTERN_iosStoreTitle = "(//XCUIElementTypeOther[starts-with(@name,'%s')])";
+    private String XPATH_iosStoreListTag = "//XCUIElementTypeOther[ends-with(@name,'SHOP \uE81B')]";
     private final String XPATH_androidStoreTitle = "//android.widget.TextView[@content-desc='store-title']";
     public boolean selectStore(String storeFragment) {
         try {
+            boolean found = false;
+            int i=0;
+            new WebDriverWait(getDriver(), 10)
+                    .until(ExpectedConditions.visibilityOf(BUTTON_return));
             if (isIOS()) {
-                //Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
                 String xpath = String.format(XPATH_PATTERN_iosStoreTitle, storeFragment.toUpperCase());
-                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(xpath)));
-                int index = getDriver().findElements(By.xpath(xpath)).size();
-                System.out.println(">>> Select Store index = " + index);
-                String suffix = String.format("[%s]", index);
-                getDriver().findElement(By.xpath(xpath + suffix)).click();
+                found = Utils.isLastInstanceVisible(getDriver(), xpath);
+                while ((!found) && (i<3)) {
+                    Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
+                    found = Utils.isLastInstanceVisible(getDriver(), xpath);
+                    i++;
+                }
+                if (found) {
+                    int lastInstance = getDriver().findElements(By.xpath(xpath)).size();
+                    System.out.println(">>> Select Store index = " + lastInstance);
+                    String suffix = String.format("[%s]", lastInstance);
+                    getDriver().findElement(By.xpath(xpath + suffix)).click();
+                } else {
+                    System.out.println(">>>>> store not found!");
+                }
             } else {
-                new WebDriverWait(getDriver(), 10).until(ExpectedConditions.visibilityOfElementLocated(MobileBy.xpath(XPATH_androidStoreTitle)));
-                int i=0;
-                boolean found = false;
                 while ((!found) && (i<3)) {
                     List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
                     for (WebElement element:elements) {
