@@ -44,7 +44,8 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     }
 
     private String XPATH_PATTERN_soloProductAttribute = "//android.widget.ScrollView//android.widget.TextView[%d]";
-    private String XPATH_PATTERN_productAttributeOfMany = "//android.view.ViewGroup[%d]/android.widget.TextView[%d]";
+    private String XPATH_PATTERN_productAttributeOfMany =
+            "//android.widget.ScrollView//android.view.ViewGroup[%d]//android.view.ViewGroup[%d]/android.widget.TextView[%d]";
 
     private String getAndroidProductAttributeXpath(int productNumber, int attributeNumber) {
         String xpath = null;
@@ -55,7 +56,23 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
                 throw new IllegalStateException("Cannot produce xpath for product number " + productNumber + " when only 1 result exists!");
             }
         } else {
-            xpath = String.format(XPATH_PATTERN_productAttributeOfMany, productNumber, attributeNumber);
+            int row = 0;
+            int col = 0;
+            switch (productNumber) {
+                case 1: row = 1;
+                        col = 1;
+                        break;
+                case 2: row = 1;
+                        col = 2;
+                        break;
+                case 3: row = 2;
+                        col = 1;
+                        break;
+                case 4: row = 2;
+                        col = 2;
+                        break;
+            }
+            xpath = String.format(XPATH_PATTERN_productAttributeOfMany, row, col, attributeNumber);
         }
         return xpath;
     }
@@ -68,7 +85,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     }
 
     private boolean isProductRating(String data) {
-        return (data.length() == 2) && (StringUtils.isNumeric(data));
+        return (data.length() > 1) && (data.length() < 4) && (StringUtils.isNumeric(data));
     }
 
     public boolean isAndroidProductScorePresent(int productNumber) {

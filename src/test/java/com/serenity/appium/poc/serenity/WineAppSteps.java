@@ -33,6 +33,7 @@ public class WineAppSteps extends ScenarioSteps {
     private SpiritsHoursPageObject spiritsHoursPageObject;
     private SplashPageObject splashPageObject;
     private StoreDataHeaderPageObject storeDataHeaderPageObject;
+    private StoreGrowlerStationPageObject storeGrowlerStationPageObject;
     private StoreHoursPageObject storeHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
@@ -195,5 +196,12 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyReturn() {
         LOGGER.info("Returning back one screen...");
         tastingHoursPageObject.clickReturnButton();
+    }
+
+    @Step
+    public void verifyPresenceOfGrowlerStation() {
+        LOGGER.info("Verifying presence of Growler station in store details...");
+        assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
+
     }
 }

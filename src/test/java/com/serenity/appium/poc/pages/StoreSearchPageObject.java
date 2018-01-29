@@ -111,6 +111,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                         if (storeName.equalsIgnoreCase(storeFragment)) {
                             element.click();
                             found = true;
+                            break;
                         }
                     }
                     if (!found) {
@@ -119,7 +120,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                     i++;
                 }
             }
-            return true;
+            return found;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

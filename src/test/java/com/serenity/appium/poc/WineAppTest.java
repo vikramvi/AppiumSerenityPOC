@@ -66,19 +66,20 @@ public class WineAppTest {
         //stopAppiumServer();
     }
 
-    @Test
-    public void verifyWineAppSearchByValidWineNameAndSortActions(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.initiateProductSearch("Krug Grand Cuvee"); // "Billecart Salmon");
-            wineAppSteps.selectProductNameFromSearchSuggestions("Krug Grand Cuvee"); // "Billecart Salmon");
-            wineAppSteps.selectProductFromSearchResults("Krug Grand Cuvee");
-//            wineAppSteps.verifySearchResultCount(1);
-//            wineAppSteps.performSortAction();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void verifyWineAppSearchByValidWineNameAndSortActions(){
+//        try{
+////            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.completeOnboardingAllowingLocation();
+//            wineAppSteps.initiateProductSearch("Billecart Salmon");
+//            wineAppSteps.selectProductNameFromSearchSuggestions("Billecart Salmon");
+//            wineAppSteps.selectProductFromSearchResults("Billecart Salmon Extra Brut");
+////            wineAppSteps.verifySearchResultCount(1);
+////            wineAppSteps.performSortAction();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25134_verifyClosestStoreOnHomepage(){
@@ -136,9 +137,10 @@ public class WineAppTest {
 //    }
 //    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
-//    public void DOT_25238_verifyDefaultStoreOnHomescreen(){
+//    public void DOT_25238_verifyClosestStoreByIpAddress(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
+//            //TODO: need to change to Boca after defect is fixed
 //            wineAppSteps.verifyHomepageStoreDetails("SACRAMENTO (ARDEN)", "Sacramento- Arden Way and Howe Ave.");
 //        }catch (Exception e){
 //            e.printStackTrace();
@@ -158,15 +160,16 @@ public class WineAppTest {
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25248_verifyAllTastingHourTypes(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
+////            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.completeOnboardingAllowingLocation();
 //            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
+////            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
+//            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Alexandria");
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
 //            wineAppSteps.verifyReturn();
-//            //wineAppSteps.verifySelectNewStore("Chesterfield", "MD","Clarkson Square");
 //            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
 //            wineAppSteps.verifyShowTastingHours();
 //            tastingDays.remove(DayOfWeek.THURSDAY);
@@ -175,25 +178,37 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-
-    @Test // verified on Android, iOS on 1/22/18
+//    @Test // verified on Android, iOS on 1/22/18
+//    @Category({FindStore.class})
+//    public void DOT_25245_verifyStoreAddress() {
+//        String title = "Laurel (Corridor)";
+//        String address1 = "Laurel Corridor";
+//        String address2 = "3335 Corridor Marketplace";
+//        String cityStateZip = "Laurel, MD 20724";
+//        String phoneNumber = "(301) 617-8507";
+//        String hours = "8:00 AM - 11:00 PM";
+//        String openUntil = "Open Until 11 PM";
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifyStoreDataInNewSearchResults(
+//                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
+//            wineAppSteps.verifySelectStoreFromSearchResults(title);
+//            wineAppSteps.verifyStoreDetailsHeaderData(
+//                    title, address1, address2, cityStateZip, openUntil);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    @Test //
     @Category({FindStore.class})
-    public void DOT_25245_verifyStoreAddress() {
-        String title = "Laurel (Corridor)";
-        String address1 = "Laurel Corridor";
-        String address2 = "3335 Corridor Marketplace";
-        String cityStateZip = "Laurel, MD 20724";
-        String phoneNumber = "(301) 617-8507";
-        String hours = "8:00 AM - 11:00 PM";
-        String openUntil = "Open Until 11 PM";
+    public void DOT_25216_verifyGrowlerStore() {
         try {
-            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.completeOnboardingAllowingLocation();
             wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifyStoreDataInNewSearchResults(
-                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-            wineAppSteps.verifySelectStoreFromSearchResults(title);
-            wineAppSteps.verifyStoreDetailsHeaderData(
-                    title, address1, address2, cityStateZip, openUntil);
+            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+            wineAppSteps.verifyPresenceOfGrowlerStation();
         } catch (Exception e) {
             e.printStackTrace();
         }

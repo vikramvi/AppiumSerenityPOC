@@ -98,8 +98,9 @@ public class Utils {
 
     public static boolean isLastInstanceVisible(WebDriver driver, String xpath) {
         int lastInstance = driver.findElements(By.xpath(xpath)).size();
+        String suffix = String.format("[%d]", lastInstance);
         boolean result = ((lastInstance > 0) &&
-                (driver.findElement(By.xpath(xpath)).isDisplayed()));
+                (driver.findElement(By.xpath(xpath + suffix)).isDisplayed()));
         return result;
     }
 
