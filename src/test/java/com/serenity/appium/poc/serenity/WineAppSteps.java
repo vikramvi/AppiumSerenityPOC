@@ -202,6 +202,7 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyPresenceOfGrowlerStation() {
         LOGGER.info("Verifying presence of Growler station in store details...");
         assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
+        assertThat(storeGrowlerStationPageObject.doesGrowlerCopyMatch()).isTrue();
 
     }
 }
