@@ -35,7 +35,7 @@ public class StoreIconsPageObject extends MobilePageObject {
     }
 
     public boolean clickGetDirections() {
-        TOUCHABLE_ICON_getDirections.click();
+//        TOUCHABLE_ICON_getDirections.click();
         return Utils.tryClicking(TOUCHABLE_ICON_getDirections);
     }
 

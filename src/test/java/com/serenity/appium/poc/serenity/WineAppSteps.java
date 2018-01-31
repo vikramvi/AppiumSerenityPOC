@@ -166,7 +166,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void verifyStoreDetailsMapLoad() {
-        LOGGER.info("Verifying that the map is present on the store details page...");
+        LOGGER.info("Verifying that the map is present on the store details page and loads...");
         assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
         assertThat(storeMapPageObject.clickStoreMapThumbnail()).isTrue();
         assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
@@ -199,10 +199,21 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPresenceOfGrowlerStation() {
-        LOGGER.info("Verifying presence of Growler station in store details...");
-        assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
-        assertThat(storeGrowlerStationPageObject.doesGrowlerCopyMatch()).isTrue();
+    public void verifyPresenceOfGrowlerStation(boolean expected) {
+        LOGGER.info("Verifying presence of Growler station in store details = " + expected + "...");
+        if (expected) {
+            assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
+            assertThat(storeGrowlerStationPageObject.doesGrowlerCopyMatch()).isTrue();
+        } else {
+            assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isFalse();
+        }
 
+    }
+
+    public void verifyStoreDetailsDirectionsLoad() {
+        LOGGER.info("Verifying that the map is present on the store details page...");
+        assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
+        assertThat(storeIconsPageObject.clickGetDirections()).isTrue();
+        assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
     }
 }

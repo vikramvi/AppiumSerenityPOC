@@ -49,21 +49,21 @@ public class StoreGrowlerStationPageObject extends MobilePageObject {
     public boolean isGrowlerStationSectionDisplayed() {
         setImplicitTimeout(0, TimeUnit.SECONDS);
         boolean displayed = false;
+        int i = 0;
         if (isAndroid()) {
             displayed = isFindOutMoreButtonDisplayed();
-            int i = 0;
             while (!displayed && (i<4)) {
                 Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
                 displayed = isFindOutMoreButtonDisplayed();
-                if (displayed) {
-                    break;
-                }
                 i++;
             }
         } else {
-            Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
-            Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
-            displayed = BUTTON_findOutMore.isDisplayed();
+            displayed = isFindOutMoreButtonDisplayed();
+            while (!displayed && (i<2)) {
+                Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
+                displayed = isFindOutMoreButtonDisplayed();
+                i++;
+            }
         }
         resetImplicitTimeout();
         return displayed;
