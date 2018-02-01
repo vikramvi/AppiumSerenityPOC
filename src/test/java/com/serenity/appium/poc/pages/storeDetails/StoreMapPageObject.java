@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.pages;
+package com.serenity.appium.poc.pages.storeDetails;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Utils;
