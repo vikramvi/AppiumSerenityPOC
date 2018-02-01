@@ -63,7 +63,7 @@ public class StoreHoursPageObject extends MobilePageObject {
 
     public boolean isShowingHoursForAllDays() {
         String hoursStream = getAllStoreHoursData();
-        List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream);
+        List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream, false);
         List<DayOfWeek> expectedDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.values()));
         return actualDays.equals(expectedDays);
     }

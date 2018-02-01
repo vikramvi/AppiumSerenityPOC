@@ -9,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SpiritsHoursPageObject extends MobilePageObject {
 
@@ -27,8 +30,8 @@ public class SpiritsHoursPageObject extends MobilePageObject {
             return false;
         }
     }
-    public void clickSpiritsHoursTab() {
-        Utils.tryClicking(TEXT_TABNAME_spiritsHours);
+    public boolean clickSpiritsHoursTab() {
+        return Utils.tryClicking(TEXT_TABNAME_spiritsHours);
     }
     public boolean isSpiritsHoursGridPresent() {
         try {
@@ -52,6 +55,13 @@ public class SpiritsHoursPageObject extends MobilePageObject {
         String stream = getAllSpiritsHoursData();
         result = ScheduleParser.getHoursForDay(stream, day);
         return result;
+    }
+
+    public boolean isShowingHoursForAllDays() {
+        String hoursStream = getAllSpiritsHoursData();
+        List<DayOfWeek> actualDays = ScheduleParser.getDayTimeDaysFromScheduleStream(hoursStream, true);
+        List<DayOfWeek> expectedDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.values()));
+        return actualDays.equals(expectedDays);
     }
 
     public SpiritsHoursPageObject(WebDriver driver) {

@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
-
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
 
@@ -130,7 +127,7 @@ public class WineAppTest {
 //            wineAppSteps.verifyStoreDetailsStoreHours();
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -142,7 +139,7 @@ public class WineAppTest {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyChangeStoreLookupOption();
 //            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-//            wineAppSteps.verifyPresenceOfGrowlerStation(true);
+//            wineAppSteps.verifyGrowlerStation(true);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -153,7 +150,7 @@ public class WineAppTest {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyPresenceOfGrowlerStation(false);
+//            wineAppSteps.verifyGrowlerStation(false);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -185,7 +182,7 @@ public class WineAppTest {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyStoreDetailsDirectionsLoad();
+//            wineAppSteps.verifyDirectionsLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -212,6 +209,17 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+//    @Test // verified on Android, iOS on 2/1/18
+//    @Category({StoreDetails.class})
+//    public void DOT_25247_verifyStoreHours(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageToStoreDetails();
+//            wineAppSteps.verifyStoreDetailsStoreHours();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25248_verifyAllTastingHourTypes(){
@@ -222,16 +230,29 @@ public class WineAppTest {
 ////            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Alexandria");
 //            wineAppSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
 //            wineAppSteps.verifyReturn();
 //            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
 //            wineAppSteps.verifyShowTastingHours();
 //            tastingDays.remove(DayOfWeek.THURSDAY);
-//            wineAppSteps.verifyStoreTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }
+    @Test //
+    @Category({Regression1.class, FindStore.class})
+    public void DOT_25249_verifySpiritsHours(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
+            wineAppSteps.verifyShowSpiritsHours();
+            wineAppSteps.verifySpiritsHours();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

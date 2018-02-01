@@ -68,16 +68,12 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Initiating a product search...");
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
-//        assertThat(wineAppPageObject.performSearchActionWithValidWineName(winName)).isTrue();
-//        assertThat(productSearchPageObject.typeSearchTerm(wineName)).isTrue();
         assertThat(productSearchPageObject.typeSearchTerm(searchToken)).isTrue();
     }
 
     @Step
     public void selectProductNameFromSearchSuggestions(String suggestion) {
         LOGGER.info("Selecting search suggestion...");
-//        assertThat(wineAppPageObject.selectWineNameFromSearchResults(wineName)).isTrue();
-//        assertThat(productSearchPageObject.selectSearchSuggestion(wineName)).isTrue();
         assertThat(productSearchPageObject.selectSearchSuggestion(suggestion)).isTrue();
     }
 
@@ -96,9 +92,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyHomepageStoreDetails(String expectedTitle, String expectedLocation) {
         LOGGER.info("Verifying homepage store details:  \nExpected title = " + expectedTitle + "\nExpected address = " + expectedLocation);
-//        assertThat(myStoreHeaderPageObject.scrollToStore()).isTrue();
         assertThat(myStoreHeaderPageObject.getTitleFromStoreData()).isEqualTo(expectedTitle);
-//        assertThat(myStoreHeaderPageObject.getLocationFromStoreData()).isEqualTo(expectedLocation);
         assertThat(myStoreHeaderPageObject.getOpenInfoFromStoreData()).matches(StoreDataParser.openCloseRegex);
     }
 
@@ -111,7 +105,6 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyChangeStoreLookupOption() {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
-//        assertThat(myStoreHeaderPageObject.scrollToStore()).isTrue();
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
         assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
@@ -180,6 +173,19 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifyShowSpiritsHours() {
+        LOGGER.info("Clicking tab to show spirits hours...");
+        assertThat(spiritsHoursPageObject.isSpiritsHoursTabPresent()).isTrue();
+        assertThat(spiritsHoursPageObject.clickSpiritsHoursTab()).isTrue();
+    }
+
+    @Step
+    public void verifySpiritsHours() {
+        LOGGER.info("Verifying the format of all spirits hours...");
+        assertThat(spiritsHoursPageObject.isShowingHoursForAllDays()).isTrue();
+    }
+
+    @Step
     public void verifyShowTastingHours() {
         LOGGER.info("Clicking tab to show tasting hours...");
         assertThat(tastingHoursPageObject.isTastingHoursTabPresent()).isTrue();
@@ -187,7 +193,7 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyStoreTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays) {
+    public void verifyTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays) {
         LOGGER.info("Verifying that tasting hours for " +tastingType.name()+ " are only on specific days...");
         assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingType, tastingDays)).isTrue();
     }
@@ -199,7 +205,7 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPresenceOfGrowlerStation(boolean expected) {
+    public void verifyGrowlerStation(boolean expected) {
         LOGGER.info("Verifying presence of Growler station in store details = " + expected + "...");
         if (expected) {
             assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
@@ -210,10 +216,11 @@ public class WineAppSteps extends ScenarioSteps {
 
     }
 
-    public void verifyStoreDetailsDirectionsLoad() {
+    public void verifyDirectionsLoad() {
         LOGGER.info("Verifying that the map is present on the store details page...");
         assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
         assertThat(storeIconsPageObject.clickGetDirections()).isTrue();
         assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
     }
+
 }

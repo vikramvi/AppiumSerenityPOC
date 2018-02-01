@@ -15,13 +15,14 @@ public class ScheduleParser {
     private static String typeRegex = "(WINE|BEER|SPIRITS)";
     private static String timeRegex = "(\\d{1,2}:\\d{2}\\s(am|pm))";
     private static String timeRangeRegex = "(" + timeRegex + "\\s-\\s" + timeRegex + ")";
-    private static String tastingTypeDayTime = typeRegex + "\\s" + dowRegex + "\\s" + timeRangeRegex + "\\s?";
-    private static String tastingDayTime = "\\s?" + dowRegex + "\\s"+ timeRangeRegex;
-    private static String normalDayTime = dowRegex+"\\s" + timeRangeRegex + "\\s?";
+    private static String tastingTypeDayTimeRegex = typeRegex + "\\s" + dowRegex + "\\s" + timeRangeRegex + "\\s?";
+    private static String tastingDayTimeRegex = "\\s?" + dowRegex + "\\s"+ timeRangeRegex;
+    private static String normalDayTimeRegex = dowRegex+"\\s" + timeRangeRegex + "\\s?";
+    private static String spiritsDayTimeRegex = dowRegex+"\\s?(Closed|" + timeRangeRegex + ")";
 
     // T A S T I N G   T A B ------------------------------------------------------------------------------v
     public static boolean isTypeDayTimeFound(String hoursStream) {
-        Pattern pattern = Pattern.compile(tastingTypeDayTime);
+        Pattern pattern = Pattern.compile(tastingTypeDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         boolean found = false;
         if (matcher.find()) {
@@ -33,7 +34,7 @@ public class ScheduleParser {
         return found;
     }
     public static boolean isDayTimeFound(String hoursStream) {
-        Pattern pattern = Pattern.compile(tastingDayTime);
+        Pattern pattern = Pattern.compile(tastingDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         boolean found = false;
         if (matcher.find()) {
@@ -45,10 +46,10 @@ public class ScheduleParser {
         }
         return found;
     }
-    public static List<DayOfWeek> getDayTimeDaysFromScheduleStream(String hoursStream) {
+    public static List<DayOfWeek> getDayTimeDaysFromScheduleStream(String hoursStream, boolean spiritsSchedule) {
         String streamCopy = hoursStream;
         List<DayOfWeek> result = new ArrayList<DayOfWeek>();
-        Pattern pattern = Pattern.compile(tastingDayTime);
+        Pattern pattern = spiritsSchedule ? Pattern.compile(spiritsDayTimeRegex) : Pattern.compile(tastingDayTimeRegex);
         Matcher matcher = pattern.matcher(streamCopy);
         while (matcher.find()) {
             System.out.println("found (all) --> " + matcher.group());
@@ -65,14 +66,14 @@ public class ScheduleParser {
         return result;
     }
     public static String stripTypeDayTime(String hoursStream) {
-        return stripFrontRegex(hoursStream, tastingTypeDayTime);
+        return stripFrontRegex(hoursStream, tastingTypeDayTimeRegex);
     }
     public static String stripDayTime(String hoursStream) {
-        return stripFrontRegex(hoursStream, tastingDayTime);
+        return stripFrontRegex(hoursStream, tastingDayTimeRegex);
     }
     public static String getDayFromDayTime(String hoursStream) {
         String result = "NOT FOUND!";
-        Pattern pattern = Pattern.compile(tastingDayTime);
+        Pattern pattern = Pattern.compile(tastingDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         if (matcher.find()) {
             result = matcher.group(1);
@@ -83,7 +84,7 @@ public class ScheduleParser {
     }
     public static String getHoursFromDayTime(String hoursStream) {
         String result = "NOT FOUND!";
-        Pattern pattern = Pattern.compile(tastingDayTime);
+        Pattern pattern = Pattern.compile(tastingDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         if (matcher.find()) {
             result = matcher.group(2);
@@ -94,7 +95,7 @@ public class ScheduleParser {
     }
     public static String getTypeFromTypeDayTime(String hoursStream) {
         String result = "NOT FOUND!";
-        Pattern pattern = Pattern.compile(tastingTypeDayTime);
+        Pattern pattern = Pattern.compile(tastingTypeDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         if (matcher.find()) {
             result = matcher.group(1);
@@ -105,7 +106,7 @@ public class ScheduleParser {
     }
     public static String getDayFromTypeDayTime(String hoursStream) {
         String result = "NOT FOUND!";
-        Pattern pattern = Pattern.compile(tastingTypeDayTime);
+        Pattern pattern = Pattern.compile(tastingTypeDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         if (matcher.find()) {
             result = matcher.group(2);
@@ -116,7 +117,7 @@ public class ScheduleParser {
     }
     public static String getHoursFromTypeDayTime(String hoursStream) {
         String result = "NOT FOUND!";
-        Pattern pattern = Pattern.compile(tastingTypeDayTime);
+        Pattern pattern = Pattern.compile(tastingTypeDayTimeRegex);
         Matcher matcher = pattern.matcher(hoursStream);
         if (matcher.find()) {
             result = matcher.group(3);
