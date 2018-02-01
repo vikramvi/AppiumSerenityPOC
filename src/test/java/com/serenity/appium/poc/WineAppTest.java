@@ -107,18 +107,6 @@ public class WineAppTest {
 //        }
 //    }
 //    @Test // verified on Android, iOS on 1/22/18
-//    @Category({FindStore.class})
-//    public void DOT_25138_verifyNewStoreMap() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-//            wineAppSteps.verifyStoreDetailsMapLoad();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on Android, iOS on 1/22/18
 //    public void DOT_25139_verifyNewStoreHours() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
@@ -209,6 +197,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+//    @Test // verified on Android, iOS on 1/22/18
+//    @Category({FindStore.class})
+//    public void DOT_25246_verifyNewStoreMap() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifyStoreDetailsMapLoad();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on Android, iOS on 2/1/18
 //    @Category({StoreDetails.class})
 //    public void DOT_25247_verifyStoreHours(){
@@ -241,18 +241,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //
-    @Category({Regression1.class, FindStore.class})
-    public void DOT_25249_verifySpiritsHours(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
-            wineAppSteps.verifyShowSpiritsHours();
-            wineAppSteps.verifySpiritsHours();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test //
+//    @Category({Regression1.class, FindStore.class})
+//    public void DOT_25249_verifySpiritsHours(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
+//            wineAppSteps.verifyShowSpiritsHours();
+//            wineAppSteps.verifySpiritsHours();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
 }
