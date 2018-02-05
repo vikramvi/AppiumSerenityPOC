@@ -33,7 +33,7 @@ public class WineAppSteps extends ScenarioSteps {
     private SpiritsHoursPageObject spiritsHoursPageObject;
     private SplashPageObject splashPageObject;
     private StoreDataHeaderPageObject storeDataHeaderPageObject;
-    private StoreGrowlerStationPageObject storeGrowlerStationPageObject;
+    private GrowlerSectionPageObject growlerSectionPageObject;
     private StoreHoursPageObject storeHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
@@ -208,10 +208,10 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyGrowlerStation(boolean expected) {
         LOGGER.info("Verifying presence of Growler station in store details = " + expected + "...");
         if (expected) {
-            assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isTrue();
-            assertThat(storeGrowlerStationPageObject.doesGrowlerCopyMatch()).isTrue();
+            assertThat(growlerSectionPageObject.isGrowlerStationSectionDisplayed()).isTrue();
+            assertThat(growlerSectionPageObject.doesGrowlerCopyMatch()).isTrue();
         } else {
-            assertThat(storeGrowlerStationPageObject.isGrowlerStationSectionDisplayed()).isFalse();
+            assertThat(growlerSectionPageObject.isGrowlerStationSectionDisplayed()).isFalse();
         }
 
     }

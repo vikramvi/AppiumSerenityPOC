@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
-public class StoreGrowlerStationPageObject extends MobilePageObject {
+public class GrowlerSectionPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "button-see-craft-beer-rotation")
     @iOSFindBy(accessibility = "button-see-craft-beer-rotation")
@@ -69,7 +69,7 @@ public class StoreGrowlerStationPageObject extends MobilePageObject {
         return displayed;
     }
 
-    public StoreGrowlerStationPageObject(WebDriver driver) {
+    public GrowlerSectionPageObject(WebDriver driver) {
         super(driver);
     }
 
