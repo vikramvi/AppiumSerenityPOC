@@ -84,7 +84,7 @@ public class StoreSearchPageObject extends MobilePageObject {
         try {
             boolean found = false;
             int i=0;
-            new WebDriverWait(getDriver(), 15)
+            new WebDriverWait(getDriver(), 10)
                     .until(ExpectedConditions.visibilityOf(BUTTON_return));
             if (isIOS()) {
                 String xpath = String.format(XPATH_PATTERN_iosStoreTitle, storeFragment.toUpperCase());
