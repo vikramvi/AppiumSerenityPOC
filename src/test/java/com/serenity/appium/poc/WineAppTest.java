@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
+
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
 
@@ -36,7 +39,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-        //startAppiumServer();
+//        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         String platform = System.getProperty("testEnvironment");
@@ -61,15 +64,17 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-        //stopAppiumServer();
+//        stopAppiumServer();
     }
 
 //    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.initiateProductSearch("Billecart Salmon");
-//            wineAppSteps.selectProductNameFromSearchSuggestions("Billecart Salmon");
+//            String term = "oregon spirit wheat\n"; // "Billecart Salmon";
+//            wineAppSteps.initiateProductSearch(term);
+////            wineAppSteps.initiateProductSearch("");
+////            wineAppSteps.selectProductNameFromSearchSuggestions(term);
 //            wineAppSteps.selectProductFromSearchResults("Billecart Salmon Extra Brut");
 ////            wineAppSteps.verifySearchResultCount(1);
 ////            wineAppSteps.performSortAction();
@@ -120,18 +125,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test //
-//    @Category({FindStore.class})
-//    public void DOT_25216_verifyGrowlerStorePresence() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-//            wineAppSteps.verifyGrowlerStation(true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test //
+    @Category({FindStore.class})
+    public void DOT_25216_verifyGrowlerStorePresence() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+            wineAppSteps.verifyGrowlerStation(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test //
 //    @Category({FindStore.class})
 //    public void DOT_25218_verifyGrowlerStoreAbsence() {
