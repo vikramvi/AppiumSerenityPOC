@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import java.time.Duration;
 import java.util.HashMap;
 
+import static com.serenity.appium.poc.pages.MobilePageObject.isAndroid;
+import static com.sun.javafx.font.PrismFontFactory.isAndroid;
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class Scrolling {
@@ -71,5 +73,18 @@ public class Scrolling {
 //        scrollObject.put("element", ((RemoteWebElement) element).getId());
 //        js.executeScript("mobile: scroll", scrollObject);
 //    }
+
+    public static boolean scrollDown() {
+        try {
+            if (isAndroid()) {
+                androidSwipe(AndroidDirection.DOWN);
+            } else {
+                iosScroll(IosDirection.DOWN);
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
 
