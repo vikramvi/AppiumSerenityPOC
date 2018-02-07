@@ -66,12 +66,12 @@ public class GrowlerStationPageObject extends MobilePageObject {
         }
         if (displayed) {
             String actual = getSectionTitle();
-            matched = actual.equals(expected);
+            matched = actual.equalsIgnoreCase(expected);
         }
         return matched;
     }
 
-    private enum AndroidGrowlerCard {
+    public enum AndroidGrowlerCard {
         BREWERY(
                 "(//android.widget.TextView[@content-desc='growler-card-header-brewery'])[%d]",
                 "(//XCUIElementTypeStaticText[@name='growler-card-header-brewery'])[%d]"),
@@ -98,7 +98,7 @@ public class GrowlerStationPageObject extends MobilePageObject {
                 "(//XCUIElementTypeStaticText[@name='growler-small-price'])[%d]"),
         LARGE_FILL_LABEL(
                 "(//android.widget.TextView[@content-desc='growler-large-label'])[%d]",
-                "(//XCUIElementTypeStaticText[@name='growler-small-price'])[%d]"),
+                "(//XCUIElementTypeStaticText[@name='growler-large-label'])[%d]"),
         LARGE_FILL_COST(
                 "(//android.widget.TextView[@content-desc='growler-large-price'])[%d]",
                 "(//XCUIElementTypeStaticText[@name='growler-large-price'])[%d]");
@@ -127,6 +127,28 @@ public class GrowlerStationPageObject extends MobilePageObject {
             String result = driver.findElement(By.xpath(xpath)).getText();
             return result;
         }
+    }
+
+    public boolean areCorrectLabelsPresentOnCards(int cardIndex) {
+        boolean result = false;
+        if (AndroidGrowlerCard.ABV_LABEL.getText(getDriver(), cardIndex).equals("ABV")) {
+            if (AndroidGrowlerCard.IBU_LABEL.getText(getDriver(), cardIndex).equals("IBU")) {
+                if (AndroidGrowlerCard.SMALL_FILL_LABEL.getText(getDriver(), cardIndex).equals("32 OZ")) {
+                    if (AndroidGrowlerCard.LARGE_FILL_LABEL.getText(getDriver(), cardIndex).equals("64 OZ")) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean isBreweryLabelPresentOnCard(int cardIndex) {
+        return AndroidGrowlerCard.BREWERY.isDisplayed(getDriver(), cardIndex);
+    }
+
+    public boolean isBeerLabelPresentOnCard(int cardIndex) {
+        return AndroidGrowlerCard.BEER.isDisplayed(getDriver(), cardIndex);
     }
 
     public GrowlerStationPageObject(WebDriver driver) { super(driver); }

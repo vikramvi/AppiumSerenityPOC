@@ -230,5 +230,27 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying transition to Growler Station page...");
         assertThat(growlerSectionPageObject.clickFindOutMore()).isTrue();
         assertThat(growlerStationPageObject.doesGrowlerPageTitleMatch()).isTrue();
+        assertThat(growlerStationPageObject.doesGrowlerSectionTitleMatch("This Week's Selection")).isTrue();
+    }
+
+    @Step
+    public void verifyInitialGrowlerStationCardLabels() {
+        LOGGER.info("Verifying Growler Station card labels ...");
+        assertThat(growlerStationPageObject.areCorrectLabelsPresentOnCards(1)).isTrue();
+        assertThat(growlerStationPageObject.areCorrectLabelsPresentOnCards(2)).isTrue();
+    }
+
+    @Step
+    public void verifyInitialGrowlerStationCardBreweryLabels() {
+        LOGGER.info("Verifying Growler Station card Brewery name labels ...");
+        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(1)).isTrue();
+        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(2)).isTrue();
+    }
+
+    @Step
+    public void verifyInitialGrowlerStationCardBeerLabels() {
+        LOGGER.info("Verifying Growler Station card Beer name labels ...");
+        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(1)).isTrue();
+        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(2)).isTrue();
     }
 }

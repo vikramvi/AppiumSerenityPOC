@@ -156,6 +156,9 @@ public class WineAppTest {
             wineAppSteps.verifyChangeStoreLookupOption();
             wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
             wineAppSteps.verifySelectGrowlerStationPage();
+            wineAppSteps.verifyInitialGrowlerStationCardBreweryLabels();
+            wineAppSteps.verifyInitialGrowlerStationCardBeerLabels();
+            wineAppSteps.verifyInitialGrowlerStationCardLabels();
 
 
         } catch (Exception e) {
