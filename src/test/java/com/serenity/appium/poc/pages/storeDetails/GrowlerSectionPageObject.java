@@ -25,10 +25,10 @@ public class GrowlerSectionPageObject extends MobilePageObject {
     By BY_findOutMore = MobileBy.AccessibilityId("button-see-craft-beer-rotation");
     public boolean isFindOutMoreButtonDisplayed() {
         try {
-            withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_findOutMore);
-            return true;
-//            boolean result = Utils.isVisible(getDriver(), BUTTON_findOutMore, 2);
-//            return result;
+//            withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_findOutMore);
+//            return true;
+            boolean result = Utils.isVisible(getDriver(), BUTTON_findOutMore, 2);
+            return result;
         } catch (Exception e) {
             return false;
         }
@@ -69,8 +69,20 @@ public class GrowlerSectionPageObject extends MobilePageObject {
         return displayed;
     }
 
+    public boolean clickFindOutMore() {
+        boolean result = false;
+        try {
+            if (isGrowlerStationSectionDisplayed()) {
+                BUTTON_findOutMore.click();
+                result = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Exception trying to click Find Out More in Growler section!");
+        }
+        return result;
+    }
+
     public GrowlerSectionPageObject(WebDriver driver) {
         super(driver);
     }
-
 }

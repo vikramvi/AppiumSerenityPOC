@@ -34,6 +34,7 @@ public class WineAppSteps extends ScenarioSteps {
     private SplashPageObject splashPageObject;
     private StoreDataHeaderPageObject storeDataHeaderPageObject;
     private GrowlerSectionPageObject growlerSectionPageObject;
+    private GrowlerStationPageObject growlerStationPageObject;
     private StoreHoursPageObject storeHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
@@ -216,6 +217,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     }
 
+    @Step
     public void verifyDirectionsLoad() {
         LOGGER.info("Verifying that the map is present on the store details page...");
         assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
@@ -223,4 +225,10 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
     }
 
+    @Step
+    public void verifySelectGrowlerStationPage() {
+        LOGGER.info("Verifying transition to Growler Station page...");
+        assertThat(growlerSectionPageObject.clickFindOutMore()).isTrue();
+        assertThat(growlerStationPageObject.doesGrowlerPageTitleMatch()).isTrue();
+    }
 }

@@ -125,18 +125,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //
-    @Category({FindStore.class})
-    public void DOT_25216_verifyGrowlerStorePresence() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-            wineAppSteps.verifyGrowlerStation(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test //
+//    @Category({FindStore.class})
+//    public void DOT_25216_verifyGrowlerStorePresence() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifyGrowlerStation(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test //
 //    @Category({FindStore.class})
 //    public void DOT_25218_verifyGrowlerStoreAbsence() {
@@ -148,6 +148,20 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+    @Test //
+    @Category({FindStore.class})
+    public void DOT_25230_verifyCurrentGrowlerSelection() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+            wineAppSteps.verifySelectGrowlerStationPage();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test // verified on Android, iOS on 1/22/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25238_verifyClosestStoreByIpAddress(){
