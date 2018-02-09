@@ -159,8 +159,7 @@ public class WineAppTest {
             wineAppSteps.verifyInitialGrowlerStationCardBreweryLabels();
             wineAppSteps.verifyInitialGrowlerStationCardBeerLabels();
             wineAppSteps.verifyInitialGrowlerStationCardLabels();
-
-
+            wineAppSteps.verifyInitialGrowlerStationCardValues();
         } catch (Exception e) {
             e.printStackTrace();
         }

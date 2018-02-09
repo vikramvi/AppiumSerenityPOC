@@ -129,7 +129,7 @@ public class GrowlerStationPageObject extends MobilePageObject {
         }
     }
 
-    public boolean areCorrectLabelsPresentOnCards(int cardIndex) {
+    public boolean areCorrectLabelsPresentOnCard(int cardIndex) {
         boolean result = false;
         if (AndroidGrowlerCard.ABV_LABEL.getText(getDriver(), cardIndex).equals("ABV")) {
             if (AndroidGrowlerCard.IBU_LABEL.getText(getDriver(), cardIndex).equals("IBU")) {
@@ -149,6 +149,23 @@ public class GrowlerStationPageObject extends MobilePageObject {
 
     public boolean isBeerLabelPresentOnCard(int cardIndex) {
         return AndroidGrowlerCard.BEER.isDisplayed(getDriver(), cardIndex);
+    }
+
+    private static String abvRegex = "([1-9]?[0-9]\\.[0-9]{2}%)";
+    private static String ibuRegex = "(\\-|[1-9][0-9]{0,1}|1[01][0-9]|120)";
+    private static String priceRegex = "(\\$(1[0-9][0-9]|[1-9][0-9]{0,1}).[0-9]{2})";
+    public boolean areValuesValidOnCard(int cardIndex) {
+        boolean result = false;
+        if (AndroidGrowlerCard.ABV_VALUE.getText(getDriver(), cardIndex).matches(abvRegex)) {
+            if (AndroidGrowlerCard.IBU_VALUE.getText(getDriver(), cardIndex).matches(ibuRegex)) {
+                if (AndroidGrowlerCard.SMALL_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
+                    if (AndroidGrowlerCard.LARGE_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public GrowlerStationPageObject(WebDriver driver) { super(driver); }
