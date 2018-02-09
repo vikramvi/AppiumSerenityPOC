@@ -4,10 +4,11 @@ import com.serenity.appium.poc.utils.Scrolling;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import net.thucydides.core.webdriver.WebdriverAssertionError;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,9 @@ public class GrowlerStationPageObject extends MobilePageObject {
     By BY_headerTitle = MobileBy.AccessibilityId("header-title");
     public boolean isHeaderTitleDisplayed() {
         try {
+            setImplicitTimeout(0, TimeUnit.SECONDS);
             withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_headerTitle);
+            resetImplicitTimeout();
             return true;
         } catch (Exception e) {
             return false;
@@ -39,39 +42,64 @@ public class GrowlerStationPageObject extends MobilePageObject {
         return result;
     }
 
-    By BY_sectionTitle = MobileBy.AccessibilityId("growler-section-title");
-    public boolean isSectionTitleDisplayed() {
+    By BY_sectionTitle1 = MobileBy.AccessibilityId("growler-section-title");
+    public boolean isSectionTitleDisplayed(By byReference) {
         try {
-            withTimeoutOf(1, TimeUnit.SECONDS).waitForPresenceOf(BY_sectionTitle);
+//            withTimeoutOf(1, TimeUnit.SECONDS).waitForPresenceOf(BY_sectionTitle);
+            setImplicitTimeout(0, TimeUnit.SECONDS);
+            new WebDriverWait(getDriver(), 1).until(ExpectedConditions.visibilityOfElementLocated(byReference));
+            resetImplicitTimeout();
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public String getSectionTitle() {
-        String result = getDriver().findElement(BY_sectionTitle).getText();
+    public String getSectionTitle(By byReference) {
+        String result = getDriver().findElement(byReference).getText();
         return result;
     }
 
-    public boolean doesGrowlerSectionTitleMatch(String expected) {
+   public enum SectionTitle {
+        CURRENT_SELECTIONS("This week's selection", MobileBy.AccessibilityId("growler-section-title")),
+        ON_DECK("On deck", MobileBy.xpath("(//XCUIElementTypeStaticText[@name=\"growler-section-title\"])[2]"));
+        private String title;
+        private By by;
+        SectionTitle(String title, By by) {
+            this.title = title;
+            this.by = by;
+        }
+        public String getTitle() {
+            return title;
+        }
+        public By getByReference() {
+            return by;
+        }
+    }
+
+    public boolean doesGrowlerSectionTitleMatch(SectionTitle expected) {
         boolean matched = false;
+        String actual = "";
+        boolean displayed = isSectionTitleDisplayed(expected.getByReference());
+        if (displayed) {
+            actual = getSectionTitle(expected.getByReference());
+            matched = actual.equalsIgnoreCase(expected.getTitle());
+        }
         int i =0;
-        boolean displayed = isSectionTitleDisplayed();
-        while (!displayed && i<2) {
+        while (!matched && i<2) {
             if (Scrolling.scrollDown()) {
-                displayed = isSectionTitleDisplayed();
+                displayed = isSectionTitleDisplayed(expected.getByReference());
+                if (displayed) {
+                    actual = getSectionTitle(expected.getByReference());
+                    matched = actual.equalsIgnoreCase(expected.getTitle());
+                }
             }
             i++;
-        }
-        if (displayed) {
-            String actual = getSectionTitle();
-            matched = actual.equalsIgnoreCase(expected);
         }
         return matched;
     }
 
-    public enum AndroidGrowlerCard {
+    public enum GrowlerCard {
         BREWERY(
                 "(//android.widget.TextView[@content-desc='growler-card-header-brewery'])[%d]",
                 "(//XCUIElementTypeStaticText[@name='growler-card-header-brewery'])[%d]"),
@@ -105,7 +133,7 @@ public class GrowlerStationPageObject extends MobilePageObject {
 
         private String androidXpathPattern;
         private String iosXpathPattern;
-        AndroidGrowlerCard(String androidXpathPattern, String iosXpathPattern) {
+        GrowlerCard(String androidXpathPattern, String iosXpathPattern) {
             this.androidXpathPattern = androidXpathPattern;
             this.iosXpathPattern = iosXpathPattern;
         }
@@ -127,14 +155,19 @@ public class GrowlerStationPageObject extends MobilePageObject {
             String result = driver.findElement(By.xpath(xpath)).getText();
             return result;
         }
+        public String getNonIndexedXpath() {
+            String xpathPattern =isAndroid() ? androidXpathPattern : iosXpathPattern;
+            String result = xpathPattern.replace("(","").replace(")[%d]", "");
+            return result;
+        }
     }
 
     public boolean areCorrectLabelsPresentOnCard(int cardIndex) {
         boolean result = false;
-        if (AndroidGrowlerCard.ABV_LABEL.getText(getDriver(), cardIndex).equals("ABV")) {
-            if (AndroidGrowlerCard.IBU_LABEL.getText(getDriver(), cardIndex).equals("IBU")) {
-                if (AndroidGrowlerCard.SMALL_FILL_LABEL.getText(getDriver(), cardIndex).equals("32 OZ")) {
-                    if (AndroidGrowlerCard.LARGE_FILL_LABEL.getText(getDriver(), cardIndex).equals("64 OZ")) {
+        if (GrowlerCard.ABV_LABEL.getText(getDriver(), cardIndex).equals("ABV")) {
+            if (GrowlerCard.IBU_LABEL.getText(getDriver(), cardIndex).equals("IBU")) {
+                if (GrowlerCard.SMALL_FILL_LABEL.getText(getDriver(), cardIndex).equals("32 OZ")) {
+                    if (GrowlerCard.LARGE_FILL_LABEL.getText(getDriver(), cardIndex).equals("64 OZ")) {
                         result = true;
                     }
                 }
@@ -143,29 +176,65 @@ public class GrowlerStationPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean isBreweryLabelPresentOnCard(int cardIndex) {
-        return AndroidGrowlerCard.BREWERY.isDisplayed(getDriver(), cardIndex);
+    private int getLastCardIndex() {
+        String xpath = GrowlerCard.BREWERY.getNonIndexedXpath();
+        int index = getDriver().findElements(By.xpath(xpath)).size();
+        return index;
     }
 
-    public boolean isBeerLabelPresentOnCard(int cardIndex) {
-        return AndroidGrowlerCard.BEER.isDisplayed(getDriver(), cardIndex);
+    public boolean areCorrectLabelsPresentOnLastCard() {
+//        String xpath = GrowlerCard.ABV_LABEL.getNonIndexedXpath();
+//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
+//        boolean result = areCorrectLabelsPresentOnCard(lastCard);
+        return areCorrectLabelsPresentOnCard(getLastCardIndex());
     }
+
+    public boolean isBreweryLabelPresentOnCard(int cardIndex) {
+        return GrowlerCard.BREWERY.isDisplayed(getDriver(), cardIndex);
+    }
+
+    public boolean isLabelPresentOnLastCard(GrowlerCard growlerCardElement) {
+//        String xpath = androidGrowlerCardElement.getNonIndexedXpath();
+//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
+//        return androidGrowlerCardElement.isDisplayed(getDriver(), lastCard);
+        return growlerCardElement.isDisplayed(getDriver(), getLastCardIndex());
+    }
+//    public boolean isBreweryLabelPresentOnLastCard() {
+//        String xpath = GrowlerCard.BREWERY.getNonIndexedXpath();
+//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
+//        return isBreweryLabelPresentOnCard(lastCard);
+//    }
+
+
+    public boolean isBeerLabelPresentOnCard(int cardIndex) {
+        return GrowlerCard.BEER.isDisplayed(getDriver(), cardIndex);
+    }
+//
+//    public boolean isBeerLabelPresentOnLastCard() {
+//        String xpath = GrowlerCard.BEER.getNonIndexedXpath();
+//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
+//        return isBeerLabelPresentOnCard(lastCard);
+//    }
 
     private static String abvRegex = "([1-9]?[0-9]\\.[0-9]{2}%)";
     private static String ibuRegex = "(\\-|[1-9][0-9]{0,1}|1[01][0-9]|120)";
     private static String priceRegex = "(\\$(1[0-9][0-9]|[1-9][0-9]{0,1}).[0-9]{2})";
     public boolean areValuesValidOnCard(int cardIndex) {
         boolean result = false;
-        if (AndroidGrowlerCard.ABV_VALUE.getText(getDriver(), cardIndex).matches(abvRegex)) {
-            if (AndroidGrowlerCard.IBU_VALUE.getText(getDriver(), cardIndex).matches(ibuRegex)) {
-                if (AndroidGrowlerCard.SMALL_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
-                    if (AndroidGrowlerCard.LARGE_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
+        if (GrowlerCard.ABV_VALUE.getText(getDriver(), cardIndex).matches(abvRegex)) {
+            if (GrowlerCard.IBU_VALUE.getText(getDriver(), cardIndex).matches(ibuRegex)) {
+                if (GrowlerCard.SMALL_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
+                    if (GrowlerCard.LARGE_FILL_COST.getText(getDriver(), cardIndex).matches(priceRegex)) {
                         result = true;
                     }
                 }
             }
         }
         return result;
+    }
+
+    public boolean areValuesValidOnLastCard() {
+        return areValuesValidOnCard(getLastCardIndex());
     }
 
     public GrowlerStationPageObject(WebDriver driver) { super(driver); }

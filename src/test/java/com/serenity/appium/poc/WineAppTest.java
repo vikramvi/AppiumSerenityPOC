@@ -1,11 +1,7 @@
 package com.serenity.appium.poc;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
-import com.serenity.appium.poc.pages.storeDetails.TastingHoursPageObject;
 import com.serenity.appium.poc.utils.FindStore;
-import com.serenity.appium.poc.utils.Properties;
-import com.serenity.appium.poc.utils.Regression1;
-import com.serenity.appium.poc.utils.StoreDetails;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
@@ -19,14 +15,6 @@ import org.junit.AfterClass;
 import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.serenity.WineAppSteps;
-
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
 
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
@@ -148,18 +136,34 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+//    @Test //
+//    @Category({FindStore.class})
+//    public void DOT_25230_verifyCurrentGrowlerSelection() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifySelectGrowlerStationPage();
+//            wineAppSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardBeerNameLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardValues();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     @Test //
     @Category({FindStore.class})
-    public void DOT_25230_verifyCurrentGrowlerSelection() {
+    public void DOT_25231_verifyOnDeckGrowlerSelection() {
         try {
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
             wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-            wineAppSteps.verifySelectGrowlerStationPage();
-            wineAppSteps.verifyInitialGrowlerStationCardBreweryLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardBeerLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardValues();
+            wineAppSteps.verifySelectGrowlerStationPageOnDeckSection();
+            wineAppSteps.verifyLastGrowlerStationCardBreweryNameLabel();
+            wineAppSteps.verifyLastGrowlerStationCardBeerNameLabel();
+            wineAppSteps.verifyLastGrowlerStationCardLabels();
+            wineAppSteps.verifyLastGrowlerStationCardValues();
         } catch (Exception e) {
             e.printStackTrace();
         }

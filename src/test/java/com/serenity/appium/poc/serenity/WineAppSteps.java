@@ -63,34 +63,6 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
         assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
     }
-//    @Step
-//    private boolean startOnboarding() {
-//    LOGGER.info("start onboarding...");
-//    return splashPageObject.startOnboarding();
-//}
-//    @Step
-//    private boolean declineLocation() {
-//        LOGGER.info("declining location...");
-//        return locationPageObject.declineLocationTracking();
-//    }
-//    @Step
-//    private boolean declineNotifications() {
-//        LOGGER.info("declining notifications...");
-//        return notificationPageObject.declineReceivingNotifications();
-//    }
-//    @Step
-//    private boolean declineLoyalty() {
-//        LOGGER.info("declining loyalty...");
-//        return loyaltyPageObject.declineLoyaltyLogin();
-//    }
-//    @Step
-//    public void completeQuickOnboarding() {
-//        LOGGER.info("Completing onboarding, declining all options...");
-//        assertThat(startOnboarding()).isTrue();
-//        assertThat(declineLocation()).isTrue();
-//        assertThat(declineNotifications()).isTrue();
-//        assertThat(declineLoyalty()).isTrue();
-//    }
 
     @Step
     public void initiateProductSearch(String searchToken) {
@@ -258,7 +230,23 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying transition to Growler Station page...");
         assertThat(growlerSectionPageObject.clickFindOutMore()).isTrue();
         assertThat(growlerStationPageObject.doesGrowlerPageTitleMatch()).isTrue();
-        assertThat(growlerStationPageObject.doesGrowlerSectionTitleMatch("This Week's Selection")).isTrue();
+        assertThat(growlerStationPageObject
+                .doesGrowlerSectionTitleMatch(GrowlerStationPageObject.SectionTitle.CURRENT_SELECTIONS))
+                .isTrue();
+    }
+
+    @Step
+    public void verifyInitialGrowlerStationCardBreweryNameLabels() {
+        LOGGER.info("Verifying Growler Station card Brewery name labels ...");
+        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(1)).isTrue();
+        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(2)).isTrue();
+    }
+
+    @Step
+    public void verifyInitialGrowlerStationCardBeerNameLabels() {
+        LOGGER.info("Verifying Growler Station card Beer name labels ...");
+        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(1)).isTrue();
+        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(2)).isTrue();
     }
 
     @Step
@@ -269,23 +257,44 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyInitialGrowlerStationCardBreweryLabels() {
-        LOGGER.info("Verifying Growler Station card Brewery name labels ...");
-        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(1)).isTrue();
-        assertThat(growlerStationPageObject.isBreweryLabelPresentOnCard(2)).isTrue();
-    }
-
-    @Step
-    public void verifyInitialGrowlerStationCardBeerLabels() {
-        LOGGER.info("Verifying Growler Station card Beer name labels ...");
-        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(1)).isTrue();
-        assertThat(growlerStationPageObject.isBeerLabelPresentOnCard(2)).isTrue();
-    }
-
-    @Step
     public void verifyInitialGrowlerStationCardValues() {
         LOGGER.info("Verifying Growler Station card ABV, IBU values and both growler fill prices...");
         assertThat(growlerStationPageObject.areValuesValidOnCard(1)).isTrue();
         assertThat(growlerStationPageObject.areValuesValidOnCard(2)).isTrue();
+    }
+
+    @Step
+    public void verifySelectGrowlerStationPageOnDeckSection() {
+        LOGGER.info("Verifying transition to Growler Station page's On Deck section...");
+        assertThat(growlerSectionPageObject.clickFindOutMore()).isTrue();
+        assertThat(growlerStationPageObject.doesGrowlerPageTitleMatch()).isTrue();
+        assertThat(growlerStationPageObject
+                .doesGrowlerSectionTitleMatch(GrowlerStationPageObject.SectionTitle.ON_DECK)).isTrue();
+    }
+
+    @Step
+    public void verifyLastGrowlerStationCardBreweryNameLabel() {
+        LOGGER.info("Verifying Growler Station card Brewery name label on last card...");
+        assertThat(growlerStationPageObject
+                .isLabelPresentOnLastCard(GrowlerStationPageObject.GrowlerCard.BREWERY)).isTrue();
+    }
+
+    @Step
+    public void verifyLastGrowlerStationCardBeerNameLabel() {
+        LOGGER.info("Verifying Growler Station card Beer name label on last card...");
+        assertThat(growlerStationPageObject
+                .isLabelPresentOnLastCard(GrowlerStationPageObject.GrowlerCard.BEER)).isTrue();
+    }
+
+    @Step
+    public void verifyLastGrowlerStationCardLabels() {
+        LOGGER.info("Verifying Growler Station card ABV, IBU, and growler size labels on last card...");
+        assertThat(growlerStationPageObject.areCorrectLabelsPresentOnLastCard()).isTrue();
+    }
+
+    @Step
+    public void verifyLastGrowlerStationCardValues() {
+        LOGGER.info("Verifying Growler Station card ABV, IBU values and both growler fill prices on last card...");
+        assertThat(growlerStationPageObject.areValuesValidOnLastCard()).isTrue();
     }
 }
