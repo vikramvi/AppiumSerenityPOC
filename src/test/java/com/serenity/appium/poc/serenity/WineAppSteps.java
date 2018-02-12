@@ -93,7 +93,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyHomepageStoreDetails(String expectedTitle, String expectedLocation) {
         LOGGER.info("Verifying homepage store details:  \nExpected title = " + expectedTitle + "\nExpected address = " + expectedLocation);
-        assertThat(myStoreHeaderPageObject.getTitleFromStoreData()).isEqualTo(expectedTitle);
+        assertThat(myStoreHeaderPageObject.getTitleFromStoreData()).isEqualToIgnoringCase(expectedTitle);
         assertThat(myStoreHeaderPageObject.getOpenInfoFromStoreData()).matches(StoreDataParser.openCloseRegex);
     }
 
@@ -101,6 +101,7 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyHomepageToStoreDetails() {
         LOGGER.info("Clicking touchable store data to see store details page...");
         assertThat(myStoreHeaderPageObject.clickTouchableStoreData()).isTrue();
+        assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
     }
 
     @Step
@@ -188,14 +189,14 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void verifyShowTastingHours() {
-        LOGGER.info("Clicking tab to show tasting hours...");
+        LOGGER.info("Clicking tab to show sampling hours...");
         assertThat(tastingHoursPageObject.isTastingHoursTabPresent()).isTrue();
         assertThat(tastingHoursPageObject.clickTastingHoursTab()).isTrue();
     }
 
     @Step
     public void verifyTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays) {
-        LOGGER.info("Verifying that tasting hours for " +tastingType.name()+ " are only on specific days...");
+        LOGGER.info("Verifying that sampling hours for " +tastingType.name()+ " are only on specific days...");
         assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingType, tastingDays)).isTrue();
     }
 

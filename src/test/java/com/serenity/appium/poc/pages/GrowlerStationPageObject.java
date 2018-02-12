@@ -183,9 +183,6 @@ public class GrowlerStationPageObject extends MobilePageObject {
     }
 
     public boolean areCorrectLabelsPresentOnLastCard() {
-//        String xpath = GrowlerCard.ABV_LABEL.getNonIndexedXpath();
-//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
-//        boolean result = areCorrectLabelsPresentOnCard(lastCard);
         return areCorrectLabelsPresentOnCard(getLastCardIndex());
     }
 
@@ -194,27 +191,12 @@ public class GrowlerStationPageObject extends MobilePageObject {
     }
 
     public boolean isLabelPresentOnLastCard(GrowlerCard growlerCardElement) {
-//        String xpath = androidGrowlerCardElement.getNonIndexedXpath();
-//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
-//        return androidGrowlerCardElement.isDisplayed(getDriver(), lastCard);
         return growlerCardElement.isDisplayed(getDriver(), getLastCardIndex());
     }
-//    public boolean isBreweryLabelPresentOnLastCard() {
-//        String xpath = GrowlerCard.BREWERY.getNonIndexedXpath();
-//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
-//        return isBreweryLabelPresentOnCard(lastCard);
-//    }
-
 
     public boolean isBeerLabelPresentOnCard(int cardIndex) {
         return GrowlerCard.BEER.isDisplayed(getDriver(), cardIndex);
     }
-//
-//    public boolean isBeerLabelPresentOnLastCard() {
-//        String xpath = GrowlerCard.BEER.getNonIndexedXpath();
-//        int lastCard = getDriver().findElements(By.xpath(xpath)).size();
-//        return isBeerLabelPresentOnCard(lastCard);
-//    }
 
     private static String abvRegex = "([1-9]?[0-9]\\.[0-9]{2}%)";
     private static String ibuRegex = "(\\-|[1-9][0-9]{0,1}|1[01][0-9]|120)";
