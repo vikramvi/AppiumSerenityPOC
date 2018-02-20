@@ -65,11 +65,26 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifyHomepageToProductSearch() {
+        LOGGER.info("Clicking search proxy on homepage to see product search page...");
+        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
+        assertThat(searchSection.triggerSearchPage()).isTrue();
+        assertThat(productSearchPageObject.isSearchFieldPresent()).isTrue();
+    }
+
+    @Step
     public void initiateProductSearch(String searchToken) {
         LOGGER.info("Initiating a product search...");
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
         assertThat(productSearchPageObject.typeSearchTerm(searchToken)).isTrue();
+    }
+
+    @Step
+    public void searchForProduct(String searchToken) {
+        LOGGER.info("Searching for a product from the homepage...");
+        assertThat(productSearchPageObject.enterSearchTerm(searchToken)).isTrue();
+        assertThat(productSearchResultsPageObject.getResultsCount().length()>0).isTrue();
     }
 
     @Step
@@ -116,6 +131,13 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifySearchResultCount(int expected) {
         LOGGER.info("Checking the number of search results...");
         assertThat(productSearchResultsPageObject.getResultsCount()).isEqualTo(Integer.toString(expected));
+    }
+
+    @Step
+    public void verifyProductSearchResults(String token) {
+        LOGGER.info("Verifying search results contain " +token+ "...");
+        assertThat(productSearchResultsPageObject.isTokenPresentInResults(token)).isTrue();
+
     }
 
     @Step
@@ -298,4 +320,5 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying Growler Station card ABV, IBU values and both growler fill prices on last card...");
         assertThat(growlerStationPageObject.areValuesValidOnLastCard()).isTrue();
     }
+
 }

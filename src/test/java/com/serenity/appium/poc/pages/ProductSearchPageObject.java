@@ -1,10 +1,18 @@
 package com.serenity.appium.poc.pages;
 
+import com.serenity.appium.poc.utils.Utils;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class ProductSearchPageObject extends MobilePageObject {
 
@@ -24,6 +32,24 @@ public class ProductSearchPageObject extends MobilePageObject {
         }
     }
 
+    public boolean enterSearchTerm(String productName){
+        boolean result = false;
+        String token = productName;
+        try {
+            token += "\n";
+            result = typeSearchTerm(token);
+            if (result && isAndroid()) {
+                WebDriver facade = getDriver();
+                WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
+                ((AndroidDriver)driver).pressKeyCode(66);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private String XPATH_PATTERN_suggestedSearchTerm = "//*[@*='%s']";
     public boolean selectSearchSuggestion(String productName) {
         try {
@@ -37,5 +63,9 @@ public class ProductSearchPageObject extends MobilePageObject {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean isSearchFieldPresent() {
+        return Utils.isVisible(getDriver(), FIELD_searchProduct, 2);
     }
 }

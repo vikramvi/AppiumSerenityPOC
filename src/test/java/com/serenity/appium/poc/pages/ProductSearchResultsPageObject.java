@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Utils;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,6 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     private WebElement TEXT_searchResultsCount;
 
     private final String REGEX_count = "([0-9]*?,?[0-9]+)(\\sITEMS?)";
-
     public String getResultsCount() {
         String result = "NOT FOUND!";
         String itemCount = TEXT_searchResultsCount.getText();
@@ -175,7 +175,32 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return found;
     }
 
+    private By BY_iosResultStream = MobileBy.xpath("//XCUIElementTypeScrollView/XCUIElementTypeOther");
+    private String getIosResultStream() {
+        String stream = getDriver().findElement(BY_iosResultStream).getAttribute("name");
+        return stream;
+    }
+
+
+
+    public boolean isTokenPresentInResults(String token) {
+        boolean found = false;
+        int i = 1;
+        String name = getAndroidProductName(i);
+        found = name.contains(token.toUpperCase());
+        while ((i<6) && found) {
+            i++;
+            name = getAndroidProductName(i);
+            found = name.contains(token.toUpperCase());
+        }
+        return found;
+    }
+
+
+
+
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
     }
+
 }
