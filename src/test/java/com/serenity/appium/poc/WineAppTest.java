@@ -293,8 +293,11 @@ public class WineAppTest {
         try{
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("resling");
-            wineAppSteps.verifyProductSearchResults("riesling");
+//            wineAppSteps.searchForProduct("pig hefe");
+//            wineAppSteps.searchForProduct("bud light 1/2");
+//            wineAppSteps.searchForProduct("resling");
+            wineAppSteps.searchForProduct("chateau");
+//            wineAppSteps.verifyProductSearchResults("riesling");
         }catch (Exception e){
             e.printStackTrace();
         }
