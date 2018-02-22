@@ -18,6 +18,14 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "search results count")
     private WebElement TEXT_searchResultsCount;
 
+    @AndroidFindBy(accessibility =  "button-floating-return")
+    @iOSFindBy(accessibility = "button-floating-return")
+    private WebElement BUTTON_return;
+
+    public boolean clickReturn() {
+        return Utils.tryClicking(BUTTON_return);
+    }
+
     private final String REGEX_count = "([0-9]*?,?[0-9]+)(\\sITEMS?)";
     public String getResultsCount() {
         String result = "NOT FOUND!";
@@ -222,6 +230,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     }
 
 
+//------------------ iOS -->
 
     private By BY_iosResultStream = MobileBy.xpath("//XCUIElementTypeScrollView/XCUIElementTypeOther");
     private String getIosResultStream() {
@@ -232,18 +241,19 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     public boolean isTokenPresentInResults(String token) {
         boolean found = false;
         int i = 1;
+        int count = getResultsCountInteger();
+        int max =  count > 4 ? 4 : count;
         String name = getAndroidProductName(i);
         found = name.contains(token.toUpperCase());
-        while ((i<6) && found) {
+        System.out.println("i=" +i+ "; name=" +name+ "; token=" +token);
+        while ((i<max) && found) {
             i++;
             name = getAndroidProductName(i);
             found = name.contains(token.toUpperCase());
+            System.out.println("i=" +i+ "; name=" +name+ "; token=" +token);
         }
         return found;
     }
-
-
-
 
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);

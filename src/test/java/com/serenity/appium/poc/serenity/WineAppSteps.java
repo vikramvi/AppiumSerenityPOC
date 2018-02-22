@@ -33,6 +33,7 @@ public class WineAppSteps extends ScenarioSteps {
     private SpiritsHoursPageObject spiritsHoursPageObject;
     private SplashPageObject splashPageObject;
     private StoreDataHeaderPageObject storeDataHeaderPageObject;
+    private StoreDetailsCommonPageObject storeDetailsCommonPageObject;
     private GrowlerSectionPageObject growlerSectionPageObject;
     private GrowlerStationPageObject growlerStationPageObject;
     private StoreHoursPageObject storeHoursPageObject;
@@ -124,7 +125,8 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
-        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+//        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+        assertThat(storeSearchPageObject.isSearchButtonPresent()).isTrue();
     }
 
     @Step
@@ -138,6 +140,22 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying search results contain " +token+ "...");
         assertThat(productSearchResultsPageObject.isTokenPresentInResults(token)).isTrue();
 
+    }
+
+    @Step
+    public void verifySelectProductFromSearchResults(int productNumber) {
+        LOGGER.info("Verifying product selection from search results...");
+        String name = productSearchResultsPageObject.getAndroidProductName(productNumber);
+        assertThat(productSearchResultsPageObject.selectProductForAndroid(productNumber)).isTrue();
+        //TODO: verify name on product details page; return; get product 2 name and repeat
+    }
+
+
+    @Step
+    public void verifyProductSearchResultsToHomepage() {
+        LOGGER.info("Returning from search results to Homepage...");
+        assertThat(productSearchResultsPageObject.clickReturn()).isTrue();
+        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
     }
 
     @Step
@@ -229,6 +247,23 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifyStoreDetailsToHomepage() {
+        LOGGER.info("Returning back one screen...");
+        storeDetailsCommonPageObject.clickReturnButton();
+        assertThat(storeSearchPageObject.isSearchButtonPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyDirectionsLoad() {
+        LOGGER.info("Verifying that the map is present on the store details page...");
+        assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
+        assertThat(storeIconsPageObject.clickGetDirections()).isTrue();
+        assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
+    }
+
+    //----- G R O W L E R --------------------------------------------------------------------->
+
+    @Step
     public void verifyGrowlerStation(boolean expected) {
         LOGGER.info("Verifying presence of Growler station in store details = " + expected + "...");
         if (expected) {
@@ -238,14 +273,6 @@ public class WineAppSteps extends ScenarioSteps {
             assertThat(growlerSectionPageObject.isGrowlerStationSectionDisplayed()).isFalse();
         }
 
-    }
-
-    @Step
-    public void verifyDirectionsLoad() {
-        LOGGER.info("Verifying that the map is present on the store details page...");
-        assertThat(storeMapPageObject.isStoreMapThumbnailPresent()).isTrue();
-        assertThat(storeIconsPageObject.clickGetDirections()).isTrue();
-        assertThat(storeMapPageObject.isActualStoreMapLoaded()).isTrue();
     }
 
     @Step

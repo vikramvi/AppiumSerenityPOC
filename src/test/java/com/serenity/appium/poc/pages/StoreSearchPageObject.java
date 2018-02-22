@@ -56,6 +56,11 @@ public class StoreSearchPageObject extends MobilePageObject {
         return result;
     }
 
+    public boolean isSearchButtonPresent() {
+        boolean result = Utils.isVisible(getDriver(), FIELD_searchButton, 2);
+        return result;
+    }
+
     By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
     public boolean enterSearchToken(String token) {
         try {

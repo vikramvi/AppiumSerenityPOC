@@ -265,7 +265,7 @@ public class WineAppTest {
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
 //            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
-//            wineAppSteps.verifyReturn();
+//            wineAppSteps.verifyStoreDetailsToHomepage();
 //            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
 //            wineAppSteps.verifyShowTastingHours();
 //            tastingDays.remove(DayOfWeek.THURSDAY);
@@ -287,20 +287,69 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //
-    @Category({Regression1.class})
-    public void DOT_25275_verifyProductMisspellings(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("pig hefe");
-//            wineAppSteps.searchForProduct("bud light 1/2");
+//    @Test //
+//    @Category({Regression1.class})
+//    public void DOT_25275_verifyProductMisspellings(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageToProductSearch();
+////            wineAppSteps.searchForProduct("pig hefe");
+////            wineAppSteps.searchForProduct("bud light 1/2");
+////            wineAppSteps.searchForProduct("chateau");
+//            String expected = "riesling";
+//            wineAppSteps.searchForProduct("reisling");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("reiseling");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
 //            wineAppSteps.searchForProduct("resling");
-            wineAppSteps.searchForProduct("chateau");
-//            wineAppSteps.verifyProductSearchResults("riesling");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//
+//            expected = "amaretto";
+//            wineAppSteps.searchForProduct("ameratto");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("amereto");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("ameretta");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("ameretto");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("amerrato");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//
+//            expected = "hoegaarden";
+//            wineAppSteps.searchForProduct("hoeegarden");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hoegarten");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hoegarden");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hogarten");
+//            wineAppSteps.verifyProductSearchResults(expected);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
 }
