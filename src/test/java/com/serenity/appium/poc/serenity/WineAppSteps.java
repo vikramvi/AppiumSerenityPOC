@@ -10,6 +10,7 @@ import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
+import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.core.annotations.Step;
@@ -141,7 +142,14 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyProductSearchResults(String token) {
         LOGGER.info("Verifying search results contain " +token+ "...");
         assertThat(productSearchResultsPageObject.isTokenPresentInResults(token)).isTrue();
+    }
 
+    @Step
+    public void verifyPresenceOfFeeInSearchResults(int productNumber, Enums.Fees fee) {
+        LOGGER.info("Verifying presence of " +fee.toString()+ " fee in search results...");
+        String actualPrice = productSearchResultsPageObject.getAndroidProductPrice(productNumber);
+        String expectedFee = fee.getText();
+        assertThat(actualPrice).contains(expectedFee);
     }
 
     @Step
@@ -149,13 +157,16 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying product selection from search results...");
         String expectedName = productSearchResultsPageObject.getAndroidProductName(productNumber);
         assertThat(productSearchResultsPageObject.selectProductForAndroid(productNumber)).isTrue();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         String actualName = mainProductDetailsPageObject.getAndroidProductName();
         assertThat(actualName).isEqualToIgnoringCase(expectedName);
+    }
+
+    @Step
+    public void verifyPresenceOfFeeInProductDetails(Enums.Fees fee) {
+        LOGGER.info("Verifying presence of " +fee.toString()+ " fee in product details...");
+        String actualFee = mainProductDetailsPageObject.getAndroidProductFee();
+        String expectedFee = fee.getText();
+        assertThat(actualFee).isEqualTo(expectedFee);
     }
 
     @Step

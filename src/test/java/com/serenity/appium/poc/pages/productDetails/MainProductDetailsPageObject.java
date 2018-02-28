@@ -85,6 +85,12 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return result;
     }
 
+    private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
+    public String getAndroidProductFee() {
+        String result = getDriver().findElement(BY_productFee).getText();
+        return result;
+    }
+
     public String getAndroidProductName() {
         String result = TEXT_productName.getText();
         return result;

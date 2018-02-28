@@ -2,6 +2,7 @@ package com.serenity.appium.poc;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.serenity.WineAppSteps;
+import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.Regression1;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
@@ -131,15 +132,26 @@ public class ProductSearchTests {
 //        }
 //    }
 
-    @Test //
+//    @Test // verified on Android on 2/28/18
+//    @Category({Regression1.class})
+//    public void DOT_25266_verifyRepeatedSearches(){
+//        wineAppSteps.completeQuickOnboarding();
+//        wineAppSteps.verifyHomepageToProductSearch();
+//        wineAppSteps.searchForProduct("clown shoes");
+//        wineAppSteps.verifySelectProductFromSearchResults(1);
+//        wineAppSteps.verifyProductDetailsToSearchResults();
+//        wineAppSteps.verifySelectProductFromSearchResults(2);
+//    }
+
+    @Test // verified on Android on 2/28/18
     @Category({Regression1.class})
-    public void DOT_25266_verifyRepeatedSearches(){
+    public void DOT_25261_verifyDepositFee(){
         wineAppSteps.completeQuickOnboarding();
         wineAppSteps.verifyHomepageToProductSearch();
-        wineAppSteps.searchForProduct("clown shoes");
+        wineAppSteps.searchForProduct("31901-3");
+        wineAppSteps.verifyPresenceOfFeeInSearchResults(1, Enums.Fees.DEPOSIT);
         wineAppSteps.verifySelectProductFromSearchResults(1);
-        wineAppSteps.verifyProductDetailsToSearchResults();
-        wineAppSteps.verifySelectProductFromSearchResults(2);
+        wineAppSteps.verifyPresenceOfFeeInProductDetails(Enums.Fees.DEPOSIT);
     }
 
 
