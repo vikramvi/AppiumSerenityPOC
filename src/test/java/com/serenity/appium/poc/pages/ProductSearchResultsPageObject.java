@@ -50,46 +50,46 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return getResultsCountInteger() == 1;
     }
 
-    private String XPATH_PATTERN_soloProductAttribute = "//android.widget.ScrollView//android.widget.TextView[%d]";
-    private String XPATH_PATTERN_productAttributeOfMany =
-            "//android.widget.ScrollView//android.view.ViewGroup[%d]//android.view.ViewGroup[%d]/android.widget.TextView[%d]";
+//    private String XPATH_PATTERN_soloProductAttribute = "//android.widget.ScrollView//android.widget.TextView[%d]";
+//    private String XPATH_PATTERN_productAttributeOfMany =
+//            "//android.widget.ScrollView//android.view.ViewGroup[%d]//android.view.ViewGroup[%d]/android.widget.TextView[%d]";
+//
+//    private String getAndroidProductAttributeXpath(int productNumber, int attributeNumber) {
+//        String xpath = null;
+//        if (isSoloSearchResult()) {
+//            if (productNumber == 1) {
+//                xpath = String.format(XPATH_PATTERN_soloProductAttribute, attributeNumber);
+//            } else {
+//                throw new IllegalStateException("Cannot produce xpath for product number " + productNumber + " when only 1 result exists!");
+//            }
+//        } else {
+//            int row = 0;
+//            int col = 0;
+//            switch (productNumber) {
+//                case 1: row = 1;
+//                        col = 1;
+//                        break;
+//                case 2: row = 1;
+//                        col = 2;
+//                        break;
+//                case 3: row = 2;
+//                        col = 1;
+//                        break;
+//                case 4: row = 2;
+//                        col = 2;
+//                        break;
+//            }
+//            xpath = String.format(XPATH_PATTERN_productAttributeOfMany, row, col, attributeNumber);
+//        }
+//        return xpath;
+//    }
 
-    private String getAndroidProductAttributeXpath(int productNumber, int attributeNumber) {
-        String xpath = null;
-        if (isSoloSearchResult()) {
-            if (productNumber == 1) {
-                xpath = String.format(XPATH_PATTERN_soloProductAttribute, attributeNumber);
-            } else {
-                throw new IllegalStateException("Cannot produce xpath for product number " + productNumber + " when only 1 result exists!");
-            }
-        } else {
-            int row = 0;
-            int col = 0;
-            switch (productNumber) {
-                case 1: row = 1;
-                        col = 1;
-                        break;
-                case 2: row = 1;
-                        col = 2;
-                        break;
-                case 3: row = 2;
-                        col = 1;
-                        break;
-                case 4: row = 2;
-                        col = 2;
-                        break;
-            }
-            xpath = String.format(XPATH_PATTERN_productAttributeOfMany, row, col, attributeNumber);
-        }
-        return xpath;
-    }
-
-    private String getAndroidProductAttribute(int productNumber, int attributeNumber) {
-        String result = "NOT FOUND!";
-        String xpath = getAndroidProductAttributeXpath(productNumber, attributeNumber);
-        result = getDriver().findElement(By.xpath(xpath)).getText();
-        return result;
-    }
+//    private String getAndroidProductAttribute(int productNumber, int attributeNumber) {
+//        String result = "NOT FOUND!";
+//        String xpath = getAndroidProductAttributeXpath(productNumber, attributeNumber);
+//        result = getDriver().findElement(By.xpath(xpath)).getText();
+//        return result;
+//    }
 
     private boolean isProductRating(String data) {
         return (data.length() > 1) && (data.length() < 4) && (StringUtils.isNumeric(data));

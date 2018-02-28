@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(SerenityRunner.class)
+//@RunWith(SerenityRunner.class)
 public class WineAppTest {
 
     @Managed(uniqueSession = false)

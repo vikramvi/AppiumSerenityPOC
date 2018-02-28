@@ -136,8 +136,10 @@ public class ProductSearchTests {
     public void DOT_25266_verifyRepeatedSearches(){
         wineAppSteps.completeQuickOnboarding();
         wineAppSteps.verifyHomepageToProductSearch();
-        wineAppSteps.searchForProduct("vivonne");
+        wineAppSteps.searchForProduct("clown shoes");
         wineAppSteps.verifySelectProductFromSearchResults(1);
+        wineAppSteps.verifyProductDetailsToSearchResults();
+        wineAppSteps.verifySelectProductFromSearchResults(2);
     }
 
 

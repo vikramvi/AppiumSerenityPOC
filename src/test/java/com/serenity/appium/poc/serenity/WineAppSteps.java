@@ -8,6 +8,7 @@ import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
 import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 
+import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -24,6 +25,7 @@ public class WineAppSteps extends ScenarioSteps {
 
     private LocationPageObject locationPageObject;
     private LoyaltyPageObject loyaltyPageObject;
+    private MainProductDetailsPageObject mainProductDetailsPageObject;
     private MobilePageObject mobilePageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private NotificationPageObject notificationPageObject;
@@ -145,9 +147,22 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifySelectProductFromSearchResults(int productNumber) {
         LOGGER.info("Verifying product selection from search results...");
-        String name = productSearchResultsPageObject.getAndroidProductName(productNumber);
+        String expectedName = productSearchResultsPageObject.getAndroidProductName(productNumber);
         assertThat(productSearchResultsPageObject.selectProductForAndroid(productNumber)).isTrue();
-        //TODO: verify name on product details page; return; get product 2 name and repeat
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        String actualName = mainProductDetailsPageObject.getAndroidProductName();
+        assertThat(actualName).isEqualToIgnoringCase(expectedName);
+    }
+
+    @Step
+    public void verifyProductDetailsToSearchResults() {
+        LOGGER.info("Clicking Return button to return from Product Details to Search Results...");
+        assertThat(mainProductDetailsPageObject.clickReturn()).isTrue();
+        assertThat(productSearchResultsPageObject.getResultsCountInteger()>0).isTrue();
     }
 
 
