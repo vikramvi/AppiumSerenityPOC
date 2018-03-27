@@ -128,8 +128,8 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Clicking change store and verifying that the geo search field is displayed...");
         assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
         assertThat(myStoreHeaderPageObject.clickChangeStore()).isTrue();
-//        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
-        assertThat(storeSearchPageObject.isSearchButtonPresent()).isTrue();
+        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+//        assertThat(storeSearchPageObject.isAndroidSearchButtonPresent()).isTrue();
     }
 
     @Step
@@ -276,7 +276,7 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyStoreDetailsToHomepage() {
         LOGGER.info("Returning back one screen...");
         storeDetailsCommonPageObject.clickReturnButton();
-        assertThat(storeSearchPageObject.isSearchButtonPresent()).isTrue();
+        //assertThat(storeSearchPageObject.isAndroidSearchButtonPresent()).isTrue();
     }
 
     @Step

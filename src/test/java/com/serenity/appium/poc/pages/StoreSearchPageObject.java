@@ -23,7 +23,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
-    @iOSFindBy(accessibility = "SEARCH")
+    //@iOSFindBy(accessibility = "SEARCH")
     private WebElement FIELD_searchButton;
 
     @AndroidFindBy(accessibility =  "button-floating-return")
@@ -56,11 +56,11 @@ public class StoreSearchPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean isSearchButtonPresent() {
-        boolean result = Utils.isVisible(getDriver(), FIELD_searchButton, 2);
-        return result;
-    }
-
+//    public boolean isAndroidSearchButtonPresent() {
+//        boolean result = Utils.isVisible(getDriver(), FIELD_searchButton, 2);
+//        return result;
+//    }
+//
     By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
     public boolean enterSearchToken(String token) {
         try {

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//@RunWith(SerenityRunner.class)
+@RunWith(SerenityRunner.class)
 public class WineAppTest {
 
     @Managed(uniqueSession = false)
@@ -96,18 +96,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 2/12/18
-//    @Category({FindStore.class})
-//    public void DOT_25137_verifyNewStoreIcons() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-//            wineAppSteps.verifyStoreDetailsIcons();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test // verified on iOS on 2/12/18
+    @Category({FindStore.class})
+    public void DOT_25137_verifyNewStoreIcons() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+            wineAppSteps.verifyStoreDetailsIcons();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test // verified on iOS on 2/12/18
 //    public void DOT_25139_verifyNewStoreHours() {
 //        try {

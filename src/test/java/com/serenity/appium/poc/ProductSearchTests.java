@@ -14,7 +14,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
-@RunWith(SerenityRunner.class)
+//@RunWith(SerenityRunner.class)
 public class ProductSearchTests {
 
     @Managed(uniqueSession = false)
@@ -143,16 +143,16 @@ public class ProductSearchTests {
 //        wineAppSteps.verifySelectProductFromSearchResults(2);
 //    }
 
-    @Test // verified on Android on 2/28/18
-    @Category({Regression1.class})
-    public void DOT_25261_verifyDepositFee(){
-        wineAppSteps.completeQuickOnboarding();
-        wineAppSteps.verifyHomepageToProductSearch();
-        wineAppSteps.searchForProduct("31901-3");
-        wineAppSteps.verifyPresenceOfFeeInSearchResults(1, Enums.Fees.DEPOSIT);
-        wineAppSteps.verifySelectProductFromSearchResults(1);
-        wineAppSteps.verifyPresenceOfFeeInProductDetails(Enums.Fees.DEPOSIT);
-    }
+//    @Test // verified on Android on 2/28/18
+//    @Category({Regression1.class})
+//    public void DOT_25261_verifyDepositFee(){
+//        wineAppSteps.completeQuickOnboarding();
+//        wineAppSteps.verifyHomepageToProductSearch();
+//        wineAppSteps.searchForProduct("31901-3");
+//        wineAppSteps.verifyPresenceOfFeeInSearchResults(1, Enums.Fees.DEPOSIT);
+//        wineAppSteps.verifySelectProductFromSearchResults(1);
+//        wineAppSteps.verifyPresenceOfFeeInProductDetails(Enums.Fees.DEPOSIT);
+//    }
 
 
     }
