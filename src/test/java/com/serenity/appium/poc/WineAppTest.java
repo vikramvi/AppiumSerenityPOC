@@ -79,7 +79,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 2/12/18
+//    @Test // verified on iOS on 3/28/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25134_verifyClosestStoreOnHomepage(){
 //        Properties properties = new Properties();
@@ -96,18 +96,18 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test // verified on iOS on 2/12/18
-    @Category({FindStore.class})
-    public void DOT_25137_verifyNewStoreIcons() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-            wineAppSteps.verifyStoreDetailsIcons();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test // verified on iOS on 3/28/18
+//    @Category({FindStore.class})
+//    public void DOT_25137_verifyNewStoreIcons() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//            wineAppSteps.verifyStoreDetailsIcons();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on iOS on 2/12/18
 //    public void DOT_25139_verifyNewStoreHours() {
 //        try {
@@ -134,12 +134,14 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 2/12/18
+//    @Test // verified on iOS on 3/28/18
 //    @Category({FindStore.class})
 //    public void DOT_25218_verifyGrowlerStoreAbsence() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+////            wineAppSteps.verifyHomepageToStoreDetails();
 //            wineAppSteps.verifyGrowlerStation(false);
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -150,8 +152,9 @@ public class WineAppTest {
 //    public void DOT_25230_verifyCurrentGrowlerSelection() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifyHomepageToStoreDetails();
+////            wineAppSteps.verifyChangeStoreLookupOption();
+////            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
 //            wineAppSteps.verifySelectGrowlerStationPage();
 //            wineAppSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
 //            wineAppSteps.verifyInitialGrowlerStationCardBeerNameLabels();
@@ -166,8 +169,9 @@ public class WineAppTest {
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
 //        try {
 //            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifyHomepageToStoreDetails();
+////            wineAppSteps.verifyChangeStoreLookupOption();
+////            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
 //            wineAppSteps.verifySelectGrowlerStationPageOnDeckSection();
 //            wineAppSteps.verifyLastGrowlerStationCardBreweryNameLabel();
 //            wineAppSteps.verifyLastGrowlerStationCardBeerNameLabel();
@@ -208,28 +212,28 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 2/12/18
-//    @Category({FindStore.class})
-//    public void DOT_25245_verifyStoreAddress() {
-//        String title = "Laurel (Corridor)";
-//        String address1 = "Laurel Corridor";
-//        String address2 = "3335 Corridor Marketplace";
-//        String cityStateZip = "Laurel, MD 20724";
-//        String phoneNumber = "(301) 617-8507";
-//        String hours = "8:00 AM - 11:00 PM";
-//        String openUntil = "Open Until 11 PM";
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifyStoreDataInNewSearchResults(
-//                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-//            wineAppSteps.verifySelectStoreFromSearchResults(title);
-//            wineAppSteps.verifyStoreDetailsHeaderData(
-//                    title, address1, address2, cityStateZip, openUntil);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test // verified on iOS on 2/12/18
+    @Category({FindStore.class})
+    public void DOT_25245_verifyStoreAddress() {
+        String title = "Laurel (Corridor)";
+        String address1 = "Laurel Corridor";
+        String address2 = "3335 Corridor Marketplace";
+        String cityStateZip = "Laurel, MD 20724";
+        String phoneNumber = "(301) 617-8507";
+        String hours = "8:00 AM - 11:00 PM";
+        String openUntil = "Open Until 11 PM";
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifyStoreDataInNewSearchResults(
+                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
+            wineAppSteps.verifySelectStoreFromSearchResults(title);
+            wineAppSteps.verifyStoreDetailsHeaderData(
+                    title, address1, address2, cityStateZip, openUntil);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test // verified on iOS on 2/12/18
 //    @Category({FindStore.class})
 //    public void DOT_25246_verifyNewStoreMap() {

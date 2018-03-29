@@ -221,7 +221,7 @@ public class StoreSearchPageObject extends MobilePageObject {
             if (isIOS()) {
                 String stream = getStoreDataForIos(title);
                 StringJoiner join = new StringJoiner(" ");
-                join.add(title.toUpperCase()).add(address1).add(address2).add(cityStateZip).add(phoneNumber).add(openCloseHour);
+                join.add(title.toUpperCase()).add(address1).add(address2).add(cityStateZip).add(openCloseHour).add(phoneNumber);
                 String expected = join.toString();
                 result = stream.contains(expected);
             } else {

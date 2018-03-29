@@ -200,7 +200,7 @@ public class GrowlerStationPageObject extends MobilePageObject {
 
     private static String abvRegex = "([1-9]?[0-9]\\.[0-9]{2}%)";
     private static String ibuRegex = "(\\-|[1-9][0-9]{0,1}|1[01][0-9]|120)";
-    private static String priceRegex = "(\\$(1[0-9][0-9]|[1-9][0-9]{0,1}).[0-9]{2})";
+    private static String priceRegex = "(\\-|\\$(1[0-9][0-9]|[1-9][0-9]{0,1}).[0-9]{2})";
     public boolean areValuesValidOnCard(int cardIndex) {
         boolean result = false;
         if (GrowlerCard.ABV_VALUE.getText(getDriver(), cardIndex).matches(abvRegex)) {
