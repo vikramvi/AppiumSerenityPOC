@@ -110,8 +110,8 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyHomepageStoreDetails(String expectedTitle, String expectedLocation) {
-        LOGGER.info("Verifying homepage store details:  \nExpected title = " + expectedTitle + "\nExpected address = " + expectedLocation);
+    public void verifyHomepageStoreDetails(String expectedTitle) {
+        LOGGER.info("Verifying homepage store details:  \nExpected title = " + expectedTitle);
         assertThat(myStoreHeaderPageObject.getTitleFromStoreData()).isEqualToIgnoringCase(expectedTitle);
         assertThat(myStoreHeaderPageObject.getOpenInfoFromStoreData()).matches(StoreDataParser.openCloseRegex);
     }
