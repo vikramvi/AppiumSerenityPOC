@@ -24,11 +24,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WineAppSteps extends ScenarioSteps {
 
+    private BrowsePageObject browsePageObject;
     private LocationPageObject locationPageObject;
     private LoyaltyPageObject loyaltyPageObject;
     private MainProductDetailsPageObject mainProductDetailsPageObject;
     private MobilePageObject mobilePageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
+    private NavigationFooterPageObject navigationFooterPageObject;
     private NotificationPageObject notificationPageObject;
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
@@ -49,6 +51,15 @@ public class WineAppSteps extends ScenarioSteps {
     private static final Logger LOGGER = LoggerFactory.getLogger(WineAppSteps.class);
 
     String wineName = "Krug Vintage";
+
+    @Step
+    public void tempDriver() {
+        navigationFooterPageObject.clickBrowseButton();
+        browsePageObject.clickWineCard();
+        browsePageObject.clickWineTypesCategory();
+        browsePageObject.clickWineSubcategoryRedWine();
+
+    }
 
     @Step
     public void completeOnboardingAllowingLocation() {

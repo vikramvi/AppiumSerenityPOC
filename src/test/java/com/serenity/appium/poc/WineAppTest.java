@@ -80,89 +80,103 @@ public class WineAppTest {
 //        }
 //    }
 //-------------------------------------------------------------------------
-    @Test // verified on iOS, Android on 3/29/18
-    @Category({Regression1.class, FindStore.class})
-    public void DOT_25134_verifyClosestStoreOnHomepage(){
-        Properties properties = new Properties();
-        String expectedTitle = "BOYNTON BEACH";
-        if (properties.isSauceLabsRun()) {
-            expectedTitle = "FREMONT";
-        }
+    @Test
+    public void verifyWineAppSearchByValidWineNameAndSortActions(){
         try{
-            wineAppSteps.completeOnboardingAllowingLocation();
-            wineAppSteps.verifyHomepageStoreDetails(expectedTitle);
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.tempDriver();
+            String x = webdriver.getPageSource();
+            if (!x.isEmpty()) {
+                String y = "not empty";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 3/29/18
-    @Category({FindStore.class})
-    public void DOT_25137_verifyNewStoreIcons() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-            wineAppSteps.verifyStoreDetailsIcons();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test // verified on iOS, Android on 3/29/18
-    public void DOT_25139_verifyNewStoreHours() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-            wineAppSteps.verifyStoreDetailsStoreHours();
-            wineAppSteps.verifyShowTastingHours();
-            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test // verified on iOS, Android on 3/29/18
-    @Category({FindStore.class})
-    public void DOT_25216_verifyGrowlerStorePresence() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-            wineAppSteps.verifyGrowlerStation(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test // verified on iOS, Android on 3/29/18
-    @Category({FindStore.class})
-    public void DOT_25218_verifyGrowlerStoreAbsence() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//-------------------------------------------------------------------------
+//    @Test // verified on iOS, Android on 3/29/18
+//    @Category({Regression1.class, FindStore.class})
+//    public void DOT_25134_verifyClosestStoreOnHomepage(){
+//        Properties properties = new Properties();
+//        String expectedTitle = "BOYNTON BEACH";
+//        if (properties.isSauceLabsRun()) {
+//            expectedTitle = "FREMONT";
+//        }
+//        try{
+//            wineAppSteps.completeOnboardingAllowingLocation();
+//            wineAppSteps.verifyHomepageStoreDetails(expectedTitle);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS, Android on 3/29/18
+//    @Category({FindStore.class})
+//    public void DOT_25137_verifyNewStoreIcons() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//            wineAppSteps.verifyStoreDetailsIcons();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS, Android on 3/29/18
+//    public void DOT_25139_verifyNewStoreHours() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//            wineAppSteps.verifyStoreDetailsStoreHours();
+//            wineAppSteps.verifyShowTastingHours();
+//            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS, Android on 3/29/18
+//    @Category({FindStore.class})
+//    public void DOT_25216_verifyGrowlerStorePresence() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifyGrowlerStation(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS, Android on 3/29/18
+//    @Category({FindStore.class})
+//    public void DOT_25218_verifyGrowlerStoreAbsence() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+////            wineAppSteps.verifyHomepageToStoreDetails();
+//            wineAppSteps.verifyGrowlerStation(false);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS, Android on 3/29/18
+//    @Category({FindStore.class})
+//    public void DOT_25230_verifyCurrentGrowlerSelection() {
+//        try {
+//            wineAppSteps.completeQuickOnboarding();
 //            wineAppSteps.verifyHomepageToStoreDetails();
-            wineAppSteps.verifyGrowlerStation(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test // verified on iOS, Android on 3/29/18
-    @Category({FindStore.class})
-    public void DOT_25230_verifyCurrentGrowlerSelection() {
-        try {
-            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-            wineAppSteps.verifySelectGrowlerStationPage();
-            wineAppSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardBeerNameLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardLabels();
-            wineAppSteps.verifyInitialGrowlerStationCardValues();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+////            wineAppSteps.verifyChangeStoreLookupOption();
+////            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            wineAppSteps.verifySelectGrowlerStationPage();
+//            wineAppSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardBeerNameLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardLabels();
+//            wineAppSteps.verifyInitialGrowlerStationCardValues();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on iOS on 2/12/18
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
