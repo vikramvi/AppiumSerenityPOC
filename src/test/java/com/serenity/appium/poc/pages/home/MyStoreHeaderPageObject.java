@@ -19,16 +19,22 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "text-hours")
     private WebElement TEXT_openUntilAtHour;
 
-    @iOSFindBy(accessibility = "\uE832 SIGN IN")
-    @AndroidFindBy(accessibility = "SIGN IN")
+//    @iOSFindBy(accessibility = "\uE832 SIGN IN")
+//    @AndroidFindBy(accessibility = "SIGN IN")
+    @iOSFindBy(accessibility = "button-header-sign in")
+    @AndroidFindBy(accessibility = "button-header-sign in")
     private WebElement BUTTON_signIn;
 
-    @iOSFindBy(accessibility = "\uE81E CREATE ACCOUNT")
-    @AndroidFindBy(accessibility = "CREATE ACCOUNT")
+//    @iOSFindBy(accessibility = "\uE81E CREATE ACCOUNT")
+//    @AndroidFindBy(accessibility = "CREATE ACCOUNT")
+    @iOSFindBy(accessibility = "button-header-create account")
+    @AndroidFindBy(accessibility = "button-header-create account")
     private WebElement BUTTON_createAccount;
 
-    @iOSFindBy(accessibility = "\uE82F CHANGE STORE")
-    @AndroidFindBy(accessibility = "CHANGE STORE")
+//    @iOSFindBy(accessibility = "\uE82F CHANGE STORE")
+//    @AndroidFindBy(accessibility = "CHANGE STORE")
+    @iOSFindBy(accessibility = "button-header-change store")
+    @AndroidFindBy(accessibility = "button-header-change store")
     private WebElement BUTTON_changeStore;
 
     public MyStoreHeaderPageObject(WebDriver driver) {

@@ -9,23 +9,27 @@ import org.openqa.selenium.WebElement;
 
 public class StoreDataHeaderPageObject extends StoreDetailsCommonPageObject {
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-title\"]/android.widget.TextView")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-title\"]/android.widget.TextView")
+    @AndroidFindBy(accessibility = "text-store-title")
     @iOSFindBy(accessibility = "text-store-title")
     private WebElement TEXT_storeTitle;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-address1\"]/android.widget.TextView")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-address1\"]/android.widget.TextView")
+    @AndroidFindBy(accessibility = "text-store-address1")
     @iOSFindBy(accessibility = "text-store-address1")
     private WebElement TEXT_storeAddress1;
 
-    @AndroidFindBy(accessibility = "text-store-address")
-    @iOSFindBy(accessibility = "text-store-address")
+    @AndroidFindBy(accessibility = "text-store-address2")
+    @iOSFindBy(accessibility = "text-store-address2")
     private WebElement TEXT_storeAddress2;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-cityStateZip\"]/android.widget.TextView")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-cityStateZip\"]/android.widget.TextView")
+    @AndroidFindBy(accessibility = "text-store-cityStateZip")
     @iOSFindBy(accessibility = "text-store-cityStateZip")
     private WebElement TEXT_cityStateZip;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-openCloseHour\"]/android.widget.TextView")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"text-store-openCloseHour\"]/android.widget.TextView")
+    @AndroidFindBy(accessibility = "text-store-openCloseHour")
     @iOSFindBy(accessibility = "text-store-openCloseHour")
     private WebElement TEXT_openCloseHour;
 

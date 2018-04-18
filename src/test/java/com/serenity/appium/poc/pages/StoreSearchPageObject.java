@@ -19,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class StoreSearchPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "field-search-stores")
-    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+//    @iOSFindBy(accessibility = "\uE820 CITY, STATE OR ZIP SEARCH")
+    @iOSFindBy(accessibility = "\uE835 CITY, STATE OR ZIP SEARCH")
     private WebElement FIELD_geoSearch;
 
     @AndroidFindBy(accessibility = "button-search-stores")
@@ -61,7 +62,8 @@ public class StoreSearchPageObject extends MobilePageObject {
 //        return result;
 //    }
 //
-    By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
+//    By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE820')])[4]");
+    By BY_searchField = By.xpath("(//XCUIElementTypeOther[starts-with(@name, '\uE835')])[4]");
     public boolean enterSearchToken(String token) {
         try {
             if (isIOS()) {

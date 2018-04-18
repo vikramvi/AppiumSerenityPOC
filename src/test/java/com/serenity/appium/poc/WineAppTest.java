@@ -80,19 +80,19 @@ public class WineAppTest {
 //        }
 //    }
 //-------------------------------------------------------------------------
-    @Test
-    public void verifyWineAppSearchByValidWineNameAndSortActions(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.tempDriver();
-            String x = webdriver.getPageSource();
-            if (!x.isEmpty()) {
-                String y = "not empty";
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void verifyWineAppSearchByValidWineNameAndSortActions(){
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.tempDriver();
+//            String x = webdriver.getPageSource();
+//            if (!x.isEmpty()) {
+//                String y = "not empty";
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 //-------------------------------------------------------------------------
 //    @Test // verified on iOS, Android on 3/29/18
 //    @Category({Regression1.class, FindStore.class})
@@ -225,28 +225,28 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 3/29/18
-//    @Category({FindStore.class})
-//    public void DOT_25245_verifyStoreAddress() {
-//        String title = "Laurel (Corridor)";
-//        String address1 = "Laurel Corridor";
-//        String address2 = "3335 Corridor Marketplace";
-//        String cityStateZip = "Laurel, MD 20724";
-//        String phoneNumber = "(301) 617-8507";
-//        String hours = "8:00 AM - 11:00 PM";
-//        String openUntil = "Open Until 11 PM";
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifyStoreDataInNewSearchResults(
-//                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-//            wineAppSteps.verifySelectStoreFromSearchResults(title);
-//            wineAppSteps.verifyStoreDetailsHeaderData(
-//                    title, address1, address2, cityStateZip, openUntil);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test // verified on iOS, Android on 3/29/18
+    @Category({FindStore.class})
+    public void DOT_25245_verifyStoreAddress() {
+        String title = "Laurel (Corridor)";
+        String address1 = "Laurel Corridor";
+        String address2 = "3335 Corridor Marketplace";
+        String cityStateZip = "Laurel, MD 20724";
+        String phoneNumber = "(301) 617-8507";
+        String hours = "8:00 AM - 11:00 PM";
+        String openUntil = "Open Until 11 PM";
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifyStoreDataInNewSearchResults(
+                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
+            wineAppSteps.verifySelectStoreFromSearchResults(title);
+            wineAppSteps.verifyStoreDetailsHeaderData(
+                    title, address1, address2, cityStateZip, openUntil);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test // verified on iOS, Android on 3/29/18
 //    @Category({FindStore.class})
 //    public void DOT_25246_verifyNewStoreMap() {
