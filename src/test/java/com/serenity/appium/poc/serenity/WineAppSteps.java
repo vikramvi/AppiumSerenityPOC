@@ -131,7 +131,7 @@ public class WineAppSteps extends ScenarioSteps {
     public void verifyHomepageToStoreDetails() {
         LOGGER.info("Clicking touchable store data to see store details page...");
         assertThat(myStoreHeaderPageObject.clickTouchableStoreData()).isTrue();
-        assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
+        assertThat(storeIconsPageObject.isChangeStoreIconPresent()).isTrue();
     }
 
     @Step
@@ -220,7 +220,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyStoreDetailsIcons() {
         LOGGER.info("Verifying that the top 3 icons are present on the store details page...");
-        assertThat(storeIconsPageObject.isCallStoreIconPresent()).isTrue();
+        assertThat(storeIconsPageObject.isChangeStoreIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isGetDirectionsIconPresent()).isTrue();
         assertThat(storeIconsPageObject.isMyStoreIconPresent()).isTrue();
     }

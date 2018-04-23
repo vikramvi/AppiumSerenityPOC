@@ -3,6 +3,8 @@ package com.serenity.appium.poc.utils;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -52,8 +54,9 @@ public class Scrolling {
         WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
         TouchAction touchAction = new TouchAction((AndroidDriver) driver);
 
-        Duration duration = Duration.ofSeconds(2);
-        touchAction.press(x, startY).waitAction(duration).moveTo(x, endY).release().perform();
+//        Duration duration = Duration.ofSeconds(2);
+        WaitOptions duration = WaitOptions.waitOptions(Duration.ofSeconds(2));
+        touchAction.press(PointOption.point(x, startY)).waitAction(duration).moveTo(PointOption.point(x, endY)).release().perform();
     }
 
     public enum IosDirection {DOWN, UP, RIGHT, LEFT};

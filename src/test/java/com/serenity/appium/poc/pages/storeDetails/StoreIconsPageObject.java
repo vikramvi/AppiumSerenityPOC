@@ -9,25 +9,25 @@ import org.openqa.selenium.WebElement;
 
 public class StoreIconsPageObject extends MobilePageObject {
 
-    @AndroidFindBy(accessibility = "touchableIcon-call-store")
-    @iOSFindBy(accessibility = "touchableIcon-call-store")
-    private WebElement TOUCHABLE_ICON_callStore;
-
     @AndroidFindBy(accessibility = "touchableIcon-get-directions")
     @iOSFindBy(accessibility = "touchableIcon-get-directions")
     private WebElement TOUCHABLE_ICON_getDirections;
 
     @AndroidFindBy(accessibility = "touchableIcon-bookmark-myStore")
     @iOSFindBy(accessibility = "touchableIcon-bookmark-myStore")
-    private WebElement TOUCHABLE_ICON_myStore;
+    private WebElement TOUCHABLE_ICON_shopThisStore;
+
+    @AndroidFindBy(accessibility = "touchableIcon-change-store")
+    @iOSFindBy(accessibility = "touchableIcon-change-store")
+    private WebElement TOUCHABLE_ICON_changeStore;
 
 
-    public boolean isCallStoreIconPresent() {
-        return TOUCHABLE_ICON_callStore.isDisplayed();
+    public boolean isChangeStoreIconPresent() {
+        return TOUCHABLE_ICON_changeStore.isDisplayed();
     }
 
-    public boolean clickCallStore() {
-        return Utils.tryClicking(TOUCHABLE_ICON_callStore);
+    public boolean clickChangeStore() {
+        return Utils.tryClicking(TOUCHABLE_ICON_changeStore);
     }
 
     public boolean isGetDirectionsIconPresent() {
@@ -39,12 +39,12 @@ public class StoreIconsPageObject extends MobilePageObject {
     }
 
     public boolean isMyStoreIconPresent() {
-        return TOUCHABLE_ICON_myStore.isDisplayed();
+        return TOUCHABLE_ICON_shopThisStore.isDisplayed();
     }
 
     public boolean clickMyStore() {
         try {
-            TOUCHABLE_ICON_myStore.click();
+            TOUCHABLE_ICON_shopThisStore.click();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

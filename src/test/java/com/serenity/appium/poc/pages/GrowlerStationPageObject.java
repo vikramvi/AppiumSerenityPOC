@@ -61,40 +61,53 @@ public class GrowlerStationPageObject extends MobilePageObject {
     }
 
    public enum SectionTitle {
-        CURRENT_SELECTIONS("This week's selection", MobileBy.AccessibilityId("growler-section-title")),
-        ON_DECK("On deck", MobileBy.xpath("(//XCUIElementTypeStaticText[@name=\"growler-section-title\"])[2]"));
+        CURRENT_SELECTIONS("This week's selection", MobileBy.AccessibilityId("growler-section-title"), MobileBy.AccessibilityId("growler-section-title")),
+        ON_DECK("On deck", MobileBy.xpath("(//XCUIElementTypeStaticText[@name=\"growler-section-title\"])[2]"), MobileBy.AccessibilityId("growler-section-title"));
         private String title;
-        private By by;
-        SectionTitle(String title, By by) {
+        private By iosBy;
+        private By androidBy;
+        SectionTitle(String title, By iosBy, By androidBy) {
             this.title = title;
-            this.by = by;
+            this.iosBy = iosBy;
+            this.androidBy = androidBy;
         }
         public String getTitle() {
             return title;
         }
-        public By getByReference() {
-            return by;
+        public By getIosByReference() {
+            return iosBy;
         }
+        public By getAndroidByReference() { return androidBy;}
     }
 
     public boolean doesGrowlerSectionTitleMatch(SectionTitle expected) {
         boolean matched = false;
         String actual = "";
-        boolean displayed = isSectionTitleDisplayed(expected.getByReference());
+        boolean displayed = isIOS() ? isSectionTitleDisplayed(expected.getIosByReference())
+                                    : isSectionTitleDisplayed(expected.getAndroidByReference());
         if (displayed) {
-            actual = getSectionTitle(expected.getByReference());
+            actual = isIOS() ? getSectionTitle(expected.getIosByReference())
+                             : getSectionTitle(expected.getAndroidByReference());
             matched = actual.equalsIgnoreCase(expected.getTitle());
         }
         int i =0;
         while (!matched && i<2) {
             if (Scrolling.scrollDown()) {
-                displayed = isSectionTitleDisplayed(expected.getByReference());
+                displayed = isIOS() ? isSectionTitleDisplayed(expected.getIosByReference())
+                                    : isSectionTitleDisplayed(expected.getAndroidByReference());
                 if (displayed) {
-                    actual = getSectionTitle(expected.getByReference());
+                    actual = isIOS() ? getSectionTitle(expected.getIosByReference())
+                                     : getSectionTitle(expected.getAndroidByReference());
                     matched = actual.equalsIgnoreCase(expected.getTitle());
                 }
             }
             i++;
+        }
+        if (matched && expected==SectionTitle.ON_DECK) {
+            Scrolling.scrollDown();
+            if (isAndroid()) {
+                Scrolling.scrollDown();
+            }
         }
         return matched;
     }
