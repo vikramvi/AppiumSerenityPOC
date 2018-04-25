@@ -11,7 +11,7 @@ public class Enums {
         Fees(String text) {
             this.text = text;
         }
-        public String getText() {
+        public String getLabel() {
             return text;
         }
     }

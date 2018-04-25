@@ -150,18 +150,24 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyProductSearchResults(String token) {
-        LOGGER.info("Verifying search results contain " +token+ "...");
-        assertThat(productSearchResultsPageObject.isTokenPresentInResults(token)).isTrue();
+    public void verifyFeeInProductSearchResults(Enums.Fees fee) {
+        LOGGER.info("Verifying search results contain " +fee.getLabel()+ "...");
+        assertThat(productSearchResultsPageObject.isPriceAttributePresentInResults(fee)).isTrue();
     }
 
     @Step
-    public void verifyPresenceOfFeeInSearchResults(int productNumber, Enums.Fees fee) {
-        LOGGER.info("Verifying presence of " +fee.toString()+ " fee in search results...");
-        String actualPrice = productSearchResultsPageObject.getAndroidProductPrice(productNumber);
-        String expectedFee = fee.getText();
-        assertThat(actualPrice).contains(expectedFee);
+    public void verifyNameInProductSearchResults(String name) {
+        LOGGER.info("Verifying search results contain " +name+ "...");
+        assertThat(productSearchResultsPageObject.isNamePresentInResults(name)).isTrue();
     }
+
+//    @Step
+//    public void verifyPresenceOfFeeInSearchResults(int productNumber, Enums.Fees fee) {
+//        LOGGER.info("Verifying presence of " +fee.toString()+ " fee in search results...");
+//        String actualPrice = productSearchResultsPageObject.getAndroidProductPrice(productNumber);
+//        String expectedFee = fee.getText();
+//        assertThat(actualPrice).contains(expectedFee);
+//    }
 
     @Step
     public void verifySelectProductFromSearchResults(int productNumber) {
@@ -173,10 +179,10 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPresenceOfFeeInProductDetails(Enums.Fees fee) {
+    public void verifyFeeInProductDetails(Enums.Fees fee) {
         LOGGER.info("Verifying presence of " +fee.toString()+ " fee in product details...");
         String actualFee = mainProductDetailsPageObject.getAndroidProductFee();
-        String expectedFee = fee.getText();
+        String expectedFee = fee.getLabel();
         assertThat(actualFee).isEqualTo(expectedFee);
     }
 

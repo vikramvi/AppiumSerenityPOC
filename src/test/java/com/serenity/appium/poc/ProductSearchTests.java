@@ -4,6 +4,7 @@ import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.serenity.WineAppSteps;
 import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.Regression1;
+import com.serenity.appium.poc.utils.Utils;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -28,23 +29,7 @@ public class ProductSearchTests {
 //        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
-        String platform = System.getProperty("testEnvironment");
-        switch (platform) {
-            case ("Android"):
-                MobilePageObject.setAndroid(true);
-                MobilePageObject.setIOS(false);
-                break;
-            case ("iOS"):
-                MobilePageObject.setIOS(true);
-                MobilePageObject.setAndroid(false);
-                break;
-            default:
-                try {
-                    throw new IllegalAccessException("No match for plaform!");
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-        }
+        Utils.setPlatform();
     }
 
     @AfterClass

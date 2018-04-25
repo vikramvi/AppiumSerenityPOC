@@ -1,5 +1,6 @@
 package com.serenity.appium.poc.utils;
 
+import com.serenity.appium.poc.pages.MobilePageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import org.openqa.selenium.*;
@@ -150,4 +151,25 @@ public class Utils {
         }
         return result;
     }
+
+    public static void setPlatform() {
+        String platform = System.getProperty("testEnvironment");
+        switch (platform) {
+            case ("Android"):
+                MobilePageObject.setAndroid(true);
+                MobilePageObject.setIOS(false);
+                break;
+            case ("iOS"):
+                MobilePageObject.setIOS(true);
+                MobilePageObject.setAndroid(false);
+                break;
+            default:
+                try {
+                    throw new IllegalAccessException("No match for plaform!");
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
 }

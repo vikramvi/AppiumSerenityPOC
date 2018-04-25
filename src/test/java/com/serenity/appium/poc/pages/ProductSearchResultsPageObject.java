@@ -1,5 +1,6 @@
 package com.serenity.appium.poc.pages;
 
+import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -76,6 +77,13 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return result;
     }
 
+    private String XPATH_PATTERN_productFee = "(//android.view.ViewGroup[@content-desc='product-price'])[%d]/android.widget.TextView[2]";
+    public String getAndroidProductFee(int productNumber) {
+        String xpath = String.format(XPATH_PATTERN_productFee, productNumber);
+        String result = getDriver().findElement(By.xpath(xpath)).getText();
+        return result;
+    }
+
     private String XPATH_PATTERN_productName = "(//android.widget.TextView[@content-desc=\"product-name\"])[%d]";
     public String getAndroidProductName(int productNumber) {
         String xpath = String.format(XPATH_PATTERN_productName, productNumber);
@@ -114,7 +122,6 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return found;
     }
 
-
 //------------------ iOS -->
 
     private By BY_iosResultStream = MobileBy.xpath("//XCUIElementTypeScrollView/XCUIElementTypeOther");
@@ -125,38 +132,96 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
     private String XPATH_productRow = "//XCUIElementTypeOther[starts-with(@name, 'product-names')]";
     private String XPATH_singleProduct = "//XCUIElementTypeOther[starts-with(@name, 'product-name-')]";
-    public boolean isTokenPresentInResults(String token) {
+    public boolean isNamePresentInResults(String expected) {
         boolean found = false;
-        int i = 1;
         int count = getResultsCountInteger();
-        int max =  count > 4 ? 4 : count;
         if (isAndroid()) {
-            String name = getAndroidProductName(i);
-            found = name.contains(token.toUpperCase());
-            System.out.println("i=" +i+ "; name=" +name+ "; token=" +token);
+            int i = 1;
+            int max =  count > 4 ? 4 : count;
+            String actual = null;
+            actual = getAndroidProductName(i);
+            found = actual.contains(expected.toUpperCase());
+            System.out.println("i=" +i+ "; actualName=" +actual+ "; expected=" +expected);
             while ((i<max) && found) {
                 i++;
-                name = getAndroidProductName(i);
-                found = name.contains(token.toUpperCase());
-                System.out.println("i=" +i+ "; name=" +name+ "; token=" +token);
+                actual = getAndroidProductName(i);
+                found = actual.contains(expected.toUpperCase());
+                System.out.println("i=" +i+ "; actualName=" +actual+ "; expected=" +expected);
             }
         } else {
-            List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_productRow));
-            for (WebElement element:elements) {
-//                String productNames = element.getText();
-                String productNames = element.getAttribute("name").toLowerCase();
-                System.out.println("Product names = " + productNames);
-                found = (StringUtils.countMatches(productNames, token) == 2);
-                if (!found) {
-                    break;
+            List<WebElement> elements = null;
+            if (count > 1) {
+                elements = getDriver().findElements(By.xpath(XPATH_productRow));
+                for (WebElement element:elements) {
+                    String productNames = "";
+                    productNames = element.getAttribute("name").toLowerCase();
+                    System.out.println("Product names = " + productNames);
+                    found = (StringUtils.countMatches(productNames, expected) == 2);
+                    if (!found) {
+                        break;
+                    }
                 }
             }
-            elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
-            int singleProductCount = elements.size();
-            System.out.println("Single product count = " + singleProductCount);
-            if (elements.size() == 1) {
-                String productName = elements.get(0).getAttribute("name").toLowerCase();
-                found = (StringUtils.countMatches(productName, token) == 1);
+            if ((count < 6) && (count % 2 == 1)) {
+                if ((count == 1) || (count > 1 && found)) {
+                    elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
+                    boolean singleProductCount = elements.size() == 1;
+                    if (singleProductCount) {
+                        String productName = elements.get(0).getAttribute("name").toLowerCase();
+                        found = (StringUtils.countMatches(productName, expected) == 1);
+                    } else {
+                        throw new IllegalStateException("More than one single product in PLP!");
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
+    public boolean isPriceAttributePresentInResults(Enums.Fees fee) {
+        boolean found = false;
+        int count = getResultsCountInteger();
+        String expected = fee.getLabel();
+        if (isAndroid()) {
+            int i = 1;
+            int max =  count > 4 ? 4 : count;
+            String actual = null;
+            actual = getAndroidProductFee(i);
+            found = actual.contains(expected.toUpperCase());
+            System.out.println("i=" +i+ "; actual=" +actual+ "; expected=" +expected);
+            while ((i<max) && found) {
+                i++;
+                actual = getAndroidProductPrice(i);
+                found = actual.contains(expected.toUpperCase());
+                System.out.println("i=" +i+ "; actual=" +actual+ "; expected=" +expected);
+            }
+        } else {
+            List<WebElement> elements = null;
+            if (count > 1) {
+                elements = getDriver().findElements(By.xpath(XPATH_productRow));
+                for (WebElement element:elements) {
+                    String productNames = "";
+                    String data = "";
+                        data = element.getAttribute("label").toLowerCase();
+                        System.out.println("Product data = " + data);
+                        found = (StringUtils.countMatches(data, expected) == 2);
+                    if (!found) {
+                        break;
+                    }
+                }
+            }
+            if (count % 2 == 1) {
+                if ((count == 1) || (count > 1 && found)) {
+                    elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
+                    boolean singleProductCount = elements.size() == 1;
+                    if (singleProductCount) {
+                        String data = elements.get(0).getAttribute("label");
+                        System.out.println("Product data = " + data);
+                        found = (StringUtils.countMatches(data, expected) == 1);
+                    } else {
+                        throw new IllegalStateException("More than one single product in PLP!");
+                    }
+                }
             }
         }
         return found;

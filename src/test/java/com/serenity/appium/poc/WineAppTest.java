@@ -1,11 +1,9 @@
 package com.serenity.appium.poc;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.pages.ProductSearchResultsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.TastingHoursPageObject;
-import com.serenity.appium.poc.utils.FindStore;
-import com.serenity.appium.poc.utils.Properties;
-import com.serenity.appium.poc.utils.Regression1;
-import com.serenity.appium.poc.utils.StoreDetails;
+import com.serenity.appium.poc.utils.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
@@ -39,23 +37,7 @@ public class WineAppTest {
 //        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
-        String platform = System.getProperty("testEnvironment");
-        switch (platform) {
-            case ("Android"):
-                MobilePageObject.setAndroid(true);
-                MobilePageObject.setIOS(false);
-                break;
-            case ("iOS"):
-                MobilePageObject.setIOS(true);
-                MobilePageObject.setAndroid(false);
-                break;
-            default:
-                try {
-                    throw new IllegalAccessException("No match for plaform!");
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-        }
+        Utils.setPlatform();
     }
 
     @AfterClass
@@ -175,6 +157,20 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
+    @Test //<----- here!
+    public void DOT_25261_verifyDepositLabelOnPrice(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyHomepageToProductSearch();
+            String token = "modelo especial keg";
+            wineAppSteps.searchForProduct("modelo especial keg");
+            wineAppSteps.verifySearchResultCount(1);
+            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+            wineAppSteps.selectProductFromSearchResults("modelo especial");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 //    @Test // verified on iOS, Android on 4/19/18
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
@@ -302,69 +298,69 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test // verified on iOS, Android on 4/20/18
-    @Category({Regression1.class})
-    public void DOT_25275_verifyProductMisspellings(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("pig hefe");
-//            wineAppSteps.searchForProduct("bud light 1/2");
-//            wineAppSteps.searchForProduct("chateau");
-            String expected = "riesling";
-            wineAppSteps.searchForProduct("reisling");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("reiseling");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("resling");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-
-            expected = "amaretto";
-            wineAppSteps.searchForProduct("ameratto");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("amereto");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("ameretta");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("ameretto");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("amerrato");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-
-            expected = "hoegaarden";
-            wineAppSteps.searchForProduct("hoeegarden");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("hoegarten");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("hoegarden");
-            wineAppSteps.verifyProductSearchResults(expected);
-            wineAppSteps.verifyProductSearchResultsToHomepage();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("hogarten");
-            wineAppSteps.verifyProductSearchResults(expected);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test // verified on iOS, Android on 4/20/18
+//    @Category({Regression1.class})
+//    public void DOT_25275_verifyProductMisspellings(){
+//        try{
+//            wineAppSteps.completeOnboardingAllowingLocation();
+//            wineAppSteps.verifyHomepageToProductSearch();
+////            wineAppSteps.searchForProduct("pig hefe");
+////            wineAppSteps.searchForProduct("budweiser 1/2 keg");
+////            wineAppSteps.searchForProduct("chateau");
+//            String expected = "riesling";
+//            wineAppSteps.searchForProduct("reisling");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("reiseling");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("resling");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//
+//            expected = "amaretto";
+//            wineAppSteps.searchForProduct("ameratto");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("amereto");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("ameretta");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("ameretto");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("amerrato");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//
+//            expected = "hoegaarden";
+//            wineAppSteps.searchForProduct("hoeegarden");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hoegarten");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hoegarden");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            wineAppSteps.verifyProductSearchResultsToHomepage();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("hogarten");
+//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
 }
