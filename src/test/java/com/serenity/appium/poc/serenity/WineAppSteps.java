@@ -7,13 +7,13 @@ import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
 import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
 import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
-
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.utils.Enums;
+import com.serenity.appium.poc.utils.IosPlpProductSelector;
 import com.serenity.appium.poc.utils.StoreDataParser;
-import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.steps.ScenarioSteps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WineAppSteps extends ScenarioSteps {
 
     private BrowsePageObject browsePageObject;
+    private IosPlpProductSelector iosPlpProductSelector;
     private LocationPageObject locationPageObject;
     private LoyaltyPageObject loyaltyPageObject;
     private MainProductDetailsPageObject mainProductDetailsPageObject;
@@ -52,13 +53,12 @@ public class WineAppSteps extends ScenarioSteps {
 
     String wineName = "Krug Vintage";
 
-    @Step
+    /// --> temporary sandbox driver
     public void tempDriver() {
         navigationFooterPageObject.clickBrowseButton();
         browsePageObject.clickWineCard();
         browsePageObject.clickWineTypesCategory();
         browsePageObject.clickWineSubcategoryRedWine();
-
     }
 
     @Step
@@ -111,7 +111,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void selectProductFromSearchResults(String productName) {
         LOGGER.info("Selecting product from search results...");
-        assertThat(productSearchResultsPageObject.selectProductForAndroid(productName)).isTrue();
+        assertThat(productSearchResultsPageObject.selectProduct(productName)).isTrue();
     }
 
     @Step
@@ -158,7 +158,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyNameInProductSearchResults(String name) {
         LOGGER.info("Verifying search results contain " +name+ "...");
-        assertThat(productSearchResultsPageObject.isNamePresentInResults(name)).isTrue();
+        assertThat(productSearchResultsPageObject.isNamePresentInTopResults(name)).isTrue();
     }
 
 //    @Step

@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Enums;
+import com.serenity.appium.poc.utils.IosPlpProductSelector;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -103,26 +104,61 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return Utils.tryClicking(xpath);
     }
 
-    public boolean selectProductForAndroid(String productName) {
+    //------------------ iOS -->
+
+    private static String productNamesRegex = "((\\w+\\s?)+)\\!((\\w+\\s?)+)?";
+    public boolean selectProduct(String productName) {
         boolean found = false;
-        try {
-            int max = getResultsCountInteger();
-            for (int i = 1; i <= max; i++) {
-                String value = getAndroidProductName(i);
-                System.out.println(">>> index = " + i + ", value = " + value);
-                if (value.equalsIgnoreCase(productName)) {
-                    selectProductForAndroid(i);
-                    found = true;
-                    break;
+        if (isAndroid()) {
+            try {
+                int max = getResultsCountInteger();
+                for (int i = 1; i <= max; i++) {
+                    String value = getAndroidProductName(i);
+                    System.out.println(">>> index = " + i + ", value = " + value);
+                    if (value.equalsIgnoreCase(productName)) {
+                        selectProductForAndroid(i);
+                        found = true;
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            for (int i=1; i<=2; i++) {
+                String actualNames = getIosProductNames(i);
+                Pattern pattern = Pattern.compile(productNamesRegex);
+                Matcher matcher = pattern.matcher(actualNames);
+                if (matcher.find()) {
+                    String name1 = matcher.group(1);
+                    if (name1.equalsIgnoreCase(productName)) {
+                        if (i==1) {
+                            IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.FIRST_ITEM_1ST_ROW);
+                        } else {
+                            IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.FIRST_ITEM_2ND_ROW);
+                        }
+                        found = true;
+                        break;
+                    } else if (matcher.group(3) != null) {
+                        String name2 = matcher.group(3);
+                        if (name2.equalsIgnoreCase(productName)) {
+                            if (i==1) {
+                                IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.SECOND_ITEM_1ST_ROW);
+                            } else {
+                                IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.SECOND_ITEM_2ND_ROW);
+                            }
+                        }
+                        found = true;
+                        break;
+                    }
+                } else {
+                    throw new IllegalStateException("No match to product names!");
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return found;
     }
 
-//------------------ iOS -->
 
     private By BY_iosResultStream = MobileBy.xpath("//XCUIElementTypeScrollView/XCUIElementTypeOther");
     private String getIosResultStream() {
@@ -132,7 +168,39 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
     private String XPATH_productRow = "//XCUIElementTypeOther[starts-with(@name, 'product-names')]";
     private String XPATH_singleProduct = "//XCUIElementTypeOther[starts-with(@name, 'product-name-')]";
-    public boolean isNamePresentInResults(String expected) {
+    private String getIosProductNames(int row) {
+        int count = getResultsCountInteger();
+        String names = "NOT FOUND!";
+        List<WebElement> elements = null;
+        if (count > 0) {
+            if (row == 1) {
+                if (count > 1) {
+                    elements = getDriver().findElements(By.xpath(XPATH_productRow));
+                } else {
+                    elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
+                }
+                if (elements.size() > 0) {
+                    names = elements.get(0).getAttribute("name");
+                }
+            } else if (row == 2) {
+                if (count > 3) {
+                    elements = getDriver().findElements(By.xpath(XPATH_productRow));
+                } else if (count ==3) {
+                    elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
+                }
+                if (elements.size() > 0) {
+                    names = elements.get(0).getAttribute("name");
+                }
+            } else {
+                throw new IllegalStateException("Attempt to access products in row " +row+ " with item count of " +count+ "!");
+            }
+        } else {
+            throw new IllegalStateException("No items found!");
+        }
+        return names;
+    }
+
+    public boolean isNamePresentInTopResults(String expected) {
         boolean found = false;
         int count = getResultsCountInteger();
         if (isAndroid()) {

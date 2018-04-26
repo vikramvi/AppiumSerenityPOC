@@ -35,12 +35,12 @@ public class IosPlpProductSelector {
             this.yMultiplier = yMultiplier;
         }
         public int getX() {
-            double coordinate = xMultiplier * getScreenDimension(Axis.X);
-            return (int) Math.round(coordinate);
+            int coordinate = (int) Math.round(xMultiplier * getScreenDimension(Axis.X));
+            return coordinate;
         }
         public int getY() {
-            double coordinate = yMultiplier * getScreenDimension(Axis.Y);
-            return (int) Math.round(coordinate);
+            int coordinate = (int) Math.round(yMultiplier * getScreenDimension(Axis.Y));
+            return coordinate;
         }
     }
 
