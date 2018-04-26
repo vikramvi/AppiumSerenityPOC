@@ -44,7 +44,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     }
 
     public int getResultsCountInteger() {
-        String itemCount = getResultsCount();
+        String itemCount = getResultsCount().replace(",", "");
         int result = Integer.parseInt(itemCount);
         return result;
     }
@@ -106,7 +106,8 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
     //------------------ iOS -->
 
-    private static String productNamesRegex = "((\\w+\\s?)+)\\!((\\w+\\s?)+)?";
+//    private static String productNamesRegex = "((\\w+\\s?)+)\\!((\\w+\\s?)+)?";
+    private static String productNamesRegex = "(product-name-|product-names-)((\\w+\\.?-?\\s?)+)\\!((\\w+\\.?-?\\s?)+)?";
     public boolean selectProduct(String productName) {
         boolean found = false;
         if (isAndroid()) {
@@ -130,7 +131,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
                 Pattern pattern = Pattern.compile(productNamesRegex);
                 Matcher matcher = pattern.matcher(actualNames);
                 if (matcher.find()) {
-                    String name1 = matcher.group(1);
+                    String name1 = matcher.group(2);
                     if (name1.equalsIgnoreCase(productName)) {
                         if (i==1) {
                             IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.FIRST_ITEM_1ST_ROW);
@@ -139,17 +140,17 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
                         }
                         found = true;
                         break;
-                    } else if (matcher.group(3) != null) {
-                        String name2 = matcher.group(3);
+                    } else if (matcher.group(4) != null) {
+                        String name2 = matcher.group(4);
                         if (name2.equalsIgnoreCase(productName)) {
                             if (i==1) {
                                 IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.SECOND_ITEM_1ST_ROW);
                             } else {
                                 IosPlpProductSelector.selectProduct(IosPlpProductSelector.ProductPosition.SECOND_ITEM_2ND_ROW);
                             }
+                            found = true;
+                            break;
                         }
-                        found = true;
-                        break;
                     }
                 } else {
                     throw new IllegalStateException("No match to product names!");
@@ -185,10 +186,9 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
             } else if (row == 2) {
                 if (count > 3) {
                     elements = getDriver().findElements(By.xpath(XPATH_productRow));
+                    names = elements.get(1).getAttribute("name");
                 } else if (count ==3) {
                     elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
-                }
-                if (elements.size() > 0) {
                     names = elements.get(0).getAttribute("name");
                 }
             } else {
