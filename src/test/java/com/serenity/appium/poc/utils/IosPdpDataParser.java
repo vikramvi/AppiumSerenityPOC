@@ -3,7 +3,7 @@ package com.serenity.appium.poc.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IosProductDataParser {
+public class IosPdpDataParser {
 
     private static String titleRegex = "([A-Z]+'?\\.?-?\\s?)+(,\\s[0-9]+)?\\s?";
     private static String categoriesRegex = "([A-Z][a-z]+-?\\s?\\/?\\s?)+";
