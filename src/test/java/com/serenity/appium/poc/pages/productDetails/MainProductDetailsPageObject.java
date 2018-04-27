@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages.productDetails;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.IosPdpDataParser;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -30,6 +31,9 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     @iOSFindBy(accessibility = "button-floating-return")
     private WebElement BUTTON_return;
+
+    @iOSFindBy(accessibility = "product-data-stream")
+    private WebElement TEXT_iosProductDataStream;
 
     public boolean clickReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -109,6 +113,107 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 
 
 //------------------ iOS -->
+
+//    private String XPATH_PATTERN_iosStoreTitleInList = "(//XCUIElementTypeOther[starts-with(@name,'%s')])[2]";
+    public String getProductDataStreamForIos() {
+        String result = noResultsFound;
+        try {
+            result = TEXT_iosProductDataStream.getAttribute("label");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductTitle() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.TITLE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductCategories() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.CATEGORIES.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductPrice() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.PRICE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductFee() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.FEE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosLiquorSize() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.LIQUOR_SIZE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosWineSize() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.WINE_SIZE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosBeerSize() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.BEER_SIZE.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductAvailability() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.AVAILABILITY.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductSku() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductData.SKU.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
     public MainProductDetailsPageObject(WebDriver driver) {

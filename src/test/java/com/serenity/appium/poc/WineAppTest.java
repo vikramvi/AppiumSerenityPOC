@@ -164,11 +164,12 @@ public class WineAppTest {
             wineAppSteps.verifyHomepageToProductSearch();
             String token = "modelo especial keg";
 //            wineAppSteps.searchForProduct("vs"); // "beer"); // token);
-            wineAppSteps.searchForProduct("beer"); // token);
+            wineAppSteps.searchForProduct(token);
  //           wineAppSteps.verifySearchResultCount(1);
- //           wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
 //            wineAppSteps.selectProductFromSearchResults("ashton vsg belicoso no. 1"); // "lucky beer"); // "modelo especial");
-            wineAppSteps.selectProductFromSearchResults("lucky beer"); // "modelo especial");
+            wineAppSteps.selectProductFromSearchResults("modelo especial");
+            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
         }catch (Exception e){
             e.printStackTrace();
         }
