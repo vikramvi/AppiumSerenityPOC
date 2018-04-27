@@ -5,15 +5,19 @@ import java.util.regex.Pattern;
 
 public class IosPdpDataParser {
 
-    private static String titleRegex = "([A-Z]+'?\\.?-?\\s?)+(,\\s[0-9]+)?\\s?";
+    private static String titleRegex = "(([A-Z]+[^A-Za-z])+'?\\.?-?\\s?)+(,\\s[0-9]+)?\\s?";
     private static String categoriesRegex = "([A-Z][a-z]+-?\\s?\\/?\\s?)+";
     private static String reviewCountRegex = "\\([0-9]+\\)?\\s?";
     private static String priceRegex = "\\$(0\\.|[1-9][0-9]{0,4}\\.)[0-9]{2}\\s?(\\+DEPOSIT\\*|\\+CRV\\*|\\+WASLT\\*)?\\s?";
     private static String wineSizeRegex = "187ML|375ML|720ML|750ML|1L|1.5L|1.8L|3L)\\s\uE313\\s?";
+    private static String beerSizeRegex = "(((KEG)\\s-\\s(1\\/4 KEG|1\\/2 KEG)\\s-\\s(SINGLE))|" +
+            "((BOTTLE)\\s-\\s(12OZ|24OZ)\\s-\\s(SINGLE|PACK(\\(6\\)|\\(18\\))|CASE(\\(18\\)|\\(24\\))))" +
+            "((CAN)\\s-\\s(12OZ|16OZ|24OZ)\\s-\\s(SINGLE|PACK(\\(4\\)|\\(12\\))|CASE(\\(18\\)|\\(24\\)))))\\s?";
     private static String quantityRegex = "QTY:\\s[1-9][0-9]{0,5}\\s\uE313\\s?";
-    private static String availabilityRegex = "(PRODUCT AVAILABILITY )(\uF3FF )?(Pick up in store )(Limited quantity|Ready Today)(\\s([A-Za-z]+\\s)+)CHANGE(( \uE82B Delivery )(([A-Za-z]+\\s?)+))?";
-    private static String detailsRegex = "(DETAILS )(([a-z]+\\-?\\s?)+)(\")((\\w?\\-?\\s?\\\"?,?\\.?'?)+)(\")";
-    private static String skuRegex = "(SKU: )(\\d+(\\-\\d)?)";
+    private static String availabilityRegex = "(PRODUCT AVAILABILITY )(\uF3FF )?(Pick up in store )(Limited quantity|" +
+            "Ready Today)(\\s(\\w+\\s)+)CHANGE(( \uE82B Delivery )((\\w+\\s?\\.?)+))?( CONFIRM)?\\s?";
+    private static String detailsRegex = "((DETAILS )(([a-z]+\\-?\\s?)+)\"(([\\w\\-\\s\\\",\\.'\\%]?)+)\")\\s?";
+    private static String skuRegex = "(SKU: )(\\d+(\\-\\d)?)\\s?";
     private static String reviewsRegex = "((REVIEWS )(\\d\\.\\d)\\s(\\d+ reviews)\\s(WRITE A REVIEW SEE ALL REVIEWS))?";
     private static String dataStreamRegex = titleRegex + categoriesRegex + reviewCountRegex + priceRegex + wineSizeRegex
                                             + quantityRegex + availabilityRegex + detailsRegex + skuRegex + reviewsRegex;
