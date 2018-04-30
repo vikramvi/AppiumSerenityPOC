@@ -11,9 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class MainProductDetailsPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility =  "product-details-name")
@@ -133,7 +130,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.TITLE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.TITLE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,7 +140,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.CATEGORIES.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.CATEGORIES.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,7 +150,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.PRICE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.PRICE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +160,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.FEE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.FEE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,7 +170,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.LIQUOR_SIZE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.LIQUOR_SIZE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,7 +180,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.WINE_SIZE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.WINE_SIZE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,7 +190,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.BEER_SIZE.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.BEER_SIZE.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,7 +200,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.AVAILABILITY.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.AVAILABILITY.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,7 +210,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductData.SKU.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.SKU.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }

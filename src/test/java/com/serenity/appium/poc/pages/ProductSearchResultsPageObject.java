@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Enums;
+import com.serenity.appium.poc.utils.IosPlpDataParser;
 import com.serenity.appium.poc.utils.IosPlpProductSelector;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
@@ -265,20 +266,26 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
             }
         } else {
             List<WebElement> elements = null;
+            int i = 0;
             if (count > 1) {
                 elements = getDriver().findElements(By.xpath(XPATH_productRow));
                 for (WebElement element:elements) {
                     String productNames = "";
                     String data = "";
-                        data = element.getAttribute("label").toLowerCase();
-                        System.out.println("Product data = " + data);
-                        found = (StringUtils.countMatches(data, expected) == 2);
-                    if (!found) {
+//                    data = element.getAttribute("label").toLowerCase();
+                    data = element.getAttribute("label");
+                    System.out.println("Product data = " + data);
+//                    found = (StringUtils.countMatches(data, expected) == 2);
+                    String actual1 = IosPlpDataParser.getProductAttributeFromRow(data, fee.getProductType(), IosPlpDataParser.Column.LEFT, IosPlpDataParser.ProductAttribute.FEE);
+                    String actual2 = IosPlpDataParser.getProductAttributeFromRow(data, fee.getProductType(), IosPlpDataParser.Column.RIGHT, IosPlpDataParser.ProductAttribute.FEE);
+                    found = (actual1.equals(expected) && actual2.equals(expected));
+                    i++;
+                    if (!found || (i > 2)) {
                         break;
                     }
                 }
             }
-            if (count % 2 == 1) {
+            if ((count % 2 == 1) && (i < 3)){
                 if ((count == 1) || (count > 1 && found)) {
                     elements = getDriver().findElements(By.xpath(XPATH_singleProduct));
                     boolean singleProductCount = elements.size() == 1;
