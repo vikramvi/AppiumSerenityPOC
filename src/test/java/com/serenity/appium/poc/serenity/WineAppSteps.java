@@ -181,7 +181,7 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyFeeInProductDetails(Enums.Fees fee) {
         LOGGER.info("Verifying presence of " +fee.toString()+ " fee in product details...");
-        String actualFee = mainProductDetailsPageObject.getAndroidProductFee();
+        String actualFee = mainProductDetailsPageObject.getProductFee();
         String expectedFee = fee.getLabel();
         assertThat(actualFee).isEqualTo(expectedFee);
     }
@@ -391,4 +391,8 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(growlerStationPageObject.areValuesValidOnLastCard()).isTrue();
     }
 
+    public void verifyShopThisStore() {
+        LOGGER.info("Verifying clicking Shop This Store icon from store details page...");
+        assertThat(storeIconsPageObject.clickShopThisStoreIcon()).isTrue();
+    }
 }

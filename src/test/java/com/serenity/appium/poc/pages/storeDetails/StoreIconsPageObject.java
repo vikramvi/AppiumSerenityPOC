@@ -42,7 +42,7 @@ public class StoreIconsPageObject extends MobilePageObject {
         return TOUCHABLE_ICON_shopThisStore.isDisplayed();
     }
 
-    public boolean clickMyStore() {
+    public boolean clickShopThisStoreIcon() {
         try {
             TOUCHABLE_ICON_shopThisStore.click();
             return true;

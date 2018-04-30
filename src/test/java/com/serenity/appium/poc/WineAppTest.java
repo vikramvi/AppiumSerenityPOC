@@ -157,23 +157,40 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-    @Test //<----- here!
-    public void DOT_25261_verifyDepositLabelOnPrice(){
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToProductSearch();
-            String token = "modelo especial keg";
+@Test
+public void DOT_25260_verifyCrvLabelOnPrice() {
+    try{
+        wineAppSteps.completeQuickOnboarding();
+        wineAppSteps.verifyChangeStoreLookupOption();
+        wineAppSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+        wineAppSteps.verifyShopThisStore();
+        wineAppSteps.verifyHomepageToProductSearch();
+        String token = "modelo especial chelada";
 //            wineAppSteps.searchForProduct("vs"); // "beer"); // token);
-            wineAppSteps.searchForProduct(token);
- //           wineAppSteps.verifySearchResultCount(1);
-            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+        wineAppSteps.searchForProduct(token);
+        //           wineAppSteps.verifySearchResultCount(1);
+        wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
 //            wineAppSteps.selectProductFromSearchResults("ashton vsg belicoso no. 1"); // "lucky beer"); // "modelo especial");
-            wineAppSteps.selectProductFromSearchResults("modelo especial");
-            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        wineAppSteps.selectProductFromSearchResults(token);
+        wineAppSteps.verifyFeeInProductDetails(Enums.Fees.CRV);
+    }catch (Exception e){
+        e.printStackTrace();
     }
+}
+//    @Test // verified on iOS on 4/27/18
+//    public void DOT_25261_verifyDepositLabelOnPrice() {
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("modelo especial keg");
+//            wineAppSteps.verifySearchResultCount(1);
+//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+//            wineAppSteps.selectProductFromSearchResults("modelo especial");
+//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 //    @Test // verified on iOS, Android on 4/19/18
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {

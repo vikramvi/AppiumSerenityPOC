@@ -5,7 +5,7 @@ public class Enums {
     public enum Fees {
         DEPOSIT("+DEPOSIT*"),
         WASLT("+WASLT*"),
-        CRV("+CRV");
+        CRV("+CRV*");
         String text;
 
         Fees(String text) {

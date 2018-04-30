@@ -90,8 +90,13 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     }
 
     private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
-    public String getAndroidProductFee() {
-        String result = getDriver().findElement(BY_productFee).getText();
+    public String getProductFee() {
+        String result = noResultsFound;
+        if (isAndroid()) {
+            result = getDriver().findElement(BY_productFee).getText();
+        } else {
+            result = getIosProductFee();
+        }
         return result;
     }
 
