@@ -20,5 +20,17 @@ public class Enums {
             return productType;
         }
     }
+
+    public enum InStoreAvailability {
+        LIMITED     ("Limited quantity"),
+        READY_TODAY ("Ready Today");
+        private String text;
+        InStoreAvailability(String text) {
+            this.text = text;
+        }
+        public String getText() {
+            return text;
+        }
+    }
 }
 

@@ -110,8 +110,10 @@ public class WineAppSteps extends ScenarioSteps {
 
     @Step
     public void selectProductFromSearchResults(String productName) {
-        LOGGER.info("Selecting product from search results...");
+        LOGGER.info("Verifying selection of product from search results...");
         assertThat(productSearchResultsPageObject.selectProduct(productName)).isTrue();
+        String actualName = mainProductDetailsPageObject.getProductName();
+        assertThat(actualName).isEqualToIgnoringCase(productName);
     }
 
     @Step
@@ -185,6 +187,15 @@ public class WineAppSteps extends ScenarioSteps {
         String expectedFee = fee.getLabel();
         assertThat(actualFee).isEqualTo(expectedFee);
     }
+
+    @Step
+    public void verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability availability) {
+        LOGGER.info("Verifying presence of " +availability.toString()+ " in in-store availability in product details...");
+        String actualInStoreAvailability = mainProductDetailsPageObject.getIosProductInStoreAvailability();
+        String expectedInStoreAvailability = availability.getText();
+        assertThat(actualInStoreAvailability).isEqualTo(expectedInStoreAvailability);
+    }
+
 
     @Step
     public void verifyProductDetailsToSearchResults() {
@@ -395,4 +406,5 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying clicking Shop This Store icon from store details page...");
         assertThat(storeIconsPageObject.clickShopThisStoreIcon()).isTrue();
     }
+
 }

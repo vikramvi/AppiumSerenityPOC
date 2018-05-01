@@ -1,15 +1,11 @@
 package com.serenity.appium.poc;
 
-import com.serenity.appium.poc.pages.MobilePageObject;
-import com.serenity.appium.poc.pages.ProductSearchResultsPageObject;
-import com.serenity.appium.poc.pages.storeDetails.TastingHoursPageObject;
 import com.serenity.appium.poc.utils.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
 
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
@@ -17,11 +13,6 @@ import org.junit.AfterClass;
 import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.serenity.WineAppSteps;
-
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
@@ -157,55 +148,6 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-@Test // verified on iOS on 4/30/18
-public void DOT_25259_verifyWasltLabelOnPrice() {
-    try{
-        wineAppSteps.completeQuickOnboarding();
-        wineAppSteps.verifyChangeStoreLookupOption();
-        wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
-        wineAppSteps.verifyShopThisStore();
-        wineAppSteps.verifyHomepageToProductSearch();
-        String token = "mascarade liqueur";
-        wineAppSteps.searchForProduct(token);
-        //           wineAppSteps.verifySearchResultCount(1);
-        wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
-        wineAppSteps.selectProductFromSearchResults(token);
-        wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
-    } catch (Exception e){
-        e.printStackTrace();
-    }
-}
-@Test // verified on iOS on 4/30/18
-public void DOT_25260_verifyCrvLabelOnPrice() {
-    try{
-        wineAppSteps.completeQuickOnboarding();
-        wineAppSteps.verifyChangeStoreLookupOption();
-        wineAppSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
-        wineAppSteps.verifyShopThisStore();
-        wineAppSteps.verifyHomepageToProductSearch();
-        String token = "modelo especial chelada";
-        wineAppSteps.searchForProduct(token);
-        wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
-        wineAppSteps.selectProductFromSearchResults(token);
-        wineAppSteps.verifyFeeInProductDetails(Enums.Fees.CRV);
-    } catch (Exception e){
-        e.printStackTrace();
-    }
-}
-    @Test // verified on iOS on 4/30/18
-    public void DOT_25261_verifyDepositLabelOnPrice() {
-        try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("modelo especial keg");
-            wineAppSteps.verifySearchResultCount(1);
-            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
-            wineAppSteps.selectProductFromSearchResults("modelo especial");
-            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 //    @Test // verified on iOS, Android on 4/19/18
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
@@ -330,6 +272,72 @@ public void DOT_25260_verifyCrvLabelOnPrice() {
 //            wineAppSteps.verifyShowSpiritsHours();
 //            wineAppSteps.verifySpiritsHours();
 //        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+@Test //
+public void DOT_25256_verifyLimitedAvailability() {
+    try{
+        wineAppSteps.completeQuickOnboarding();
+        wineAppSteps.verifyChangeStoreLookupOption();
+        wineAppSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
+        wineAppSteps.verifyShopThisStore();
+        wineAppSteps.verifyHomepageToProductSearch();
+        String token = "dom perignon jeff koons brut vintage";
+        wineAppSteps.searchForProduct(token);
+        //           wineAppSteps.verifySearchResultCount(1);
+        wineAppSteps.selectProductFromSearchResults(token);
+        wineAppSteps.verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability.LIMITED);
+    } catch (Exception e){
+        e.printStackTrace();
+    }
+}
+//@Test // verified on iOS on 4/30/18
+//public void DOT_25259_verifyWasltLabelOnPrice() {
+//    try{
+//        wineAppSteps.completeQuickOnboarding();
+//        wineAppSteps.verifyChangeStoreLookupOption();
+//        wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
+//        wineAppSteps.verifyShopThisStore();
+//        wineAppSteps.verifyHomepageToProductSearch();
+//        String token = "mascarade liqueur";
+//        wineAppSteps.searchForProduct(token);
+//        //           wineAppSteps.verifySearchResultCount(1);
+//        wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
+//        wineAppSteps.selectProductFromSearchResults(token);
+//        wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
+//    } catch (Exception e){
+//        e.printStackTrace();
+//    }
+//}
+//    @Test // verified on iOS on 4/30/18
+//    public void DOT_25260_verifyCrvLabelOnPrice() {
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+//            wineAppSteps.verifyShopThisStore();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            String token = "modelo especial chelada";
+//            wineAppSteps.searchForProduct(token);
+//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
+//            wineAppSteps.selectProductFromSearchResults(token);
+//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.CRV);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS on 4/30/18
+//    public void DOT_25261_verifyDepositLabelOnPrice() {
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            wineAppSteps.searchForProduct("modelo especial keg");
+//            wineAppSteps.verifySearchResultCount(1);
+//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+//            wineAppSteps.selectProductFromSearchResults("modelo especial");
+//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
+//        } catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }

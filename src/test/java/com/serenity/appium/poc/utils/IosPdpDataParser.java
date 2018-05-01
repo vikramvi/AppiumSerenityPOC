@@ -75,15 +75,16 @@ public class IosPdpDataParser {
     }
 
     public enum ProductAttribute {
-        TITLE       (titleRegex, 1),
-        CATEGORIES  (categoriesRegex, 1),
-        PRICE       (priceRegex, 1),
-        FEE         (priceRegex, 3),
-        LIQUOR_SIZE (liquorSizeRegex, 1),
-        WINE_SIZE   (wineSizeRegex, 1),
-        BEER_SIZE   (beerSizeRegex,1),
-        AVAILABILITY(availabilityRegex, 1),
-        SKU         (skuRegex, 1);
+        TITLE                   (titleRegex, 1),
+        CATEGORIES              (categoriesRegex, 1),
+        PRICE                   (priceRegex, 1),
+        FEE                     (priceRegex, 3),
+        LIQUOR_SIZE             (liquorSizeRegex, 1),
+        WINE_SIZE               (wineSizeRegex, 1),
+        BEER_SIZE               (beerSizeRegex,1),
+        IN_STORE_AVAILABILITY   (availabilityRegex, 4),
+        DELIVERY_AVAILABILITY   (availabilityRegex, 9),
+        SKU                     (skuRegex, 1);
         private String regEx;
         private int groupNumber;
         ProductAttribute(String regEx, int groupNumber) {

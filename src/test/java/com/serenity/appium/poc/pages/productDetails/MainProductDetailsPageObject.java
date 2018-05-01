@@ -39,30 +39,6 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return Utils.tryClicking(BUTTON_addToCart);
     }
 
-//    private final String REGEX_count = "([0-9]*?,?[0-9]+)(\\sITEMS?)";
-//    public String getResultsCount() {
-//        String result = "NOT FOUND!";
-//        String itemCount = TEXT_searchResultsCount.getText();
-//        Pattern pattern = Pattern.compile(REGEX_count);
-//        Matcher matcher = pattern.matcher(itemCount);
-//        if (matcher.find()) {
-//            result = matcher.group(1);
-//        } else {
-//            throw new IllegalStateException("No match for item count!");
-//        }
-//        return result;
-//    }
-//
-//    public int getResultsCountInteger() {
-//        String itemCount = getResultsCount();
-//        int result = Integer.parseInt(itemCount);
-//        return result;
-//    }
-//
-//    private boolean isSoloSearchResult() {
-//        return getResultsCountInteger() == 1;
-//    }
-
     private boolean isProductRating(String data) {
         return (data.length() > 1) && (data.length() < 4) && (StringUtils.isNumeric(data));
     }
@@ -87,13 +63,8 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     }
 
     private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
-    public String getProductFee() {
-        String result = noResultsFound;
-        if (isAndroid()) {
-            result = getDriver().findElement(BY_productFee).getText();
-        } else {
-            result = getIosProductFee();
-        }
+    public String getAndroidProductFee() {
+        String result = getDriver().findElement(BY_productFee).getText();
         return result;
     }
 
@@ -109,12 +80,45 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean selectProductForAndroid(int productNumber) {
-        return Utils.tryClicking(TEXT_productName);
+//    public boolean selectProductForAndroid(int productNumber) {
+//        return Utils.tryClicking(TEXT_productName);
+//    }
+
+    //------------------ Android --^
+
+    public String getProductName() {
+        String result = noResultsFound;
+        if (isAndroid()) {
+            result = getAndroidProductName();
+        } else {
+            result = getIosProductName();
+        }
+        return result.trim();
+    }
+
+    public String getProductFee() {
+        String result = noResultsFound;
+        if (isAndroid()) {
+            result = getAndroidProductFee();
+        } else {
+            result = getIosProductFee();
+        }
+        return result;
+    }
+
+    public String getProductPrice() {
+        String result = noResultsFound;
+        if (isAndroid()) {
+            result = getAndroidProductPrice();
+        } else {
+            result = getIosProductPrice();
+        }
+        return result;
     }
 
 
-//------------------ iOS -->
+
+//------------------ iOS --v
 
 //    private String XPATH_PATTERN_iosStoreTitleInList = "(//XCUIElementTypeOther[starts-with(@name,'%s')])[2]";
     public String getProductDataStreamForIos() {
@@ -126,7 +130,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         }
         return result;
     }
-    public String getIosProductTitle() {
+    public String getIosProductName() {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
@@ -196,11 +200,21 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         }
         return result;
     }
-    public String getIosProductAvailability() {
+    public String getIosProductInStoreAvailability() {
         String result = noResultsFound;
         try {
             String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductAttribute.AVAILABILITY.getData(stream);
+            result = IosPdpDataParser.ProductAttribute.IN_STORE_AVAILABILITY.getData(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getIosProductDeliveryAvailability() {
+        String result = noResultsFound;
+        try {
+            String stream = getProductDataStreamForIos();
+            result = IosPdpDataParser.ProductAttribute.DELIVERY_AVAILABILITY.getData(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
