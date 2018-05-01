@@ -80,6 +80,22 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return result;
     }
 
+    private By BY_ispChangeButton = MobileBy.AccessibilityId("button-change-store");
+    public boolean clickChangeStoreButton() {
+        return Utils.tryClicking(getDriver(), BY_ispChangeButton);
+    }
+
+    private By BY_deliveryConfirmAddressButton = MobileBy.AccessibilityId("button-delivery-confirm");
+    public boolean clickConfirmDeliveryAddressButton() {
+        return Utils.tryClicking(getDriver(), BY_deliveryConfirmAddressButton);
+    }
+
+    private By BY_ispAvailableMessage = MobileBy.AccessibilityId("product-message-available-for-INSTORE_PICKUP");
+    public String getIspAvailableMessage() {
+        String message = getDriver().findElement(BY_ispAvailableMessage).getText();
+        return message;
+    }
+
 //    public boolean selectProductForAndroid(int productNumber) {
 //        return Utils.tryClicking(TEXT_productName);
 //    }

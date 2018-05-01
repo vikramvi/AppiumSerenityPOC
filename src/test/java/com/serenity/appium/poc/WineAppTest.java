@@ -275,7 +275,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-@Test //
+@Test // verified on iOS on 5/01/18
 public void DOT_25256_verifyLimitedAvailability() {
     try{
         wineAppSteps.completeQuickOnboarding();
