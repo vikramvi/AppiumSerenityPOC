@@ -1,11 +1,13 @@
 package com.serenity.appium.poc;
 
+import com.serenity.appium.poc.pages.storeDetails.TastingHoursPageObject;
 import com.serenity.appium.poc.utils.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
@@ -13,6 +15,11 @@ import org.junit.AfterClass;
 import org.openqa.selenium.WebDriver;
 
 import com.serenity.appium.poc.serenity.WineAppSteps;
+
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
@@ -120,7 +127,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/19/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({FindStore.class})
 //    public void DOT_25218_verifyGrowlerStoreAbsence() {
 //        try {
@@ -132,7 +139,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/19/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({FindStore.class})
 //    public void DOT_25230_verifyCurrentGrowlerSelection() {
 //        try {
@@ -148,7 +155,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/19/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
 //        try {
@@ -164,72 +171,72 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/20/18
-//    @Category({Regression1.class, FindStore.class})
-//    public void DOT_25238_verifyClosestStoreByIpAddress(){
-//        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageStoreDetails("Kendall");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS, Android on 4/19/18
-//    @Category({Regression1.class, FindStore.class})
-//    public void DOT_25239_verifyOptionToChangeStores(){
-//        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS ONLY on 3/29/18
-//    @Category({StoreDetails.class})
-//    public void DOT_25243_verifyNewStoreDirections() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyDirectionsLoad();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS, Android on 4/18/18
-//    @Category({FindStore.class})
-//    public void DOT_25245_verifyStoreAddress() {
-//        String title = "Laurel (Corridor)";
-//        String address1 = "Laurel Corridor";
-//        String address2 = "3335 Corridor Marketplace";
-//        String cityStateZip = "Laurel, MD 20724";
-//        String phoneNumber = "(301) 617-8507";
-//        String hours = "8:00 AM - 11:00 PM";
-//        String openUntil = "Open Until 11 PM";
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifyStoreDataInNewSearchResults(
-//                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-//            wineAppSteps.verifySelectStoreFromSearchResults(title);
-//            wineAppSteps.verifyStoreDetailsHeaderData(
-//                    title, address1, address2, cityStateZip, openUntil);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS, Android on 4/20/18
-//    @Category({FindStore.class})
-//    public void DOT_25246_verifyNewStoreMap() {
-//        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Wellington", "Wellington");
-//            wineAppSteps.verifyStoreDetailsMapLoad();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @Test // verified on iOS ONLY on 4/20/18
+    @Test // verified on iOS, Android on 4/20/18
+    @Category({Regression1.class, FindStore.class})
+    public void DOT_25238_verifyClosestStoreByIpAddress(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyHomepageStoreDetails("Kendall");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test // verified on iOS, Android on 4/19/18
+    @Category({Regression1.class, FindStore.class})
+    public void DOT_25239_verifyOptionToChangeStores(){
+        try{
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test // verified on iOS ONLY on 3/29/18
+    @Category({StoreDetails.class})
+    public void DOT_25243_verifyNewStoreDirections() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyHomepageToStoreDetails();
+            wineAppSteps.verifyDirectionsLoad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test // verified on iOS, Android on 4/18/18
+    @Category({FindStore.class})
+    public void DOT_25245_verifyStoreAddress() {
+        String title = "Laurel (Corridor)";
+        String address1 = "Laurel Corridor";
+        String address2 = "3335 Corridor Marketplace";
+        String cityStateZip = "Laurel, MD 20724";
+        String phoneNumber = "(301) 617-8507";
+        String hours = "8:00 AM - 11:00 PM";
+        String openUntil = "Open Until 11 PM";
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifyStoreDataInNewSearchResults(
+                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
+            wineAppSteps.verifySelectStoreFromSearchResults(title);
+            wineAppSteps.verifyStoreDetailsHeaderData(
+                    title, address1, address2, cityStateZip, openUntil);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test // verified on iOS, Android on 4/20/18
+    @Category({FindStore.class})
+    public void DOT_25246_verifyNewStoreMap() {
+        try {
+            wineAppSteps.completeQuickOnboarding();
+            wineAppSteps.verifyChangeStoreLookupOption();
+            wineAppSteps.verifySelectStoreFromSearchResults("Wellington", "Wellington");
+            wineAppSteps.verifyStoreDetailsMapLoad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({StoreDetails.class})
 //    public void DOT_25247_verifyStoreHours(){
 //        try{
@@ -242,7 +249,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/20/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25248_verifyAllTastingHourTypes(){
 //        try{
@@ -262,7 +269,7 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/20/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25249_verifySpiritsHours(){
 //        try{
@@ -275,42 +282,42 @@ public class WineAppTest {
 //            e.printStackTrace();
 //        }
 //    }
-@Test // verified on iOS on 5/01/18
-public void DOT_25256_verifyLimitedAvailability() {
-    try{
-        wineAppSteps.completeQuickOnboarding();
-        wineAppSteps.verifyChangeStoreLookupOption();
-        wineAppSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
-        wineAppSteps.verifyShopThisStore();
-        wineAppSteps.verifyHomepageToProductSearch();
-        String token = "dom perignon jeff koons brut vintage";
-        wineAppSteps.searchForProduct(token);
-        //           wineAppSteps.verifySearchResultCount(1);
-        wineAppSteps.selectProductFromSearchResults(token);
-        wineAppSteps.verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability.LIMITED);
-    } catch (Exception e){
-        e.printStackTrace();
-    }
-}
-//@Test // verified on iOS on 4/30/18
-//public void DOT_25259_verifyWasltLabelOnPrice() {
-//    try{
-//        wineAppSteps.completeQuickOnboarding();
-//        wineAppSteps.verifyChangeStoreLookupOption();
-//        wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
-//        wineAppSteps.verifyShopThisStore();
-//        wineAppSteps.verifyHomepageToProductSearch();
-//        String token = "mascarade liqueur";
-//        wineAppSteps.searchForProduct(token);
-//        //           wineAppSteps.verifySearchResultCount(1);
-//        wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
-//        wineAppSteps.selectProductFromSearchResults(token);
-//        wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
-//    } catch (Exception e){
-//        e.printStackTrace();
+//    @Test // verified on iOS, Android on 5/02/18
+//    public void DOT_25256_verifyLimitedAvailability() {
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
+//            wineAppSteps.verifyShopThisStore();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            String token = "dom perignon jeff koons brut vintage";
+//            wineAppSteps.searchForProduct(token);
+//            //           wineAppSteps.verifySearchResultCount(1);
+//            wineAppSteps.selectProductFromSearchResults(token);
+//            wineAppSteps.verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability.LIMITED);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
 //    }
-//}
-//    @Test // verified on iOS on 4/30/18
+//    @Test // verified on iOS on 5/02/18
+//    public void DOT_25259_verifyWasltLabelOnPrice() {
+//        try{
+//            wineAppSteps.completeQuickOnboarding();
+//            wineAppSteps.verifyChangeStoreLookupOption();
+//            wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
+//            wineAppSteps.verifyShopThisStore();
+//            wineAppSteps.verifyHomepageToProductSearch();
+//            String token = "mascarade liqueur";
+//            wineAppSteps.searchForProduct(token);
+//            //           wineAppSteps.verifySearchResultCount(1);
+//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
+//            wineAppSteps.selectProductFromSearchResults(token);
+//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    @Test // verified on iOS on 5/02/18
 //    public void DOT_25260_verifyCrvLabelOnPrice() {
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
@@ -327,7 +334,7 @@ public void DOT_25256_verifyLimitedAvailability() {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS on 4/30/18
+//    @Test // verified on iOS on 5/02/18
 //    public void DOT_25261_verifyDepositLabelOnPrice() {
 //        try{
 //            wineAppSteps.completeQuickOnboarding();
@@ -341,7 +348,7 @@ public void DOT_25256_verifyLimitedAvailability() {
 //            e.printStackTrace();
 //        }
 //    }
-//    @Test // verified on iOS, Android on 4/20/18
+//    @Test // verified on iOS, Android on 5/02/18
 //    @Category({Regression1.class})
 //    public void DOT_25275_verifyProductMisspellings(){
 //        try{

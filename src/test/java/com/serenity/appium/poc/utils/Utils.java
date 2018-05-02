@@ -84,7 +84,7 @@ public class Utils {
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -94,7 +94,7 @@ public class Utils {
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOf(element));
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }

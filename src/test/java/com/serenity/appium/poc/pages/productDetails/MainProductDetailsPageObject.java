@@ -43,18 +43,36 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return (data.length() > 1) && (data.length() < 4) && (StringUtils.isNumeric(data));
     }
 
-    private String XPATH_PATTERN_productScore =
-            "(//android.view.ViewGroup[@content-desc=\"product-price\"])[%d]/preceding-sibling::android.view.ViewGroup[@content-desc='product-rating']";
-    public boolean isAndroidProductScorePresent(int productNumber) {
-        String xpath = String.format(XPATH_PATTERN_productScore, productNumber);
-        int count = getDriver().findElements(By.xpath(xpath)).size();
-        return (count > 0);
+//    private String XPATH_PATTERN_productScore =
+//            "(//android.view.ViewGroup[@content-desc=\"product-price\"])[%d]/preceding-sibling::android.view.ViewGroup[@content-desc='product-rating']";
+//    public boolean isAndroidProductScorePresent(int productNumber) {
+//        String xpath = String.format(XPATH_PATTERN_productScore, productNumber);
+//        int count = getDriver().findElements(By.xpath(xpath)).size();
+//        return (count > 0);
+//    }
+//
+//    public String getAndroidProductScore(int productNumber) {
+//        String xpath = String.format(XPATH_PATTERN_productScore, productNumber);
+//        String score = getDriver().findElement(By.xpath(xpath)).getText();
+//        return score;
+//    }
+
+    private By BY_productRating = MobileBy.AccessibilityId("product-rating");
+    public String getAndroidProductRating() {
+        String result = "NOT FOUND!";
+        if (Utils.isVisible(getDriver(), BY_productRating, 2)) {
+            result = getDriver().findElement(BY_productRating).getText();
+        }
+        return result;
     }
 
-    public String getAndroidProductScore(int productNumber) {
-        String xpath = String.format(XPATH_PATTERN_productScore, productNumber);
-        String score = getDriver().findElement(By.xpath(xpath)).getText();
-        return score;
+    private By BY_productRatingSource = MobileBy.AccessibilityId("product-rating-source");
+    public String getAndroidProductRatingSource() {
+        String result = "NOT FOUND!";
+        if (Utils.isVisible(getDriver(), BY_productRatingSource, 2)) {
+            result = getDriver().findElement(BY_productRatingSource).getText();
+        }
+        return result;
     }
 
     public String getAndroidProductPrice() {
@@ -81,18 +99,41 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     }
 
     private By BY_ispChangeButton = MobileBy.AccessibilityId("button-change-store");
-    public boolean clickChangeStoreButton() {
+    public boolean clickAndroidChangeStoreButton() {
         return Utils.tryClicking(getDriver(), BY_ispChangeButton);
     }
 
     private By BY_deliveryConfirmAddressButton = MobileBy.AccessibilityId("button-delivery-confirm");
-    public boolean clickConfirmDeliveryAddressButton() {
+    public boolean clickAndroidConfirmDeliveryAddressButton() {
         return Utils.tryClicking(getDriver(), BY_deliveryConfirmAddressButton);
     }
 
+    private By BY_deliveryChangeAddressButton = MobileBy.AccessibilityId("button-delivery-change");
+    public boolean clickAndroidChangeDeliveryAddressButton() {
+        return Utils.tryClicking(getDriver(), BY_deliveryChangeAddressButton);
+    }
+
     private By BY_ispAvailableMessage = MobileBy.AccessibilityId("product-message-available-for-INSTORE_PICKUP");
-    public String getIspAvailableMessage() {
+    public String getAndroidProductInStoreAvailability() {
         String message = getDriver().findElement(BY_ispAvailableMessage).getText();
+        return message;
+    }
+
+    private By BY_ispStoreName = MobileBy.AccessibilityId("store-name-for-isp");
+    public String getAndroidIspStoreName() {
+        String message = getDriver().findElement(BY_ispStoreName).getText();
+        return message;
+    }
+
+    private By BY_deliveryAvailableMessage = MobileBy.AccessibilityId("product-message-available-for-DELIVERY");
+    public String getAndroidDeliveryAvailableMessage() {
+        String message = getDriver().findElement(BY_deliveryAvailableMessage).getText();
+        return message;
+    }
+
+    private By BY_deliveryNotEligibleMessage = MobileBy.AccessibilityId("product-message-not-eligible-for-DELIVERY");
+    public String getAndroidDeliveryNotEligibleMessage() {
+        String message = getDriver().findElement(BY_deliveryNotEligibleMessage).getText();
         return message;
     }
 
@@ -132,6 +173,15 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return result;
     }
 
+    public String getProductInStoreAvailability() {
+        String result = noResultsFound;
+        if (isAndroid()) {
+            result = getAndroidProductInStoreAvailability();
+        } else {
+            result = getIosProductInStoreAvailability();
+        }
+        return result;
+    }
 
 
 //------------------ iOS --v

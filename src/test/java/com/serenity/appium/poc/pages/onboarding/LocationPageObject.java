@@ -42,13 +42,7 @@ public class LocationPageObject extends MobilePageObject {
     }
 
     public boolean declineLocationTracking() {
-        try {
-            LINK_turnOnLater.click();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return Utils.tryClicking(LINK_turnOnLater);
     }
 
 }

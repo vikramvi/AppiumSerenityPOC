@@ -191,11 +191,10 @@ public class WineAppSteps extends ScenarioSteps {
     @Step
     public void verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability availability) {
         LOGGER.info("Verifying presence of " +availability.toString()+ " in in-store availability in product details...");
-        String actualInStoreAvailability = mainProductDetailsPageObject.getIosProductInStoreAvailability();
+        String actualInStoreAvailability = mainProductDetailsPageObject.getProductInStoreAvailability();
         String expectedInStoreAvailability = availability.getText();
         assertThat(actualInStoreAvailability).isEqualTo(expectedInStoreAvailability);
     }
-
 
     @Step
     public void verifyProductDetailsToSearchResults() {
