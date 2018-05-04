@@ -19,6 +19,12 @@ public class LoyaltyPageObject extends MobilePageObject {
     }
 
     public boolean declineLoyaltyLogin(){
-        return Utils.tryClicking(LINK_noThanks);
+        boolean result = false;
+        if (Utils.isVisible(getDriver(), LINK_noThanks, 5)) {
+            result = Utils.tryClicking(LINK_noThanks);
+        } else {
+            throw new IllegalStateException("Can't see 'no thanks' link for Loyalty!");
+        }
+        return result;
     }
 }

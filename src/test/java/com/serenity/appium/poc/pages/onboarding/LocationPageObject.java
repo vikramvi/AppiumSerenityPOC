@@ -29,6 +29,7 @@ public class LocationPageObject extends MobilePageObject {
             if (isAndroid()) {
                 By BUTTON_androidConfirmAllowLocation = By.id("com.android.packageinstaller:id/permission_allow_button");
                 if (getDriver().findElements(BUTTON_androidConfirmAllowLocation).size() > 0) {
+                    System.out.println(">>> clicking Confirm on Allow Location...");
                     getDriver().findElement(BUTTON_androidConfirmAllowLocation).click();
                 }
             } else {
