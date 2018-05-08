@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.9.0-rc.1</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.9.7</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
         <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
     </properties>
 
@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>1.7.0</version>
+            <version>3.8.0</version>
         </dependency>
         <!--<dependency>
            <groupId>com.github.cukedoctor</groupId>
