@@ -10,8 +10,18 @@ import org.openqa.selenium.WebElement;
 
 public class LoyaltyPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='no thanks']")
-    @iOSFindBy(xpath="//XCUIElementTypeOther[@name='no thanks']")
+    @AndroidFindBy(accessibility = "button-confirm-GET MORE PERKS")
+    @iOSFindBy(accessibility = "button-confirm-GET MORE PERKS")
+    private WebElement LINK_joinNow;
+
+    @AndroidFindBy(accessibility = "button-confirm2-GET MORE PERKS")
+    @iOSFindBy(accessibility = "button-confirm2-GET MORE PERKS")
+    private WebElement LINK_signIn;
+
+//    @AndroidFindBy(xpath="//android.widget.TextView[@text='no thanks']")
+//    @iOSFindBy(xpath="//XCUIElementTypeOther[@name='no thanks']")
+    @AndroidFindBy(accessibility = "link-decline-GET MORE PERKS")
+    @iOSFindBy(accessibility = "link-decline-GET MORE PERKS")
     private WebElement LINK_noThanks;
 
     public LoyaltyPageObject(WebDriver driver) {

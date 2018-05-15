@@ -10,8 +10,8 @@ import org.openqa.selenium.WebElement;
 
 public class SplashPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-lets-begin']")
-    @iOSFindBy(xpath="//XCUIElementTypeButton[@name='button-lets-begin']")
+    @AndroidFindBy(accessibility = "button-lets-begin")
+    @iOSFindBy(accessibility = "button-lets-begin")
     private WebElement LetsBeginButton;
 
     public SplashPageObject(WebDriver driver) {

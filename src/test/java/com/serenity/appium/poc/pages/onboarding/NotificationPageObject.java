@@ -10,26 +10,28 @@ import org.openqa.selenium.WebElement;
 
 public class NotificationPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='not right now']")
-    @iOSFindBy(accessibility = "link-decline")
-    private WebElement LINK_notRightNow;
-
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='ENABLE NOTIFICATIONS']")
-    @iOSFindBy(xpath="//XCUIElementTypeButton[@name='STAY CONNECTED']")
+//    @AndroidFindBy(xpath="//android.widget.TextView[@text='ENABLE NOTIFICATIONS']")
+//    @iOSFindBy(xpath="//XCUIElementTypeButton[@name='STAY CONNECTED']")
+    @AndroidFindBy(accessibility = "button-confirm-STAY CONNECTED")
+    @iOSFindBy(accessibility = "button-confirm-STAY CONNECTED")
     private WebElement BUTTON_enableNotifications;
 
-    public NotificationPageObject(WebDriver driver) {
-        super(driver);
-    }
+//    @AndroidFindBy(xpath="//android.widget.TextView[@text='not right now']")
+//    @iOSFindBy(accessibility = "link-decline")
+    @AndroidFindBy(accessibility = "link-decline-STAY CONNECTED")
+    @iOSFindBy(accessibility = "link-decline-STAY CONNECTED")
+    private WebElement LINK_notRightNow;
 
-    public boolean declineReceivingNotifications(){
-        return Utils.tryClicking(LINK_notRightNow);
+   public NotificationPageObject(WebDriver driver) {
+        super(driver);
     }
 
     public boolean approveReceivingNotifications(){
         return Utils.tryClicking(BUTTON_enableNotifications);
     }
 
-
+    public boolean declineReceivingNotifications(){
+        return Utils.tryClicking(LINK_notRightNow);
+    }
 
 }

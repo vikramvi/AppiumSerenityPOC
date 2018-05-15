@@ -11,12 +11,16 @@ import org.openqa.selenium.WebElement;
 
 public class LocationPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath = "//android.widget.Button[@content-desc='FIND MY STORE']")
-    @iOSFindBy(xpath = "//XCUIElementTypeButton[@name='FIND MY STORE']")
+//    @AndroidFindBy(xpath = "//android.widget.Button[@content-desc='FIND MY STORE']")
+//    @iOSFindBy(xpath = "//XCUIElementTypeButton[@name='FIND MY STORE']")
+    @AndroidFindBy(accessibility = "button-confirm-FIND MY STORE")
+    @iOSFindBy(accessibility = "button-confirm-FIND MY STORE")
     private WebElement BUTTON_allowLocation;
 
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='turn on later']")
-    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name='turn on later']")
+//    @AndroidFindBy(xpath = "//android.widget.TextView[@text='turn on later']")
+//    @iOSFindBy(xpath = "//XCUIElementTypeOther[@name='turn on later']")
+    @AndroidFindBy(accessibility = "link-decline-FIND MY STORE")
+    @iOSFindBy(accessibility = "link-decline-FIND MY STORE")
     private WebElement LINK_turnOnLater;
 
     public LocationPageObject(WebDriver driver) {
