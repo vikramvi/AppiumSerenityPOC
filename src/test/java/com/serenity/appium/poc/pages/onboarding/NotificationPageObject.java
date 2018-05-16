@@ -10,14 +10,10 @@ import org.openqa.selenium.WebElement;
 
 public class NotificationPageObject extends MobilePageObject {
 
-//    @AndroidFindBy(xpath="//android.widget.TextView[@text='ENABLE NOTIFICATIONS']")
-//    @iOSFindBy(xpath="//XCUIElementTypeButton[@name='STAY CONNECTED']")
     @AndroidFindBy(accessibility = "button-confirm-STAY CONNECTED")
     @iOSFindBy(accessibility = "button-confirm-STAY CONNECTED")
     private WebElement BUTTON_enableNotifications;
 
-//    @AndroidFindBy(xpath="//android.widget.TextView[@text='not right now']")
-//    @iOSFindBy(accessibility = "link-decline")
     @AndroidFindBy(accessibility = "link-decline-STAY CONNECTED")
     @iOSFindBy(accessibility = "link-decline-STAY CONNECTED")
     private WebElement LINK_notRightNow;

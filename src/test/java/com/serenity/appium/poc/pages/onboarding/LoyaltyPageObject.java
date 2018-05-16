@@ -18,8 +18,6 @@ public class LoyaltyPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "button-confirm2-GET MORE PERKS")
     private WebElement LINK_signIn;
 
-//    @AndroidFindBy(xpath="//android.widget.TextView[@text='no thanks']")
-//    @iOSFindBy(xpath="//XCUIElementTypeOther[@name='no thanks']")
     @AndroidFindBy(accessibility = "link-decline-GET MORE PERKS")
     @iOSFindBy(accessibility = "link-decline-GET MORE PERKS")
     private WebElement LINK_noThanks;
