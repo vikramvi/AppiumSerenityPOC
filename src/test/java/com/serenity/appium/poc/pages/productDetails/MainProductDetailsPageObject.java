@@ -75,26 +75,31 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return result;
     }
 
-    public String getAndroidProductPrice() {
-        String result = TEXT_everydayLowPrice.getText();
-        return result;
-    }
-
-    private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
-    public String getAndroidProductFee() {
-        String result = getDriver().findElement(BY_productFee).getText();
-        return result;
-    }
-
-    public String getAndroidProductName() {
-        String result = TEXT_productName.getText();
-        return result;
-    }
-
-    private String XPATH_PATTERN_productSize = "(//android.widget.TextView[@content-desc=\"product-packaging\"])[%d]";
+//    public String getAndroidProductPrice() {
+//        String result = TEXT_everydayLowPrice.getText();
+//        return result;
+//    }
+//
+//    private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
+//    public String getAndroidProductFee() {
+//        String result = getDriver().findElement(BY_productFee).getText();
+//        return result;
+//    }
+//
+//    public String getAndroidProductName() {
+//        String result = TEXT_productName.getText();
+//        return result;
+//    }
+//
+//    private String XPATH_PATTERN_productSize = "(//android.widget.TextView[@content-desc=\"product-packaging\"])[%d]";
+//    public String getAndroidProductSize(int productNumber) {
+//        String xpath = String.format(XPATH_PATTERN_productSize, productNumber);
+//        String result = getDriver().findElement(By.xpath(xpath)).getText();
+//        return result;
+//    }
+    private By BY_productSize = MobileBy.AccessibilityId("product-details-packaging");
     public String getAndroidProductSize(int productNumber) {
-        String xpath = String.format(XPATH_PATTERN_productSize, productNumber);
-        String result = getDriver().findElement(By.xpath(xpath)).getText();
+        String result = getDriver().findElement(BY_productSize).getText();
         return result;
     }
 
@@ -145,33 +150,47 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 
     public String getProductName() {
         String result = noResultsFound;
-        if (isAndroid()) {
-            result = getAndroidProductName();
-        } else {
-            result = getIosProductName();
-        }
+//        if (isAndroid()) {
+//            result = getAndroidProductName();
+//        } else {
+//            result = getIosProductName();
+//        }
+        result = TEXT_productName.getText();
         return result.trim();
     }
 
+    private By BY_productFee = MobileBy.AccessibilityId("product-details-fee");
     public String getProductFee() {
         String result = noResultsFound;
-        if (isAndroid()) {
-            result = getAndroidProductFee();
-        } else {
-            result = getIosProductFee();
-        }
+//        if (isAndroid()) {
+//            result = getAndroidProductFee();
+//        } else {
+//            result = getIosProductFee();
+//        }
+        result = getDriver().findElement(BY_productFee).getText();
         return result;
     }
 
     public String getProductPrice() {
         String result = noResultsFound;
-        if (isAndroid()) {
-            result = getAndroidProductPrice();
-        } else {
-            result = getIosProductPrice();
-        }
+//        if (isAndroid()) {
+//            result = getAndroidProductPrice();
+//        } else {
+//            result = getIosProductPrice();
+//        }
+        result = TEXT_everydayLowPrice.getText();
         return result;
     }
+
+    private By BY_multiOptionPackaging = MobileBy.AccessibilityId("text-multi-option");
+    public String getMultiOptionPackaging() {
+        String result = noResultsFound;
+        result = getDriver().findElement(BY_multiOptionPackaging).getText();
+        return result;
+    }
+
+
+
 
     public String getProductInStoreAvailability() {
         String result = noResultsFound;
@@ -196,16 +215,16 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         }
         return result;
     }
-    public String getIosProductName() {
-        String result = noResultsFound;
-        try {
-            String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductAttribute.TITLE.getData(stream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    public String getIosProductName() {
+//        String result = noResultsFound;
+//        try {
+//            String stream = getProductDataStreamForIos();
+//            result = IosPdpDataParser.ProductAttribute.TITLE.getData(stream);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
     public String getIosProductCategories() {
         String result = noResultsFound;
         try {
@@ -216,26 +235,26 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         }
         return result;
     }
-    public String getIosProductPrice() {
-        String result = noResultsFound;
-        try {
-            String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductAttribute.PRICE.getData(stream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-    public String getIosProductFee() {
-        String result = noResultsFound;
-        try {
-            String stream = getProductDataStreamForIos();
-            result = IosPdpDataParser.ProductAttribute.FEE.getData(stream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    public String getIosProductPrice() {
+//        String result = noResultsFound;
+//        try {
+//            String stream = getProductDataStreamForIos();
+//            result = IosPdpDataParser.ProductAttribute.PRICE.getData(stream);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+//    public String getIosProductFee() {
+//        String result = noResultsFound;
+//        try {
+//            String stream = getProductDataStreamForIos();
+//            result = IosPdpDataParser.ProductAttribute.FEE.getData(stream);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
     public String getIosLiquorSize() {
         String result = noResultsFound;
         try {
