@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>1.9.7</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
         <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <completeTestSuite>**/*.java</completeTestSuite>
     </properties>
 
     <repositories>
@@ -101,12 +102,7 @@
                     <threadCount>10</threadCount> -->
                     <forkCount>0</forkCount>
                     <includes>
-                        <!-- <include>**/*Test.java</include>
-                        <include>**/Test*.java</include> -->
-                        <include>**/*.java</include> <!-- added by jph -->
-                        <!--include>**/When*.java</include>
-                        <include>**/*Story.java</include>
-                        <include>**/*Cucumber.java</include>-->
+                        <include>${completeTestSuite}</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>

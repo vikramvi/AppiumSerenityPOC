@@ -176,7 +176,7 @@ public class WineAppSteps extends ScenarioSteps {
         LOGGER.info("Verifying product selection from search results...");
         String expectedName = productSearchResultsPageObject.getAndroidProductName(productNumber);
         assertThat(productSearchResultsPageObject.selectProductForAndroid(productNumber)).isTrue();
-        String actualName = mainProductDetailsPageObject.getAndroidProductName();
+        String actualName = mainProductDetailsPageObject.getProductName();
         assertThat(actualName).isEqualToIgnoringCase(expectedName);
     }
 
