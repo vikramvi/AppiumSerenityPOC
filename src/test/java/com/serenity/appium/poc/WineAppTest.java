@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
+
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
 
@@ -32,7 +35,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-//        startAppiumServer();
+        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         Utils.setPlatform();
@@ -41,7 +44,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-//        stopAppiumServer();
+        stopAppiumServer();
     }
 
 //    @Test
@@ -74,7 +77,7 @@ public class WineAppTest {
 //        }
 //    }
 //-------------------------------------------------------------------------
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class, FindStore.class})
     public void DOT_25134_verifyClosestStoreOnHomepage(){
         Properties properties = new Properties();
@@ -89,7 +92,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25137_verifyNewStoreIcons() {
         try {
@@ -100,7 +103,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     public void DOT_25139_verifyNewStoreHours() {
         try {
 //            wineAppSteps.completeQuickOnboarding();
@@ -115,7 +118,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS,  on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25216_verifyGrowlerStorePresence() {
         try {
@@ -127,7 +130,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25218_verifyGrowlerStoreAbsence() {
         try {
@@ -139,7 +142,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25230_verifyCurrentGrowlerSelection() {
         try {
@@ -155,7 +158,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25231_verifyOnDeckGrowlerSelection() {
         try {
@@ -171,17 +174,17 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class, FindStore.class})
     public void DOT_25238_verifyClosestStoreByIpAddress(){
         try{
             wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageStoreDetails("Kendall");
+            wineAppSteps.verifyHomepageStoreDetails("North Miami");
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class, FindStore.class})
     public void DOT_25239_verifyOptionToChangeStores(){
         try{
@@ -191,7 +194,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({StoreDetails.class})
     public void DOT_25243_verifyNewStoreDirections() {
         try {
@@ -202,7 +205,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25245_verifyStoreAddress() {
         String title = "Laurel (Corridor)";
@@ -224,7 +227,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({FindStore.class})
     public void DOT_25246_verifyNewStoreMap() {
         try {
@@ -235,7 +238,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({StoreDetails.class})
     public void DOT_25247_verifyStoreHours(){
         try{
@@ -246,7 +249,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class, FindStore.class})
     public void DOT_25248_verifyAllTastingHourTypes(){
         try{
@@ -266,7 +269,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class, FindStore.class})
     public void DOT_25249_verifySpiritsHours(){
         try{
@@ -279,7 +282,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     public void DOT_25256_verifyLimitedAvailability() {
         try{
             wineAppSteps.completeQuickOnboarding();
@@ -296,7 +299,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS on 5/02/18
+    @Test // verified on iOS on 5/22/18
     public void DOT_25259_verifyWasltLabelOnPrice() {
         try{
             wineAppSteps.completeQuickOnboarding();
@@ -314,7 +317,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS on 5/02/18
+    @Test // verified on iOS on 5/22/18
     public void DOT_25260_verifyCrvLabelOnPrice() {
         try{
             wineAppSteps.completeQuickOnboarding();
@@ -331,12 +334,12 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     public void DOT_25261_verifyDepositLabelOnPrice() {
         try{
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyHomepageToProductSearch();
-            wineAppSteps.searchForProduct("modelo especial keg");
+            wineAppSteps.searchForProduct("modelo especial 1/2 keg");
             wineAppSteps.verifySearchResultCount(1);
             wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
             wineAppSteps.selectProductFromSearchResults("modelo especial");
@@ -345,7 +348,7 @@ public class WineAppTest {
             e.printStackTrace();
         }
     }
-    @Test // verified on iOS, Android on 5/02/18
+    @Test // verified on iOS, Android on 5/22/18
     @Category({Regression1.class})
     public void DOT_25275_verifyProductMisspellings(){
         try{
