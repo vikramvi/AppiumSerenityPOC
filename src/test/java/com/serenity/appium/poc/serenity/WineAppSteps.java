@@ -27,6 +27,7 @@ public class WineAppSteps extends ScenarioSteps {
     private BrowsePageObject browsePageObject;
     private IosPlpProductSelector iosPlpProductSelector;
     private LocationPageObject locationPageObject;
+    private LoginPageObject loginPageObject;
     private LoyaltyPageObject loyaltyPageObject;
     private MainProductDetailsPageObject mainProductDetailsPageObject;
     private MobilePageObject mobilePageObject;
@@ -77,6 +78,15 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(locationPageObject.declineLocationTracking()).isTrue();
         assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
         assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
+    }
+
+    @Step
+    public void performLoginFromHomepage() {
+        LOGGER.info("Completing login...");
+        assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
+        assertThat(loginPageObject.confirmHeader()).isTrue();
+        assertThat(loginPageObject.performDefaultLogin()).isTrue();
+        assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
     }
 
     @Step
