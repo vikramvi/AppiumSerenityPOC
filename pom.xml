@@ -84,6 +84,12 @@
            <artifactId>Cukedoctor-converter</artifactId>
            <version>1.0.6</version>
         </dependency>-->
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>3.4.4</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

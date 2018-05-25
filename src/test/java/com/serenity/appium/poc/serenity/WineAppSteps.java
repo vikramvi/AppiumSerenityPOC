@@ -12,6 +12,7 @@ import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.IosPlpProductSelector;
 import com.serenity.appium.poc.utils.StoreDataParser;
+import com.serenity.appium.poc.utils.ReadToastMessage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.slf4j.Logger;
@@ -87,6 +88,8 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performDefaultLogin()).isTrue();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
+        ReadToastMessage toast = new ReadToastMessage();
+        toast.readToastMessage(getDriver());
     }
 
     @Step
