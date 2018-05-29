@@ -18,7 +18,7 @@ public class NotificationPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "link-decline-STAY CONNECTED")
     private WebElement LINK_notRightNow;
 
-   public NotificationPageObject(WebDriver driver) {
+    public NotificationPageObject(WebDriver driver) {
         super(driver);
     }
 
@@ -27,7 +27,8 @@ public class NotificationPageObject extends MobilePageObject {
     }
 
     public boolean declineReceivingNotifications(){
-        return Utils.tryClicking(LINK_notRightNow);
+       System.out.println(">>> clicking Not Right Now on Notifications...");
+       return Utils.tryClicking(LINK_notRightNow);
     }
 
 }

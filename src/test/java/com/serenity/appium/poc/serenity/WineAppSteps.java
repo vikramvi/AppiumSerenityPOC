@@ -12,7 +12,8 @@ import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.utils.Enums;
 import com.serenity.appium.poc.utils.IosPlpProductSelector;
 import com.serenity.appium.poc.utils.StoreDataParser;
-import com.serenity.appium.poc.utils.ReadToastMessage;
+import com.serenity.appium.poc.utils.ReadScreenText;
+import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class WineAppSteps extends ScenarioSteps {
     private MobilePageObject mobilePageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private NavigationFooterPageObject navigationFooterPageObject;
+    private NavigationFooterMoreMenuPageObject navigationFooterMoreMenuPageObject;
     private NotificationPageObject notificationPageObject;
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
@@ -58,9 +60,12 @@ public class WineAppSteps extends ScenarioSteps {
     /// --> temporary sandbox driver
     public void tempDriver() {
         navigationFooterPageObject.clickBrowseButton();
-        browsePageObject.clickWineCard();
-        browsePageObject.clickWineTypesCategory();
-        browsePageObject.clickWineSubcategoryRedWine();
+        navigationFooterPageObject.clickHomeButton();
+        navigationFooterPageObject.clickMoreMenuButton();
+        navigationFooterMoreMenuPageObject.clickSignOutButton();
+//        browsePageObject.clickWineCard();
+//        browsePageObject.clickWineTypesCategory();
+//        browsePageObject.clickWineSubcategoryRedWine();
     }
 
     @Step
@@ -82,14 +87,14 @@ public class WineAppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void performLoginFromHomepage() {
+    public void performLoginFromHomepage() throws TesseractException {
         LOGGER.info("Completing login...");
         assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performDefaultLogin()).isTrue();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
-        ReadToastMessage toast = new ReadToastMessage();
-        toast.readToastMessage(getDriver());
+        ReadScreenText toast = new ReadScreenText();
+        toast.readScreenText(getDriver());
     }
 
     @Step

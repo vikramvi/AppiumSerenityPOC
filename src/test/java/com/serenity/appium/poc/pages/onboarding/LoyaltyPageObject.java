@@ -29,6 +29,7 @@ public class LoyaltyPageObject extends MobilePageObject {
     public boolean declineLoyaltyLogin(){
         boolean result = false;
         if (Utils.isVisible(getDriver(), LINK_noThanks, 5)) {
+            System.out.println(">>> clicking No Thanks on Loyalty...");
             result = Utils.tryClicking(LINK_noThanks);
         } else {
             throw new IllegalStateException("Can't see 'no thanks' link for Loyalty!");

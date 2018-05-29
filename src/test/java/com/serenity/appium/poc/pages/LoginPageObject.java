@@ -44,7 +44,11 @@ public class LoginPageObject extends MobilePageObject {
             INPUT_password.sendKeys(password+"\n");
         } else {
             INPUT_password.sendKeys(password);
-            BUTTON_androidLogin.click();
+            if (Utils.isVisible(getDriver(), BUTTON_androidLogin, 3)) {
+                Utils.tryClicking(BUTTON_androidLogin);
+            } else {
+                throw new IllegalStateException("Login button not visible after wait!");
+            }
         }
     }
 

@@ -10,23 +10,23 @@ import org.openqa.selenium.WebElement;
 public class NavigationFooterPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "tab-home")
-    @iOSFindBy(accessibility = "\uE80F HOME \uE80F HOME")
+    @iOSFindBy(accessibility = "\uE81A HOME \uE81A HOME")
     private WebElement BUTTON_home;
 
     @AndroidFindBy(accessibility = "tab-browse")
-    @iOSFindBy(accessibility = "\uE81D BROWSE \uE81D BROWSE")
+    @iOSFindBy(accessibility = "\uE83F BROWSE \uE83F BROWSE")
     private WebElement BUTTON_browse;
 
     @AndroidFindBy(accessibility = "tab-My Store")
-    @iOSFindBy(accessibility = "\uE81B MY STORE \uE81B MY STORE")
+    @iOSFindBy(accessibility = "\uE82D MY STORE \uE82D MY STORE")
     private WebElement BUTTON_myStore;
 
     @AndroidFindBy(accessibility = "tab-cart")
-    @iOSFindBy(accessibility = "\uE808 CART \uE808 CART")
+    @iOSFindBy(accessibility = "\uE80C CART \uE80C CART")
     private WebElement BUTTON_shoppingCart;
 
     @AndroidFindBy(accessibility = "tab-more")
-    @iOSFindBy(accessibility = "\uE818 MORE \uE818 MORE")
+    @iOSFindBy(accessibility = "\uE82A MORE \uE82A MORE")
     private WebElement BUTTON_moreMenu;
 
     public NavigationFooterPageObject(WebDriver driver) {
