@@ -8,35 +8,43 @@ import org.openqa.selenium.WebElement;
 
 public class NavigationFooterMoreMenuPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath = "/android.view.ViewGroup[@content-desc=\"SIGN OUT\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "/android.view.ViewGroup[@content-desc=\"SIGN OUT\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "SIGN OUT")
     @iOSFindBy(accessibility = "SIGN OUT")
     private WebElement BUTTON_signOut;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"NOTIFICATION SETTINGS\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"NOTIFICATION SETTINGS\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "NOTIFICATION SETTINGS")
     @iOSFindBy(accessibility = "NOTIFICATION SETTINGS")
     private WebElement BUTTON_notificationSettings;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"TERMS AND CONDITIONS\"]/android.widget.TextView[1]\n")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"TERMS AND CONDITIONS\"]/android.widget.TextView[1]\n")
+    @AndroidFindBy(accessibility = "TERMS AND CONDITIONS")
     @iOSFindBy(accessibility = "TERMS AND CONDITIONS")
     private WebElement BUTTON_termsAndConditions;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"ACCOUNT\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"ACCOUNT\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "ACCOUNT")
     @iOSFindBy(accessibility = "ACCOUNT")
     private WebElement BUTTON_account;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"CUSTOMER SERVICE\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"CUSTOMER SERVICE\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "CUSTOMER SERVICE")
     @iOSFindBy(accessibility = "CUSTOMER SERVICE")
     private WebElement BUTTON_customerService;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"HELP\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"HELP\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "HELP")
     @iOSFindBy(accessibility = "HELP")
     private WebElement BUTTON_help;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"MY ORDERS\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"MY ORDERS\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "MY ORDERS")
     @iOSFindBy(accessibility = "MY ORDERS")
     private WebElement BUTTON_myOrders;
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"MESSAGES\"]/android.widget.TextView[1]")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"MESSAGES\"]/android.widget.TextView[1]")
+    @AndroidFindBy(accessibility = "MESSAGES")
     @iOSFindBy(accessibility = "MESSAGES")
     private WebElement BUTTON_messages;
 

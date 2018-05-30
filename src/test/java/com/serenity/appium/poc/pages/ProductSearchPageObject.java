@@ -36,7 +36,7 @@ public class ProductSearchPageObject extends MobilePageObject {
         boolean result = false;
         String token = productName;
         try {
-            token += "\n";
+            token += isIOS() ? "\n" : "";
             result = typeSearchTerm(token);
             if (result && isAndroid()) {
                 WebDriver facade = getDriver();

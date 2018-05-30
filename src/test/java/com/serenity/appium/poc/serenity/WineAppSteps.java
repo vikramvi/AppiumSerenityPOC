@@ -58,11 +58,13 @@ public class WineAppSteps extends ScenarioSteps {
     String wineName = "Krug Vintage";
 
     /// --> temporary sandbox driver
-    public void tempDriver() {
+    public void tempDriver()  throws TesseractException {
+        this.performLoginFromHomepage();
         navigationFooterPageObject.clickBrowseButton();
         navigationFooterPageObject.clickHomeButton();
         navigationFooterPageObject.clickMoreMenuButton();
-        navigationFooterMoreMenuPageObject.clickSignOutButton();
+//        navigationFooterMoreMenuPageObject.clickSignOutButton();
+        navigationFooterMoreMenuPageObject.clickAccountButton();
 //        browsePageObject.clickWineCard();
 //        browsePageObject.clickWineTypesCategory();
 //        browsePageObject.clickWineSubcategoryRedWine();
