@@ -132,6 +132,19 @@ public class Utils {
         }
     }
 
+    public static boolean tryClicking(WebDriver driver, WebElement element) {
+        try {
+            boolean visible = isVisible(driver, element, 5);
+            if (visible) {
+                element.click();
+            }
+            return visible;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean tryClickingAllow() {
         try {
             Thread.sleep(3000);
@@ -149,6 +162,11 @@ public class Utils {
         }
     }
 
+    public static void clearField(WebElement element) {
+        element.click();
+        element.clear();
+    }
+
     public static String getAllAndroidGridData(String gridElementXpath) {
         String result = "";
         String gridElementXpathPattern = gridElementXpath + "[%d]";
@@ -162,6 +180,14 @@ public class Utils {
             }
         }
         return result;
+    }
+
+    public static void waitFor(int milleseconds) {
+        try {
+            Thread.sleep(milleseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setPlatform() {

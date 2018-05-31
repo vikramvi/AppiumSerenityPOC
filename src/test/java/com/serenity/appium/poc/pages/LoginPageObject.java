@@ -2,6 +2,7 @@ package com.serenity.appium.poc.pages;
 
 
 import com.serenity.appium.poc.utils.Utils;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
@@ -44,8 +45,14 @@ public class LoginPageObject extends MobilePageObject {
             INPUT_password.sendKeys(password+"\n");
         } else {
             INPUT_password.sendKeys(password);
-            if (Utils.isVisible(getDriver(), BUTTON_androidLogin, 3)) {
-                Utils.tryClicking(BUTTON_androidLogin);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            WebElement x = getDriver().findElement(MobileBy.AccessibilityId("button-login"));
+            if (Utils.isVisible(getDriver(), x, 5)) {
+                Utils.tryClicking(x);
             } else {
                 throw new IllegalStateException("Login button not visible after wait!");
             }

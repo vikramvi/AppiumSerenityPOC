@@ -1,5 +1,6 @@
-package com.serenity.appium.poc.pages;
+package com.serenity.appium.poc.pages.account;
 
+import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -68,19 +69,19 @@ public class AccountOptionsPageObject extends MobilePageObject {
         return Utils.isVisible(getDriver(), BUTTON_rateApp, 5);
     }
 
-    public boolean clickHomeButton() {
+    public boolean clickProfileButton() {
         return Utils.tryClicking(BUTTON_profile);
     }
 
-    public boolean clickBrowseButton() {
+    public boolean clickPreferencesButton() {
         return Utils.tryClicking(BUTTON_preferences);
     }
 
-    public boolean clickMyStoreButton() {
+    public boolean clickAddressesButton() {
         return Utils.tryClicking(BUTTON_addresses);
     }
 
-    public boolean clickShoppingCartButton() {
+    public boolean clickPaymentButton() {
         return Utils.tryClicking(BUTTON_payment);
     }
 

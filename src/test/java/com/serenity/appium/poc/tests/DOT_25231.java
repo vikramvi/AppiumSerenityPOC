@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.tests.onHold;
+package com.serenity.appium.poc.tests;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.FindStore;
@@ -13,7 +13,7 @@ public class DOT_25231 extends WineAppTest {
         try {
             wineAppSteps.completeQuickOnboarding();
             wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+            wineAppSteps.verifySelectStoreFromSearchResults("Vancouver", "Vancouver");
             wineAppSteps.verifySelectGrowlerStationPageOnDeckSection();
             wineAppSteps.verifyLastGrowlerStationCardBreweryNameLabel();
             wineAppSteps.verifyLastGrowlerStationCardBeerNameLabel();

@@ -1,6 +1,8 @@
 package com.serenity.appium.poc.serenity;
 
 import com.serenity.appium.poc.pages.*;
+import com.serenity.appium.poc.pages.account.AccountOptionsPageObject;
+import com.serenity.appium.poc.pages.account.ProfilePageObject;
 import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
 import com.serenity.appium.poc.pages.home.SearchSectionPageObject;
 import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
@@ -9,10 +11,7 @@ import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
-import com.serenity.appium.poc.utils.Enums;
-import com.serenity.appium.poc.utils.IosPlpProductSelector;
-import com.serenity.appium.poc.utils.StoreDataParser;
-import com.serenity.appium.poc.utils.ReadScreenText;
+import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -26,7 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WineAppSteps extends ScenarioSteps {
 
+    private AccountOptionsPageObject accountOptionsPageObject;
     private BrowsePageObject browsePageObject;
+    private GrowlerSectionPageObject growlerSectionPageObject;
+    private GrowlerStationPageObject growlerStationPageObject;
     private IosPlpProductSelector iosPlpProductSelector;
     private LocationPageObject locationPageObject;
     private LoginPageObject loginPageObject;
@@ -39,13 +41,12 @@ public class WineAppSteps extends ScenarioSteps {
     private NotificationPageObject notificationPageObject;
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
+    private ProfilePageObject profilePageObject;
     private SearchSectionPageObject searchSection;
     private SpiritsHoursPageObject spiritsHoursPageObject;
     private SplashPageObject splashPageObject;
     private StoreDataHeaderPageObject storeDataHeaderPageObject;
     private StoreDetailsCommonPageObject storeDetailsCommonPageObject;
-    private GrowlerSectionPageObject growlerSectionPageObject;
-    private GrowlerStationPageObject growlerStationPageObject;
     private StoreHoursPageObject storeHoursPageObject;
     private StoreIconsPageObject storeIconsPageObject;
     private StoreMapPageObject storeMapPageObject;
@@ -59,12 +60,25 @@ public class WineAppSteps extends ScenarioSteps {
 
     /// --> temporary sandbox driver
     public void tempDriver()  throws TesseractException {
+        ReadScreenText readScreenText = new ReadScreenText();
         this.performLoginFromHomepage();
-        navigationFooterPageObject.clickBrowseButton();
-        navigationFooterPageObject.clickHomeButton();
+//        navigationFooterPageObject.clickBrowseButton();
+//        navigationFooterPageObject.clickHomeButton();
         navigationFooterPageObject.clickMoreMenuButton();
 //        navigationFooterMoreMenuPageObject.clickSignOutButton();
         navigationFooterMoreMenuPageObject.clickAccountButton();
+        accountOptionsPageObject.clickProfileButton();
+        long random = Math.round(Math.random()*100);
+        String newFirstName = "joe"+random;
+        profilePageObject.enterFirstName(newFirstName, true);
+        profilePageObject.enterLastName("hennessey"+random, true);
+        profilePageObject.clickAndroidUpdateButton();
+        Utils.waitFor(1500);
+        profilePageObject.clickAndroidReturn();
+        accountOptionsPageObject.clickProfileButton();
+        String actual = profilePageObject.getFirstName();
+        assertThat(actual.equalsIgnoreCase(newFirstName)).isTrue();
+//        readScreenText.readScreenText(getDriver());
 //        browsePageObject.clickWineCard();
 //        browsePageObject.clickWineTypesCategory();
 //        browsePageObject.clickWineSubcategoryRedWine();
@@ -95,8 +109,6 @@ public class WineAppSteps extends ScenarioSteps {
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performDefaultLogin()).isTrue();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
-        ReadScreenText toast = new ReadScreenText();
-        toast.readScreenText(getDriver());
     }
 
     @Step
