@@ -72,9 +72,9 @@ public class WineAppSteps extends ScenarioSteps {
         String newFirstName = "joe"+random;
         profilePageObject.enterFirstName(newFirstName, true);
         profilePageObject.enterLastName("hennessey"+random, true);
-        profilePageObject.clickAndroidUpdateButton();
+        profilePageObject.clickUpdateButton();
         Utils.waitFor(1500);
-        profilePageObject.clickAndroidReturn();
+        profilePageObject.clickReturnButton();
         accountOptionsPageObject.clickProfileButton();
         String actual = profilePageObject.getFirstName();
         assertThat(actual.equalsIgnoreCase(newFirstName)).isTrue();

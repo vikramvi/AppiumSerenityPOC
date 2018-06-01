@@ -162,10 +162,6 @@ public class Utils {
         }
     }
 
-    public static void clearField(WebElement element) {
-        element.click();
-        element.clear();
-    }
 
     public static String getAllAndroidGridData(String gridElementXpath) {
         String result = "";
@@ -189,6 +185,19 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    public enum Axis {X, Y};
+    public static int getScreenDimension(Axis axis) {
+        Dimension dim = getDriver().manage().window().getSize();
+        int result = 0;
+        if (axis.equals(Axis.X)) {
+            result = dim.getWidth();
+        } else if (axis.equals(Axis.Y)) {
+            result = dim.getHeight();
+        }
+        return result;
+    }
+
 
     public static void setPlatform() {
         String platform = System.getProperty("testEnvironment");

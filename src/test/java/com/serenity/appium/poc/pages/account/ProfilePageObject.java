@@ -1,11 +1,28 @@
 package com.serenity.appium.poc.pages.account;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.IosProfileButtonSelector;
 import com.serenity.appium.poc.utils.Utils;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.touch.LongPressOptions;
+import net.thucydides.core.webdriver.WebDriverFacade;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.PerformsTouchActions;
+
+import java.time.Duration;
+import java.util.HashMap;
+
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class ProfilePageObject extends MobilePageObject {
 
@@ -83,21 +100,21 @@ public class ProfilePageObject extends MobilePageObject {
 
     public void enterFirstName(String firstName, boolean clearFirst){
         if (clearFirst) {
-            Utils.clearField(INPUT_firstName);
+            clearField(INPUT_firstName);
         }
         INPUT_firstName.sendKeys(firstName);
     }
 
     public void enterLastName(String lastName, boolean clearFirst){
         if (clearFirst) {
-            Utils.clearField(INPUT_lastName);
+            clearField(INPUT_lastName);
         }
         INPUT_lastName.sendKeys(lastName);
     }
 
     public void enterPhoneNumber(String phoneNumber, boolean clearFirst){
         if (clearFirst) {
-            Utils.clearField(INPUT_phoneNumber);
+            clearField(INPUT_phoneNumber);
         }
         INPUT_phoneNumber.sendKeys(phoneNumber);
     }
@@ -112,7 +129,7 @@ public class ProfilePageObject extends MobilePageObject {
 
     public void enterEmail(String email, boolean clearFirst){
         if (clearFirst) {
-            Utils.clearField(INPUT_email);
+            clearField(INPUT_email);
         }
         INPUT_email.sendKeys(email);
     }
@@ -121,9 +138,70 @@ public class ProfilePageObject extends MobilePageObject {
         return Utils.tryClicking(getDriver(), BUTTON_update);
     }
 
+    public boolean clickUpdateButton() {
+        if (isIOS()) {
+            return clickIosUpdateButton();
+        } else {
+            return clickAndroidUpdateButton();
+        }
+    }
+
+    public boolean clickIosUpdateButton() {
+        try {
+//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_UPDATE);
+            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_UPDATE);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean clickAndroidReturn() {
         return Utils.tryClicking(BUTTON_return);
     }
 
+    public boolean clickReturnButton() {
+        if (isIOS()) {
+            return clickIosReturnButton();
+        } else {
+            return clickAndroidReturn();
+        }
+    }
+
+    public boolean clickIosReturnButton() {
+        try {
+//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_RETURN);
+            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_RETURN);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public void clearField(WebElement element) {
+//        WebDriver facade = getDriver();
+//        WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
+//        TouchAction touchAction = new TouchAction((MobileDriver) driver);
+//        LongPressOptions longPressOptions = new LongPressOptions();
+//        if (isAndroid()) {
+            element.click();
+            element.clear();
+//        } else {
+//            while (element.getText().length()>0) {
+//                try {
+//                    touchAction.longPress(longPressOptions().withElement(element(element)));
+//                    touchAction.perform();
+//                    element.click();
+//                    element.sendKeys(Keys.BACK_SPACE);
+//                    HashMap swipeObject = new HashMap();
+//                    swipeObject.put("keycode", 67);
+//                    ((JavascriptExecutor) getDriver()).executeScript("mobile: keyevent", swipeObject);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+    }
 
 }
