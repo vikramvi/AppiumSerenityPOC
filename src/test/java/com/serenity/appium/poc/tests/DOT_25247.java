@@ -11,9 +11,9 @@ public class DOT_25247 extends WineAppTest {
     @Category({StoreDetails.class})
     public void DOT_25247_verifyStoreHours(){
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToStoreDetails();
-            wineAppSteps.verifyStoreDetailsStoreHours();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyHomepageToStoreDetails();
+            appSteps.verifyStoreDetailsStoreHours();
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -18,12 +18,12 @@ public class DOT_25245 extends WineAppTest {
         String hours = "8:00 AM - 11:00 PM";
         String openUntil = "Open Until 11 PM";
         try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifyStoreDataInNewSearchResults(
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifyStoreDataInNewSearchResults(
                     "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-            wineAppSteps.verifySelectStoreFromSearchResults(title);
-            wineAppSteps.verifyStoreDetailsHeaderData(
+            appSteps.verifySelectStoreFromSearchResults(title);
+            appSteps.verifyStoreDetailsHeaderData(
                     title, address1, address2, cityStateZip, openUntil);
         } catch (Exception e) {
             e.printStackTrace();

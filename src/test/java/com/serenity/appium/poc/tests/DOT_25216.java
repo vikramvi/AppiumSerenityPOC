@@ -11,10 +11,10 @@ public class DOT_25216 extends WineAppTest {
     @Category({FindStore.class})
     public void DOT_25216_verifyGrowlerStorePresence() {
         try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-            wineAppSteps.verifyGrowlerStation(true);
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+            appSteps.verifyGrowlerStation(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

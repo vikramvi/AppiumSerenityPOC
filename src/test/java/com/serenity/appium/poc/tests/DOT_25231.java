@@ -11,14 +11,14 @@ public class DOT_25231 extends WineAppTest {
     @Category({FindStore.class})
     public void DOT_25231_verifyOnDeckGrowlerSelection() {
         try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Vancouver", "Vancouver");
-            wineAppSteps.verifySelectGrowlerStationPageOnDeckSection();
-            wineAppSteps.verifyLastGrowlerStationCardBreweryNameLabel();
-            wineAppSteps.verifyLastGrowlerStationCardBeerNameLabel();
-            wineAppSteps.verifyLastGrowlerStationCardLabels();
-            wineAppSteps.verifyLastGrowlerStationCardValues();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("Vancouver", "Vancouver");
+            appSteps.verifySelectGrowlerStationPageOnDeckSection();
+            appSteps.verifyLastGrowlerStationCardBreweryNameLabel();
+            appSteps.verifyLastGrowlerStationCardBeerNameLabel();
+            appSteps.verifyLastGrowlerStationCardLabels();
+            appSteps.verifyLastGrowlerStationCardValues();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,8 +12,8 @@ public class DOT_25239 extends WineAppTest {
     @Category({Regression1.class, FindStore.class})
     public void DOT_25239_verifyOptionToChangeStores(){
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
         }catch (Exception e){
             e.printStackTrace();
         }

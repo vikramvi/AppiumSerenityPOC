@@ -1,28 +1,16 @@
 package com.serenity.appium.poc;
 
-import com.serenity.appium.poc.pages.storeDetails.TastingHoursPageObject;
+import com.serenity.appium.poc.serenity.AppSteps;
 import com.serenity.appium.poc.utils.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
 
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
 import org.openqa.selenium.WebDriver;
-
-import com.serenity.appium.poc.serenity.WineAppSteps;
-
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
-import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
 
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
@@ -31,7 +19,7 @@ public class WineAppTest {
     public WebDriver webdriver;
 
     @Steps
-    public WineAppSteps wineAppSteps;
+    public AppSteps appSteps;
 
     @BeforeClass
     public static void startAppium() {
@@ -50,14 +38,14 @@ public class WineAppTest {
 //    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
+//            appSteps.completeQuickOnboarding();
 //            String term = "oregon spirit wheat\n"; // "Billecart Salmon";
-//            wineAppSteps.initiateProductSearch(term);
-////            wineAppSteps.initiateProductSearch("");
-////            wineAppSteps.selectProductNameFromSearchSuggestions(term);
-//            wineAppSteps.selectProductFromSearchResults("Billecart Salmon Extra Brut");
-////            wineAppSteps.verifySearchResultCount(1);
-////            wineAppSteps.performSortAction();
+//            appSteps.initiateProductSearch(term);
+////            appSteps.initiateProductSearch("");
+////            appSteps.selectProductNameFromSearchSuggestions(term);
+//            appSteps.selectProductFromSearchResults("Billecart Salmon Extra Brut");
+////            appSteps.verifySearchResultCount(1);
+////            appSteps.performSortAction();
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -66,8 +54,8 @@ public class WineAppTest {
 //    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.tempDriver();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.tempDriver();
 //            String x = webdriver.getPageSource();
 //            if (!x.isEmpty()) {
 //                String y = "not empty";
@@ -86,8 +74,8 @@ public class WineAppTest {
 //            expectedTitle = "FREMONT";
 //        }
 //        try{
-//            wineAppSteps.completeOnboardingAllowingLocation();
-//            wineAppSteps.verifyHomepageStoreDetails(expectedTitle);
+//            appSteps.completeOnboardingAllowingLocation();
+//            appSteps.verifyHomepageStoreDetails(expectedTitle);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -96,9 +84,9 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25137_verifyNewStoreIcons() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyStoreDetailsIcons();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageToStoreDetails();
+//            appSteps.verifyStoreDetailsIcons();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -106,14 +94,14 @@ public class WineAppTest {
 //    @Test // verified on iOS, Android on 5/22/18
 //    public void DOT_25139_verifyNewStoreHours() {
 //        try {
-////            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.completeOnboardingAllowingLocation();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-//            wineAppSteps.verifyStoreDetailsStoreHours();
-//            wineAppSteps.verifyShowTastingHours();
+////            appSteps.completeQuickOnboarding();
+//            appSteps.completeOnboardingAllowingLocation();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//            appSteps.verifyStoreDetailsStoreHours();
+//            appSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -122,10 +110,10 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25216_verifyGrowlerStorePresence() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-//            wineAppSteps.verifyGrowlerStation(true);
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            appSteps.verifyGrowlerStation(true);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -134,10 +122,10 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25218_verifyGrowlerStoreAbsence() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
-//            wineAppSteps.verifyGrowlerStation(false);
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("33435", "Boca Raton");
+//            appSteps.verifyGrowlerStation(false);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -146,14 +134,14 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25230_verifyCurrentGrowlerSelection() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-//            wineAppSteps.verifySelectGrowlerStationPage();
-//            wineAppSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
-//            wineAppSteps.verifyInitialGrowlerStationCardBeerNameLabels();
-//            wineAppSteps.verifyInitialGrowlerStationCardLabels();
-//            wineAppSteps.verifyInitialGrowlerStationCardValues();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            appSteps.verifySelectGrowlerStationPage();
+//            appSteps.verifyInitialGrowlerStationCardBreweryNameLabels();
+//            appSteps.verifyInitialGrowlerStationCardBeerNameLabels();
+//            appSteps.verifyInitialGrowlerStationCardLabels();
+//            appSteps.verifyInitialGrowlerStationCardValues();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -162,14 +150,14 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25231_verifyOnDeckGrowlerSelection() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
-//            wineAppSteps.verifySelectGrowlerStationPageOnDeckSection();
-//            wineAppSteps.verifyLastGrowlerStationCardBreweryNameLabel();
-//            wineAppSteps.verifyLastGrowlerStationCardBeerNameLabel();
-//            wineAppSteps.verifyLastGrowlerStationCardLabels();
-//            wineAppSteps.verifyLastGrowlerStationCardValues();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Coral Springs", "Coral Springs");
+//            appSteps.verifySelectGrowlerStationPageOnDeckSection();
+//            appSteps.verifyLastGrowlerStationCardBreweryNameLabel();
+//            appSteps.verifyLastGrowlerStationCardBeerNameLabel();
+//            appSteps.verifyLastGrowlerStationCardLabels();
+//            appSteps.verifyLastGrowlerStationCardValues();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -178,8 +166,8 @@ public class WineAppTest {
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25238_verifyClosestStoreByIpAddress(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageStoreDetails("North Miami");
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageStoreDetails("North Miami");
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -188,8 +176,8 @@ public class WineAppTest {
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25239_verifyOptionToChangeStores(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -198,9 +186,9 @@ public class WineAppTest {
 //    @Category({StoreDetails.class})
 //    public void DOT_25243_verifyNewStoreDirections() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyDirectionsLoad();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageToStoreDetails();
+//            appSteps.verifyDirectionsLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -216,12 +204,12 @@ public class WineAppTest {
 //        String hours = "8:00 AM - 11:00 PM";
 //        String openUntil = "Open Until 11 PM";
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifyStoreDataInNewSearchResults(
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifyStoreDataInNewSearchResults(
 //                    "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
-//            wineAppSteps.verifySelectStoreFromSearchResults(title);
-//            wineAppSteps.verifyStoreDetailsHeaderData(
+//            appSteps.verifySelectStoreFromSearchResults(title);
+//            appSteps.verifyStoreDetailsHeaderData(
 //                    title, address1, address2, cityStateZip, openUntil);
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -231,9 +219,9 @@ public class WineAppTest {
 //    @Category({FindStore.class})
 //    public void DOT_25246_verifyNewStoreMap() {
 //        try {
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyStoreDetailsMapLoad();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageToStoreDetails();
+//            appSteps.verifyStoreDetailsMapLoad();
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -242,9 +230,9 @@ public class WineAppTest {
 //    @Category({StoreDetails.class})
 //    public void DOT_25247_verifyStoreHours(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToStoreDetails();
-//            wineAppSteps.verifyStoreDetailsStoreHours();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageToStoreDetails();
+//            appSteps.verifyStoreDetailsStoreHours();
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -253,18 +241,18 @@ public class WineAppTest {
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25248_verifyAllTastingHourTypes(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
-//            wineAppSteps.verifyShowTastingHours();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
+//            appSteps.verifyShowTastingHours();
 //            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
-//            wineAppSteps.verifyStoreDetailsToHomepage();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
-//            wineAppSteps.verifyShowTastingHours();
+//            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+//            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+//            appSteps.verifyStoreDetailsToHomepage();
+//            appSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
+//            appSteps.verifyShowTastingHours();
 //            tastingDays.remove(DayOfWeek.THURSDAY);
-//            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+//            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -273,11 +261,11 @@ public class WineAppTest {
 //    @Category({Regression1.class, FindStore.class})
 //    public void DOT_25249_verifySpiritsHours(){
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
-//            wineAppSteps.verifyShowSpiritsHours();
-//            wineAppSteps.verifySpiritsHours();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
+//            appSteps.verifyShowSpiritsHours();
+//            appSteps.verifySpiritsHours();
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -285,16 +273,16 @@ public class WineAppTest {
 //    @Test // verified on iOS, Android on 5/22/18
 //    public void DOT_25256_verifyLimitedAvailability() {
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
-//            wineAppSteps.verifyShopThisStore();
-//            wineAppSteps.verifyHomepageToProductSearch();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
+//            appSteps.verifyShopThisStore();
+//            appSteps.verifyHomepageToProductSearch();
 //            String token = "dom perignon jeff koons brut vintage";
-//            wineAppSteps.searchForProduct(token);
-//            //           wineAppSteps.verifySearchResultCount(1);
-//            wineAppSteps.selectProductFromSearchResults(token);
-//            wineAppSteps.verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability.LIMITED);
+//            appSteps.searchForProduct(token);
+//            //           appSteps.verifySearchResultCount(1);
+//            appSteps.selectProductFromSearchResults(token);
+//            appSteps.verifyInStoreAvailabilityInProductDetails(Enums.InStoreAvailability.LIMITED);
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -302,17 +290,17 @@ public class WineAppTest {
 //    @Test // verified on iOS on 5/22/18
 //    public void DOT_25259_verifyWasltLabelOnPrice() {
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
-//            wineAppSteps.verifyShopThisStore();
-//            wineAppSteps.verifyHomepageToProductSearch();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
+//            appSteps.verifyShopThisStore();
+//            appSteps.verifyHomepageToProductSearch();
 //            String token = "mascarade liqueur";
-//            wineAppSteps.searchForProduct(token);
-//            //           wineAppSteps.verifySearchResultCount(1);
-//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
-//            wineAppSteps.selectProductFromSearchResults(token);
-//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
+//            appSteps.searchForProduct(token);
+//            //           appSteps.verifySearchResultCount(1);
+//            appSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
+//            appSteps.selectProductFromSearchResults(token);
+//            appSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -320,16 +308,16 @@ public class WineAppTest {
 //    @Test // verified on iOS on 5/22/18
 //    public void DOT_25260_verifyCrvLabelOnPrice() {
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyChangeStoreLookupOption();
-//            wineAppSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
-//            wineAppSteps.verifyShopThisStore();
-//            wineAppSteps.verifyHomepageToProductSearch();
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyChangeStoreLookupOption();
+//            appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+//            appSteps.verifyShopThisStore();
+//            appSteps.verifyHomepageToProductSearch();
 //            String token = "modelo especial chelada";
-//            wineAppSteps.searchForProduct(token);
-//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
-//            wineAppSteps.selectProductFromSearchResults(token);
-//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.CRV);
+//            appSteps.searchForProduct(token);
+//            appSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
+//            appSteps.selectProductFromSearchResults(token);
+//            appSteps.verifyFeeInProductDetails(Enums.Fees.CRV);
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -337,13 +325,13 @@ public class WineAppTest {
 //    @Test // verified on iOS, Android on 5/22/18
 //    public void DOT_25261_verifyDepositLabelOnPrice() {
 //        try{
-//            wineAppSteps.completeQuickOnboarding();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("modelo especial 1/2 keg");
-//            wineAppSteps.verifySearchResultCount(1);
-//            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
-//            wineAppSteps.selectProductFromSearchResults("modelo especial");
-//            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
+//            appSteps.completeQuickOnboarding();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("modelo especial 1/2 keg");
+//            appSteps.verifySearchResultCount(1);
+//            appSteps.verifyFeeInProductSearchResults(Enums.Fees.DEPOSIT);
+//            appSteps.selectProductFromSearchResults("modelo especial");
+//            appSteps.verifyFeeInProductDetails(Enums.Fees.DEPOSIT);
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -352,62 +340,62 @@ public class WineAppTest {
 //    @Category({Regression1.class})
 //    public void DOT_25275_verifyProductMisspellings(){
 //        try{
-//            wineAppSteps.completeOnboardingAllowingLocation();
-//            wineAppSteps.verifyHomepageToProductSearch();
-////            wineAppSteps.searchForProduct("pig hefe");
-////            wineAppSteps.searchForProduct("budweiser 1/2 keg");
-////            wineAppSteps.searchForProduct("chateau");
+//            appSteps.completeOnboardingAllowingLocation();
+//            appSteps.verifyHomepageToProductSearch();
+////            appSteps.searchForProduct("pig hefe");
+////            appSteps.searchForProduct("budweiser 1/2 keg");
+////            appSteps.searchForProduct("chateau");
 //            String expected = "riesling";
-//            wineAppSteps.searchForProduct("reisling");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("reiseling");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("resling");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("reisling");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("reiseling");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("resling");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
 //
 //            expected = "amaretto";
-//            wineAppSteps.searchForProduct("ameratto");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("amereto");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("ameretta");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("ameretto");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("amerrato");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("ameratto");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("amereto");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("ameretta");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("ameretto");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("amerrato");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
 //
 //            expected = "hoegaarden";
-//            wineAppSteps.searchForProduct("hoeegarden");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("hoegarten");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("hoegarden");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
-//            wineAppSteps.verifyProductSearchResultsToHomepage();
-//            wineAppSteps.verifyHomepageToProductSearch();
-//            wineAppSteps.searchForProduct("hogarten");
-//            wineAppSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.searchForProduct("hoeegarden");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("hoegarten");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("hoegarden");
+//            appSteps.verifyNameInProductSearchResults(expected);
+//            appSteps.verifyProductSearchResultsToHomepage();
+//            appSteps.verifyHomepageToProductSearch();
+//            appSteps.searchForProduct("hogarten");
+//            appSteps.verifyNameInProductSearchResults(expected);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }

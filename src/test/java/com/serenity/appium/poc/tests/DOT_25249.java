@@ -12,11 +12,11 @@ public class DOT_25249 extends WineAppTest {
     @Category({Regression1.class, FindStore.class})
     public void DOT_25249_verifySpiritsHours(){
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
-            wineAppSteps.verifyShowSpiritsHours();
-            wineAppSteps.verifySpiritsHours();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("Greenville", "Greenville");
+            appSteps.verifyShowSpiritsHours();
+            appSteps.verifySpiritsHours();
         }catch (Exception e){
             e.printStackTrace();
         }

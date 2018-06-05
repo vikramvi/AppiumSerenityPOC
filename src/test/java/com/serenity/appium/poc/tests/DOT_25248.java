@@ -18,18 +18,18 @@ public class DOT_25248 extends WineAppTest {
     @Category({Regression1.class, FindStore.class})
     public void DOT_25248_verifyAllTastingHourTypes(){
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
-            wineAppSteps.verifyShowTastingHours();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
+            appSteps.verifyShowTastingHours();
             List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
-            wineAppSteps.verifyStoreDetailsToHomepage();
-            wineAppSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
-            wineAppSteps.verifyShowTastingHours();
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+            appSteps.verifyStoreDetailsToHomepage();
+            appSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
+            appSteps.verifyShowTastingHours();
             tastingDays.remove(DayOfWeek.THURSDAY);
-            wineAppSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
         }catch (Exception e){
             e.printStackTrace();
         }

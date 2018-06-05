@@ -9,17 +9,17 @@ public class DOT_25259 extends WineAppTest {
     @Test // verified on iOS on 5/22/18
     public void DOT_25259_verifyWasltLabelOnPrice() {
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyChangeStoreLookupOption();
-            wineAppSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
-            wineAppSteps.verifyShopThisStore();
-            wineAppSteps.verifyHomepageToProductSearch();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
+            appSteps.verifyShopThisStore();
+            appSteps.verifyHomepageToProductSearch();
             String token = "mascarade liqueur";
-            wineAppSteps.searchForProduct(token);
-            //           wineAppSteps.verifySearchResultCount(1);
-            wineAppSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
-            wineAppSteps.selectProductFromSearchResults(token);
-            wineAppSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
+            appSteps.searchForProduct(token);
+            //           appSteps.verifySearchResultCount(1);
+            appSteps.verifyFeeInProductSearchResults(Enums.Fees.WASLT);
+            appSteps.selectProductFromSearchResults(token);
+            appSteps.verifyFeeInProductDetails(Enums.Fees.WASLT);
         } catch (Exception e){
             e.printStackTrace();
         }

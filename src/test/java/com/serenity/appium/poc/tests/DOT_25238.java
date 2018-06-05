@@ -12,8 +12,8 @@ public class DOT_25238 extends WineAppTest {
     @Category({Regression1.class, FindStore.class})
     public void DOT_25238_verifyClosestStoreByIpAddress(){
         try{
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageStoreDetails("North Miami");
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyHomepageStoreDetails("North Miami");
         }catch (Exception e){
             e.printStackTrace();
         }

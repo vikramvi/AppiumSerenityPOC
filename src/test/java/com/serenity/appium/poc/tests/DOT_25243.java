@@ -11,9 +11,9 @@ public class DOT_25243 extends WineAppTest {
     @Category({StoreDetails.class})
     public void DOT_25243_verifyNewStoreDirections() {
         try {
-            wineAppSteps.completeQuickOnboarding();
-            wineAppSteps.verifyHomepageToStoreDetails();
-            wineAppSteps.verifyDirectionsLoad();
+            appSteps.completeQuickOnboarding();
+            appSteps.verifyHomepageToStoreDetails();
+            appSteps.verifyDirectionsLoad();
         } catch (Exception e) {
             e.printStackTrace();
         }
