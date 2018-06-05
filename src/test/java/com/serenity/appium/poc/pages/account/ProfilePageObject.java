@@ -3,9 +3,9 @@ package com.serenity.appium.poc.pages.account;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.IosProfileButtonSelector;
 import com.serenity.appium.poc.utils.Utils;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
+import io.appium.java_client.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -15,8 +15,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.PerformsTouchActions;
+
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -184,10 +184,17 @@ public class ProfilePageObject extends MobilePageObject {
 //        WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
 //        TouchAction touchAction = new TouchAction((MobileDriver) driver);
 //        LongPressOptions longPressOptions = new LongPressOptions();
-//        if (isAndroid()) {
+        if (isAndroid()) {
             element.click();
             element.clear();
-//        } else {
+        } else {
+            WebDriver facade = getDriver();
+            WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
+            TouchAction touchAction = new TouchAction((IOSDriver) driver);
+            int x = element.getLocation().x + element.getSize().width - 10;
+            int y = element.getLocation().y + element.getSize().height -10;
+            touchAction.tap(point(x, y)).perform();
+            element.clear();
 //            while (element.getText().length()>0) {
 //                try {
 //                    touchAction.longPress(longPressOptions().withElement(element(element)));
@@ -201,7 +208,7 @@ public class ProfilePageObject extends MobilePageObject {
 //                    e.printStackTrace();
 //                }
 //            }
-//        }
+        }
     }
 
 }

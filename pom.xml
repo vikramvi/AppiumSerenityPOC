@@ -109,8 +109,8 @@
                     <threadCount>10</threadCount> -->
                     <forkCount>0</forkCount>
                     <includes>
-                        <!--include>${completeTestSuite}</include-->
-                        <include>${singleTestRun}</include>
+                        <include>${completeTestSuite}</include>
+                        <!--include>${singleTestRun}</include-->
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>
