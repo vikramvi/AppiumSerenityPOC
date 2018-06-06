@@ -140,22 +140,22 @@ public class ProfilePageObject extends MobilePageObject {
 
     public boolean clickUpdateButton() {
         if (isIOS()) {
-            return clickIosUpdateButton();
+            return Utils.clickIosUpdateButton();
         } else {
             return clickAndroidUpdateButton();
         }
     }
 
-    public boolean clickIosUpdateButton() {
-        try {
-//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_UPDATE);
-            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_UPDATE);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    public boolean clickIosUpdateButton() {
+//        try {
+////            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_UPDATE);
+//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_UPDATE);
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
     public boolean clickAndroidReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -163,22 +163,22 @@ public class ProfilePageObject extends MobilePageObject {
 
     public boolean clickReturnButton() {
         if (isIOS()) {
-            return clickIosReturnButton();
+            return Utils.clickIosReturnButton();
         } else {
             return clickAndroidReturn();
         }
     }
 
-    public boolean clickIosReturnButton() {
-        try {
-//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_RETURN);
-            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_RETURN);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    public boolean clickIosReturnButton() {
+//        try {
+////            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.ABOVE_KEYBOARD_RETURN);
+//            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_RETURN);
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
     public void clearField(WebElement element) {
 //        WebDriver facade = getDriver();
 //        WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();

@@ -198,6 +198,25 @@ public class Utils {
         return result;
     }
 
+    public static boolean clickIosUpdateButton() {
+        try {
+            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_UPDATE);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean clickIosReturnButton() {
+        try {
+            IosProfileButtonSelector.selectButton(IosProfileButtonSelector.ButtonPosition.NORMAL_RETURN);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static void setPlatform() {
         String platform = System.getProperty("testEnvironment");
