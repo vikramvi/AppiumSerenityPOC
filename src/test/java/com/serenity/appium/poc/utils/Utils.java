@@ -218,6 +218,22 @@ public class Utils {
         }
     }
 
+    public static boolean isPageTitleCorrectAfterPolling(WebElement element, String expectedTitle) {
+        boolean found = element.getText().equals(expectedTitle);
+        int i = 0;
+        while (i<12 && !found) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            String actual = element.getText();
+            found = actual.equals(expectedTitle);
+            i++;
+        }
+        return found;
+    }
+
     public static void setPlatform() {
         String platform = System.getProperty("testEnvironment");
         switch (platform) {

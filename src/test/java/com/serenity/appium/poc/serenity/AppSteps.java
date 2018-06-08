@@ -69,31 +69,36 @@ public class AppSteps extends ScenarioSteps {
         navigationFooterPageObject.clickMoreMenuButton();
 //        navigationFooterMoreMenuPageObject.clickSignOutButton();
         navigationFooterMoreMenuPageObject.clickAccountButton();
-        accountOptionsPageObject.clickPreferencesButton();
-        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
-        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
-        assertThat(PreferencesPageObject.Preferences.SPIRITS.check(getDriver())).isTrue();
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        preferencesPageObject.clickUpdateButton();
-        assertThat(PreferencesPageObject.Preferences.SPIRITS.isChecked(getDriver())).isTrue();
-        assertThat(PreferencesPageObject.Preferences.SPIRITS.uncheck(getDriver())).isTrue();
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        preferencesPageObject.clickUpdateButton();
-        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
+
+
+// ----- A D D R E S S E S
+        accountOptionsPageObject.clickAddressesButton();
 
 
 
+// ----- P R E F E R E N C E S
+//        accountOptionsPageObject.clickPreferencesButton();
+//        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.SPIRITS.check(getDriver())).isTrue();
+//        try {
+//            Thread.sleep(250);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        preferencesPageObject.clickUpdateButton();
+//        assertThat(PreferencesPageObject.Preferences.SPIRITS.isChecked(getDriver())).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.SPIRITS.uncheck(getDriver())).isTrue();
+//        try {
+//            Thread.sleep(250);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        preferencesPageObject.clickUpdateButton();
+//        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
 
-
-
+// ----- P R O F I L E
+//        accountOptionsPageObject.clickProfileButton()
 //        long random = Math.round(Math.random()*100);
 //        String newFirstName = "joe"+random;
 //        profilePageObject.enterFirstName(newFirstName, true);

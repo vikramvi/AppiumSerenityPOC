@@ -34,19 +34,7 @@ public class PreferencesPageObject extends MobilePageObject {
     }
 
     public boolean isPageTitleCorrect() {
-        boolean found = TEXT_pageTitle.getText().equals(expectedTitle);
-        int i = 0;
-        while (i<12 && !found) {
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            String actual = TEXT_pageTitle.getText();
-            found = actual.equals(expectedTitle);
-            i++;
-        }
-        return found;
+        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
     }
 
     public enum Preferences {
@@ -74,7 +62,6 @@ public class PreferencesPageObject extends MobilePageObject {
         public boolean uncheck(WebDriver driver) {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(checked));
         }
-
     }
 
     public boolean clickAndroidUpdateButton() {
