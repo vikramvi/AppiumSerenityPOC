@@ -72,10 +72,10 @@ public class AppSteps extends ScenarioSteps {
 
 
 // ----- A D D R E S S E S
-        accountOptionsPageObject.clickAddressesButton();
+//        accountOptionsPageObject.clickAddressesButton();
 
 // ----- P A Y M E N T S
-//         accountOptionsPageObject.clickPaymentButton();
+         accountOptionsPageObject.clickPaymentButton();
 
 
 

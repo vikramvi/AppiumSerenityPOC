@@ -21,8 +21,6 @@ public class AddressesPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     private WebElement BUTTON_return;
 
-    private String XPATH_PATTERN_addressNickname = "(//android.widget.TextView[@content-desc='text-address-nickname'])[%d]";
-
     public enum AddressField {
         NICKNAME("(//android.widget.TextView[@content-desc='text-address-nickname'])[%d]"),
         PERSON_NAME("(//android.widget.TextView[@content-desc='text-address-person-name'])[%d]"),
