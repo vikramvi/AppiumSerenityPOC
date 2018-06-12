@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages.account;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -23,6 +24,9 @@ public class PreferencesPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-change-store")
     private WebElement BUTTON_changePreferredStore;
 
+    @AndroidFindBy(accessibility = "text-product-interests-subheading")
+    private WebElement TEXT_productInterestsSubheading;
+
     @AndroidFindBy(accessibility = "button-update-preferences")
     private WebElement BUTTON_update;
 
@@ -37,24 +41,62 @@ public class PreferencesPageObject extends MobilePageObject {
         return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
     }
 
+    public enum Headers {
+        STORE("preferred store", false),
+        INTERESTS("product interests", false),
+        COMMUNICATIONS("promotional communications", true);
+        String title;
+        String id;
+        boolean offscreen;
+        Headers(String title, boolean offscreen) {
+            this.title = title.toUpperCase();
+            this.id = "text-header-" + title;
+            this.offscreen = offscreen;
+        }
+        public boolean isVisible(WebDriver driver) {
+            if (offscreen) {
+                Scrolling.scrollDown();
+            }
+            boolean result = Utils.isVisible(driver, MobileBy.AccessibilityId(id), 3);
+            return result;
+        }
+    }
+
+    private static final String expectedProductInterestsSubheader =
+            "Let us know your interests and we will send you information regarding your selection.";
+    public boolean verifyProductInterestsSubheading() {
+        String actual = TEXT_productInterestsSubheading.getText();
+        boolean result = actual.equals(expectedProductInterestsSubheader);
+        return result;
+    }
+
+
+    private static final String uncheckedPattern = "checkbox-%s-unchecked";
+    private static final String checkedPattern = "checkbox-%s-checked";
     public enum Preferences {
-        SPIRITS("checkbox-spirits-unchecked", "checkbox-spirits-checked"),
-        WINE("checkbox-wine-unchecked", "checkbox-wine-checked"),
-        BEER("checkbox-beer-unchecked", "checkbox-beer-checked"),
-        CIGARS("checkbox-cigars-unchecked", "checkbox-cigars-checked"),
-        PROMOTIONS("checkbox-promotions-unchecked", "checkbox-promotions-checked"),
-        EVENTS("checkbox-events-unchecked", "checkbox-events-checked");
+//        SPIRITS("checkbox-spirits-unchecked", "checkbox-spirits-checked"),
+//        WINE("checkbox-wine-unchecked", "checkbox-wine-checked"),
+//        BEER("checkbox-beer-unchecked", "checkbox-beer-checked"),
+//        CIGARS("checkbox-cigars-unchecked", "checkbox-cigars-checked"),
+//        PROMOTIONS("checkbox-promotions-unchecked", "checkbox-promotions-checked"),
+//        EVENTS("checkbox-events-unchecked", "checkbox-events-checked");
+        SPIRITS,
+        WINE,
+        BEER,
+        CIGARS,
+        PROMOTIONS,
+        EVENTS;
         String unchecked;
         String checked;
-        Preferences(String unchecked, String checked) {
-            this.unchecked = unchecked;
-            this.checked = checked;
+        Preferences() {
+            this.unchecked = String.format(uncheckedPattern, this.name().toLowerCase());
+            this.checked = String.format(checkedPattern, this.name().toLowerCase());
         }
         public boolean isChecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(checked), 3);
+            return Utils.isVisible(driver, MobileBy.AccessibilityId(checked), 1);
         }
         public boolean isUnchecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(unchecked), 3);
+            return Utils.isVisible(driver, MobileBy.AccessibilityId(unchecked), 1);
         }
         public boolean check(WebDriver driver) {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(unchecked));
@@ -62,6 +104,36 @@ public class PreferencesPageObject extends MobilePageObject {
         public boolean uncheck(WebDriver driver) {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(checked));
         }
+        public boolean isVisible(WebDriver driver) {
+            boolean result = isChecked(driver) || isUnchecked(driver);
+            return result;
+        }
+        public boolean setToChecked(WebDriver driver) {
+            try {
+                if (isUnchecked(driver)) {
+                    check(driver);
+                }
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        public boolean setToUnchecked(WebDriver driver) {
+            try {
+                if (isChecked(driver)) {
+                    uncheck(driver);
+                }
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+    public boolean isAndroidUpdateButtonVisible() {
+        return Utils.isVisible(getDriver(), BUTTON_update, 3);
     }
 
     public boolean clickAndroidUpdateButton() {
@@ -74,6 +146,10 @@ public class PreferencesPageObject extends MobilePageObject {
         } else {
             return clickAndroidUpdateButton();
         }
+    }
+
+    public boolean isAndroidReturnButtonVisible() {
+        return Utils.isVisible(getDriver(), BUTTON_return, 3);
     }
 
     public boolean clickAndroidReturn() {

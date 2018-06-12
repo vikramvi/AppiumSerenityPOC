@@ -15,12 +15,10 @@ public class LoginPageObject extends MobilePageObject {
     private WebElement TEXT_header;
     private String expectedHeader = "SIGN IN";
 
-//    @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc=\"input-email\"]")
     @AndroidFindBy(accessibility = "android-input-Email")
     @iOSFindBy(accessibility = "ios-input-Email")
     private WebElement INPUT_email;
 
-//    @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc=\"input-password\"]")
     @AndroidFindBy(accessibility = "android-input-Password")
     @iOSFindBy(accessibility = "ios-input-Password")
     private WebElement INPUT_password;

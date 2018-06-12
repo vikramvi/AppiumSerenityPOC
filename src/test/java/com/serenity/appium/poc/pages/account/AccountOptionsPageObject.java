@@ -9,6 +9,11 @@ import org.openqa.selenium.WebElement;
 
 public class AccountOptionsPageObject extends MobilePageObject {
 
+    @iOSFindBy(accessibility = "header-title")
+    @AndroidFindBy(accessibility = "header-title")
+    private WebElement TEXT_pageTitle;
+    private static final String expectedTitle = "ACCOUNT";
+
     @AndroidFindBy(accessibility = "touchableIcon-profile")
     @iOSFindBy(accessibility = "touchableIcon-profile")
     private WebElement BUTTON_profile;
@@ -95,5 +100,9 @@ public class AccountOptionsPageObject extends MobilePageObject {
 
     public boolean clickRateThisAppButton() {
         return Utils.tryClicking(BUTTON_rateApp);
+    }
+
+    public boolean isPageTitleCorrect() {
+        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
     }
 }

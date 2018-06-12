@@ -76,8 +76,8 @@ public class AppSteps extends ScenarioSteps {
 //        accountOptionsPageObject.clickAddressesButton();
 
 // ----- P A Y M E N T S
-         accountOptionsPageObject.clickPaymentButton();
-         assertThat(paymentsPageObject.isPageTitleCorrect()).isTrue();
+//         accountOptionsPageObject.clickPaymentButton();
+//         assertThat(paymentsPageObject.isPageTitleCorrect()).isTrue();
 //         String last4 = PaymentsPageObject.CreditCardField.LAST4.getText(getDriver(), 1);
 //         String expiration = PaymentsPageObject.CreditCardField.EXPIRATION.getText(getDriver(), 1);
 //         paymentsPageObject.clickAddNewPaymentButton();
@@ -86,18 +86,18 @@ public class AppSteps extends ScenarioSteps {
 //        assertThat(paymentsPageObject.isCreditCardDeleteConfirmationTextPresent()).isTrue();
 //        PaymentsPageObject.CreditCardDeleteConfirmation.DECLINE.click(getDriver());
 
-        PaymentsPageObject.CreditCardButton.EDIT.click(getDriver(), 1);
-        assertThat(updatePaymentPageObject.isPageTitleCorrect()).isTrue();
-        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CARD_NUMBER, "5472063333333330");
-        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
-        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
-        updatePaymentPageObject.clickUpdatePaymentButton();
+//        PaymentsPageObject.CreditCardButton.EDIT.click(getDriver(), 1);
+//        assertThat(updatePaymentPageObject.isPageTitleCorrect()).isTrue();
+//        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CARD_NUMBER, "5472063333333330");
+//        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
+//        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
+//        updatePaymentPageObject.clickUpdatePaymentButton();
 
 
 
 // ----- P R E F E R E N C E S
-//        accountOptionsPageObject.clickPreferencesButton();
-//        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
+        accountOptionsPageObject.clickPreferencesButton();
+        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
 //        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
 //        assertThat(PreferencesPageObject.Preferences.SPIRITS.check(getDriver())).isTrue();
 //        try {
@@ -154,7 +154,7 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void performLoginFromHomepage() throws TesseractException {
+    public void performLoginFromHomepage() {
         LOGGER.info("Completing login...");
         assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
         assertThat(loginPageObject.confirmHeader()).isTrue();
@@ -217,6 +217,41 @@ public class AppSteps extends ScenarioSteps {
         LOGGER.info("Clicking touchable store data to see store details page...");
         assertThat(myStoreHeaderPageObject.clickTouchableStoreData()).isTrue();
         assertThat(storeIconsPageObject.isChangeStoreIconPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyHomepageToPreferences() {
+        LOGGER.info("Clicking More > Account > Preferences...");
+        assertThat(navigationFooterPageObject.clickMoreMenuButton()).isTrue();
+        assertThat(navigationFooterMoreMenuPageObject.clickAccountButton()).isTrue();
+        assertThat(accountOptionsPageObject.clickPreferencesButton()).isTrue();
+        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
+    }
+
+    @Step
+    public void verifyPreferencesBinaryContent() {
+        LOGGER.info("Verifying Preferences headers and options (everything but preferred store)...");
+        assertThat(PreferencesPageObject.Headers.INTERESTS.isVisible(getDriver())).isTrue();
+        assertThat(preferencesPageObject.verifyProductInterestsSubheading()).isTrue();
+        assertThat(PreferencesPageObject.Preferences.WINE.isVisible(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.SPIRITS.isVisible(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.BEER.isVisible(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.CIGARS.isVisible(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Headers.COMMUNICATIONS.isVisible(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.setToChecked(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.EVENTS.setToChecked(getDriver())).isTrue();
+        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
+        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.EVENTS.uncheck(getDriver())).isTrue();
+        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
+        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.isUnchecked(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.EVENTS.isUnchecked(getDriver())).isTrue();
+    }
+
+    @Step
+    public void verifyPreferencesToAccount() {
+        assertThat(preferencesPageObject.clickReturnButton()).isTrue();
+        assertThat(accountOptionsPageObject.isPageTitleCorrect()).isTrue();
     }
 
     @Step
