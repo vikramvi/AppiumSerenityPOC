@@ -38,8 +38,8 @@ public class PaymentsPageObject extends MobilePageObject {
         CreditCardField(String xpathPattern) {
             this.xpathPattern = xpathPattern;
         }
-        public String getText(WebDriver driver, int addressNumber) {
-            String xpath = String.format(xpathPattern, addressNumber);
+        public String getText(WebDriver driver, int cardNumber) {
+            String xpath = String.format(xpathPattern, cardNumber);
             String text = driver.findElement(By.xpath(xpath)).getText();
             return text;
         }
@@ -47,14 +47,15 @@ public class PaymentsPageObject extends MobilePageObject {
 
     public enum CreditCardButton {
         DELETE("(//android.widget.Button[@content-desc='button-delete-payment'])[%d]"),
-        EDIT("(//android.view.ViewGroup[@content-desc='button-update-payment'])[%d]");
+        EDIT("(//android.widget.TextView[@content-desc='button-update-payment'])[%d]");
         String xpathPattern;
         CreditCardButton(String xpathPattern) {
             this.xpathPattern = xpathPattern;
         }
-        public void click(WebDriver driver, int addressNumber) {
-            String xpath = String.format(xpathPattern, addressNumber);
-            driver.findElement(By.xpath(xpath)).click();
+        public void click(WebDriver driver, int cardNumber) {
+            String xpath = String.format(xpathPattern, cardNumber);
+            WebElement element = driver.findElement(By.xpath(xpath));
+            Utils.tryClicking(driver, element);
         }
     }
 

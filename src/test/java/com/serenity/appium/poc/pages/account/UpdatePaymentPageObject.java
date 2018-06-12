@@ -108,7 +108,7 @@ public class UpdatePaymentPageObject extends MobilePageObject {
         return Utils.tryClicking(getDriver(), BUTTON_updatePayment);
     }
 
-    public boolean clickAddNewPaymentButton() {
+    public boolean clickUpdatePaymentButton() {
         if (isIOS()) {
             return Utils.clickIosUpdateButton();
         } else {

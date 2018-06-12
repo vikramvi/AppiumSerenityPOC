@@ -1,9 +1,7 @@
 package com.serenity.appium.poc.serenity;
 
 import com.serenity.appium.poc.pages.*;
-import com.serenity.appium.poc.pages.account.AccountOptionsPageObject;
-import com.serenity.appium.poc.pages.account.PreferencesPageObject;
-import com.serenity.appium.poc.pages.account.ProfilePageObject;
+import com.serenity.appium.poc.pages.account.*;
 import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
 import com.serenity.appium.poc.pages.home.SearchSectionPageObject;
 import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
@@ -16,6 +14,7 @@ import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.openqa.selenium.remote.server.handler.interactions.touch.Up;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +39,7 @@ public class AppSteps extends ScenarioSteps {
     private NavigationFooterPageObject navigationFooterPageObject;
     private NavigationFooterMoreMenuPageObject navigationFooterMoreMenuPageObject;
     private NotificationPageObject notificationPageObject;
+    private PaymentsPageObject paymentsPageObject;
     private PreferencesPageObject preferencesPageObject;
     private ProductSearchPageObject productSearchPageObject;
     private ProductSearchResultsPageObject productSearchResultsPageObject;
@@ -54,6 +54,7 @@ public class AppSteps extends ScenarioSteps {
     private StoreMapPageObject storeMapPageObject;
     private StoreSearchPageObject storeSearchPageObject;
     private TastingHoursPageObject tastingHoursPageObject;
+    private UpdatePaymentPageObject updatePaymentPageObject;
     private WineAppPageObject wineAppPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
@@ -76,6 +77,21 @@ public class AppSteps extends ScenarioSteps {
 
 // ----- P A Y M E N T S
          accountOptionsPageObject.clickPaymentButton();
+         assertThat(paymentsPageObject.isPageTitleCorrect()).isTrue();
+//         String last4 = PaymentsPageObject.CreditCardField.LAST4.getText(getDriver(), 1);
+//         String expiration = PaymentsPageObject.CreditCardField.EXPIRATION.getText(getDriver(), 1);
+//         paymentsPageObject.clickAddNewPaymentButton();
+
+//        PaymentsPageObject.CreditCardButton.DELETE.click(getDriver(), 1);
+//        assertThat(paymentsPageObject.isCreditCardDeleteConfirmationTextPresent()).isTrue();
+//        PaymentsPageObject.CreditCardDeleteConfirmation.DECLINE.click(getDriver());
+
+        PaymentsPageObject.CreditCardButton.EDIT.click(getDriver(), 1);
+        assertThat(updatePaymentPageObject.isPageTitleCorrect()).isTrue();
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CARD_NUMBER, "5472063333333330");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
+        updatePaymentPageObject.clickUpdatePaymentButton();
 
 
 
