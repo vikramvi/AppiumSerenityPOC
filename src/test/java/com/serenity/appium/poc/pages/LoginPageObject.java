@@ -63,7 +63,7 @@ public class LoginPageObject extends MobilePageObject {
 
     public boolean performDefaultLogin() {
         try {
-            enterEmailAddress("jphtest@yopmail.com");
+            enterEmailAddress("jphtest9@yopmail.com");
             enterPassword("test123");
             return true;
         } catch (Exception e) {

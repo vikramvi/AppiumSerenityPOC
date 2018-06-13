@@ -3,11 +3,13 @@ package com.serenity.appium.poc.utils;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,7 +83,13 @@ public class Utils {
 
     public static boolean isVisible(WebDriver driver, By reference, int seconds) {
         try {
+            WebDriver facade = getDriver();
+            WebDriver realDriver = ((WebDriverFacade) facade).getProxiedDriver();
+            realDriver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
+
+            realDriver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
             return true;
         } catch (Exception e) {
 //            e.printStackTrace();

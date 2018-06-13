@@ -13,7 +13,8 @@ public class DOT_25791 extends WineAppTest {
         appSteps.completeQuickOnboarding();
         appSteps.performLoginFromHomepage();
         appSteps.verifyHomepageToPreferences();
-        appSteps.verifyPreferencesBinaryContent();
+        appSteps.verifyPreferencesInterestsContent();
+        appSteps.verifyPreferencesCommunicationsContent();
         appSteps.verifyPreferencesToAccount();
     }
 }

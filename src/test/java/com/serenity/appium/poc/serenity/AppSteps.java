@@ -229,19 +229,24 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPreferencesBinaryContent() {
-        LOGGER.info("Verifying Preferences headers and options (everything but preferred store)...");
+    public void verifyPreferencesInterestsContent() {
+        LOGGER.info("Verifying Preferences Interests header and options...");
         assertThat(PreferencesPageObject.Headers.INTERESTS.isVisible(getDriver())).isTrue();
         assertThat(preferencesPageObject.verifyProductInterestsSubheading()).isTrue();
         assertThat(PreferencesPageObject.Preferences.WINE.isVisible(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.SPIRITS.isVisible(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.BEER.isVisible(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.CIGARS.isVisible(getDriver())).isTrue();
+     }
+
+    @Step
+    public void verifyPreferencesCommunicationsContent() {
+        LOGGER.info("Verifying Preferences Communication header and options...");
         assertThat(PreferencesPageObject.Headers.COMMUNICATIONS.isVisible(getDriver())).isTrue();
-        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.setToChecked(getDriver())).isTrue();
-        assertThat(PreferencesPageObject.Preferences.EVENTS.setToChecked(getDriver())).isTrue();
-        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
-        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.setToChecked(getDriver())).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.EVENTS.setToChecked(getDriver())).isTrue();
+//        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
+//        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.uncheck(getDriver())).isTrue();
         assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
         assertThat(PreferencesPageObject.Preferences.PROMOTIONS.isUnchecked(getDriver())).isTrue();

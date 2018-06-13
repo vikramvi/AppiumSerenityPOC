@@ -9,6 +9,8 @@ import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 public class PreferencesPageObject extends MobilePageObject {
 
     @iOSFindBy(accessibility = "header-title")
@@ -44,7 +46,7 @@ public class PreferencesPageObject extends MobilePageObject {
     public enum Headers {
         STORE("preferred store", false),
         INTERESTS("product interests", false),
-        COMMUNICATIONS("promotional communications", true);
+        COMMUNICATIONS("promotional communication", true);
         String title;
         String id;
         boolean offscreen;
@@ -58,6 +60,9 @@ public class PreferencesPageObject extends MobilePageObject {
                 Scrolling.scrollDown();
             }
             boolean result = Utils.isVisible(driver, MobileBy.AccessibilityId(id), 3);
+//            WebElement element = driver.findElement(MobileBy.AccessibilityId(id));
+//            boolean result = element.isDisplayed();
+
             return result;
         }
     }
@@ -105,7 +110,9 @@ public class PreferencesPageObject extends MobilePageObject {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(checked));
         }
         public boolean isVisible(WebDriver driver) {
+//            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             boolean result = isChecked(driver) || isUnchecked(driver);
+//            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             return result;
         }
         public boolean setToChecked(WebDriver driver) {
