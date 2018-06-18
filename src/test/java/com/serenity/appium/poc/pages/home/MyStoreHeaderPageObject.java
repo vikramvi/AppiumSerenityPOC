@@ -118,4 +118,8 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     public boolean clickChangeStore() {
         return Utils.tryClicking(BUTTON_changeStore);
     }
+
+    public boolean clickCreateAccount() {
+        return Utils.tryClicking(BUTTON_createAccount);
+    }
 }

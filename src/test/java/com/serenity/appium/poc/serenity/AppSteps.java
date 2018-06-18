@@ -155,11 +155,17 @@ public class AppSteps extends ScenarioSteps {
 
     @Step
     public void performLoginFromHomepage() {
-        LOGGER.info("Completing login...");
+        LOGGER.info("Performing default login from homepage...");
         assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performDefaultLogin()).isTrue();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
+    }
+
+    @Step
+    public void createRandomUserFromHomepage() {
+        LOGGER.info("Creating random user from homepage...");
+        assertThat(myStoreHeaderPageObject.clickCreateAccount()).isTrue();
     }
 
     @Step
@@ -246,9 +252,15 @@ public class AppSteps extends ScenarioSteps {
 //        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.setToChecked(getDriver())).isTrue();
 //        assertThat(PreferencesPageObject.Preferences.EVENTS.setToChecked(getDriver())).isTrue();
 //        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
-//        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
+        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.uncheck(getDriver())).isTrue();
         assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertThat(Scrolling.scrollDown()).isTrue();
         assertThat(PreferencesPageObject.Preferences.PROMOTIONS.isUnchecked(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.isUnchecked(getDriver())).isTrue();
     }

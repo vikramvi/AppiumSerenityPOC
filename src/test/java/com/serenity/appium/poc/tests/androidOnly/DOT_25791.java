@@ -9,7 +9,7 @@ public class DOT_25791 extends WineAppTest {
 
     @Test // verified on
     @Category({Regression1.class})
-    public void DOT_25266_verifyRepeatedSearches(){
+    public void DOT_25791_verifyPreferencesPage(){
         appSteps.completeQuickOnboarding();
         appSteps.performLoginFromHomepage();
         appSteps.verifyHomepageToPreferences();
