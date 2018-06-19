@@ -27,14 +27,14 @@ import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver
 public class ProfilePageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "android-input-First Name")
-    @iOSFindBy(accessibility = "ios-input-First Name")
+    @iOSFindBy(accessibility = "ios-input-First-Name")
     private WebElement INPUT_firstName;
 
     @AndroidFindBy(accessibility = "android-input-Last Name")
-    @iOSFindBy(accessibility = "ios-input-Last Name")
+    @iOSFindBy(accessibility = "ios-input-Last-Name")
     private WebElement INPUT_lastName;
 
-    @AndroidFindBy(accessibility = "android-input-Phone Number")
+    @AndroidFindBy(accessibility = "android-input-Phone-Number")
     @iOSFindBy(accessibility = "ios-input-Phone Number")
     private WebElement INPUT_phoneNumber;
 

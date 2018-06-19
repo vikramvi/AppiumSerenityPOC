@@ -16,11 +16,11 @@ public class CreateAccountPageObject extends MobilePageObject {
 
 
 
-    @iOSFindBy(accessibility = "ios-input-First Name")
+    @iOSFindBy(accessibility = "ios-input-First-Name")
     @AndroidFindBy(accessibility = "android-input-First Name")
     private WebElement TEXT_firstName;
 
-    @iOSFindBy(accessibility = "ios-input-Last Name")
+    @iOSFindBy(accessibility = "ios-input-Last-Name")
     @AndroidFindBy(accessibility = "android-input-Last Name")
     private WebElement TEXT_lastName;
 
@@ -32,11 +32,11 @@ public class CreateAccountPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "android-input-Password")
     private WebElement TEXT_password;
 
-    @iOSFindBy(accessibility = "ios-input-Confirm Password")
+    @iOSFindBy(accessibility = "ios-input-Confirm-Password")
     @AndroidFindBy(accessibility = "android-input-Confirm Password")
     private WebElement TEXT_confirmPassword;
 
-    @iOSFindBy(accessibility = "ios-input-Phone Number")
+    @iOSFindBy(accessibility = "ios-input-Phone-Number")
     @AndroidFindBy(accessibility = "android-input-Phone Number")
     private WebElement TEXT_phoneNumber;
 
