@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -248,6 +249,58 @@ public class Utils {
         }
         return found;
     }
+
+    private static int getRandomInteger(int min, int max) {
+        Random random = new Random();
+        return random.nextInt((max - min + 1)) + min;
+    }
+    private static int getRandomInteger(int max) {
+        return getRandomInteger(0, max);
+    }
+
+    private static String getRandomName(String[] names) {
+        int size = names.length;
+        int index = getRandomInteger(size-1);
+        return names[index];
+    }
+
+    private static String[] lastNames = {
+        "Morgan", "Cooke", "Deleon", "Frazier", "Sampson", "Hennessey", "Roetsson", "Simone", "Mintz",
+            "Blankenship", "Kennedy", "Santana", "Brady", "Griffith", "Harding", "Osborne", "Benitez",
+            "Curtis", "Randolph", "Wilkinson", "Smith", "Stone", "Ward", "Crawford", "Crow", "Morrison",
+            "Sanders", "Baelish", "Bolton", "Greyjoy", "Lannister", "Moro", "Sand", "Naharis", "Seaworth",
+            "Stark", "Targaryen", "Tarly", "Tyrell", "Snow", "Carter", "Botwin", "Pereira", "Voloshina",
+            "Miclot"
+};
+public static String getRandomLastName() {
+//        return getHyphenatedName(lastNames);
+        return getRandomName(lastNames);
+        }
+private static String[] firstNames = {
+        "Joan", "Lindsey", "Erik", "Toby", "Dale", "Kristina", "Sixcia", "Dawn", "Jami", "Ali",
+        "Tim", "Mike", "Alex", "Veronica", "Dan", "Lawrence", "Helen", "Beth", "Ann", "Hans-Petter",
+        "Ken", "Ben", "Dom", "Jason", "Gin", "Cait", "Steve", "Reagan", "Neve", "Hanni", "Anne",
+        "Beth", "John", "Mac", "Jamie", "Jennifer", "Trey", "Jeff", "Dan", "Dawn", "Zoe", "Ryan",
+        "Skylar", "Holden", "Bruce", "Van", "Bernie", "Olenna", "Varys", "Arya", "Bran", "Sansa",
+        "Jon", "Tyene", "Davos", "Ramsay", "Samwell", "Margaery", "Daario", "Ellaria", "Nym", "Mick",
+        "Obara", "Melisandre", "Missandei", "Jorah", "Khal", "Jaquen", "Cersei", "Jaime", "Tyrion", "Jp",
+        "Bronn", "Gilly", "Euron", "Theon", "Katie", "Jillian", "Keith", "Nick", "Rigel", "Albert",
+        "Judy", "Arthur", "Kristin", "Daria", "Amanda", "Simone", "Jeffrey", "Elizabeth", "Paul", "Ann",
+        "Jim", "Ken", "Diane", "Cathy", "Nicole", "Liz", "Caroline", "Richard", "Rachael", "Kevin",
+        "Ali", "Louise", "Patrick", "Denise", "Madelaine", "Douglas", "Raymond", "James", "Daniel", "Alexander"
+        };
+public static String getRandomFirstName() {
+        return getRandomName(firstNames); // getHyphenatedName(firstNames);
+        }
+////public static String getRandomFullName() {
+////        return getRandomFirstName() + " " + getRandomLastName();
+////        }
+//private static String getHyphenatedName(String[] list) {
+//        String firstHalf = getRandomName(list);
+//        String lastHalf = getRandomName(list);
+//        String hyphenatedName = firstHalf + "-" + lastHalf;
+//        return hyphenatedName;
+//        }
 
     public static String getRandomEmailAddress() {
         String random = RandomStringUtils.randomAlphabetic(10);

@@ -40,6 +40,11 @@ public class CreateAccountPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "android-input-Phone Number")
     private WebElement TEXT_phoneNumber;
 
+    @AndroidFindBy(accessibility = "text-checkbox-confirm-age")
+    private WebElement CHECKBOX_ageConfirmation;
+
+    @AndroidFindBy(accessibility = "text-checkbox-terms")
+    private WebElement CHECKBOX_termsConfirmation;
 
     @AndroidFindBy(accessibility = "button-create-account")
     private WebElement BUTTON_createAccount;
@@ -55,6 +60,53 @@ public class CreateAccountPageObject extends MobilePageObject {
         return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
     }
 
+    public void enterFirstName(String name){
+        TEXT_firstName.sendKeys(name);
+    }
+    public String enterRandomFirstName() {
+        String name = Utils.getRandomFirstName();
+        enterFirstName(name);
+        return name;
+    }
+
+    public void enterLastName(String name){ TEXT_lastName.sendKeys(name); }
+    public String enterRandomLastName() {
+        String name = Utils.getRandomLastName();
+        enterLastName(name);
+        return name;
+    }
+
+    public void enterEmail(String email){ TEXT_email.sendKeys(email); }
+    public String enterRandomEmail() {
+        String email = Utils.getRandomEmailAddress();
+        enterEmail(email);
+        return email;
+    }
+
+    private static final String defaultPassword = "test123";
+    public void enterPassword(String password){ TEXT_password.sendKeys(password); }
+    public void enterDefaultPassword() {
+        enterPassword(defaultPassword);
+    }
+
+    public void enterPasswordConfirmation(String password){ TEXT_confirmPassword.sendKeys(password); }
+    public void enterDefaultPasswordConfirmation() {
+        enterPasswordConfirmation(defaultPassword);
+    }
+
+    private static final String fakePhoneNumber = "(800)555-1212";
+    public void enterPhoneNumber(String phone){ TEXT_phoneNumber.sendKeys(phone); }
+    public void enterFakePhoneNumber() {
+        enterPhoneNumber(fakePhoneNumber);
+    }
+
+    public void clickAgeConfirmation() {
+        CHECKBOX_ageConfirmation.click();
+    }
+
+    public void clickTermsConfirmation() {
+        CHECKBOX_termsConfirmation.click();
+    }
 
 
     public boolean isAndroidCreateAccountVisible() {

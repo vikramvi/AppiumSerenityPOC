@@ -1,5 +1,6 @@
 package com.serenity.appium.poc.serenity;
 
+import com.openhtmltopdf.util.Util;
 import com.serenity.appium.poc.pages.*;
 import com.serenity.appium.poc.pages.account.*;
 import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
@@ -27,6 +28,7 @@ public class AppSteps extends ScenarioSteps {
 
     private AccountOptionsPageObject accountOptionsPageObject;
     private BrowsePageObject browsePageObject;
+    private CreateAccountPageObject createAccountPageObject;
     private GrowlerSectionPageObject growlerSectionPageObject;
     private GrowlerStationPageObject growlerStationPageObject;
     private IosPlpProductSelector iosPlpProductSelector;
@@ -166,6 +168,17 @@ public class AppSteps extends ScenarioSteps {
     public void createRandomUserFromHomepage() {
         LOGGER.info("Creating random user from homepage...");
         assertThat(myStoreHeaderPageObject.clickCreateAccount()).isTrue();
+        createAccountPageObject.enterRandomFirstName();
+        createAccountPageObject.enterRandomLastName();
+        createAccountPageObject.enterRandomEmail();
+        createAccountPageObject.enterDefaultPassword();
+        createAccountPageObject.enterDefaultPasswordConfirmation();
+        createAccountPageObject.enterFakePhoneNumber();
+        createAccountPageObject.clickAgeConfirmation();
+        createAccountPageObject.clickTermsConfirmation();
+        Util.sleep(250);
+        createAccountPageObject.clickAndroidCreateAccountButton();
+        assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
     }
 
     @Step
@@ -249,14 +262,11 @@ public class AppSteps extends ScenarioSteps {
     public void verifyPreferencesCommunicationsContent() {
         LOGGER.info("Verifying Preferences Communication header and options...");
         assertThat(PreferencesPageObject.Headers.COMMUNICATIONS.isVisible(getDriver())).isTrue();
-//        assertThat(PreferencesPageObject.Preferences.PROMOTIONS.setToChecked(getDriver())).isTrue();
-//        assertThat(PreferencesPageObject.Preferences.EVENTS.setToChecked(getDriver())).isTrue();
-//        assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
         assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.uncheck(getDriver())).isTrue();
         assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

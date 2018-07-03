@@ -26,6 +26,7 @@ public class PreferencesPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-change-store")
     private WebElement BUTTON_changePreferredStore;
 
+    @iOSFindBy(accessibility = "text-product-interests-subheading")
     @AndroidFindBy(accessibility = "text-product-interests-subheading")
     private WebElement TEXT_productInterestsSubheading;
 
