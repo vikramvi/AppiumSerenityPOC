@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.tests;
+package com.serenity.appium.poc.tests.onHold;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.StoreDetails;

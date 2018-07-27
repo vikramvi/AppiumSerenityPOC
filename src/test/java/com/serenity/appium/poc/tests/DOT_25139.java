@@ -21,7 +21,7 @@ public class DOT_25139 extends WineAppTest {
             appSteps.verifyStoreDetailsStoreHours();
             appSteps.verifyShowTastingHours();
             List<DayOfWeek> tastingDays = new ArrayList<>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays, false);
         } catch (Exception e) {
             e.printStackTrace();
         }

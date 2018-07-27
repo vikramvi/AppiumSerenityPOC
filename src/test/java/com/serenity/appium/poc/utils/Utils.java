@@ -178,6 +178,13 @@ public class Utils {
         }
     }
 
+    public static String getTextFromByHandle(WebDriver driver, By by, boolean scrollDown) {
+        if (scrollDown) {
+            Scrolling.scrollDown();
+        }
+        String text = driver.findElement(by).getText();
+        return text;
+    }
 
     public static String getAllAndroidGridData(String gridElementXpath) {
         String result = "";

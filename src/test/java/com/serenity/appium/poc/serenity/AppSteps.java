@@ -433,8 +433,11 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays) {
+    public void verifyTastingHours(TastingHoursPageObject.TastingType tastingType, List<DayOfWeek> tastingDays, boolean scrollDown) {
         LOGGER.info("Verifying that sampling hours for " +tastingType.name()+ " are only on specific days...");
+        if (scrollDown) {
+            Scrolling.scrollDown();
+        }
         assertThat(tastingHoursPageObject.isShowingHoursForSelectDays(tastingType, tastingDays)).isTrue();
     }
 

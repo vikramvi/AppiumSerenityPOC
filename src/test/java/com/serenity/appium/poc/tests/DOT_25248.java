@@ -23,13 +23,13 @@ public class DOT_25248 extends WineAppTest {
             appSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
             appSteps.verifyShowTastingHours();
             List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays);
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays, false);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays, true);
             appSteps.verifyStoreDetailsToHomepage();
             appSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
             appSteps.verifyShowTastingHours();
             tastingDays.remove(DayOfWeek.THURSDAY);
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays, false);
         }catch (Exception e){
             e.printStackTrace();
         }

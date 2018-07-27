@@ -120,7 +120,8 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 
     private By BY_ispAvailableMessage = MobileBy.AccessibilityId("product-message-available-for-INSTORE_PICKUP");
     public String getAndroidProductInStoreAvailability() {
-        String message = getDriver().findElement(BY_ispAvailableMessage).getText();
+//        String message = getDriver().findElement(BY_ispAvailableMessage).getText();
+        String message = Utils.getTextFromByHandle(getDriver(), BY_ispAvailableMessage, true);
         return message;
     }
 
