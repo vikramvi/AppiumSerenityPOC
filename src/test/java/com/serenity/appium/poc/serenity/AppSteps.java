@@ -141,8 +141,23 @@ public class AppSteps extends ScenarioSteps {
     public void completeOnboardingAllowingLocation() {
         LOGGER.info("Completing onboarding, declining all options but Location...");
         assertThat(splashPageObject.startOnboarding()).isTrue();
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         assertThat(locationPageObject.allowLocationTracking()).isTrue();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
     }
 
