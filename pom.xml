@@ -18,6 +18,7 @@
         <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
         <completeTestSuite>**/tests/*.java</completeTestSuite>
         <singleTestRun>**/tests/isolatedRun/*.java</singleTestRun>
+        <androidOnly>**/tests/androidOnly/*.java</androidOnly>
     </properties>
 
     <repositories>
@@ -109,8 +110,9 @@
                     <threadCount>10</threadCount> -->
                     <forkCount>0</forkCount>
                     <includes>
-                        <!--include>${completeTestSuite}</include-->
-                        <include>${singleTestRun}</include>
+                        <!--include>${completeTestSuite}</include>
+                        <include>${singleTestRun}</include-->
+                        <include>${androidOnly}</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>
