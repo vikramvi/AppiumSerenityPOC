@@ -26,8 +26,8 @@ public class MobilePageObject extends PageObject {
             public boolean apply(PageObject page) {
 
                 PageFactory
-                        .initElements(new AppiumFieldDecorator(((WebDriverFacade) page.getDriver()).getProxiedDriver(),
-                                page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
+                        .initElements(new AppiumFieldDecorator( ((WebDriverFacade) page.getDriver()).getProxiedDriver(),
+                                page.getImplicitWaitTimeout()), page);
                 return true;
             }
 

@@ -21,7 +21,7 @@ public class WordPressLoginPage extends MobilePageObject {
     //https://github.com/appium/java-client/blob/master/docs/Page-objects.md
     //Appium Java client has facilities which components to Page Object design pattern and Selenium PageFactory.
 
-     @AndroidFindBy(xpath="//android.widget.Button[@text='Log In']")
+     @AndroidFindBy(id="org.wordpress.android:id/login_button")
      @iOSFindBy(xpath="//XCUIElementTypeButton[@label='Log In']")
      private WebElement WPLogInButton;
 
