@@ -9,7 +9,8 @@ import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.util.SystemEnvironmentVariables;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.*;
-import io.appium.java_client.pagefactory.*;
+import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.time.Duration;
@@ -25,6 +26,17 @@ public class WineAppPageObject extends MobilePageObject{
     @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-lets-begin']")
     @iOSFindBy(xpath="//XCUIElementTypeButton[@name='button-lets-begin']")
     private WebElement LetsBeginButton;
+    //private MobileElement LetsBeginButton;
+    //private RemoteWebElement LetsBeginButton;
+
+    //RemoteWebElement and WebElement has same error
+    //MobileElement has different error
+    //https://github.com/serenity-bdd/serenity-core/issues/1053
+    //https://github.com/serenity-bdd/serenity-core/issues/919
+
+    //https://github.com/livastar/myTestFrameWork/blob/master/src/main/java/common/Utils.java Reference
+    //https://github.com/appium/appium/issues/9771#issuecomment-350531454 Reference
+    //https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/touch-actions.md#scrolling Reference
 
     @AndroidFindBy(xpath="//android.widget.Button[@content-desc='FIND MY STORE']")
     @iOSFindBy(xpath="//XCUIElementTypeButton[@name='FIND MY STORE']")
@@ -68,10 +80,11 @@ public class WineAppPageObject extends MobilePageObject{
     private WebElement ViewCartButton;
 
     @iOSFindBy(xpath="//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[contains(@name,\"$\") and contains(@name,\"ML\") and contains(@name,\"$\") and contains(@name,\"ML\") ]")
-    private MobileElement itemsViewTopRow;
+    private WebElement itemsViewTopRow;
+    //?? MobileElement vs WebElement
 
-    @iOSFindBy(xpath="//XCUIElementTypeScrollView/XCUIElementTypeOther[contains(@name,'CUSTOMERS WHO VIEWED')]//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
-    private List<MobileElement> suggestedItemsRow;
+    //@iOSFindBy(xpath="//XCUIElementTypeScrollView/XCUIElementTypeOther[contains(@name,'CUSTOMERS WHO VIEWED')]//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
+    //private List<MobileElement> suggestedItemsRow;
 
     public WineAppPageObject(WebDriver driver) {
         super(driver);
@@ -329,6 +342,8 @@ public class WineAppPageObject extends MobilePageObject{
     public boolean performSwipe(){
         try{
 
+            //Refer to https://github.com/livastar/myTestFrameWork/blob/master/src/main/java/common/Utils.java
+
             if(appiumDriverType.equals("iOS")){
                 return performiOSSwipeAction();
             }else {
@@ -430,7 +445,7 @@ public class WineAppPageObject extends MobilePageObject{
 
             //IMP: Goto "ITEM ADDED" screen which shows row with suggested Items in bottom of screen
 
-            //Scroll left
+            /*//Scroll left
             swipeObject.put("element", suggestedItemsRow.get(1).getId());
             swipeObject.put("direction", "right");
             swipeObject.put("toVisible", "true");
@@ -440,12 +455,12 @@ public class WineAppPageObject extends MobilePageObject{
             swipeObject.put("element", suggestedItemsRow.get(2).getId());
             swipeObject.put("direction", "left");
             swipeObject.put("toVisible", "true");
-            js.executeScript("mobile: scroll", swipeObject);
+            js.executeScript("mobile: scroll", swipeObject);*/
 
 
             //IMP: Goto "Search Query XX ITEMS screen showing 4 items in screen"
 
-            //Way 3   Scroll Up
+            /*//Way 3   Scroll Up
             swipeObject.put("element", itemsViewTopRow.getId());
             swipeObject.put("direction", "down");
             swipeObject.put("toVisible", "true");
@@ -456,21 +471,21 @@ public class WineAppPageObject extends MobilePageObject{
             swipeObject.put("element", itemsViewTopRow.getId());
             swipeObject.put("direction", "up");
             swipeObject.put("toVisible", "true");
-            js.executeScript("mobile: scroll", swipeObject);
+            js.executeScript("mobile: scroll", swipeObject);*/
 
 
 
             //Worked - Way 1  Swipe Up
             //TBD - does more swipe than expected ??
             //HashMap<String, String> swipeObject = new HashMap<String, String>();
-            /*swipeObject.put("direction", "up");
+            swipeObject.put("direction", "down"); //up for swipe
             swipeObject.put("startX", "90");
             swipeObject.put("startY", "400");
             swipeObject.put("endX", "90"); //"90");
-            swipeObject.put("endY", "200"); //"200");
-            //swipeObject.put("duration", "0.5");
-            js.executeScript("mobile: swipe", swipeObject); //iOS */
-            //js.executeScript("mobile: scroll", swipeObject);
+            swipeObject.put("endY", "350"); //"200");
+            swipeObject.put("duration", "2000");
+            //js.executeScript("mobile: swipe", swipeObject); //iOS
+            js.executeScript("mobile: scroll", swipeObject);
 
              return true;
 
