@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -28,8 +29,8 @@ public class MobilePageObject extends PageObject {
             public boolean apply(PageObject page) {
 
                 PageFactory
-                        .initElements(new AppiumFieldDecorator(((WebDriverFacade) page.getDriver()).getProxiedDriver(),
-                                page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
+                        .initElements(new AppiumFieldDecorator(   ((WebDriverFacade) page.getDriver()).getProxiedDriver(),
+                                page.getImplicitWaitTimeout()), page);
                 return true;
             }
         });

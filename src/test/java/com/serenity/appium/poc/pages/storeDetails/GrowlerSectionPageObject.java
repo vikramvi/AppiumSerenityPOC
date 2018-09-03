@@ -12,6 +12,9 @@ import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
 public class GrowlerSectionPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "button-see-craft-beer-rotation")
@@ -47,7 +50,7 @@ public class GrowlerSectionPageObject extends MobilePageObject {
     }
 
     public boolean isGrowlerStationSectionDisplayed() {
-        setImplicitTimeout(0, TimeUnit.SECONDS);
+        setImplicitTimeout(0, ChronoUnit.SECONDS);
         boolean displayed = false;
         int i = 0;
         if (isAndroid()) {

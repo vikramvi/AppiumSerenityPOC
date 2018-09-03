@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
@@ -93,7 +94,7 @@ public class StoreSearchPageObject extends MobilePageObject {
             boolean found = false;
             int i=0;
             if (isIOS()) {
-                setImplicitTimeout(0, TimeUnit.SECONDS);
+                setImplicitTimeout(0, ChronoUnit.SECONDS);
                 new WebDriverWait(getDriver(), 10)
                     .until(ExpectedConditions.visibilityOf(BUTTON_return));
                 resetImplicitTimeout();
@@ -113,7 +114,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                     System.out.println(">>>>> store not found!");
                 }
             } else {
-                setImplicitTimeout(0, TimeUnit.SECONDS);
+                setImplicitTimeout(0, ChronoUnit.SECONDS);
                 new WebDriverWait(getDriver(), 10)
                         .until(ExpectedConditions.visibilityOfElementLocated(By
                                 .xpath("(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[1]")));

@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.9.7</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
-        <serenity.cucumber.version>1.6.3</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <serenity.version>1.9.36</serenity.version>   <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.cucumber.version>1.9.15</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
         <completeTestSuite>**/tests/*.java</completeTestSuite>
         <singleTestRun>**/tests/isolatedRun/*.java</singleTestRun>
         <androidOnly>**/tests/androidOnly/*.java</androidOnly>

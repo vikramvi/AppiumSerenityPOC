@@ -12,6 +12,9 @@ import org.junit.AfterClass;
 
 import org.openqa.selenium.WebDriver;
 
+import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
+import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
+
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
 
@@ -23,7 +26,7 @@ public class WineAppTest {
 
     @BeforeClass
     public static void startAppium() {
-//        startAppiumServer();
+        startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         Utils.setPlatform();
@@ -32,7 +35,7 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-//        stopAppiumServer();
+        stopAppiumServer();
     }
 
 //    @Test
