@@ -45,7 +45,7 @@ public class CigarSectionPageObject extends MobilePageObject {
     }
 
     public boolean isCigarSectionDisplayed() {
-        setImplicitTimeout(0, ChronoUnit.SECONDS);
+
         boolean displayed = false;
         int i = 0;
         if (isAndroid()) {
@@ -63,7 +63,7 @@ public class CigarSectionPageObject extends MobilePageObject {
                 i++;
             }
         }
-        resetImplicitTimeout();
+
         return displayed;
     }
 

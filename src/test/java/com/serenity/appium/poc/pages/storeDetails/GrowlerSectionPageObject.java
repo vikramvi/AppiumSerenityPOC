@@ -50,7 +50,7 @@ public class GrowlerSectionPageObject extends MobilePageObject {
     }
 
     public boolean isGrowlerStationSectionDisplayed() {
-        setImplicitTimeout(0, ChronoUnit.SECONDS);
+        //setImplicitTimeout(0, ChronoUnit.SECONDS);
         boolean displayed = false;
         int i = 0;
         if (isAndroid()) {
@@ -68,7 +68,7 @@ public class GrowlerSectionPageObject extends MobilePageObject {
                 i++;
             }
         }
-        resetImplicitTimeout();
+        //resetImplicitTimeout();
         return displayed;
     }
 

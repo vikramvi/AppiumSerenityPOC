@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 public class GrowlerStationPageObject extends MobilePageObject {
@@ -22,10 +21,8 @@ public class GrowlerStationPageObject extends MobilePageObject {
     By BY_headerTitle = MobileBy.AccessibilityId("header-title");
     public boolean isHeaderTitleDisplayed() {
         try {
-            setImplicitTimeout(0, ChronoUnit.SECONDS);
-            withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_headerTitle);
-            resetImplicitTimeout();
-            return true;
+             withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_headerTitle);
+             return true;
         } catch (Exception e) {
             return false;
         }
@@ -47,9 +44,7 @@ public class GrowlerStationPageObject extends MobilePageObject {
     public boolean isSectionTitleDisplayed(By byReference) {
         try {
 //            withTimeoutOf(1, TimeUnit.SECONDS).waitForPresenceOf(BY_sectionTitle);
-            setImplicitTimeout(0, ChronoUnit.SECONDS);
             new WebDriverWait(getDriver(), 1).until(ExpectedConditions.visibilityOfElementLocated(byReference));
-            resetImplicitTimeout();
             return true;
         } catch (Exception e) {
             return false;

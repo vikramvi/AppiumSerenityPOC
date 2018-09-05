@@ -137,28 +137,33 @@ public class AppSteps extends ScenarioSteps {
 //        browsePageObject.clickWineSubcategoryRedWine();
     }
 
+    private static boolean isOnboardingCompleted = false;
+
     @Step
     public void completeOnboardingAllowingLocation() {
-        LOGGER.info("Completing onboarding, declining all options but Location...");
-        assertThat(splashPageObject.startOnboarding()).isTrue();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        assertThat(locationPageObject.allowLocationTracking()).isTrue();
         try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+
+            LOGGER.info(" isOnboardingCompleted Flag value = " + isOnboardingCompleted );
+
+            if(!isOnboardingCompleted) {
+
+                LOGGER.info("Completing onboarding, declining all options but Location...");
+
+                splashPageObject.startOnboarding();
+
+                locationPageObject.allowLocationTracking();
+
+                notificationPageObject.declineReceivingNotifications();
+
+                loyaltyPageObject.declineLoyaltyLogin();
+
+                isOnboardingCompleted = true;
+            }
+
+        }catch (Exception e){
             e.printStackTrace();
+            isOnboardingCompleted = false;
         }
-        assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
     }
 
     @Step

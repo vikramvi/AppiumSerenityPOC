@@ -94,10 +94,10 @@ public class StoreSearchPageObject extends MobilePageObject {
             boolean found = false;
             int i=0;
             if (isIOS()) {
-                setImplicitTimeout(0, ChronoUnit.SECONDS);
+
                 new WebDriverWait(getDriver(), 10)
                     .until(ExpectedConditions.visibilityOf(BUTTON_return));
-                resetImplicitTimeout();
+
                 String xpath = String.format(XPATH_PATTERN_iosStoreTitle, storeFragment.toUpperCase());
                 found = Utils.isLastInstanceVisible(getDriver(), xpath);
                 while ((!found) && (i<3)) {
@@ -114,11 +114,11 @@ public class StoreSearchPageObject extends MobilePageObject {
                     System.out.println(">>>>> store not found!");
                 }
             } else {
-                setImplicitTimeout(0, ChronoUnit.SECONDS);
+
                 new WebDriverWait(getDriver(), 10)
                         .until(ExpectedConditions.visibilityOfElementLocated(By
                                 .xpath("(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[1]")));
-                resetImplicitTimeout();
+
                 while ((!found) && (i<3)) {
                     List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
                     for (WebElement element:elements) {

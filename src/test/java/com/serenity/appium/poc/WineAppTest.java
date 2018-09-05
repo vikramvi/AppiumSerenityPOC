@@ -2,18 +2,26 @@ package com.serenity.appium.poc;
 
 import com.serenity.appium.poc.serenity.AppSteps;
 import com.serenity.appium.poc.utils.*;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.InteractsWithApps;
+import io.appium.java_client.android.AndroidDriver;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Managed;
 
+import net.thucydides.core.webdriver.WebDriverFacade;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
+import org.junit.runners.Suite;
 import org.openqa.selenium.WebDriver;
 
 import static com.serenity.appium.poc.AppiumServerController.startAppiumServer;
 import static com.serenity.appium.poc.AppiumServerController.stopAppiumServer;
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 @RunWith(SerenityRunner.class)
 public class WineAppTest {
@@ -24,9 +32,13 @@ public class WineAppTest {
     @Steps
     public AppSteps appSteps;
 
+
     @BeforeClass
     public static void startAppium() {
-        startAppiumServer();
+
+        /*System.out.println(" -----------------------  BeforeClass ----------------------- ");
+
+        startAppiumServer();*/
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         Utils.setPlatform();
@@ -35,8 +47,31 @@ public class WineAppTest {
     @AfterClass
     public static void stopAppium() {
 
-        stopAppiumServer();
+        /*System.out.println(" -----------------------  AfterClass ----------------------- ");
+
+        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).removeApp("com.totalwine.app.dev");
+
+        stopAppiumServer();*/
     }
+
+
+    @Before
+    public void appBaseState(){
+        System.out.println(" -----------------------  appBaseState ----------------------- ");
+        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).activateApp("com.totalwine.app.dev");
+    }
+
+
+    @After
+    public void putAppInBackgroundOrTerminate(){
+
+        System.out.println(" -----------------------  putAppInBackgroundOrTerminate ----------------------- ");
+
+        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).terminateApp("com.totalwine.app.dev");
+
+        //((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).closeApp();
+    }
+
 
 //    @Test
 //    public void verifyWineAppSearchByValidWineNameAndSortActions(){
