@@ -14,7 +14,8 @@ public final class AppiumServerController {
     private final static AppiumDriverLocalService service;
 
     static {
-	System.out.println(APPIUM_HOST +"    "+ APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL );
+        System.out.println("Print Default Data");
+	    System.out.println(APPIUM_HOST +"    "+ APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL + "   " + IMPLICIT_WAIT_TIME );
 	
         service = buildService(new AppiumServiceBuilder().
         	                                     withIPAddress("127.0.0.1").
