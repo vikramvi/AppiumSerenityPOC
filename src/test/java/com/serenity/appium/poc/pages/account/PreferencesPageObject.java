@@ -99,10 +99,10 @@ public class PreferencesPageObject extends MobilePageObject {
             this.checked = String.format(checkedPattern, this.name().toLowerCase());
         }
         public boolean isChecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(checked), 1);
+            return Utils.isVisible(driver, MobileBy.AccessibilityId(checked), 4);
         }
         public boolean isUnchecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(unchecked), 1);
+            return Utils.isVisible(driver, MobileBy.AccessibilityId(unchecked), 4);
         }
         public boolean check(WebDriver driver) {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(unchecked));
@@ -111,9 +111,7 @@ public class PreferencesPageObject extends MobilePageObject {
             return Utils.tryClicking(driver, MobileBy.AccessibilityId(checked));
         }
         public boolean isVisible(WebDriver driver) {
-//            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             boolean result = isChecked(driver) || isUnchecked(driver);
-//            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             return result;
         }
         public boolean setToChecked(WebDriver driver) {

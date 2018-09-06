@@ -33,15 +33,21 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     private final String REGEX_count = "([0-9]*?,?[0-9]+)(\\sITEMS?)";
     public String getResultsCount() {
         String result = "NOT FOUND!";
-        String itemCount = TEXT_searchResultsCount.getText();
-        Pattern pattern = Pattern.compile(REGEX_count);
-        Matcher matcher = pattern.matcher(itemCount);
-        if (matcher.find()) {
-            result = matcher.group(1);
-        } else {
-            throw new IllegalStateException("No match for item count!");
+
+        if( Utils.isVisible(getDriver(), TEXT_searchResultsCount, 5) ) {
+
+            String itemCount = TEXT_searchResultsCount.getText();
+            Pattern pattern = Pattern.compile(REGEX_count);
+            Matcher matcher = pattern.matcher(itemCount);
+            if (matcher.find()) {
+                result = matcher.group(1);
+            } else {
+                throw new IllegalStateException("No match for item count!");
+            }
+            return result;
+        }else{
+            return "";
         }
-        return result;
     }
 
     public int getResultsCountInteger() {

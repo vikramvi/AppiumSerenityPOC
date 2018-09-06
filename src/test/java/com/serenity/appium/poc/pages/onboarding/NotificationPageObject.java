@@ -28,12 +28,13 @@ public class NotificationPageObject extends MobilePageObject {
 
     public boolean declineReceivingNotifications(){
         boolean result = false;
-        if (Utils.isVisible(getDriver(), LINK_notRightNow, 2)) {
+        if (Utils.isVisible(getDriver(), LINK_notRightNow, 5)) {
             System.out.println(">>> clicking Not Right Now on Notifications...");
             result = Utils.tryClicking(LINK_notRightNow);
+            //return result;
 
-            //temp fix till dupcliate screen issue if fixed
-                if ( Utils.isVisible(getDriver(), LINK_notRightNow, 2)) {
+                //temp fix till dupcliate screen issue if fixed
+                if ( Utils.isVisible(getDriver(), LINK_notRightNow, 3)) {
                     System.out.println(">>> clicking Not Right Now on Notifications...");
                     result = Utils.tryClicking(LINK_notRightNow);
                 }

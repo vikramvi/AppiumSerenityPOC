@@ -156,7 +156,10 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 //        } else {
 //            result = getIosProductName();
 //        }
-        result = TEXT_productName.getText();
+        if(Utils.isVisible(getDriver(),TEXT_productName, 5 )){
+          result = TEXT_productName.getText();
+        }
+
         return result.trim();
     }
 
