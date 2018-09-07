@@ -11,5 +11,6 @@ public final class Property {
     public static final String NO_RESET = System.getProperty("no.reset");
     public static final String APP_FILE = System.getProperty("file");
     public static final String IMPLICIT_WAIT_TIME = System.getProperty("implicit.wait");
+    public static String RESET_FLAG = System.getProperty("appium.noReset");
 
 }

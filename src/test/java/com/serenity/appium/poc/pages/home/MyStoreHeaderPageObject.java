@@ -62,7 +62,12 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean clickSignIn() { return Utils.tryClicking(BUTTON_signIn); }
+    public boolean clickSignIn() {
+        if(Utils.isVisible(getDriver(), BUTTON_signIn, 5 )) {
+            return Utils.tryClicking(BUTTON_signIn);
+        }
+        return false;
+    }
 
 
     public String getStoreDataForIos() {
@@ -112,7 +117,7 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isChangeStoreOptionPresent() {
-        return Utils.isVisible(getDriver(), BUTTON_changeStore, 5);
+        return Utils.isVisible(getDriver(), BUTTON_changeStore, 10);
     }
 
     public boolean clickChangeStore() {

@@ -11,6 +11,7 @@ import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
 import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
+import com.serenity.appium.poc.pages.orderingFlow.*;
 import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
@@ -58,6 +59,7 @@ public class AppSteps extends ScenarioSteps {
     private TastingHoursPageObject tastingHoursPageObject;
     private UpdatePaymentPageObject updatePaymentPageObject;
     private WineAppPageObject wineAppPageObject;
+    private CartPageOject cartPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -137,28 +139,33 @@ public class AppSteps extends ScenarioSteps {
 //        browsePageObject.clickWineSubcategoryRedWine();
     }
 
+    private static boolean isOnboardingCompleted = false;
+
     @Step
     public void completeOnboardingAllowingLocation() {
-        LOGGER.info("Completing onboarding, declining all options but Location...");
-        assertThat(splashPageObject.startOnboarding()).isTrue();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        assertThat(locationPageObject.allowLocationTracking()).isTrue();
         try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+
+            LOGGER.info(" isOnboardingCompleted Flag value = " + isOnboardingCompleted );
+
+            if(!isOnboardingCompleted) {
+
+                LOGGER.info("Completing onboarding, declining all options but Location...");
+
+                splashPageObject.startOnboarding();
+
+                locationPageObject.allowLocationTracking();
+
+                notificationPageObject.declineReceivingNotifications();
+
+                loyaltyPageObject.declineLoyaltyLogin();
+
+                isOnboardingCompleted = true;
+            }
+
+        }catch (Exception e){
             e.printStackTrace();
+            isOnboardingCompleted = false;
         }
-        assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
     }
 
     @Step
@@ -177,6 +184,14 @@ public class AppSteps extends ScenarioSteps {
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performDefaultLogin()).isTrue();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
+    }
+
+    @Step
+    public void performLoginFromHomepage(String emailId) {
+        LOGGER.info("Performing login from homepage with give email...");
+        assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
+        assertThat(loginPageObject.confirmHeader()).isTrue();
+        assertThat(loginPageObject.performLogin(emailId)).isTrue();
     }
 
     @Step
@@ -216,7 +231,7 @@ public class AppSteps extends ScenarioSteps {
     public void searchForProduct(String searchToken) {
         LOGGER.info("Searching for a product from the homepage...");
         assertThat(productSearchPageObject.enterSearchTerm(searchToken)).isTrue();
-        assertThat(productSearchResultsPageObject.getResultsCount().length()>0).isTrue();
+        assertThat(productSearchResultsPageObject.getResultsCount().length() > 0).isTrue();
     }
 
     @Step
@@ -569,4 +584,22 @@ public class AppSteps extends ScenarioSteps {
         assertThat(storeIconsPageObject.clickShopThisStoreIcon()).isTrue();
     }
 
+    @Step
+    public void gotoHomeTab(){
+        navigationFooterPageObject.clickHomeButton();
+    }
+
+    @Step
+    public void gotoCARTScreen(){
+        assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
+        assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
+        assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+    }
+
+    @Step
+    public void verifyMyRewardGetsAppliedSuccessfully(){
+        cartPageObject.isPageTitleCorrect();
+        assertThat( cartPageObject.isRewardAppliedSuccessfully() ).isTrue();
+        cartPageObject.deleteCartItem();
+    }
 }

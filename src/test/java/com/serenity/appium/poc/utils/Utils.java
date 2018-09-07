@@ -84,36 +84,33 @@ public class Utils {
     }
 
     public static boolean isVisible(WebDriver driver, By reference, int seconds) {
-        try {
-//            WebDriver facade = getDriver();
-//            WebDriver realDriver = ((WebDriverFacade) facade).getProxiedDriver();
-//            realDriver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-
+        try{
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
-
-//            realDriver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
             return true;
-        } catch (Exception e) {
-//            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     public static boolean isVisible(WebDriver driver, WebElement element, int seconds) {
-        try {
-//            WebDriver facade = getDriver();
-//            WebDriver realDriver = ((WebDriverFacade) facade).getProxiedDriver();
-//            realDriver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-
+        try{
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOf(element));
-
-//            realDriver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
             return true;
-        } catch (Exception e) {
-//            e.printStackTrace();
+        }catch (Exception e) {
             return false;
         }
     }
+
+    public static boolean isClickable(WebDriver driver, WebElement element, int seconds) {
+        try{
+            new WebDriverWait(driver, seconds).until(ExpectedConditions.elementToBeClickable(element));
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
 
     public static boolean isLastInstanceVisible(WebDriver driver, String xpath) {
         int lastInstance = driver.findElements(By.xpath(xpath)).size();
@@ -315,7 +312,10 @@ public static String getRandomFirstName() {
     }
 
     public static void setPlatform() {
-        String platform = System.getProperty("testEnvironment");
+        //String platform = System.getProperty("testEnvironment");
+
+        String platform = "Android";
+
         switch (platform) {
             case ("Android"):
                 MobilePageObject.setAndroid(true);

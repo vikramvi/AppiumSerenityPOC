@@ -14,13 +14,13 @@ public final class AppiumServerController {
     private final static AppiumDriverLocalService service;
 
     static {
-        System.out.println(APPIUM_HOST + "    " + APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL);
+        System.out.println(APPIUM_HOST + "    " + APPIUM_PORT + "     " + APPIUM_LOG_LEVEL + "     " + GeneralServerFlag.LOG_LEVEL + "    " + RESET_FLAG );
 
         service = buildService(new AppiumServiceBuilder().
                 withIPAddress("127.0.0.1").
                 usingPort(Integer.parseInt("4723"))
-//                .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-                .withAppiumJS(new File("/Users/jhennessey/.npm-packages/lib/node_modules/appium/build/lib/main.js"))
+                .withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                //.withAppiumJS(new File("/Users/jhennessey/.npm-packages/lib/node_modules/appium/build/lib/main.js"))
                 .withArgument(GeneralServerFlag.LOG_LEVEL, "info"));
     }
 

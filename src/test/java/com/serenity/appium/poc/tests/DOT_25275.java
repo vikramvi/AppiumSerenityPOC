@@ -11,7 +11,7 @@ public class DOT_25275 extends WineAppTest {
     @Category({Regression1.class})
     public void DOT_25275_verifyProductMisspellings(){
         try{
-            appSteps.completeOnboardingAllowingLocation();
+            appSteps.completeQuickOnboarding();
             appSteps.verifyHomepageToProductSearch();
             String expected = "riesling";
             appSteps.searchForProduct("reisling");

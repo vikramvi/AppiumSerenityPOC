@@ -24,8 +24,8 @@ public class StoreHoursPageObject extends MobilePageObject {
     private WebElement TEXT_GRID_storeHours;
 
     public boolean isStoreHoursTabPresent() {
-        try {
-            return TEXT_TABNAME_storeHours.isDisplayed();
+        try{
+            return Utils.isVisible(getDriver(),TEXT_TABNAME_storeHours, 5);
         } catch (Exception e) {
             return false;
         }
@@ -34,8 +34,8 @@ public class StoreHoursPageObject extends MobilePageObject {
         return Utils.tryClicking(TEXT_TABNAME_storeHours);
     }
     public boolean isStoreHoursGridPresent() {
-        try {
-            return TEXT_GRID_storeHours.isDisplayed();
+        try{
+            return Utils.isVisible(getDriver(),TEXT_GRID_storeHours, 5);
         } catch (Exception e) {
             return false;
         }
