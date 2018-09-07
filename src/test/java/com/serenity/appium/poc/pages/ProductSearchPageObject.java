@@ -24,8 +24,11 @@ public class ProductSearchPageObject extends MobilePageObject {
 
     public boolean typeSearchTerm(String productName){
         try {
-            FIELD_searchProduct.sendKeys(productName);
-            return true;
+                if(Utils.isVisible(getDriver(), FIELD_searchProduct, 5)) {
+                    FIELD_searchProduct.sendKeys(productName);
+                    return true;
+                }
+                return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -38,11 +41,11 @@ public class ProductSearchPageObject extends MobilePageObject {
         try {
             token += isIOS() ? "\n" : "";
             result = typeSearchTerm(token);
-            if (result && isAndroid()) {
-                WebDriver facade = getDriver();
-                WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
-                ((AndroidDriver)driver).pressKeyCode(66);
-            }
+                if (result && isAndroid()) {
+                    WebDriver facade = getDriver();
+                    WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
+                    ((AndroidDriver)driver).pressKeyCode(66);
+                }
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,6 +69,6 @@ public class ProductSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        return Utils.isVisible(getDriver(), FIELD_searchProduct, 2);
+        return Utils.isVisible(getDriver(), FIELD_searchProduct, 5);
     }
 }

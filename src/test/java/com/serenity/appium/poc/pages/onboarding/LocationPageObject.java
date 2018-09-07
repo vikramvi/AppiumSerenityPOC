@@ -27,7 +27,7 @@ public class LocationPageObject extends MobilePageObject {
 
     public boolean allowLocationTracking() {
         try {
-              if(Utils.isVisible(getDriver(),BUTTON_allowLocation, 5 )) {
+              if(Utils.isVisible(getDriver(),BUTTON_allowLocation, 10 )) {
                   BUTTON_allowLocation.click();
                       if (isAndroid()) {
                           By BUTTON_androidConfirmAllowLocation = By.id("com.android.packageinstaller:id/permission_allow_button");
@@ -50,7 +50,10 @@ public class LocationPageObject extends MobilePageObject {
     }
 
     public boolean declineLocationTracking() {
-        return Utils.tryClicking(LINK_turnOnLater);
+        if(Utils.isVisible(getDriver(), LINK_turnOnLater, 10 )) {
+            return Utils.tryClicking(LINK_turnOnLater);
+        }
+        return false;
     }
 
 }

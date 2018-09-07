@@ -36,7 +36,11 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return Utils.tryClicking(BUTTON_return);
     }
     public boolean clickAddToCart() {
-        return Utils.tryClicking(BUTTON_addToCart);
+        if(Utils.isVisible(getDriver(), BUTTON_addToCart, 10)) {
+            return Utils.tryClicking(BUTTON_addToCart);
+        }else{
+            return false;
+        }
     }
 
     private boolean isProductRating(String data) {
