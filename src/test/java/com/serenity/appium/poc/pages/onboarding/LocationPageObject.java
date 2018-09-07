@@ -27,19 +27,19 @@ public class LocationPageObject extends MobilePageObject {
 
     public boolean allowLocationTracking() {
         try {
-              if(Utils.isVisible(getDriver(),BUTTON_allowLocation, 10 )) {
+              if (Utils.isVisible(getDriver(),BUTTON_allowLocation, 10 )) {
                   BUTTON_allowLocation.click();
-                      if (isAndroid()) {
-                          By BUTTON_androidConfirmAllowLocation = By.id("com.android.packageinstaller:id/permission_allow_button");
-                          if (getDriver().findElements(BUTTON_androidConfirmAllowLocation).size() > 0) {
-                              System.out.println(">>> clicking Confirm on Allow Location...");
-                              getDriver().findElement(BUTTON_androidConfirmAllowLocation).click();
-                          }
-                      } else {
-                          Utils.tryClickingAllow();
+                  if (isAndroid()) {
+                      By BUTTON_androidConfirmAllowLocation = By.id("com.android.packageinstaller:id/permission_allow_button");
+                      if (getDriver().findElements(BUTTON_androidConfirmAllowLocation).size() > 0) {
+                          System.out.println(">>> clicking Confirm on Allow Location...");
+                          getDriver().findElement(BUTTON_androidConfirmAllowLocation).click();
                       }
-                      return true;
-              }else{
+                  } else {
+                      Utils.tryClickingAllow();
+                  }
+                  return true;
+              } else {
                   LOGGER.error("allowLocationTracking() > BUTTON_allowLocation NOT found ");
                   return false;
               }
@@ -50,10 +50,9 @@ public class LocationPageObject extends MobilePageObject {
     }
 
     public boolean declineLocationTracking() {
-        if(Utils.isVisible(getDriver(), LINK_turnOnLater, 10 )) {
+        if (Utils.isVisible(getDriver(), LINK_turnOnLater, 10 )) {
             return Utils.tryClicking(LINK_turnOnLater);
         }
         return false;
     }
-
 }
