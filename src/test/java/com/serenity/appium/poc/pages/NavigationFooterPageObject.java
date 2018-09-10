@@ -29,6 +29,10 @@ public class NavigationFooterPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "\uE82A MORE \uE82A MORE")
     private WebElement BUTTON_moreMenu;
 
+    @AndroidFindBy(accessibility = "header-title")
+    private WebElement TEXT_pageTitle;
+
+
     public NavigationFooterPageObject(WebDriver driver) {
         super(driver);
     }
@@ -54,7 +58,11 @@ public class NavigationFooterPageObject extends MobilePageObject {
     }
 
     public boolean clickHomeButton() {
-        return Utils.tryClicking(BUTTON_home);
+        if(Utils.isVisible(getDriver(),BUTTON_home, 10 )){
+            return Utils.tryClicking(BUTTON_home);
+        }else{
+            return false;
+        }
     }
 
     public boolean clickBrowseButton() {
@@ -66,7 +74,20 @@ public class NavigationFooterPageObject extends MobilePageObject {
     }
 
     public boolean clickShoppingCartButton() {
-        return Utils.tryClicking(BUTTON_shoppingCart);
+        if(Utils.isClickable(getDriver(), BUTTON_shoppingCart, 10)) {
+            System.out.println("clickShoppingCartButton  IN");
+            return Utils.tryClicking(BUTTON_shoppingCart);
+        }else{
+            System.out.println("clickShoppingCartButton  OUT");
+            return false;
+        }
+    }
+
+    public boolean isPageTitleCorrect() {
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 10)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, "ITEM ADDED");
+        }
+        return false;
     }
 
     public boolean clickMoreMenuButton() {

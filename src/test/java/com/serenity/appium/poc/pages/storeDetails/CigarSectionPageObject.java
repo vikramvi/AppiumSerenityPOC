@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 public class CigarSectionPageObject extends MobilePageObject {
@@ -44,7 +45,7 @@ public class CigarSectionPageObject extends MobilePageObject {
     }
 
     public boolean isCigarSectionDisplayed() {
-        setImplicitTimeout(0, TimeUnit.SECONDS);
+
         boolean displayed = false;
         int i = 0;
         if (isAndroid()) {
@@ -62,7 +63,7 @@ public class CigarSectionPageObject extends MobilePageObject {
                 i++;
             }
         }
-        resetImplicitTimeout();
+
         return displayed;
     }
 

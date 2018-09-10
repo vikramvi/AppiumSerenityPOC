@@ -36,7 +36,11 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return Utils.tryClicking(BUTTON_return);
     }
     public boolean clickAddToCart() {
-        return Utils.tryClicking(BUTTON_addToCart);
+        if(Utils.isVisible(getDriver(), BUTTON_addToCart, 10)) {
+            return Utils.tryClicking(BUTTON_addToCart);
+        }else{
+            return false;
+        }
     }
 
     private boolean isProductRating(String data) {
@@ -156,7 +160,10 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 //        } else {
 //            result = getIosProductName();
 //        }
-        result = TEXT_productName.getText();
+        if(Utils.isVisible(getDriver(),TEXT_productName, 5 )){
+          result = TEXT_productName.getText();
+        }
+
         return result.trim();
     }
 
