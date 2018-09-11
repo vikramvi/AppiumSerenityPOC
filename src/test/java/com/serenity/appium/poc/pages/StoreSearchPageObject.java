@@ -54,7 +54,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 2);
+        boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 10);
         return result;
     }
 

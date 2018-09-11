@@ -170,11 +170,20 @@ public class AppSteps extends ScenarioSteps {
 
     @Step
     public void completeQuickOnboarding() {
-        LOGGER.info("Completing onboarding, declining all options...");
-        assertThat(splashPageObject.startOnboarding()).isTrue();
-        assertThat(locationPageObject.declineLocationTracking()).isTrue();
-        assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
-        assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
+
+        LOGGER.info(" completeQuickOnboarding Flag value = " + isOnboardingCompleted);
+
+        if(!isOnboardingCompleted){
+
+            LOGGER.info("Completing onboarding, declining all options...");
+
+            assertThat(splashPageObject.startOnboarding()).isTrue();
+            assertThat(locationPageObject.declineLocationTracking()).isTrue();
+            assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
+            assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
+
+            isOnboardingCompleted = true;
+        }
     }
 
     @Step
@@ -586,7 +595,7 @@ public class AppSteps extends ScenarioSteps {
 
     @Step
     public void gotoHomeTab(){
-        navigationFooterPageObject.clickHomeButton();
+        assertThat( navigationFooterPageObject.clickHomeButton() ).isTrue();
     }
 
     @Step
