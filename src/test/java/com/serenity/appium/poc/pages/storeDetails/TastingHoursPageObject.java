@@ -44,7 +44,10 @@ public class TastingHoursPageObject extends StoreDetailsCommonPageObject {
 
     public boolean isTastingHoursTabPresent() {
         try {
-            return TEXT_TABNAME_tastingHours.isDisplayed();
+                if(Utils.isVisible(getDriver(), TEXT_TABNAME_tastingHours, 5)) {
+                    return TEXT_TABNAME_tastingHours.isDisplayed();
+                }
+                return false;
         } catch (Exception e) {
             return false;
         }

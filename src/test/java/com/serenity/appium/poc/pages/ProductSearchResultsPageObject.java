@@ -95,8 +95,12 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     private String XPATH_PATTERN_productName = "(//android.widget.TextView[@content-desc=\"product-name\"])[%d]";
     public String getAndroidProductName(int productNumber) {
         String xpath = String.format(XPATH_PATTERN_productName, productNumber);
-        String result = getDriver().findElement(By.xpath(xpath)).getText();
-        return result;
+
+        if(Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(xpath)), 20)) {
+            String result = getDriver().findElement(By.xpath(xpath)).getText();
+            return result;
+        }
+        return "";
     }
 
     private String XPATH_PATTERN_productSize = "(//android.widget.TextView[@content-desc=\"product-packaging\"])[%d]";
@@ -108,7 +112,11 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
     public boolean selectProductForAndroid(int productNumber) {
         String xpath = String.format(XPATH_PATTERN_productName, productNumber);
-        return Utils.tryClicking(xpath);
+
+        if( Utils.isVisible( getDriver(), getDriver().findElement(By.xpath(xpath)), 10 )){
+            return Utils.tryClicking(xpath);
+        }
+        return false;
     }
 
     //------------------ iOS -->

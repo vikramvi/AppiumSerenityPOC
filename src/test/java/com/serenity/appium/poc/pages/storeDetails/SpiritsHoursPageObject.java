@@ -25,7 +25,10 @@ public class SpiritsHoursPageObject extends MobilePageObject {
 
     public boolean isSpiritsHoursTabPresent() {
         try {
-            return TEXT_TABNAME_spiritsHours.isDisplayed();
+            if(Utils.isVisible(getDriver(), TEXT_TABNAME_spiritsHours, 5 )) {
+                return TEXT_TABNAME_spiritsHours.isDisplayed();
+            }
+            return false;
         } catch (Exception e) {
             return false;
         }

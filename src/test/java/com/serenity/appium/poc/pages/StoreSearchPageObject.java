@@ -54,7 +54,10 @@ public class StoreSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 2);
+        boolean result = Utils.isVisible(getDriver(), FIELD_geoSearch, 25);
+        if(!result){
+            LOGGER.error("Change location call failed after 25 seconds");
+        }
         return result;
     }
 
@@ -181,7 +184,7 @@ public class StoreSearchPageObject extends MobilePageObject {
         int result = -1;
         for (int i=1; i<=2; i++) {
             String xpath = StoreListData.TITLE.getXpath(getDriver(), i);
-            if (Utils.isVisible(getDriver(), By.xpath(xpath), 2)) {
+            if (Utils.isVisible(getDriver(), By.xpath(xpath), 10)) {
                 String title = StoreListData.TITLE.getValue(getDriver(), i);
                 if (title.equalsIgnoreCase(expectedTitle)) {
                     result = i;

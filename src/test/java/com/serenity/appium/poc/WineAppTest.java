@@ -36,9 +36,9 @@ public class WineAppTest {
     @BeforeClass
     public static void startAppium() {
 
-        System.out.println(" -----------------------  BeforeClass ----------------------- ");
+       System.out.println(" -----------------------  BeforeClass ----------------------- ");
 
-        startAppiumServer();
+       //startAppiumServer();
 
         //NOTE: the following can only be used if the platform is passed in as a MVN argument (e.g. clean verify test -e -DtestEnvironment=iOS -Dmaven.surefire.debug)
         Utils.setPlatform();
@@ -49,9 +49,9 @@ public class WineAppTest {
 
         System.out.println(" -----------------------  AfterClass ----------------------- ");
 
-        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).removeApp("com.totalwine.app.dev");
+        //((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).removeApp("com.totalwine.app.dev");
 
-        stopAppiumServer();
+        //stopAppiumServer();
     }
 
 

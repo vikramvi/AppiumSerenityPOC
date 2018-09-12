@@ -23,7 +23,10 @@ public class StoreIconsPageObject extends MobilePageObject {
 
 
     public boolean isChangeStoreIconPresent() {
-        return TOUCHABLE_ICON_changeStore.isDisplayed();
+        if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_changeStore, 5 )) {
+            return TOUCHABLE_ICON_changeStore.isDisplayed();
+        }
+        return false;
     }
 
     public boolean clickChangeStore() {
@@ -44,8 +47,11 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     public boolean clickShopThisStoreIcon() {
         try {
-            TOUCHABLE_ICON_shopThisStore.click();
-            return true;
+                if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_shopThisStore, 8)) {
+                    TOUCHABLE_ICON_shopThisStore.click();
+                    return true;
+                }
+                return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

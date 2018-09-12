@@ -28,8 +28,6 @@ public class GrowlerSectionPageObject extends MobilePageObject {
     By BY_findOutMore = MobileBy.AccessibilityId("button-see-craft-beer-rotation");
     public boolean isFindOutMoreButtonDisplayed() {
         try {
-//            withTimeoutOf(2, TimeUnit.SECONDS).waitForPresenceOf(BY_findOutMore);
-//            return true;
             boolean result = Utils.isVisible(getDriver(), BUTTON_findOutMore, 2);
             return result;
         } catch (Exception e) {
@@ -50,7 +48,6 @@ public class GrowlerSectionPageObject extends MobilePageObject {
     }
 
     public boolean isGrowlerStationSectionDisplayed() {
-        //setImplicitTimeout(0, ChronoUnit.SECONDS);
         boolean displayed = false;
         int i = 0;
         if (isAndroid()) {
@@ -68,7 +65,6 @@ public class GrowlerSectionPageObject extends MobilePageObject {
                 i++;
             }
         }
-        //resetImplicitTimeout();
         return displayed;
     }
 
