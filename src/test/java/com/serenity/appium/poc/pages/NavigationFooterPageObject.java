@@ -41,6 +41,14 @@ public class NavigationFooterPageObject extends MobilePageObject {
         return Utils.isVisible(getDriver(), BUTTON_home, 5);
     }
 
+    public boolean isHomeButtonPresent(int maxTime) {
+        if(Utils.isVisible(getDriver(), BUTTON_home, maxTime)) {
+            return true;
+        }
+        LOGGER.error("isHomeButtonPresent failed even after " + maxTime + " seconds");
+        return false;
+    }
+
     public boolean isBrowseButtonPresent() {
         return Utils.isVisible(getDriver(), BUTTON_browse, 5);
     }

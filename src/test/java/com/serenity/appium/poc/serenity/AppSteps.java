@@ -3,12 +3,9 @@ package com.serenity.appium.poc.serenity;
 import com.openhtmltopdf.util.Util;
 import com.serenity.appium.poc.pages.*;
 import com.serenity.appium.poc.pages.account.*;
-import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
-import com.serenity.appium.poc.pages.home.SearchSectionPageObject;
-import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
-import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
-import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
-import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
+import com.serenity.appium.poc.pages.browse.BrowsePageObject;
+import com.serenity.appium.poc.pages.home.*;
+import com.serenity.appium.poc.pages.onboarding.*;
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.pages.orderingFlow.*;
@@ -16,7 +13,7 @@ import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.openqa.selenium.remote.server.handler.interactions.touch.Up;
+import net.thucydides.core.steps.WaitForBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +57,8 @@ public class AppSteps extends ScenarioSteps {
     private UpdatePaymentPageObject updatePaymentPageObject;
     private WineAppPageObject wineAppPageObject;
     private CartPageOject cartPageObject;
+    private HomeTabPageObject homeTabPageObject;
+    private MyListsPageObject myListsPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -201,6 +200,7 @@ public class AppSteps extends ScenarioSteps {
         assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performLogin(emailId)).isTrue();
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(25) ).isTrue();
     }
 
     @Step
@@ -611,4 +611,38 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.isRewardAppliedSuccessfully() ).isTrue();
         cartPageObject.deleteCartItem();
     }
+
+    @Step
+    public void verifyNewListCreationFromMyListsScreenAndBrowseForSelectedList(String newListName){
+        assertThat( homeTabPageObject.isMyListsSectionDisplayed() ).isTrue();
+        homeTabPageObject.clickViewAllButton();
+
+        myListsPageObject.clickCreateListButton();
+
+        myListsPageObject.enterListName(newListName);
+        assertThat( myListsPageObject.clickListNameSaveButton() ).isTrue();
+
+        assertThat( myListsPageObject.isListNameVisibile(newListName) ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(newListName) ).isTrue();
+        assertThat( myListsPageObject.clickStartBrowsingButton() ).isTrue();
+    }
+
+    @Step
+    public void addRichRelevanceItemToList_VerifyAndDeleteList(String newListName){
+        browsePageObject.isWineCardPresent();
+        browsePageObject.clickWineCard();
+        browsePageObject.scrollToHotProductsSection();
+
+        String itemNameToBeAddedToNewlyCreatedList = browsePageObject.getFirtItemNameWithHeartIcon();
+        browsePageObject.clickFirstItemHeartIcon();
+        browsePageObject.addSelectedIconByClickingHeartIconToList(newListName);
+
+        browsePageObject.clickViewAllButton();
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        myListsPageObject.clickArrowButtonAgainstParticularList(newListName);
+
+        assertThat( browsePageObject.verifyItemNameAddedToTheList(itemNameToBeAddedToNewlyCreatedList) ).isTrue();
+        assertThat( browsePageObject.clickDeleteListButton() ).isTrue();
+    }
+
 }

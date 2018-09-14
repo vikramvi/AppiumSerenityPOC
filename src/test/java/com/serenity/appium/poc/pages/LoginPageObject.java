@@ -43,12 +43,9 @@ public class LoginPageObject extends MobilePageObject {
             INPUT_password.sendKeys(password+"\n");
         } else {
             INPUT_password.sendKeys(password);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             WebElement x = getDriver().findElement(MobileBy.AccessibilityId("button-login"));
+
             if (Utils.isVisible(getDriver(), x, 5)) {
                 Utils.tryClicking(x);
             } else {
