@@ -279,9 +279,16 @@ public class BrowsePageObject extends MobilePageObject {
 
     public boolean verifyItemNameAddedToTheList(String expectedItemName){
 
-        String actualItemName = getDriver().findElement(By.xpath("//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]")).getText();
+        String itemUnderListXPath = "//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
 
-        return actualItemName.equalsIgnoreCase(expectedItemName);
+        if( Utils.isVisible(getDriver(), By.xpath(itemUnderListXPath), 15)){
+
+            String actualItemName = getDriver().findElement(By.xpath(itemUnderListXPath)).getText();
+
+            return actualItemName.equalsIgnoreCase(expectedItemName);
+        }
+
+        return false;
     }
 
     public boolean clickDeleteListButton(){
