@@ -643,6 +643,31 @@ public class AppSteps extends ScenarioSteps {
 
         assertThat( browsePageObject.verifyItemNameAddedToTheList(itemNameToBeAddedToNewlyCreatedList) ).isTrue();
         assertThat( browsePageObject.clickDeleteListButton() ).isTrue();
+        browsePageObject.clickDeleteConfirmationYesButton();
+    }
+
+    @Step
+    public void verifyListDeletionActions(String listName){
+        assertThat( homeTabPageObject.isMyListsSectionDisplayed() ).isTrue();
+        homeTabPageObject.clickViewAllButton();
+
+        myListsPageObject.clickCreateListButton();
+        myListsPageObject.enterListName(listName);
+        assertThat( myListsPageObject.clickListNameSaveButton() ).isTrue();
+        assertThat( myListsPageObject.isListNameVisibile(listName) ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
+
+        browsePageObject.clickDeleteListButton();
+        browsePageObject.clickDeleteConfirmationNoButton();
+        browsePageObject.clickListDetailPageReturnButton();
+        assertThat( myListsPageObject.isListNameVisibile(listName) ).isTrue();
+
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
+        browsePageObject.clickDeleteListButton();
+        browsePageObject.clickDeleteConfirmationYesButton();
+
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        assertThat( myListsPageObject.isListNameVisibile(listName) ).isFalse();
     }
 
 }

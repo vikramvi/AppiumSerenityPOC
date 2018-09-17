@@ -25,8 +25,8 @@ public class HomeTabPageObject extends MobilePageObject{
         super(driver);
     }
 
-    public boolean isViewAllButtonDisplayed(){
-        if(Utils.isVisible(getDriver(), ViewAllButton, 2)){
+    public boolean isViewAllButtonDisplayed(int waitTime){
+        if(Utils.isVisible(getDriver(), ViewAllButton, waitTime)){
             return true;
         }
         return false;
@@ -36,11 +36,11 @@ public class HomeTabPageObject extends MobilePageObject{
         boolean displayed = false;
         int scrollDownCounter = 0;
         if (isAndroid()) {
-            displayed = isViewAllButtonDisplayed();
+            displayed = isViewAllButtonDisplayed(2);
 
                 while ( !displayed && (scrollDownCounter < 4) ) {
                     Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
-                    displayed = isViewAllButtonDisplayed();
+                    displayed = isViewAllButtonDisplayed(2);
                     scrollDownCounter++;
                 }
         }
