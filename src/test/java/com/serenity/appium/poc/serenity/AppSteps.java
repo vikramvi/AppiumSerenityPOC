@@ -581,6 +581,7 @@ public class AppSteps extends ScenarioSteps {
         assertThat(growlerStationPageObject.areValuesValidOnLastCard()).isTrue();
     }
 
+    @Step
     public void verifyShopThisStore() {
         LOGGER.info("Verifying clicking Shop This Store icon from store details page...");
         assertThat(storeIconsPageObject.clickShopThisStoreIcon()).isTrue();
