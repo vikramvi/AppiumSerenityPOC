@@ -3,7 +3,6 @@ package com.serenity.appium.poc.pages.orderingFlow;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -33,6 +32,36 @@ public class CartPageOject extends MobilePageObject {
 
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")
     private WebElement cartItemDeleteButton;
+
+    @AndroidFindBy(accessibility="touchableIcon-option-picker")
+    private WebElement ChooseDeliveryTimeControl;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]")
+    private WebElement SwitchToDeliveryLink;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[2][@text='CHANGING TO DELIVERY']")
+    private WebElement ChangingToDeliveryPopUpTitle;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='change-shopping-method']")
+    private WebElement ChangingToDeliveryContinueButton;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='cancel-shopping-method']")
+    private WebElement ChangingToDeliveryCancelButton;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2][@text='SOME ITEMS NOT AVAILABLE']")
+    private WebElement SomeItemsNotAvailableTitle;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-signIn-home']")
+    private WebElement SomeItemsNotAvailableProceedButton;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-signUp-home']")
+    private WebElement SomeItemsNotAvailableCancelButton;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[@text='NO ITEMS IN CART']")
+    private WebElement NoItemInCartTitle;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button")
+    private WebElement ContinueShoppingLink;
 
 
     public CartPageOject(WebDriver driver){
@@ -97,6 +126,47 @@ public class CartPageOject extends MobilePageObject {
             cartItemDeleteButton.click();
             return true;
         }
+        return false;
+    }
+
+    public boolean clickSwitchToDeliveryLink(){
+        if( Utils.isVisible( getDriver(), SwitchToDeliveryLink, 10 ) ){
+            SwitchToDeliveryLink.click();
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean selectContinueForChangingToDeliveryDialog(){
+          if(clickSwitchToDeliveryLink()){
+              ChangingToDeliveryContinueButton.click();
+              return true;
+          }
+          return false;
+    }
+
+    public boolean chooseProccedOnSomeItemsNotAvailableDialog(){
+        if( Utils.isVisible( getDriver(), SomeItemsNotAvailableTitle, 20) ){
+            SomeItemsNotAvailableProceedButton.click();
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isContinueShoppingLinkShown(){
+        if( Utils.isVisible(getDriver(), NoItemInCartTitle, 10 ) ){
+            return Utils.isVisible(getDriver(), ContinueShoppingLink, 5);
+        }
+
+        return false;
+    }
+
+
+    public boolean chooseDeliveryTime(){
+        //TBD
+        // Blocked - https://totalwine.atlassian.net/browse/MOB-2151
         return false;
     }
 }

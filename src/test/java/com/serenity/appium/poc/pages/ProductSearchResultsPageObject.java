@@ -34,7 +34,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     public String getResultsCount() {
         String result = "NOT FOUND!";
 
-        if( Utils.isVisible(getDriver(), TEXT_searchResultsCount, 5) ) {
+        if( Utils.isVisible(getDriver(), TEXT_searchResultsCount, 20) ) {
 
             String itemCount = TEXT_searchResultsCount.getText();
             Pattern pattern = Pattern.compile(REGEX_count);

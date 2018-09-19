@@ -1,14 +1,10 @@
 package com.serenity.appium.poc.serenity;
 
-import com.openhtmltopdf.util.Util;
 import com.serenity.appium.poc.pages.*;
 import com.serenity.appium.poc.pages.account.*;
-import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
-import com.serenity.appium.poc.pages.home.SearchSectionPageObject;
-import com.serenity.appium.poc.pages.onboarding.LocationPageObject;
-import com.serenity.appium.poc.pages.onboarding.LoyaltyPageObject;
-import com.serenity.appium.poc.pages.onboarding.NotificationPageObject;
-import com.serenity.appium.poc.pages.onboarding.SplashPageObject;
+import com.serenity.appium.poc.pages.browse.BrowsePageObject;
+import com.serenity.appium.poc.pages.home.*;
+import com.serenity.appium.poc.pages.onboarding.*;
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.pages.orderingFlow.*;
@@ -16,7 +12,6 @@ import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.openqa.selenium.remote.server.handler.interactions.touch.Up;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +55,9 @@ public class AppSteps extends ScenarioSteps {
     private UpdatePaymentPageObject updatePaymentPageObject;
     private WineAppPageObject wineAppPageObject;
     private CartPageOject cartPageObject;
+    private ListsSectionPageObject listsSectionPageObject;
+    private MyListsPageObject myListsPageObject;
+    private DeliveryAddressPageObject deliveryAddressPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -201,6 +199,7 @@ public class AppSteps extends ScenarioSteps {
         assertThat(myStoreHeaderPageObject.clickSignIn()).isTrue();
         assertThat(loginPageObject.confirmHeader()).isTrue();
         assertThat(loginPageObject.performLogin(emailId)).isTrue();
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(25) ).isTrue();
     }
 
     @Step
@@ -215,7 +214,6 @@ public class AppSteps extends ScenarioSteps {
         createAccountPageObject.enterFakePhoneNumber();
         createAccountPageObject.clickAgeConfirmation();
         createAccountPageObject.clickTermsConfirmation();
-        Util.sleep(250);
         createAccountPageObject.clickAndroidCreateAccountButton();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
     }
@@ -304,11 +302,6 @@ public class AppSteps extends ScenarioSteps {
         assertThat(PreferencesPageObject.Preferences.PROMOTIONS.uncheck(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.uncheck(getDriver())).isTrue();
         assertThat(preferencesPageObject.clickUpdateButton()).isTrue();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         assertThat(Scrolling.scrollDown()).isTrue();
         assertThat(PreferencesPageObject.Preferences.PROMOTIONS.isUnchecked(getDriver())).isTrue();
         assertThat(PreferencesPageObject.Preferences.EVENTS.isUnchecked(getDriver())).isTrue();
@@ -611,4 +604,72 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.isRewardAppliedSuccessfully() ).isTrue();
         cartPageObject.deleteCartItem();
     }
+
+    @Step
+    public void verifyNewListCreationFromMyListsScreenAndBrowseForSelectedList(String newListName){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+
+        myListsPageObject.clickCreateListButton();
+
+        myListsPageObject.enterListName(newListName);
+        assertThat( myListsPageObject.clickListNameSaveButton() ).isTrue();
+
+        assertThat( myListsPageObject.isListNameVisible(newListName) ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(newListName) ).isTrue();
+        assertThat( myListsPageObject.clickStartBrowsingButton() ).isTrue();
+    }
+
+    @Step
+    public void addRichRelevanceItemToList_VerifyAndDeleteList(String newListName){
+        browsePageObject.isWineCardPresent();
+        browsePageObject.clickWineCard();
+        browsePageObject.scrollToHotProductsSection();
+
+        String itemNameToBeAddedToNewlyCreatedList = browsePageObject.getFirtItemNameWithHeartIcon();
+        browsePageObject.clickFirstItemHeartIcon();
+        browsePageObject.addSelectedIconByClickingHeartIconToList(newListName);
+
+        browsePageObject.clickViewAllButton();
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        myListsPageObject.clickArrowButtonAgainstParticularList(newListName);
+
+        assertThat( browsePageObject.verifyItemNameAddedToTheList(itemNameToBeAddedToNewlyCreatedList) ).isTrue();
+        assertThat( browsePageObject.clickDeleteListButton() ).isTrue();
+        browsePageObject.clickDeleteConfirmationYesButton();
+    }
+
+    @Step
+    public void verifyListDeletionActions(String listName){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+
+        myListsPageObject.clickCreateListButton();
+        myListsPageObject.enterListName(listName);
+        assertThat( myListsPageObject.clickListNameSaveButton() ).isTrue();
+        assertThat( myListsPageObject.isListNameVisible(listName) ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
+
+        browsePageObject.clickDeleteListButton();
+        browsePageObject.clickDeleteConfirmationNoButton();
+        browsePageObject.clickListDetailPageReturnButton();
+        assertThat( myListsPageObject.isListNameVisible(listName) ).isTrue();
+
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
+        browsePageObject.clickDeleteListButton();
+        browsePageObject.clickDeleteConfirmationYesButton();
+
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        assertThat( myListsPageObject.isListNameVisible(listName) ).isFalse();
+    }
+
+    @Step
+    public void verifyItemNotEligibleForHomeDelivery_RemovalFromCart_AlongWithOtherItemsInCart(){
+        cartPageObject.selectContinueForChangingToDeliveryDialog();
+        deliveryAddressPageObject.addNewAddressForDelivery();
+        cartPageObject.chooseProccedOnSomeItemsNotAvailableDialog();
+        assertThat( cartPageObject.isContinueShoppingLinkShown() ).isTrue();
+    }
+
+
 }
