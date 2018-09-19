@@ -33,11 +33,11 @@ public class NotificationPageObject extends MobilePageObject {
             result = Utils.tryClicking(LINK_notRightNow);
             //return result;
 
-                /*//temp fix till dupcliate screen issue if fixed
-                if ( Utils.isVisible(getDriver(), LINK_notRightNow, 3)) {
+                //temp fix till dupcliate screen issue if fixed
+                if ( Utils.isVisible(getDriver(), LINK_notRightNow, 10)) {
                     System.out.println(">>> clicking Not Right Now on Notifications... 2");
                     result = Utils.tryClicking(LINK_notRightNow);
-                }*/
+                }
 
         } else {
             System.out.println(">>> Not Right Now link not visible!");
