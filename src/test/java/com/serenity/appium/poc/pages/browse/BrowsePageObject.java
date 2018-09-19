@@ -1,10 +1,14 @@
-package com.serenity.appium.poc.pages;
+package com.serenity.appium.poc.pages.browse;
 
+import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+
 
 public class BrowsePageObject extends MobilePageObject {
 
@@ -21,12 +25,36 @@ public class BrowsePageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "browse-card-accessories")
     private WebElement TOUCHABLE_TEXT_accessories;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@text='HOT PRODUCTS']")
+    private WebElement HotProductsTitle;
+
+    @AndroidFindBy(xpath="//android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]//android.widget.Button/android.widget.TextView")
+    private WebElement HotProductsFirstItemHeartIcon;
+
+    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[@text='SELECT A LIST']")
+    private WebElement selectAListDialogTitle_PostHeartIconClickAction;
+
+    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='VIEW ALL']")
+    private WebElement selectAListDialog_PostHeartIconClickAction_ViewAllButton;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.Button/android.widget.TextView[2]")
+    private WebElement DeleteListButton;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][2]/android.widget.TextView")
+    private WebElement DeleteListConfirmationYesButton;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][1]/android.widget.TextView")
+    private WebElement DeleteListConfirmationNoButton;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-floating-return']")
+    private WebElement ListDetailPageReturnButton;
+
     public BrowsePageObject(WebDriver driver) {
         super(driver);
     }
 
     public boolean isWineCardPresent() {
-        return Utils.isVisible(getDriver(), TOUCHABLE_TEXT_wine, 5);
+        return Utils.isVisible(getDriver(), TOUCHABLE_TEXT_wine, 15);
     }
 
     public boolean isSpiritsCardPresent() {
@@ -54,6 +82,8 @@ public class BrowsePageObject extends MobilePageObject {
     }
 
     public boolean clickAccessoriesCard() { return Utils.tryClicking(TOUCHABLE_TEXT_accessories); }
+
+
 
     //---- W I N E    C A T E G O R I E S -------------------------------------------------------->
 
@@ -96,6 +126,8 @@ public class BrowsePageObject extends MobilePageObject {
     public boolean clickSeeAllWine() {
         return Utils.tryClicking(TOUCHABLE_TEXT_wineCategorySeeAll);
     }
+
+
 
     //---- W I N E    T Y P E S    S U B C A T E G O R I E S ------------------------------------->
 
@@ -162,5 +194,131 @@ public class BrowsePageObject extends MobilePageObject {
     public boolean clickWineSubcategoryAllWine() {
         return Utils.tryClicking(TOUCHABLE_TEXT_wineSubcategorySeeAll);
     }
+
+
+
+    public boolean isHotProductsTitleDisplayed(){
+        if( Utils.isVisible(getDriver(), HotProductsTitle, 20)){
+            return true;
+        }else{
+            LOGGER.error("HOT PRODUCTS section didn't show up even after 20 seconds");
+            return false;
+        }
+    }
+
+    public boolean isHotProductsFirstItemHeartIconVisible(){
+        return Utils.isVisible(getDriver(), HotProductsFirstItemHeartIcon, 2);
+    }
+
+    public void clickFirstItemHeartIcon(){
+        HotProductsFirstItemHeartIcon.click();
+    }
+
+    public String getFirtItemNameWithHeartIcon(){
+
+        return  getDriver().findElement(By.xpath("//android.widget.TextView[@content-desc=\"product-name\"][1]")).getText();
+    }
+
+    public boolean scrollToHotProductsSection() {
+        boolean displayed = false;
+        int scrollDownCounter = 0;
+
+        if (isAndroid()) {
+
+            if(isHotProductsTitleDisplayed()) {
+
+                displayed = isHotProductsFirstItemHeartIconVisible();
+
+                    while (!displayed && (scrollDownCounter < 4)) {
+                        Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                        displayed = isHotProductsFirstItemHeartIconVisible();
+                        scrollDownCounter++;
+                    }
+            }
+        }
+
+        //iOS TBD
+
+        return displayed;
+    }
+
+    public boolean isSelectAListDialogTitle_PostHeartIconClickActionVisible(){
+       return Utils.isVisible(getDriver(), selectAListDialogTitle_PostHeartIconClickAction, 15);
+    }
+
+    public boolean addSelectedIconByClickingHeartIconToList(String listName){
+        try{
+                String listNameXpathPreFix = "//android.widget.Button/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[";
+                String listNameXpathPostFix = "]/android.view.ViewGroup/android.widget.TextView";
+                String listNameButtonXpathPostFix = "]/android.view.ViewGroup/android.widget.Button";
+
+
+                if (isSelectAListDialogTitle_PostHeartIconClickActionVisible()) {
+
+                    for (int listCount = 1; listCount <= 3; listCount++) {
+
+                        if (getDriver().findElement(By.xpath(listNameXpathPreFix + listCount + listNameXpathPostFix)).getText().equalsIgnoreCase(listName)) {
+
+                            getDriver().findElement(By.xpath(listNameXpathPreFix + listCount + listNameButtonXpathPostFix)).click();
+
+                            //TEMP FIX
+                            //Issue there is no attribute which changes after clicking on checkmark
+                            Thread.sleep(5000);
+
+                            return true;
+                        }
+
+                    }
+                }
+
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void clickViewAllButton(){
+        selectAListDialog_PostHeartIconClickAction_ViewAllButton.click();
+    }
+
+    public boolean verifyItemNameAddedToTheList(String expectedItemName){
+
+        String itemUnderListXPath = "//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+
+        if( Utils.isVisible(getDriver(), By.xpath(itemUnderListXPath), 15)){
+
+            String actualItemName = getDriver().findElement(By.xpath(itemUnderListXPath)).getText();
+
+            return actualItemName.equalsIgnoreCase(expectedItemName);
+        }
+
+        return false;
+    }
+
+    public boolean clickDeleteListButton(){
+        if(Utils.isVisible(getDriver(), DeleteListButton, 15 )){
+            DeleteListButton.click();
+            return true;
+        }
+        return false;
+    }
+
+    public void clickDeleteConfirmationYesButton(){
+        if(Utils.isVisible(getDriver(), DeleteListConfirmationYesButton, 5)){
+            DeleteListConfirmationYesButton.click();
+        }
+    }
+
+    public void clickDeleteConfirmationNoButton(){
+        if(Utils.isVisible(getDriver(), DeleteListConfirmationNoButton, 5)){
+            DeleteListConfirmationNoButton.click();
+        }
+    }
+
+    public void clickListDetailPageReturnButton(){
+        ListDetailPageReturnButton.click();
+    }
+
 }
 

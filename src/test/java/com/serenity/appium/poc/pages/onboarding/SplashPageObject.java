@@ -19,7 +19,7 @@ public class SplashPageObject extends MobilePageObject {
     }
 
     public boolean startOnboarding(){
-        if(Utils.isVisible(getDriver(), LetsBeginButton, 10)) {
+        if(Utils.isVisible(getDriver(), LetsBeginButton, 15)) {
             return Utils.tryClicking(LetsBeginButton);
         }
         return false;
