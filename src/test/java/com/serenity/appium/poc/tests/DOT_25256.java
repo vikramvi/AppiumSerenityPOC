@@ -11,10 +11,10 @@ public class DOT_25256 extends WineAppTest {
         try{
             appSteps.completeQuickOnboarding();
             appSteps.verifyChangeStoreLookupOption();
-            appSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
+            appSteps.verifySelectStoreFromSearchResults("Mountain View", "Mountain View");
             appSteps.verifyShopThisStore();
             appSteps.verifyHomepageToProductSearch();
-            String token = "dom perignon jeff koons brut vintage";
+            String token = "MACALLAN \"M\" CRYSTAL DECANTER";
             appSteps.searchForProduct(token);
             //           appSteps.verifySearchResultCount(1);
             appSteps.selectProductFromSearchResults(token);
