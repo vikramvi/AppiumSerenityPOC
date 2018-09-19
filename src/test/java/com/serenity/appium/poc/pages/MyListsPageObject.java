@@ -1,6 +1,5 @@
-package com.serenity.appium.poc.pages.home;
+package com.serenity.appium.poc.pages;
 
-import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
@@ -67,9 +66,10 @@ public class MyListsPageObject extends MobilePageObject {
 
 
     String listsXPathPrefix = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
-    String listsXPathPostFix = "/android.view.ViewGroup/android.widget.TextView[1]";
+    private String XPATH_PATTERN_lists =
+            "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.TextView[1]";
 
-    public boolean isListNameVisibile(String listName){
+    public boolean isListNameVisible(String listName){
          try {
 
              if (Utils.isVisible(getDriver(), MyListsScreenTitle, 5) && Utils.isVisible(getDriver(), CreateListButton, 5)) {
@@ -81,7 +81,9 @@ public class MyListsPageObject extends MobilePageObject {
 
                      rowCount = listCounter + 1;
 
-                     if (getDriver().findElement(By.xpath(listsXPathPrefix + "[" + rowCount + "]" + listsXPathPostFix)).getText().equalsIgnoreCase(listName)) {
+                     String xpathLists = String.format(XPATH_PATTERN_lists, rowCount);
+
+                     if (getDriver().findElement(By.xpath(xpathLists)).getText().equalsIgnoreCase(listName)) {
                          return true;
                      }
 
@@ -96,8 +98,8 @@ public class MyListsPageObject extends MobilePageObject {
     }
 
 
-    String listNameArrowXPathPrefix = "//android.view.ViewGroup/android.view.ViewGroup[";
-    String listNameArrowXPathPostfix = "]/android.view.ViewGroup/android.widget.TextView[2]";
+    private String XPATH_PATTERN_listNameArrow =
+            "//android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.TextView[2]";
 
     public boolean clickArrowButtonAgainstParticularList(String listName){
 
@@ -107,9 +109,12 @@ public class MyListsPageObject extends MobilePageObject {
         for(int listCounter = 0; listCounter < lists.size(); listCounter++ ){
             rowCount = listCounter + 1;
 
-            if( getDriver().findElement(By.xpath(listsXPathPrefix + "[" + rowCount + "]" + listsXPathPostFix)).getText().equalsIgnoreCase(listName) ){
+            String xpathForListNameArrow = String.format(XPATH_PATTERN_listNameArrow, rowCount);
+            String xpathLists = String.format(XPATH_PATTERN_lists, rowCount);
 
-                getDriver().findElement(By.xpath(listNameArrowXPathPrefix + rowCount + listNameArrowXPathPostfix)).click();
+            if( getDriver().findElement(By.xpath(xpathLists)).getText().equalsIgnoreCase(listName) ){
+
+                getDriver().findElement(By.xpath(xpathForListNameArrow)).click();
 
                 return true;
             }

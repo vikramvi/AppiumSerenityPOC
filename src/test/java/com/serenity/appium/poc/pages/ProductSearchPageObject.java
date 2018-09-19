@@ -24,7 +24,7 @@ public class ProductSearchPageObject extends MobilePageObject {
 
     public boolean typeSearchTerm(String productName){
         try {
-            if(Utils.isVisible(getDriver(), FIELD_searchProduct, 5)) {
+            if(Utils.isVisible(getDriver(), FIELD_searchProduct, 10)) {
                 FIELD_searchProduct.sendKeys(productName);
                 return true;
             }
@@ -69,6 +69,6 @@ public class ProductSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        return Utils.isVisible(getDriver(), FIELD_searchProduct, 5);
+        return Utils.isVisible(getDriver(), FIELD_searchProduct, 10);
     }
 }
