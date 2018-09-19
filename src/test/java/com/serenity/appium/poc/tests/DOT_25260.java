@@ -14,7 +14,7 @@ public class DOT_25260 extends WineAppTest {
             appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
             appSteps.verifyShopThisStore();
             appSteps.verifyHomepageToProductSearch();
-            String token = "modelo especial chelada";
+            String token = "chimay barrel aged grand reserve-rum edition";
             appSteps.searchForProduct(token);
             appSteps.verifyFeeInProductSearchResults(Enums.Fees.CRV);
             appSteps.selectProductFromSearchResults(token);
