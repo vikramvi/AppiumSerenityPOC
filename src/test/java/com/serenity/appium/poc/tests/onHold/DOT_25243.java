@@ -7,7 +7,7 @@ import org.junit.experimental.categories.Category;
 
 public class DOT_25243 extends WineAppTest {
 
-    @Test // verified on iOS, Android on 5/22/18
+    //@Test // verified on iOS, Android on 5/22/18
     @Category({StoreDetails.class})
     public void DOT_25243_verifyNewStoreDirections() {
         try {

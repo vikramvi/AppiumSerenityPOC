@@ -1,4 +1,4 @@
-package com.serenity.appium.poc.tests.androidOnly;
+package com.serenity.appium.poc.tests;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.Regression1;
