@@ -87,7 +87,10 @@ public class AccountOptionsPageObject extends MobilePageObject {
     }
 
     public boolean clickPaymentButton() {
-        return Utils.tryClicking(BUTTON_payment);
+        if(Utils.isVisible(getDriver(), BUTTON_payment, 10 )) {
+            return Utils.tryClicking(BUTTON_payment);
+        }
+        return false;
     }
 
     public boolean clickNotificationsButton() {

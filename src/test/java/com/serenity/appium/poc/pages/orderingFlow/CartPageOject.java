@@ -63,6 +63,9 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button")
     private WebElement ContinueShoppingLink;
 
+    @AndroidFindBy(xpath="//android.widget.TextView[@text='SECURE CHECKOUT']")
+    private WebElement SecureCheckoutButton;
+
 
     public CartPageOject(WebDriver driver){
         super(driver);
@@ -103,15 +106,23 @@ public class CartPageOject extends MobilePageObject {
 
             if (clickMyRewardApply()) {
 
-                if( Utils.isVisible(getDriver(), cartItemPrice, 10) ) {
+                if( Utils.isVisible(getDriver(), cartItemPrice, 10) &&
+                        Utils.isVisible(getDriver(), rewardAppliedText, 10) &&
+                                Utils.isVisible(getDriver(), MyReward_RemoveButton, 10)  ){
 
                         itemPriceAfterRewardIsApplied = Float.parseFloat( cartItemPrice.getText().replace("$", "").trim() );
 
+                        System.out.println("--->   " +  itemPriceBeforeRewardIsApplied + "    " + itemPriceAfterRewardIsApplied );
                         if (itemPriceBeforeRewardIsApplied == itemPriceAfterRewardIsApplied + myRewardPrice) {
                             return true;
+                        }else{
+                            System.out.println("error 2");
+                            LOGGER.error("COUPON could NOT be applied");
                         }
 
                 }
+            }else{
+                LOGGER.error("Reward could NOT be applied");
             }
 
         }
@@ -163,10 +174,13 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
-
     public boolean chooseDeliveryTime(){
         //TBD
         // Blocked - https://totalwine.atlassian.net/browse/MOB-2151
         return false;
+    }
+
+    public void clickSecureCheckout(){
+        SecureCheckoutButton.click();
     }
 }

@@ -11,7 +11,7 @@ public class DOT_25791 extends WineAppTest {
     @Category({Regression1.class})
     public void DOT_25791_verifyPreferencesPage(){
         appSteps.completeQuickOnboarding();
-        appSteps.performLoginFromHomepage();
+        appSteps.createRandomUserFromHomepage();
         appSteps.verifyHomepageToPreferences();
         appSteps.verifyPreferencesInterestsContent();
         appSteps.verifyPreferencesCommunicationsContent();
