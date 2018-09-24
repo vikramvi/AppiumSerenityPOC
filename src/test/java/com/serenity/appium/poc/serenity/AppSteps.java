@@ -58,6 +58,7 @@ public class AppSteps extends ScenarioSteps {
     private ListsSectionPageObject listsSectionPageObject;
     private MyListsPageObject myListsPageObject;
     private DeliveryAddressPageObject deliveryAddressPageObject;
+    private OrderReview orderReviewPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -206,6 +207,7 @@ public class AppSteps extends ScenarioSteps {
     public void createRandomUserFromHomepage() {
         LOGGER.info("Creating random user from homepage...");
         assertThat(myStoreHeaderPageObject.clickCreateAccount()).isTrue();
+        createAccountPageObject.isPageTitleCorrect();
         createAccountPageObject.enterRandomFirstName();
         createAccountPageObject.enterRandomLastName();
         createAccountPageObject.enterRandomEmail();
@@ -600,6 +602,11 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void gotoOrderReviewScreen(){
+        cartPageObject.clickSecureCheckout();
+    }
+
+    @Step
     public void verifyMyRewardGetsAppliedSuccessfully(){
         cartPageObject.isPageTitleCorrect();
         assertThat( cartPageObject.isRewardAppliedSuccessfully() ).isTrue();
@@ -672,5 +679,40 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.isContinueShoppingLinkShown() ).isTrue();
     }
 
+    @Step
+    public void addNewCreditCardFromHomeMoreOptionsAccount(){
+        navigationFooterPageObject.clickMoreMenuButton();
+        navigationFooterMoreMenuPageObject.clickAccountButton();
+        accountOptionsPageObject.clickPaymentButton();
+        paymentsPageObject.clickAddNewPaymentButton();
+
+        assertThat( updatePaymentPageObject.isAddNewPaymentScreenDisplayed() ).isTrue();
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CARD_NUMBER, "5472063333333330");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
+
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ADDRESS1, "1880 N. Congress Ave");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CITY, "Boynton Beach");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.STATE, "FL");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ZIP, "33426");
+
+        updatePaymentPageObject.clickAndroidUpdatePaymentButton();
+        assertThat(updatePaymentPageObject.isCreditCardAddedSuccessfully()).isTrue();
+    }
+
+    @Step
+    public void completeOrderAndVerify(){
+        orderReviewPageObject.isOrderReviewPageTitleCorrect();
+        orderReviewPageObject.clickAgreeToShowAgeProofCheckbox();
+        orderReviewPageObject.completeOrderAndGotoViewDetailsScreen();
+    }
+
+    @Step
+    public void verifyNumberOfCreditCardsDisplayedForNewSignUp(){
+        navigationFooterPageObject.clickMoreMenuButton();
+        assertThat( navigationFooterMoreMenuPageObject.clickAccountButton() ).isTrue();
+        assertThat( accountOptionsPageObject.clickPaymentButton() ).isTrue();
+        assertThat( paymentsPageObject.getTotalNumberOfCreditCardsDisplayed()).isEqualTo(1);
+    }
 
 }
