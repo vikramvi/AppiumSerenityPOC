@@ -1,6 +1,8 @@
 package com.serenity.appium.poc.pages.home;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.pages.NavigationFooterMoreMenuPageObject;
+import com.serenity.appium.poc.pages.NavigationFooterPageObject;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -35,12 +37,17 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-header-my orders")
     private WebElement BUTTON_myOrders;
 
+
+    private NavigationFooterMoreMenuPageObject navigationFooterMoreMenuPageObject;
+    private NavigationFooterPageObject navigationFooterPageObject;
+
+
     public MyStoreHeaderPageObject(WebDriver driver) {
         super(driver);
     }
 
     public boolean isMyOrdersPresent() {
-        boolean result = Utils.isVisible(getDriver(), BUTTON_myOrders, 10);
+        boolean result = Utils.isVisible(getDriver(), BUTTON_myOrders, 15);
         return result;
     }
 
@@ -65,6 +72,19 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     public boolean clickSignIn() {
         if(Utils.isVisible(getDriver(), BUTTON_signIn, 5 )) {
             return Utils.tryClicking(BUTTON_signIn);
+        }else{
+            //User is already logged in, log out first
+            if(Utils.isVisible(getDriver(), BUTTON_myOrders, 2 )){
+                navigationFooterPageObject.clickMoreMenuButton();
+
+                    if(navigationFooterMoreMenuPageObject.isSignOutButtonPresent()) {
+                        navigationFooterMoreMenuPageObject.clickSignOutButton();
+
+                            if (Utils.isVisible(getDriver(), BUTTON_signIn, 10)) {
+                                return Utils.tryClicking(BUTTON_signIn);
+                            }
+                    }
+            }
         }
         return false;
     }

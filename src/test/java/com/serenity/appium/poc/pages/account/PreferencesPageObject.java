@@ -9,7 +9,6 @@ import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.concurrent.TimeUnit;
 
 public class PreferencesPageObject extends MobilePageObject {
 
@@ -41,7 +40,10 @@ public class PreferencesPageObject extends MobilePageObject {
     }
 
     public boolean isPageTitleCorrect() {
-        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
     }
 
     public enum Headers {
@@ -98,26 +100,26 @@ public class PreferencesPageObject extends MobilePageObject {
             this.unchecked = String.format(uncheckedPattern, this.name().toLowerCase());
             this.checked = String.format(checkedPattern, this.name().toLowerCase());
         }
-        public boolean isChecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(checked), 4);
+        public boolean isChecked(WebDriver driver, String productName) {
+            return Utils.isVisible(driver, MobileBy.AccessibilityId("checkbox-"+ productName +"-checked"), 2);
         }
-        public boolean isUnchecked(WebDriver driver) {
-            return Utils.isVisible(driver, MobileBy.AccessibilityId(unchecked), 4);
+        public boolean isUnchecked(WebDriver driver, String productName) {
+            return Utils.isVisible(driver, MobileBy.AccessibilityId("checkbox-"+ productName +"-unchecked"), 2);
         }
-        public boolean check(WebDriver driver) {
-            return Utils.tryClicking(driver, MobileBy.AccessibilityId(unchecked));
+        public boolean check(WebDriver driver, String productName) {
+            return Utils.tryClicking(driver, MobileBy.AccessibilityId("checkbox-"+ productName +"-unchecked"));
         }
-        public boolean uncheck(WebDriver driver) {
-            return Utils.tryClicking(driver, MobileBy.AccessibilityId(checked));
+        public boolean uncheck(WebDriver driver, String productName) {
+            return Utils.tryClicking(driver, MobileBy.AccessibilityId("checkbox-"+ productName +"-checked"));
         }
-        public boolean isVisible(WebDriver driver) {
-            boolean result = isChecked(driver) || isUnchecked(driver);
+        public boolean isVisible(WebDriver driver, String productName) {
+            boolean result = isChecked(driver, productName) || isUnchecked(driver, productName);
             return result;
         }
-        public boolean setToChecked(WebDriver driver) {
+        public boolean setToChecked(WebDriver driver, String productName) {
             try {
-                if (isUnchecked(driver)) {
-                    check(driver);
+                if (isUnchecked(driver, productName)) {
+                    check(driver, productName);
                 }
                 return true;
             } catch (Exception e) {
@@ -125,10 +127,10 @@ public class PreferencesPageObject extends MobilePageObject {
                 return false;
             }
         }
-        public boolean setToUnchecked(WebDriver driver) {
+        public boolean setToUnchecked(WebDriver driver, String productName) {
             try {
-                if (isChecked(driver)) {
-                    uncheck(driver);
+                if (isChecked(driver, productName)) {
+                    uncheck(driver, productName);
                 }
                 return true;
             } catch (Exception e) {

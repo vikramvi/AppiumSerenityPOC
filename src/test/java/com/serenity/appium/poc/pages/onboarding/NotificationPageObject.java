@@ -35,10 +35,10 @@ public class NotificationPageObject extends MobilePageObject {
             //BUG - After tap on link, it doesn't go away immediately but stay for few more seconds
 
                 //temp fix till dupcliate screen issue if fixed
-                if ( Utils.isVisible(getDriver(), LINK_notRightNow, 10)) {
+                /*if ( Utils.isVisible(getDriver(), LINK_notRightNow, 3)) {
                     System.out.println(">>> clicking Not Right Now on Notifications... 2");
                     result = Utils.tryClicking(LINK_notRightNow);
-                }
+                }*/
 
         } else {
             System.out.println(">>> Not Right Now link not visible!");

@@ -3,7 +3,6 @@ package com.serenity.appium.poc.utils;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-import net.thucydides.core.webdriver.WebDriverFacade;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,7 +86,6 @@ public class Utils {
             new WebDriverWait(driver, seconds).until(ExpectedConditions.visibilityOfElementLocated(reference));
             return true;
         }catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
