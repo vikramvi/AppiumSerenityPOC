@@ -47,12 +47,38 @@ public class UpdatePaymentPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     private WebElement BUTTON_return;
 
+    @AndroidFindBy(accessibility = "button-confirm-address")
+    private WebElement CONFIRM_ADDRESS;
+
+    @AndroidFindBy(accessibility = "text-header-payment details")
+    private WebElement paymentDetailsTitle;
+
+    @AndroidFindBy(accessibility = "text-header-billing address")
+    private WebElement billingAddressTitle;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='header-title']")
+    private WebElement postCreditCardAdditionScreenTitle;
+
+    @AndroidFindBy(accessibility = "button-delete-payment")
+    private WebElement paymentsScreenCreditCardEntryDeleteButton;
+
+
     public UpdatePaymentPageObject(WebDriver driver) {
         super(driver);
     }
 
     public boolean isPageTitleCorrect() {
-        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15 )) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
+    }
+
+    public boolean isAddNewPaymentScreenDisplayed(){
+        if( Utils.isVisible(getDriver(),paymentDetailsTitle, 10 ) && Utils.isVisible(getDriver(),billingAddressTitle, 10 ) ){
+            return true;
+        }
+        return false;
     }
 
     public enum Field {CARD_NUMBER, EXPIRATION, CVV, ADDRESS1, ADDRESS2, CITY, STATE, ZIP};
@@ -105,7 +131,10 @@ public class UpdatePaymentPageObject extends MobilePageObject {
     }
 
     public boolean clickAndroidUpdatePaymentButton() {
-        return Utils.tryClicking(getDriver(), BUTTON_updatePayment);
+        if(Utils.isClickable(getDriver(), BUTTON_updatePayment, 5 )) {
+            return Utils.tryClicking(getDriver(), BUTTON_updatePayment);
+        }
+        return false;
     }
 
     public boolean clickUpdatePaymentButton() {
@@ -114,6 +143,13 @@ public class UpdatePaymentPageObject extends MobilePageObject {
         } else {
             return clickAndroidUpdatePaymentButton();
         }
+    }
+
+    public boolean isCreditCardAddedSuccessfully(){
+        if(Utils.isVisible(getDriver(), paymentsScreenCreditCardEntryDeleteButton, 20)){
+            return true;
+        }
+        return false;
     }
 
     public boolean clickAndroidReturn() {
@@ -126,5 +162,15 @@ public class UpdatePaymentPageObject extends MobilePageObject {
         } else {
             return clickAndroidReturn();
         }
+    }
+
+    public boolean addNewAddress(){ //TBD
+        INPUT_address1.sendKeys("");
+        INPUT_city.sendKeys("");
+        INPUT_state.sendKeys("");
+        INPUT_zipcode.sendKeys("");
+        CONFIRM_ADDRESS.click();
+
+        return false;
     }
 }

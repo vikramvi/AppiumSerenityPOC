@@ -48,6 +48,10 @@ public class NavigationFooterMoreMenuPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "MESSAGES")
     private WebElement BUTTON_messages;
 
+    @AndroidFindBy(accessibility = "touchableIcon-payment")
+    private WebElement BUTTON_Payment;
+
+
     public NavigationFooterMoreMenuPageObject(WebDriver driver) {
         super(driver);
     }
@@ -97,7 +101,10 @@ public class NavigationFooterMoreMenuPageObject extends MobilePageObject {
     }
 
     public boolean clickAccountButton() {
-        return Utils.tryClicking(BUTTON_account);
+        if(Utils.isVisible(getDriver(), BUTTON_account, 10)) {
+            return Utils.tryClicking(BUTTON_account);
+        }
+        return false;
     }
 
     public boolean clickCustomerServiceButton() {

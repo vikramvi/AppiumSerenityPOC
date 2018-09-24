@@ -57,7 +57,10 @@ public class CreateAccountPageObject extends MobilePageObject {
     }
 
     public boolean isPageTitleCorrect() {
-        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
     }
 
     public void enterFirstName(String name){

@@ -31,6 +31,7 @@ public class PaymentsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     private WebElement BUTTON_return;
 
+
     public enum CreditCardField {
         LAST4("(//android.widget.TextView[@content-desc='text-card-last4'])[%d]"),
         EXPIRATION("(//android.widget.TextView[@content-desc='text-card-expiration'])[%d]");
@@ -85,7 +86,10 @@ public class PaymentsPageObject extends MobilePageObject {
     }
 
     public boolean clickAndroidAddNewPaymentButton() {
-        return Utils.tryClicking(getDriver(), BUTTON_addNewPayment);
+        if(Utils.isVisible(getDriver(), BUTTON_addNewPayment, 10)) {
+            return Utils.tryClicking(getDriver(), BUTTON_addNewPayment);
+        }
+        return false;
     }
 
     public boolean clickAddNewPaymentButton() {
@@ -106,5 +110,14 @@ public class PaymentsPageObject extends MobilePageObject {
         } else {
             return clickAndroidReturn();
         }
+    }
+
+
+    String xpathForIndividualCreditCardRow = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+    public int getTotalNumberOfCreditCardsDisplayed(){
+        if(Utils.isVisible(getDriver(), BUTTON_addNewPayment, 20)) {
+            return getDriver().findElements(By.xpath(xpathForIndividualCreditCardRow)).size();
+        }
+        return 0;
     }
 }
