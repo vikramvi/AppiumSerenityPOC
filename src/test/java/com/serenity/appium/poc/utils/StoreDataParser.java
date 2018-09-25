@@ -12,7 +12,7 @@ public class StoreDataParser {
     private static String zipRegex = "([0-9]{5}(-[0-9]{4})?)";
     private static String cityStateZipRegex = "(" + cityRegex + "\\s" + stateRegex + "\\s" + zipRegex + ")";
     private static String phoneNumberRegex = "(\\([0-9]{3}\\)\\s[0-9]{3}\\-[0-9]{4})";
-    private static String daysRegex = "((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\\s)?";
+    private static String daysRegex = "((Mon|Tues|Wed|Thu|Fri|Sat|Sun)\\s)?";
     public static String openCloseRegex = "((Opens|Open)\\s" +daysRegex+ "(at|Until)\\s(1[012]|[1-9])\\s(AM|PM))";
     private static String fullStoreData = titleRegex+addressRegex+"?\\s?("+cityRegex+"\\s"+stateRegex
             +"\\s"+zipRegex+")"+"\\s"+openCloseRegex;
