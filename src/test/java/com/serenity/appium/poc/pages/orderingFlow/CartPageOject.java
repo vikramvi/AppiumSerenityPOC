@@ -3,6 +3,7 @@ package com.serenity.appium.poc.pages.orderingFlow;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -27,7 +28,7 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView[2]")
     private WebElement TotalAmount;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView")
+    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']")
     private WebElement crossIcon;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")
@@ -73,7 +74,7 @@ public class CartPageOject extends MobilePageObject {
 
 
     public boolean isPageTitleCorrect() {
-        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 10)) {
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15)) {
             return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
         }
         return false;
@@ -138,6 +139,35 @@ public class CartPageOject extends MobilePageObject {
             return true;
         }
         return false;
+    }
+
+    public boolean deleteAllCartItemsOnebyOne(){
+
+        if( isPageTitleCorrect() && Utils.isVisible(getDriver(), NoItemInCartTitle, 10) ){
+            return true;
+        }
+
+        String cartItemRows_xpath = "//android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']";
+
+        int cartItems = getDriver().findElements(By.xpath(cartItemRows_xpath)).size();
+
+        for(int itemCount = 1; itemCount <= cartItems; itemCount++){
+            crossIcon.click();
+
+            if(Utils.isVisible(getDriver(),cartItemDeleteButton, 5 )){
+                cartItemDeleteButton.click();
+
+                if(isPageTitleCorrect()){
+                    continue;
+                }else{
+                    return false;
+                }
+
+            }
+
+        }
+
+        return true;
     }
 
     public boolean clickSwitchToDeliveryLink(){
