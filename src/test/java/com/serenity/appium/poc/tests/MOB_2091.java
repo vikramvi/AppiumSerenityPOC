@@ -14,7 +14,13 @@ public class MOB_2091 extends WineAppTest{
         String emailId = "jphtest7@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
 
+        appSteps.gotoShopptingCartAndEmptyIt();
         appSteps.gotoHomeTab();
+
+        appSteps.verifyChangeStoreLookupOption();
+        appSteps.verifySelectStoreFromSearchResults("Sacramento", "Sacramento (Arden)");
+        appSteps.verifyShopThisStore();
+
         appSteps.verifyHomepageToProductSearch();
         appSteps.searchForProduct("Hoegaarden");
         appSteps.verifySelectProductFromSearchResults(1);

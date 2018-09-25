@@ -597,6 +597,12 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void gotoShopptingCartAndEmptyIt(){
+        assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+        assertThat( cartPageObject.deleteAllCartItemsOnebyOne() ).isTrue();
+    }
+
+    @Step
     public void gotoCARTScreen(){
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();

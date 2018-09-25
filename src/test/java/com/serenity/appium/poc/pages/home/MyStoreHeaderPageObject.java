@@ -137,7 +137,7 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isChangeStoreOptionPresent() {
-        return Utils.isVisible(getDriver(), BUTTON_changeStore, 15);
+        return Utils.isVisible(getDriver(), BUTTON_changeStore, 20);
     }
 
     public boolean clickChangeStore() {
@@ -147,7 +147,22 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     public boolean clickCreateAccount() {
         if(Utils.isVisible(getDriver(), BUTTON_createAccount, 20 )) {
             return Utils.tryClicking(BUTTON_createAccount);
+        }else{
+            //User is already logged in, log out first
+            if(Utils.isVisible(getDriver(), BUTTON_myOrders, 2 )){
+                navigationFooterPageObject.clickMoreMenuButton();
+
+                if(navigationFooterMoreMenuPageObject.isSignOutButtonPresent()) {
+                    navigationFooterMoreMenuPageObject.clickSignOutButton();
+
+                    if (Utils.isVisible(getDriver(), BUTTON_createAccount, 10)) {
+                        return Utils.tryClicking(BUTTON_createAccount);
+                    }
+                }
+            }
         }
+
+
         return false;
     }
 }
