@@ -111,8 +111,8 @@
                     <forkCount>0</forkCount>
                     <includes>
                         <include>${completeTestSuite}</include>
-                        <!--include>${singleTestRun}</include-->
-                        <!--include>${androidOnly}</include-->
+                        <!--<include>${singleTestRun}</include>-->
+                        <!--<include>${androidOnly}</include>-->
                     </includes>
                     <argLine>-Xmx512m</argLine>
                 </configuration>
