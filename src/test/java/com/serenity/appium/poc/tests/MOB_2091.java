@@ -11,7 +11,7 @@ public class MOB_2091 extends WineAppTest{
     @Category({Regression1.class})
     public void MOB_2091_verifyCouponUsageOnCheckoutScreen(){
         appSteps.completeQuickOnboarding();
-        String emailId = "jphtest7@yopmail.com";
+        String emailId = "jphtest@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
 
         appSteps.gotoShopptingCartAndEmptyIt();
@@ -22,7 +22,7 @@ public class MOB_2091 extends WineAppTest{
         appSteps.verifyShopThisStore();
 
         appSteps.verifyHomepageToProductSearch();
-        appSteps.searchForProduct("Hoegaarden");
+        appSteps.searchForProduct("108148750-1");
         appSteps.verifySelectProductFromSearchResults(1);
 
         appSteps.gotoCARTScreen();

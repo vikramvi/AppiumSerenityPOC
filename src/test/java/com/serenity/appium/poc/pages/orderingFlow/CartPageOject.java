@@ -96,7 +96,7 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
-    private int myRewardPrice = 5;
+    private int myRewardPrice = 35;
     public boolean isRewardAppliedSuccessfully(){
 
         float itemPriceBeforeRewardIsApplied, itemPriceAfterRewardIsApplied;
@@ -111,18 +111,23 @@ public class CartPageOject extends MobilePageObject {
                         Utils.isVisible(getDriver(), rewardAppliedText, 10) &&
                                 Utils.isVisible(getDriver(), MyReward_RemoveButton, 10)  ){
 
-                        itemPriceAfterRewardIsApplied = Float.parseFloat( cartItemPrice.getText().replace("$", "").trim() );
+                    itemPriceAfterRewardIsApplied = Float.parseFloat( cartItemPrice.getText().replace("$", "").trim() );
 
-                        System.out.println("--->   " +  itemPriceBeforeRewardIsApplied + "    " + itemPriceAfterRewardIsApplied );
-                        if (itemPriceBeforeRewardIsApplied == itemPriceAfterRewardIsApplied + myRewardPrice) {
-                            return true;
-                        }else{
-                            System.out.println("error 2");
-                            LOGGER.error("COUPON could NOT be applied");
-                        }
+                    System.out.println("--->   " +  itemPriceBeforeRewardIsApplied + "    " + itemPriceAfterRewardIsApplied );
 
+//                        if (itemPriceBeforeRewardIsApplied == itemPriceAfterRewardIsApplied + myRewardPrice) {
+                    float difference = Math.abs(itemPriceBeforeRewardIsApplied - (itemPriceAfterRewardIsApplied + myRewardPrice));
+                    if (difference < 0.00001) {
+                        return true;
+                    } else {
+                        System.out.println("error 2");
+                        LOGGER.error("COUPON could NOT be applied");
+                    }
+
+                } else {
+                    LOGGER.error("Reward not applied successfully");
                 }
-            }else{
+            } else {
                 LOGGER.error("Reward could NOT be applied");
             }
 
