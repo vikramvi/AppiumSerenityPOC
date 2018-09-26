@@ -18,22 +18,21 @@ public class DOT_25248 extends WineAppTest {
     @Category({Regression1.class, FindStore.class})
     public void DOT_25248_verifyAllTastingHourTypes(){
         try{
+            List<DayOfWeek> spiritsTastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+            List<DayOfWeek> wineTastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY));
+            List<DayOfWeek> beerTastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+
             appSteps.completeQuickOnboarding();
             appSteps.verifyChangeStoreLookupOption();
-            appSteps.verifySelectStoreFromSearchResults("MD", "Laurel (Corridor)");
+            appSteps.verifySelectStoreFromSearchResults("Claymont", "Claymont");
             appSteps.verifyShowTastingHours();
-            List<DayOfWeek> tastingDays = new ArrayList<DayOfWeek>(Arrays.asList(DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
-
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, tastingDays, false);
-            tastingDays.remove(DayOfWeek.TUESDAY);
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, tastingDays, true);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.SPIRITS, spiritsTastingDays, true);
 
             appSteps.verifyStoreDetailsToHomepage();
             appSteps.verifySelectStoreFromSearchResults("Chesterfield", "Chesterfield");
             appSteps.verifyShowTastingHours();
-            tastingDays.remove(DayOfWeek.WEDNESDAY);
-            tastingDays.remove(DayOfWeek.THURSDAY);
-            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, tastingDays, false);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.WINE, wineTastingDays, true);
+            appSteps.verifyTastingHours(TastingHoursPageObject.TastingType.BEER, beerTastingDays, false);
         }catch (Exception e){
             e.printStackTrace();
         }
