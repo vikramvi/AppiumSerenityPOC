@@ -1,6 +1,7 @@
 package com.serenity.appium.poc.pages;
 
 import com.serenity.appium.poc.utils.Scrolling;
+import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -29,8 +30,11 @@ public class GrowlerStationPageObject extends MobilePageObject {
     }
 
     public String getHeaderTitle() {
-        String result = TEXT_headerTitle.getText();
-        return result;
+        if(Utils.isVisible(getDriver(), TEXT_headerTitle, 15)) {
+            String result = TEXT_headerTitle.getText();
+            return result;
+        }
+        return "";
     }
 
     private String TEXT_expectedHeaderTitle = "WHAT'S ON TAP?";
