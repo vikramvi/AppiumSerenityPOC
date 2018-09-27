@@ -40,6 +40,9 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-reset-password")
     private WebElement ResetButton;
 
+    @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[2][contains(@text,'ITEM')]")
+    private WebElement topRightCornderItemsCount;
+
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
     }
@@ -422,13 +425,21 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
              }
 
              String xPathPattern_BeerSub_SubCategory = "//android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+             String xPathPattern_BeerSub_SubCategoryCount = "//android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[3]";
+
+             int  thirdLevelFilterCount = 0 ;
 
              if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
                  for (int count = 2; count <= 6; count++) {
-                     String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
 
-                     if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(0))) {
-                         getDriver().findElement(By.xpath(xpath)).click();
+                     String xpathForThirdLevelFilterName  = String.format(xPathPattern_BeerSub_SubCategory, count);
+                     String xpathForThirdLevelFilterCount = String.format(xPathPattern_BeerSub_SubCategoryCount, count);
+
+                     if (getDriver().findElement(By.xpath(xpathForThirdLevelFilterName)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(0))) {
+
+                         thirdLevelFilterCount = Integer.parseInt(getDriver().findElement(By.xpath(xpathForThirdLevelFilterCount)).getText() );
+
+                         getDriver().findElement(By.xpath(xpathForThirdLevelFilterName)).click();
                          break;
                      }
 
@@ -441,7 +452,12 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
              }
 
 
+             int postApplyingThirdFilterCount = 0;
+
              if (getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).getText().contains(secondLevelFilter.toUpperCase())) {
+
+                 postApplyingThirdFilterCount = Integer.parseInt( topRightCornderItemsCount.getText().replaceAll("[^0-9]", "") );
+
                  getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).click();
              } else {
                  LOGGER.error("Error 3");
@@ -454,10 +470,15 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
                  Scrolling.scrollDown();
 
                  for (int count = 2; count <= 6; count++) {
-                     String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
 
-                     if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(1))) {
-                         getDriver().findElement(By.xpath(xpath)).click();
+                     String xpathForThirdLevelFilterName  = String.format(xPathPattern_BeerSub_SubCategory, count);
+                     String xpathForThirdLevelFilterCount = String.format(xPathPattern_BeerSub_SubCategoryCount, count);
+
+                     if (getDriver().findElement(By.xpath(xpathForThirdLevelFilterName)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(1))) {
+
+                         thirdLevelFilterCount = thirdLevelFilterCount + Integer.parseInt(getDriver().findElement(By.xpath(xpathForThirdLevelFilterCount)).getText() );
+
+                         getDriver().findElement(By.xpath(xpathForThirdLevelFilterName)).click();
                          break;
                      }
 
@@ -468,6 +489,14 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
              }
 
              if(verifyFilterDoneButtonCount(3)){
+
+                 postApplyingThirdFilterCount = Integer.parseInt( getDriver().findElement(By.xpath("//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[2][contains(@text,'ITEM')]")).getText().replaceAll("[^0-9]", "") );
+
+                 if( postApplyingThirdFilterCount!= thirdLevelFilterCount ) {
+                     LOGGER.error("Error 5");
+                     return false;
+                 }
+
                  return true;
              }
 
@@ -475,7 +504,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
         }catch (Exception e){
             e.printStackTrace();
-            LOGGER.error("Error 5");
+            LOGGER.error("Error 6");
             return false;
         }
     }
