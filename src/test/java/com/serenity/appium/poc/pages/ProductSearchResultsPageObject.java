@@ -21,7 +21,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "search results count")
     private WebElement TEXT_searchResultsCount;
 
-    @AndroidFindBy(accessibility =  "button-F-return")
+    @AndroidFindBy(accessibility = "button-floating-return")
     @iOSFindBy(accessibility = "button-floating-return")
     private WebElement BUTTON_return;
 
@@ -36,6 +36,9 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "button-apply")
     private WebElement DoneButton;
+
+    @AndroidFindBy(accessibility = "button-reset-password")
+    private WebElement ResetButton;
 
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
@@ -391,114 +394,101 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
             }
         }
 
-
-        if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='touchable-product-filter-option'][2]/android.widget.TextView[1]")), 25) ){
-                if ( getDriver().findElement(By.xpath("//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[1]")).getText().equalsIgnoreCase(searchTerm) &&
-                     getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (1)") ) {
-                     return true;
-                }
+        if(verifyFilterDoneButtonCount(1)){
+            return true;
         }
 
         return false;
     }
 
     public boolean SelectSecondLevelCategoryAndSelectMultipleThirdLevelCategories(String secondLevelFilter, List<String> thirdLevelFilters){
+        try {
+             int countForBeerSubCategory = 0;
 
-     try {
+             String xPathPattern_BeerSubCategory = "//android.widget.Button[@content-desc='touchable-product-filter-option'][%d]/android.widget.TextView[1]";
 
-         int countForBeerSubCategory = 0;
+             if(Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, 1))), 5)) {
+                 for (int count = 1; count <= 13; count++) {
+                     String xpath = String.format(xPathPattern_BeerSubCategory, count);
 
-         String xPathPattern_BeerSubCategory = "//android.widget.Button[@content-desc='touchable-product-filter-option'][%d]/android.widget.TextView[1]";
+                     if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(secondLevelFilter)) {
+                         getDriver().findElement(By.xpath(xpath)).click();
+                         countForBeerSubCategory = count;
+                         break;
+                     }
+                 }
+             }else{
+                 LOGGER.error("Error 1");
+             }
 
-         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, 1))), 5)) {
-             for (int count = 1; count <= 13; count++) {
-                 String xpath = String.format(xPathPattern_BeerSubCategory, count);
+             String xPathPattern_BeerSub_SubCategory = "//android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
 
-                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(secondLevelFilter)) {
-                     getDriver().findElement(By.xpath(xpath)).click();
-                     countForBeerSubCategory = count;
-                     break;
+             if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
+                 for (int count = 2; count <= 6; count++) {
+                     String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
+
+                     if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(0))) {
+                         getDriver().findElement(By.xpath(xpath)).click();
+                         break;
+                     }
+
                  }
              }
-         }
 
-
-         //tap on sub-category below Style
-         String xPathPattern_BeerSub_SubCategory = "//android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
-
-         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
-             for (int count = 2; count <= 6; count++) {
-                 String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
-
-                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(0))) {
-                     getDriver().findElement(By.xpath(xpath)).click();
-                     break;
-                 }
-
-             }
-         }
-
-         //verify button count
-
-         if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))), 20)){
-             if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (2)")) {
-
-             } else {
-                 System.out.println(" Error  1");
+             if(!verifyFilterDoneButtonCount(2)){
+                 LOGGER.error("Error 2");
                  return false;
              }
-         } else {
-             System.out.println(" Error  2");
-
-             return false;
-         }
 
 
-         //again tap on Style with 1 filter applies
-         if (getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).getText().contains(secondLevelFilter.toUpperCase())) {
-             getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).click();
-         } else {
-             System.out.println(" Error  3");
-
-             return false;
-         }
-
-
-         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
-             //scroll to 2nd screen to click American Double/ Imperial IPA
-             Scrolling.scrollDown();
-
-             for (int count = 2; count <= 6; count++) {
-                 String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
-
-                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(1))) {
-                     getDriver().findElement(By.xpath(xpath)).click();
-                     break;
-                 }
-
+             if (getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).getText().contains(secondLevelFilter.toUpperCase())) {
+                 getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).click();
+             } else {
+                 LOGGER.error("Error 3");
+                 return false;
              }
-         } else {
-             System.out.println(" Error  4");
 
-             return false;
-         }
 
-         //verify button filter count
-         if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))), 20)){
-             if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (3)")) {
+             if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
+                 //scroll to 2nd screen to click American Double/ Imperial IPA
+                 Scrolling.scrollDown();
+
+                 for (int count = 2; count <= 6; count++) {
+                     String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
+
+                     if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(1))) {
+                         getDriver().findElement(By.xpath(xpath)).click();
+                         break;
+                     }
+
+                 }
+             } else {
+                 LOGGER.error("Error 4");
+                 return false;
+             }
+
+             if(verifyFilterDoneButtonCount(3)){
                  return true;
              }
-         }
 
-         System.out.println(" Error  5");
+             return false;
 
-         return false;
-
-     }catch (Exception e){
-         e.printStackTrace();
-         return false;
-     }
+        }catch (Exception e){
+            e.printStackTrace();
+            LOGGER.error("Error 5");
+            return false;
+        }
     }
 
+    public boolean verifyFilterDoneButtonCount(int expectedCount){
+
+        if( Utils.isClickable(getDriver(), DoneButton, 20) && Utils.isClickable(getDriver(), ResetButton, 20)){
+            LOGGER.info("BUTTON --- " + getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText());
+            if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (" + expectedCount + ")")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
