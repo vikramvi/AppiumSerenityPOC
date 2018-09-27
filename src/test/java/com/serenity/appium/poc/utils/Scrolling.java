@@ -32,8 +32,8 @@ public class Scrolling {
     }
 
     public enum AndroidDirection {
-        DOWN(0.80, 0.15),
-        UP(0.20, 0.80);
+        DOWN(0.70, 0.20),
+        UP(0.20, 0.70);
         double yStartPercentage;
         double yEndPercentage;
 

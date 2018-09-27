@@ -723,4 +723,13 @@ public class AppSteps extends ScenarioSteps {
         assertThat( paymentsPageObject.getTotalNumberOfCreditCardsDisplayed()).isEqualTo(1);
     }
 
+    @Step
+    public void verifyFilterSecondAndThirdLevelSelections(String searchTerm, String secondLevelFilter, List<String> thirdLevelFilters){
+        productSearchResultsPageObject.tapFilterButton();
+        productSearchResultsPageObject.selectDepartment_FirstFilter();
+        productSearchResultsPageObject.verifyDepartment_SecondFilterOptions();
+        productSearchResultsPageObject.selectOneOfTheFirstFilterOptionsUnderDEPARTMENTFilter(searchTerm);
+        assertThat( productSearchResultsPageObject.SelectSecondLevelCategoryAndSelectMultipleThirdLevelCategories(secondLevelFilter, thirdLevelFilters) ).isTrue();
+    }
+
 }

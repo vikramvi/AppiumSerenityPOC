@@ -1,9 +1,6 @@
 package com.serenity.appium.poc.pages;
 
-import com.serenity.appium.poc.utils.Enums;
-import com.serenity.appium.poc.utils.IosPlpDataParser;
-import com.serenity.appium.poc.utils.IosPlpProductSelector;
-import com.serenity.appium.poc.utils.Utils;
+import com.serenity.appium.poc.utils.*;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -12,19 +9,37 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProductSearchResultsPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"search results count\"]/android.widget.TextView")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc='search results count']/android.widget.TextView")
     @iOSFindBy(accessibility = "search results count")
     private WebElement TEXT_searchResultsCount;
 
-    @AndroidFindBy(accessibility =  "button-floating-return")
+    @AndroidFindBy(accessibility =  "button-F-return")
     @iOSFindBy(accessibility = "button-floating-return")
     private WebElement BUTTON_return;
+
+    @AndroidFindBy(accessibility = "button-product-sort")
+    private WebElement SortButton;
+
+    @AndroidFindBy(accessibility = "button-refine-product")
+    private WebElement FilterButton;
+
+    @AndroidFindBy(accessibility =  "touchable-product-filter-option")
+    private WebElement DepartmentFilterButton;
+
+    @AndroidFindBy(accessibility = "button-apply")
+    private WebElement DoneButton;
+
+    public ProductSearchResultsPageObject(WebDriver driver) {
+        super(driver);
+    }
 
     public boolean clickReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -316,8 +331,174 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return found;
     }
 
-    public ProductSearchResultsPageObject(WebDriver driver) {
-        super(driver);
+
+    public void tapFilterButton(){
+        if(Utils.isVisible(getDriver(), FilterButton, 15 )) {
+            FilterButton.click();
+        }
     }
+
+    public void selectDepartment_FirstFilter(){
+        if(Utils.isVisible(getDriver(), DepartmentFilterButton, 15 )) {
+            DepartmentFilterButton.click();
+        }
+    }
+
+    public boolean verifyDepartment_SecondFilterOptions(){
+        List<String> expectedDepartmentCategories = Arrays.asList("BEER", "ACCESSORIES & MORE", "WINE");
+        List<String> actualDeparmentCategories = new ArrayList<>();
+
+
+        //verify Department categories
+        String xPathPattern_ActualDepartmentCategory = "//android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+
+        if(Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_ActualDepartmentCategory, 2))),10 )) {
+
+            for (int count = 2; count <= 4; count++) {
+                String xpath = String.format(xPathPattern_ActualDepartmentCategory, count);
+                String actualDepartmentCategory = getDriver().findElement(By.xpath(xpath)).getText();
+                actualDeparmentCategories.add(actualDepartmentCategory);
+            }
+
+            if (expectedDepartmentCategories.equals(actualDeparmentCategories)) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean selectOneOfTheFirstFilterOptionsUnderDEPARTMENTFilter(String searchTerm){
+
+        String actualXpathSearchTerm, actualXPathSearchTermCheckBox,
+                                    XPath_SearchTerm = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]",
+                            XPath_SearchTermCheckBox = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]";
+
+        for(int tryCount = 2; tryCount <= 5; tryCount++) {
+
+            actualXpathSearchTerm         = String.format(XPath_SearchTerm, tryCount);
+            actualXPathSearchTermCheckBox = String.format(XPath_SearchTermCheckBox, tryCount);
+
+            if(getDriver().findElement(By.xpath(actualXpathSearchTerm)).getText().equalsIgnoreCase(searchTerm)) {
+                getDriver().findElement(By.xpath(actualXPathSearchTermCheckBox)).click();
+                break;
+            }
+
+            if(tryCount == 4){
+                return false;
+            }
+        }
+
+
+        if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='touchable-product-filter-option'][2]/android.widget.TextView[1]")), 25) ){
+                if ( getDriver().findElement(By.xpath("//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[1]")).getText().equalsIgnoreCase(searchTerm) &&
+                     getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (1)") ) {
+                     return true;
+                }
+        }
+
+        return false;
+    }
+
+    public boolean SelectSecondLevelCategoryAndSelectMultipleThirdLevelCategories(String secondLevelFilter, List<String> thirdLevelFilters){
+
+     try {
+
+         int countForBeerSubCategory = 0;
+
+         String xPathPattern_BeerSubCategory = "//android.widget.Button[@content-desc='touchable-product-filter-option'][%d]/android.widget.TextView[1]";
+
+         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, 1))), 5)) {
+             for (int count = 1; count <= 13; count++) {
+                 String xpath = String.format(xPathPattern_BeerSubCategory, count);
+
+                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(secondLevelFilter)) {
+                     getDriver().findElement(By.xpath(xpath)).click();
+                     countForBeerSubCategory = count;
+                     break;
+                 }
+             }
+         }
+
+
+         //tap on sub-category below Style
+         String xPathPattern_BeerSub_SubCategory = "//android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+
+         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
+             for (int count = 2; count <= 6; count++) {
+                 String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
+
+                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(0))) {
+                     getDriver().findElement(By.xpath(xpath)).click();
+                     break;
+                 }
+
+             }
+         }
+
+         //verify button count
+
+         if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))), 20)){
+             if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (2)")) {
+
+             } else {
+                 System.out.println(" Error  1");
+                 return false;
+             }
+         } else {
+             System.out.println(" Error  2");
+
+             return false;
+         }
+
+
+         //again tap on Style with 1 filter applies
+         if (getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).getText().contains(secondLevelFilter.toUpperCase())) {
+             getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).click();
+         } else {
+             System.out.println(" Error  3");
+
+             return false;
+         }
+
+
+         if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSub_SubCategory, 2))), 5)) {
+             //scroll to 2nd screen to click American Double/ Imperial IPA
+             Scrolling.scrollDown();
+
+             for (int count = 2; count <= 6; count++) {
+                 String xpath = String.format(xPathPattern_BeerSub_SubCategory, count);
+
+                 if (getDriver().findElement(By.xpath(xpath)).getText().trim().equalsIgnoreCase(thirdLevelFilters.get(1))) {
+                     getDriver().findElement(By.xpath(xpath)).click();
+                     break;
+                 }
+
+             }
+         } else {
+             System.out.println(" Error  4");
+
+             return false;
+         }
+
+         //verify button filter count
+         if( Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))), 20)){
+             if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (3)")) {
+                 return true;
+             }
+         }
+
+         System.out.println(" Error  5");
+
+         return false;
+
+     }catch (Exception e){
+         e.printStackTrace();
+         return false;
+     }
+    }
+
 
 }
