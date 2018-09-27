@@ -160,7 +160,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 //        } else {
 //            result = getIosProductName();
 //        }
-        if(Utils.isVisible(getDriver(),TEXT_productName, 5 )){
+        if(Utils.isVisible(getDriver(),TEXT_productName, 15 )){
           result = TEXT_productName.getText();
         }
 

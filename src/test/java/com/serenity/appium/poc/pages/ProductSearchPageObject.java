@@ -69,6 +69,6 @@ public class ProductSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        return Utils.isVisible(getDriver(), FIELD_searchProduct, 10);
+        return Utils.isVisible(getDriver(), FIELD_searchProduct, 20);
     }
 }
