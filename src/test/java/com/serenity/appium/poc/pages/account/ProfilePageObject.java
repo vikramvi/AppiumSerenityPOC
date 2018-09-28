@@ -1,30 +1,22 @@
 package com.serenity.appium.poc.pages.account;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
-import com.serenity.appium.poc.utils.IosProfileButtonSelector;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.*;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import io.appium.java_client.touch.LongPressOptions;
 import net.thucydides.core.webdriver.WebDriverFacade;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static io.appium.java_client.touch.offset.PointOption.point;
 
-import java.time.Duration;
-import java.util.HashMap;
-
-import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
-import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
-
 public class ProfilePageObject extends MobilePageObject {
+
+    @AndroidFindBy(accessibility = "header-title")
+    private WebElement TEXT_pageTitle;
+    private static final String expectedTitle = "PROFILE";
 
     @AndroidFindBy(accessibility = "android-input-First Name")
     @iOSFindBy(accessibility = "ios-input-First-Name")
@@ -34,7 +26,7 @@ public class ProfilePageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "ios-input-Last-Name")
     private WebElement INPUT_lastName;
 
-    @AndroidFindBy(accessibility = "android-input-Phone-Number")
+    @AndroidFindBy(accessibility = "android-input-Phone Number")
     @iOSFindBy(accessibility = "ios-input-Phone Number")
     private WebElement INPUT_phoneNumber;
 
@@ -60,6 +52,41 @@ public class ProfilePageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     private WebElement BUTTON_return;
 
+    public boolean isPageTitleCorrect() {
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
+    }
+
+    public boolean isToastMessageDisplayed(){
+        boolean isToastMessageSeen = false;
+
+        String xml1 = getDriver().getPageSource();
+        Utils.waitFor(200);
+        String xml2 = getDriver().getPageSource();
+        Utils.waitFor(200);
+        String xml3 = getDriver().getPageSource();
+        Utils.waitFor(200);
+        String xml4 = getDriver().getPageSource();
+
+
+        if( xml1.contains("SUCCESS") && xml1.contains("User updated successfully") ) {
+            System.out.println("Toast message displayed 1: " + "SUCCESS" + "  User updated successfully");
+            return true;
+        }else if( xml2.contains("SUCCESS") && xml2.contains("User updated successfully") ){
+            System.out.println("Toast message displayed 2: " + "SUCCESS" + "  User updated successfully");
+            return true;
+        }else if( xml3.contains("SUCCESS") && xml2.contains("User updated successfully") ){
+            System.out.println("Toast message displayed 3: " + "SUCCESS" + "  User updated successfully");
+            return true;
+        }else if( xml4.contains("SUCCESS") && xml2.contains("User updated successfully") ){
+            System.out.println("Toast message displayed 4: " + "SUCCESS" + "  User updated successfully");
+            return true;
+        }
+
+        return isToastMessageSeen;
+    }
 
     public ProfilePageObject(WebDriver driver) {
         super(driver);
