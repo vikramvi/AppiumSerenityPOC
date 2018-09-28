@@ -24,7 +24,7 @@ public class DOT_25245 extends WineAppTest {
                     "MD", title, address1, address2, cityStateZip, phoneNumber, hours);
             appSteps.verifySelectStoreFromSearchResults(title);
             appSteps.verifyStoreDetailsHeaderData(
-                    title, address1, address2, cityStateZip, openUntil);
+                    title, address1, address2, cityStateZip); // , openUntil);
         } catch (Exception e) {
             e.printStackTrace();
         }
