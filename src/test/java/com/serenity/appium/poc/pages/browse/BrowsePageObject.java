@@ -290,7 +290,8 @@ public class BrowsePageObject extends MobilePageObject {
 
             String actualItemName = getDriver().findElement(By.xpath(itemUnderListXPath)).getText();
 
-            return actualItemName.equalsIgnoreCase(expectedItemName);
+//            return actualItemName.equalsIgnoreCase(expectedItemName);
+            return expectedItemName.contains(actualItemName); // list name may drop vintage
         }
 
         return false;

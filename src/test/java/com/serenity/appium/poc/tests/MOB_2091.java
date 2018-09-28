@@ -9,7 +9,7 @@ public class MOB_2091 extends WineAppTest{
 
     @Test
     @Category({Regression1.class})
-    public void MOB_2091_verifyCouponUsageOnCheckoutScreen(){
+    public void MOB_2091_verifyCertificateUsageOnCheckoutScreen(){
         appSteps.completeQuickOnboarding();
         String emailId = "jphtest@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);

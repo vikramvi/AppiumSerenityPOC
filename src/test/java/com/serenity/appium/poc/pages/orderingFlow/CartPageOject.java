@@ -96,7 +96,7 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
-    private int myRewardPrice = 35;
+    private int myRewardPrice = 5;
     public boolean isRewardAppliedSuccessfully(){
 
         float itemPriceBeforeRewardIsApplied, itemPriceAfterRewardIsApplied;
