@@ -732,4 +732,16 @@ public class AppSteps extends ScenarioSteps {
         assertThat( productSearchResultsPageObject.SelectSecondLevelCategoryAndSelectMultipleThirdLevelCategories(secondLevelFilter, thirdLevelFilters) ).isTrue();
     }
 
+    @Step
+    public void verifyToastMessageOnProfilePage(){
+      navigationFooterPageObject.clickMoreMenuButton();
+      navigationFooterMoreMenuPageObject.clickAccountButton();
+      accountOptionsPageObject.clickProfileButton();
+      profilePageObject.enterPhoneNumber("8005551212", true);
+      profilePageObject.clickUpdateButton();
+      profilePageObject.isPageTitleCorrect();
+      assertThat( profilePageObject.isToastMessageDisplayed() ).isTrue();
+
+    }
+
 }
