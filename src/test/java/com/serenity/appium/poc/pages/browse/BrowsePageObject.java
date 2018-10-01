@@ -37,17 +37,7 @@ public class BrowsePageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='VIEW ALL']")
     private WebElement selectAListDialog_PostHeartIconClickAction_ViewAllButton;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.Button/android.widget.TextView[2]")
-    private WebElement DeleteListButton;
 
-    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][2]/android.widget.TextView")
-    private WebElement DeleteListConfirmationYesButton;
-
-    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][1]/android.widget.TextView")
-    private WebElement DeleteListConfirmationNoButton;
-
-    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-floating-return']")
-    private WebElement ListDetailPageReturnButton;
 
     public BrowsePageObject(WebDriver driver) {
         super(driver);
@@ -295,30 +285,6 @@ public class BrowsePageObject extends MobilePageObject {
         }
 
         return false;
-    }
-
-    public boolean clickDeleteListButton(){
-        if(Utils.isVisible(getDriver(), DeleteListButton, 15 )){
-            DeleteListButton.click();
-            return true;
-        }
-        return false;
-    }
-
-    public void clickDeleteConfirmationYesButton(){
-        if(Utils.isVisible(getDriver(), DeleteListConfirmationYesButton, 5)){
-            DeleteListConfirmationYesButton.click();
-        }
-    }
-
-    public void clickDeleteConfirmationNoButton(){
-        if(Utils.isVisible(getDriver(), DeleteListConfirmationNoButton, 5)){
-            DeleteListConfirmationNoButton.click();
-        }
-    }
-
-    public void clickListDetailPageReturnButton(){
-        ListDetailPageReturnButton.click();
     }
 
 }

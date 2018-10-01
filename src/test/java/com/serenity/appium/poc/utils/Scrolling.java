@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.HashMap;
 
 import static com.serenity.appium.poc.pages.MobilePageObject.isAndroid;
-import static com.sun.javafx.font.PrismFontFactory.isAndroid;
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class Scrolling {
@@ -54,7 +53,21 @@ public class Scrolling {
         WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
         TouchAction touchAction = new TouchAction((AndroidDriver) driver);
 
-//        Duration duration = Duration.ofSeconds(2);
+        WaitOptions duration = WaitOptions.waitOptions(Duration.ofSeconds(2));
+        touchAction.press(PointOption.point(x, startY)).waitAction(duration).moveTo(PointOption.point(x, endY)).release().perform();
+    }
+
+    public static void androidSwipe(AndroidDirection direction, double heightStartPercentage, double heightEndPercentage) {
+        int height = getScreenDimension(Axis.Y);
+        int width = getScreenDimension(Axis.X);
+        int x = width / 2;
+        int startY = (int) (height * heightStartPercentage);
+        int endY = (int) (height * heightEndPercentage);
+
+        WebDriver facade = getDriver();
+        WebDriver driver = ((WebDriverFacade) facade).getProxiedDriver();
+        TouchAction touchAction = new TouchAction((AndroidDriver) driver);
+
         WaitOptions duration = WaitOptions.waitOptions(Duration.ofSeconds(2));
         touchAction.press(PointOption.point(x, startY)).waitAction(duration).moveTo(PointOption.point(x, endY)).release().perform();
     }
@@ -83,6 +96,19 @@ public class Scrolling {
                 androidSwipe(AndroidDirection.DOWN);
             } else {
                 iosScroll(IosDirection.DOWN);
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean scrollDown(double heightStartPercentage, double heightEndPercentage){
+        try {
+            if (isAndroid()) {
+                androidSwipe(AndroidDirection.DOWN, heightStartPercentage, heightEndPercentage);
+            } else {
+                //TBD for iOS
             }
             return true;
         } catch (Exception e) {

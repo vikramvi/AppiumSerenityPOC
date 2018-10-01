@@ -23,9 +23,6 @@ public class MyListsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.Button/android.widget.TextView[@text='SAVE']")
     private WebElement SaveListNameButton;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView")
-    private WebElement StartBrowsingButton;
-
 
     public MyListsPageObject(WebDriver driver) {
         super(driver);
@@ -120,14 +117,6 @@ public class MyListsPageObject extends MobilePageObject {
             }
         }
 
-        return false;
-    }
-
-    public boolean clickStartBrowsingButton(){
-        if(Utils.isVisible(getDriver(), StartBrowsingButton, 15 )) {
-            StartBrowsingButton.click();
-            return true;
-        }
         return false;
     }
 

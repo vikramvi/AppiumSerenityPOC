@@ -59,6 +59,7 @@ public class AppSteps extends ScenarioSteps {
     private MyListsPageObject myListsPageObject;
     private DeliveryAddressPageObject deliveryAddressPageObject;
     private OrderReview orderReviewPageObject;
+    private ListDetailsPageObject listDetailsPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -633,7 +634,7 @@ public class AppSteps extends ScenarioSteps {
 
         assertThat( myListsPageObject.isListNameVisible(newListName) ).isTrue();
         assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(newListName) ).isTrue();
-        assertThat( myListsPageObject.clickStartBrowsingButton() ).isTrue();
+        assertThat( listDetailsPageObject.clickStartBrowsingButton() ).isTrue();
     }
 
     @Step
@@ -651,8 +652,8 @@ public class AppSteps extends ScenarioSteps {
         myListsPageObject.clickArrowButtonAgainstParticularList(newListName);
 
         assertThat( browsePageObject.verifyItemNameAddedToTheList(itemNameToBeAddedToNewlyCreatedList) ).isTrue();
-        assertThat( browsePageObject.clickDeleteListButton() ).isTrue();
-        browsePageObject.clickDeleteConfirmationYesButton();
+        assertThat( listDetailsPageObject.clickDeleteListButton() ).isTrue();
+        listDetailsPageObject.clickDeleteConfirmationYesButton();
     }
 
     @Step
@@ -666,14 +667,14 @@ public class AppSteps extends ScenarioSteps {
         assertThat( myListsPageObject.isListNameVisible(listName) ).isTrue();
         assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
 
-        browsePageObject.clickDeleteListButton();
-        browsePageObject.clickDeleteConfirmationNoButton();
-        browsePageObject.clickListDetailPageReturnButton();
+        listDetailsPageObject.clickDeleteListButton();
+        listDetailsPageObject.clickDeleteConfirmationNoButton();
+        listDetailsPageObject.clickListDetailPageReturnButton();
         assertThat( myListsPageObject.isListNameVisible(listName) ).isTrue();
 
         assertThat( myListsPageObject.clickArrowButtonAgainstParticularList(listName) ).isTrue();
-        browsePageObject.clickDeleteListButton();
-        browsePageObject.clickDeleteConfirmationYesButton();
+        listDetailsPageObject.clickDeleteListButton();
+        listDetailsPageObject.clickDeleteConfirmationYesButton();
 
         assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
         assertThat( myListsPageObject.isListNameVisible(listName) ).isFalse();
@@ -741,7 +742,16 @@ public class AppSteps extends ScenarioSteps {
       profilePageObject.clickUpdateButton();
       profilePageObject.isPageTitleCorrect();
       assertThat( profilePageObject.isToastMessageDisplayed() ).isTrue();
+    }
 
+    @Step
+    public void verifyLongListWithItemsMoreThanThirty(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+        myListsPageObject.isMyListsScreenVisible();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
+        assertThat( listDetailsPageObject.isListDetailsScreenVisible() ).isTrue();
+        assertThat( listDetailsPageObject.getListOfItemsUnderCurrentList() ).isGreaterThan(30);
     }
 
 }
