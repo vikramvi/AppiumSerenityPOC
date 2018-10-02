@@ -148,8 +148,11 @@ public class CartPageOject extends MobilePageObject {
 
     public boolean deleteAllCartItemsOnebyOne(){
 
-        if( isPageTitleCorrect() && Utils.isVisible(getDriver(), NoItemInCartTitle, 10) ){
-            return true;
+        if( isPageTitleCorrect() ){
+            if(Utils.isVisible(getDriver(), SecureCheckoutButton, 2)){ }
+            else if( Utils.isVisible(getDriver(), NoItemInCartTitle, 2) ) {
+                return true;
+            }
         }
 
         String cartItemRows_xpath = "//android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']";
@@ -217,5 +220,10 @@ public class CartPageOject extends MobilePageObject {
 
     public void clickSecureCheckout(){
         SecureCheckoutButton.click();
+    }
+
+    String xPathForTopMostItem = "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[1]";
+    public String getTopMostItemName(){
+      return getDriver().findElement(By.xpath(xPathForTopMostItem)).getText();
     }
 }

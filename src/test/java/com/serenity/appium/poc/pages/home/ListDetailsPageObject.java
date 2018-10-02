@@ -32,6 +32,9 @@ public class ListDetailsPageObject extends MobilePageObject{
     @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-floating-return']")
     private WebElement ListDetailPageReturnButton;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@text='ADD TO CART']")
+    private WebElement AddToCartButtonForFirstItemUnderList;
+
 
     public ListDetailsPageObject(WebDriver driver) {
         super(driver);
@@ -123,5 +126,13 @@ public class ListDetailsPageObject extends MobilePageObject{
         }
     }
 
+    public void clickAddToCartForFirstRowItem(){
+        AddToCartButtonForFirstItemUnderList.click();
+    }
+
+    String xPathOfFirstRowItem = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+    public String getFirstRowItemName(){
+       return getDriver().findElement(By.xpath(xPathOfFirstRowItem)).getText();
+    }
 
 }

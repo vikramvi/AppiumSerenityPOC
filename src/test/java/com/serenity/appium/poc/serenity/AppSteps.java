@@ -754,4 +754,23 @@ public class AppSteps extends ScenarioSteps {
         assertThat( listDetailsPageObject.getListOfItemsUnderCurrentList() ).isGreaterThan(30);
     }
 
+    @Step
+    public void verifyAddFirstItemToCartFromMyFavouriteList(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+        myListsPageObject.isMyListsScreenVisible();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
+        assertThat( listDetailsPageObject.isListDetailsScreenVisible() ).isTrue();
+
+        String itemName = listDetailsPageObject.getFirstRowItemName();
+        listDetailsPageObject.clickAddToCartForFirstRowItem();
+
+        navigationFooterPageObject.isPageTitleCorrect();
+        navigationFooterPageObject.clickViewCartButton();
+
+        cartPageObject.isPageTitleCorrect();
+        assertThat( cartPageObject.getTopMostItemName() ).isEqualToIgnoringCase(itemName);
+        cartPageObject.deleteAllCartItemsOnebyOne();
+    }
+
 }
