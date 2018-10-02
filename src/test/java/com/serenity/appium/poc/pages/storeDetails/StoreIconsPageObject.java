@@ -21,6 +21,8 @@ public class StoreIconsPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "touchableIcon-change-store")
     private WebElement TOUCHABLE_ICON_changeStore;
 
+    @AndroidFindBy(accessibility = "button-shop-this-store")
+    private WebElement ShopThisStoreButton;
 
     public boolean isChangeStoreIconPresent() {
         if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_changeStore, 5 )) {
@@ -47,8 +49,8 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     public boolean clickShopThisStoreIcon() {
         try {
-                if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_shopThisStore, 8)) {
-                    TOUCHABLE_ICON_shopThisStore.click();
+                if(Utils.isVisible(getDriver(), ShopThisStoreButton, 8)) {
+                    ShopThisStoreButton.click();
                     return true;
                 }
                 return false;

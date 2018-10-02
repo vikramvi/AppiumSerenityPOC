@@ -92,7 +92,7 @@ public class StoreSearchPageObject extends MobilePageObject {
     private String XPATH_PATTERN_iosStoreTitle = "(//XCUIElementTypeOther[starts-with(@name,'%s')])";
     private String XPATH_iosStoreListTag = "//XCUIElementTypeOther[ends-with(@name,'SHOP \uE81B')]";
     private final String XPATH_androidStoreTitle = "//android.widget.TextView[@content-desc='store-title']";
-    public boolean selectStore(String storeFragment) {
+    public boolean selectStore(String completeStoreName) {
         try {
             boolean found = false;
             int i=0;
@@ -101,7 +101,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                 new WebDriverWait(getDriver(), 10)
                     .until(ExpectedConditions.visibilityOf(BUTTON_return));
 
-                String xpath = String.format(XPATH_PATTERN_iosStoreTitle, storeFragment.toUpperCase());
+                String xpath = String.format(XPATH_PATTERN_iosStoreTitle, completeStoreName.toUpperCase());
                 found = Utils.isLastInstanceVisible(getDriver(), xpath);
                 while ((!found) && (i<3)) {
                     Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
@@ -127,7 +127,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                     for (WebElement element:elements) {
                         String storeName = element.getText();
                         System.out.println("StoreName = " + storeName);
-                        if (storeName.equalsIgnoreCase(storeFragment)) {
+                        if (storeName.equalsIgnoreCase(completeStoreName)) {
                             element.click();
                             found = true;
                             break;
