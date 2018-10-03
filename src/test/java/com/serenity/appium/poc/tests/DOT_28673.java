@@ -18,7 +18,7 @@ public class DOT_28673 extends WineAppTest{
 
         appSteps.gotoHomeTab();
         appSteps.verifyHomepageToProductSearch();
-        appSteps.searchForProduct("Hoegaarden");
+        appSteps.searchForProduct("Hennessy black");
         appSteps.verifySelectProductFromSearchResults(1);
 
         appSteps.gotoCARTScreen();
