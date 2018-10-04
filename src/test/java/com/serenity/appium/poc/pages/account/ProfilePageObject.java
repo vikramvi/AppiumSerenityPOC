@@ -71,7 +71,8 @@ public class ProfilePageObject extends MobilePageObject {
 
             if( tempXML.contains("SUCCESS") && tempXML.contains("User updated successfully") ) {
                 LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  User updated successfully");
-                return true;
+                isToastMessageSeen = true;
+                break;
             }
 
             Utils.waitFor(50);
