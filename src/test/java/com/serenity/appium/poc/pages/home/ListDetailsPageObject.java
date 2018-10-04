@@ -123,5 +123,14 @@ public class ListDetailsPageObject extends MobilePageObject{
         }
     }
 
+    String xPathForAddToCartButtons = "//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[@text='ADD TO CART']";
+    public void clickAddToCartForFirstRowItem(){
+        getDriver().findElements(By.xpath(xPathForAddToCartButtons)).get(0).click();
+    }
+
+    String xPathOfFirstRowItem = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
+    public String getFirstRowItemName(){
+       return getDriver().findElement(By.xpath(xPathOfFirstRowItem)).getText();
+    }
 
 }

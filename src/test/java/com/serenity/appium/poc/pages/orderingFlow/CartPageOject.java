@@ -7,9 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CartPageOject extends MobilePageObject {
 
-    @AndroidFindBy(accessibility = "header-title")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='header-title' and @text='CART']")
     private WebElement TEXT_pageTitle;
     private static final String expectedTitle = "CART";
 
@@ -74,7 +77,7 @@ public class CartPageOject extends MobilePageObject {
 
 
     public boolean isPageTitleCorrect() {
-        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15)) {
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 20)) {
             return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
         }
         return false;
@@ -93,6 +96,118 @@ public class CartPageOject extends MobilePageObject {
         }
 
         System.out.println("clickMyRewardApply - 1 FAILED");
+        return false;
+    }
+
+    String xPathForPostAndPreDiscountItemPrice = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[2]";
+    String xPathForRewardPrice                 = "//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[4]";
+    String xPathForSubTotalPostDiscount        = "//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[6]";
+
+    public boolean checksAfterApplyingReward(String itemPriceDisplayedOnProductDetailsPage){
+
+        boolean checks = true;
+
+        if( Utils.isVisible(getDriver(), rewardAppliedText, 10) && Utils.isVisible(getDriver(), MyReward_RemoveButton, 10) ) {
+
+            String preAndPostRewardItemPrices = getDriver().findElement(By.xpath(xPathForPostAndPreDiscountItemPrice)).getText();
+
+            float postDiscountPrice  =  Float.parseFloat( preAndPostRewardItemPrices.split(" ")[0].trim().replace("$", "") );
+
+            Pattern pattern=Pattern.compile("([0-9]+[.][0-9]+)");
+            Matcher matcher=pattern.matcher(preAndPostRewardItemPrices.split(" ")[1]);
+
+            float preDiscountPrice = 0.0f;
+            while(matcher.find()) {
+                preDiscountPrice = Float.parseFloat(matcher.group().toString());
+            }
+            //Won't work as strange character is getting into the string " 29.99"
+            //Float preDiscountPrice   =  Float.parseFloat( preAndPostRewardItemPrices.split(" ")[1].trim().replace("$", "") );
+
+            float rewardPrice = Float.parseFloat( getDriver().findElement(By.xpath(xPathForRewardPrice)).getText().replace("$", "") );
+
+            if(preDiscountPrice != Float.parseFloat( itemPriceDisplayedOnProductDetailsPage.replace("$", "") )){
+                LOGGER.error("Item Original Price info missing");
+                checks = false;
+            }
+
+            if(rewardPrice != 5.0f){
+                LOGGER.error("Reward amount $5 info missing");
+                checks = false;
+            }
+
+            float difference = Math.abs(preDiscountPrice - (postDiscountPrice + myRewardPrice));
+            if (!(difference < 0.00001)){
+                checks = false;
+                LOGGER.error("Post applying reward price is wrong");
+            }
+
+            float SubTotalPostDiscount = Float.parseFloat( getDriver().findElement(By.xpath(xPathForSubTotalPostDiscount)).getText().replace("$", ""));
+            if(SubTotalPostDiscount != postDiscountPrice){
+                checks = false;
+                LOGGER.error("Subtotal post discount amount is wrong " + SubTotalPostDiscount);
+            }
+        }
+
+        return checks;
+    }
+
+    String xPathForItemPriceWithoutDiscount = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[2]";
+    String xPathForSubTotalWithoutDiscount  = "//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[3]";
+
+    public boolean checksWithoutReward(String itemPriceDisplayedOnProductDetailsPage){
+        boolean checks = true;
+
+        Float ItemPriceWithoutDiscount = Float.parseFloat( getDriver().findElement(By.xpath(xPathForItemPriceWithoutDiscount)).getText().replace("$", ""));
+        Float SubTotalWithoutDiscount =  Float.parseFloat( getDriver().findElement(By.xpath(xPathForSubTotalWithoutDiscount)).getText().replace("$", ""));
+
+        if(ItemPriceWithoutDiscount != Float.parseFloat(itemPriceDisplayedOnProductDetailsPage.replace("$", "")) ){
+            checks = false;
+            LOGGER.error("Item price without discount is wrong " + ItemPriceWithoutDiscount);
+        }
+
+        if(SubTotalWithoutDiscount != Float.parseFloat(itemPriceDisplayedOnProductDetailsPage.replace("$", "")) ){
+            checks = false;
+            LOGGER.error("Subtotal without discount is wrong " + SubTotalWithoutDiscount);
+        }
+
+        return checks;
+    }
+
+
+    public boolean checkPricesBeforeAndAfterApplyingCertificate(String itemPriceDisplayedOnProductDetailsPage){
+
+        boolean isRewardApplied = false;
+
+        if( Utils.isVisible(getDriver(), rewardAppliedText, 3) && Utils.isVisible(getDriver(), MyReward_RemoveButton, 2) ){
+            isRewardApplied = true;
+
+            if(!checksAfterApplyingReward(itemPriceDisplayedOnProductDetailsPage)){
+                LOGGER.error("checksAfterApplyingReward method FAILED");
+                return false;
+            }
+
+            MyReward_RemoveButton.click();
+        }
+
+        if( Utils.isVisible(getDriver(), MyReward_ApplyButton, 15) ){
+
+            if( !checksWithoutReward(itemPriceDisplayedOnProductDetailsPage) ){
+                LOGGER.error("checksWithoutReward method FAILED");
+                return false;
+            }
+
+            if(!isRewardApplied){
+                MyReward_ApplyButton.click();
+
+                if(!checksAfterApplyingReward(itemPriceDisplayedOnProductDetailsPage)){
+                    LOGGER.error("checksAfterApplyingReward method FAILED");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         return false;
     }
 
@@ -115,7 +230,6 @@ public class CartPageOject extends MobilePageObject {
 
                     System.out.println("--->   " +  itemPriceBeforeRewardIsApplied + "    " + itemPriceAfterRewardIsApplied );
 
-//                        if (itemPriceBeforeRewardIsApplied == itemPriceAfterRewardIsApplied + myRewardPrice) {
                     float difference = Math.abs(itemPriceBeforeRewardIsApplied - (itemPriceAfterRewardIsApplied + myRewardPrice));
                     if (difference < 0.00001) {
                         return true;
@@ -148,8 +262,11 @@ public class CartPageOject extends MobilePageObject {
 
     public boolean deleteAllCartItemsOnebyOne(){
 
-        if( isPageTitleCorrect() && Utils.isVisible(getDriver(), NoItemInCartTitle, 10) ){
-            return true;
+        if( isPageTitleCorrect() ){
+            if(Utils.isVisible(getDriver(), SecureCheckoutButton, 2)){ }
+            else if( Utils.isVisible(getDriver(), NoItemInCartTitle, 2) ) {
+                return true;
+            }
         }
 
         String cartItemRows_xpath = "//android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']";
@@ -217,5 +334,10 @@ public class CartPageOject extends MobilePageObject {
 
     public void clickSecureCheckout(){
         SecureCheckoutButton.click();
+    }
+
+    String xPathForTopMostItem = "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[1]";
+    public String getTopMostItemName(){
+      return getDriver().findElement(By.xpath(xPathForTopMostItem)).getText();
     }
 }

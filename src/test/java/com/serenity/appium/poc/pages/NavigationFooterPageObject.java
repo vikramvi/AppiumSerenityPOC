@@ -32,6 +32,9 @@ public class NavigationFooterPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "header-title")
     private WebElement TEXT_pageTitle;
 
+    @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button[2]/android.widget.TextView[@text='VIEW CART']")
+    private WebElement viewCartButton;
+
 
     public NavigationFooterPageObject(WebDriver driver) {
         super(driver);
@@ -83,10 +86,8 @@ public class NavigationFooterPageObject extends MobilePageObject {
 
     public boolean clickShoppingCartButton() {
         if(Utils.isClickable(getDriver(), BUTTON_shoppingCart, 10)) {
-            System.out.println("clickShoppingCartButton  IN");
             return Utils.tryClicking(BUTTON_shoppingCart);
         }else{
-            System.out.println("clickShoppingCartButton  OUT");
             return false;
         }
     }
@@ -100,5 +101,9 @@ public class NavigationFooterPageObject extends MobilePageObject {
 
     public boolean clickMoreMenuButton() {
         return Utils.tryClicking(BUTTON_moreMenu);
+    }
+
+    public void clickViewCartButton(){
+         viewCartButton.click();
     }
 }

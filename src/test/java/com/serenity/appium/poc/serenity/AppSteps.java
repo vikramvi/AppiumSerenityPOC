@@ -603,8 +603,10 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.deleteAllCartItemsOnebyOne() ).isTrue();
     }
 
+    private String itemPriceDisplayedOnProductDetailsPage = null;
     @Step
     public void gotoCARTScreen(){
+        itemPriceDisplayedOnProductDetailsPage = mainProductDetailsPageObject.getProductPrice();
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
@@ -738,9 +740,10 @@ public class AppSteps extends ScenarioSteps {
       navigationFooterPageObject.clickMoreMenuButton();
       navigationFooterMoreMenuPageObject.clickAccountButton();
       accountOptionsPageObject.clickProfileButton();
-      profilePageObject.enterPhoneNumber("8005551212", true);
+      String tempPhoneNumber = "8005551212";
+      tempPhoneNumber = tempPhoneNumber.substring(0, tempPhoneNumber.length()-3 ) + (int )(Math.random() * 999 + 100);
+      profilePageObject.enterPhoneNumber(tempPhoneNumber, true);
       profilePageObject.clickUpdateButton();
-      profilePageObject.isPageTitleCorrect();
       assertThat( profilePageObject.isToastMessageDisplayed() ).isTrue();
     }
 
@@ -752,6 +755,31 @@ public class AppSteps extends ScenarioSteps {
         assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
         assertThat( listDetailsPageObject.isListDetailsScreenVisible() ).isTrue();
         assertThat( listDetailsPageObject.getListOfItemsUnderCurrentList() ).isGreaterThan(30);
+    }
+
+    @Step
+    public void verifyAddFirstItemToCartFromMyFavouriteList(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+        myListsPageObject.isMyListsScreenVisible();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
+        assertThat( listDetailsPageObject.isListDetailsScreenVisible() ).isTrue();
+
+        String itemName = listDetailsPageObject.getFirstRowItemName();
+        listDetailsPageObject.clickAddToCartForFirstRowItem();
+
+        navigationFooterPageObject.isPageTitleCorrect();
+        navigationFooterPageObject.clickViewCartButton();
+
+        cartPageObject.isPageTitleCorrect();
+        assertThat( cartPageObject.getTopMostItemName() ).isEqualToIgnoringCase(itemName);
+        cartPageObject.deleteAllCartItemsOnebyOne();
+    }
+
+    @Step
+    public void verifyProductPricesOnCartPageWithAndWithoutCertificate(){
+      cartPageObject.checkPricesBeforeAndAfterApplyingCertificate(itemPriceDisplayedOnProductDetailsPage);
+      cartPageObject.deleteAllCartItemsOnebyOne();
     }
 
 }
