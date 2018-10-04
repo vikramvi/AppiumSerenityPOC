@@ -10,11 +10,14 @@ import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ProfilePageObject extends MobilePageObject {
 
-    @AndroidFindBy(accessibility = "header-title")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='header-title' and @text='PROFILE']")
     private WebElement TEXT_pageTitle;
     private static final String expectedTitle = "PROFILE";
 
@@ -62,29 +65,19 @@ public class ProfilePageObject extends MobilePageObject {
     public boolean isToastMessageDisplayed(){
         boolean isToastMessageSeen = false;
 
-        String xml1 = getDriver().getPageSource();
-        Utils.waitFor(200);
-        String xml2 = getDriver().getPageSource();
-        Utils.waitFor(200);
-        String xml3 = getDriver().getPageSource();
-        Utils.waitFor(200);
-        String xml4 = getDriver().getPageSource();
+        for(int count=0; count < 40; count++){
 
+            String tempXML = getDriver().getPageSource();
 
-        if( xml1.contains("SUCCESS") && xml1.contains("User updated successfully") ) {
-            System.out.println("Toast message displayed 1: " + "SUCCESS" + "  User updated successfully");
-            return true;
-        }else if( xml2.contains("SUCCESS") && xml2.contains("User updated successfully") ){
-            System.out.println("Toast message displayed 2: " + "SUCCESS" + "  User updated successfully");
-            return true;
-        }else if( xml3.contains("SUCCESS") && xml2.contains("User updated successfully") ){
-            System.out.println("Toast message displayed 3: " + "SUCCESS" + "  User updated successfully");
-            return true;
-        }else if( xml4.contains("SUCCESS") && xml2.contains("User updated successfully") ){
-            System.out.println("Toast message displayed 4: " + "SUCCESS" + "  User updated successfully");
-            return true;
+            if( tempXML.contains("SUCCESS") && tempXML.contains("User updated successfully") ) {
+                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  User updated successfully");
+                return true;
+            }
+
+            Utils.waitFor(50);
         }
 
+        LOGGER.error("Toast message did NOT display");
         return isToastMessageSeen;
     }
 

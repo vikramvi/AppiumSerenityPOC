@@ -740,9 +740,10 @@ public class AppSteps extends ScenarioSteps {
       navigationFooterPageObject.clickMoreMenuButton();
       navigationFooterMoreMenuPageObject.clickAccountButton();
       accountOptionsPageObject.clickProfileButton();
-      profilePageObject.enterPhoneNumber("8005551212", true);
+      String tempPhoneNumber = "8005551212";
+      tempPhoneNumber = tempPhoneNumber.substring(0, tempPhoneNumber.length()-3 ) + (int )(Math.random() * 999 + 100);
+      profilePageObject.enterPhoneNumber(tempPhoneNumber, true);
       profilePageObject.clickUpdateButton();
-      profilePageObject.isPageTitleCorrect();
       assertThat( profilePageObject.isToastMessageDisplayed() ).isTrue();
     }
 
