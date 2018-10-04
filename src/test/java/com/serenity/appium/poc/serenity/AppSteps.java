@@ -603,8 +603,10 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.deleteAllCartItemsOnebyOne() ).isTrue();
     }
 
+    private String itemPriceDisplayedOnProductDetailsPage = null;
     @Step
     public void gotoCARTScreen(){
+        itemPriceDisplayedOnProductDetailsPage = mainProductDetailsPageObject.getProductPrice();
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
@@ -771,6 +773,12 @@ public class AppSteps extends ScenarioSteps {
         cartPageObject.isPageTitleCorrect();
         assertThat( cartPageObject.getTopMostItemName() ).isEqualToIgnoringCase(itemName);
         cartPageObject.deleteAllCartItemsOnebyOne();
+    }
+
+    @Step
+    public void verifyProductPricesOnCartPageWithAndWithoutCertificate(){
+      cartPageObject.checkPricesBeforeAndAfterApplyingCertificate(itemPriceDisplayedOnProductDetailsPage);
+      cartPageObject.deleteAllCartItemsOnebyOne();
     }
 
 }
