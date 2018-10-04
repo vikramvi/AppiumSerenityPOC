@@ -13,7 +13,7 @@ public class StoreIconsPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "touchableIcon-get-directions")
     private WebElement TOUCHABLE_ICON_getDirections;
 
-    @AndroidFindBy(accessibility = "button-shop-this-store")
+    @AndroidFindBy(accessibility = "touchableIcon-bookmark-myStore")
     @iOSFindBy(accessibility = "touchableIcon-bookmark-myStore")
     private WebElement TOUCHABLE_ICON_shopThisStore;
 

@@ -5,11 +5,11 @@ import com.serenity.appium.poc.utils.Regression1;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class MOB_2091 extends WineAppTest{
+public class DOT_28698 extends WineAppTest{
 
     @Test
     @Category({Regression1.class})
-    public void MOB_2091_verifyCertificateUsageOnCheckoutScreen(){
+    public void DOT_28698_verifyCertificateUsageOnCheckoutScreen(){
         appSteps.completeQuickOnboarding();
         String emailId = "jphtest@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
