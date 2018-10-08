@@ -118,7 +118,7 @@ public class StoreSearchPageObject extends MobilePageObject {
                 }
             } else {
 
-                new WebDriverWait(getDriver(), 10)
+                new WebDriverWait(getDriver(), 20)
                         .until(ExpectedConditions.visibilityOfElementLocated(By
                                 .xpath("(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[1]")));
 

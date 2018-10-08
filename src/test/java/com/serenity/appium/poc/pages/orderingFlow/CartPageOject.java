@@ -31,10 +31,10 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView[2]")
     private WebElement TotalAmount;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']")
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.widget.Button[2]/android.widget.TextView[@text='X']")
     private WebElement crossIcon;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.view.ViewGroup[2]/android.widget.TextView[@text='Delete']")
     private WebElement cartItemDeleteButton;
 
     @AndroidFindBy(accessibility="touchableIcon-option-picker")
@@ -260,7 +260,7 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
-    public boolean deleteAllCartItemsOnebyOne(){
+    public boolean deleteAllCartItemsOneByOne(){
 
         if( isPageTitleCorrect() ){
             if(Utils.isVisible(getDriver(), SecureCheckoutButton, 2)){ }
@@ -284,7 +284,8 @@ public class CartPageOject extends MobilePageObject {
                 }else{
                     return false;
                 }
-
+            }else{
+                return false;
             }
 
         }
@@ -297,7 +298,7 @@ public class CartPageOject extends MobilePageObject {
             SwitchToDeliveryLink.click();
             return true;
         }
-
+        LOGGER.error("Switch to Delivery link is missing on CART screen");
         return false;
     }
 
@@ -340,4 +341,111 @@ public class CartPageOject extends MobilePageObject {
     public String getTopMostItemName(){
       return getDriver().findElement(By.xpath(xPathForTopMostItem)).getText();
     }
+
+
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[1]/android.widget.TextView[2]")
+    WebElement ToastMessageTitle;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.widget.TextView[3]")
+    WebElement ToastMessageContent;
+
+    @AndroidFindBy(accessibility = "touchableIcon-dismiss-toast")
+    WebElement ToastMessageCloseButton;
+
+    public boolean isAddressUpdatedToastMessageSeen(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("SUCCESS") && tempXML.contains("Your address has been confirmed") ) {
+                LOGGER.info("Toast message displayed -> " + "SUCCESS" + "  Your address has been confirmed");
+
+                if( ToastMessageTitle.getText().equals("SUCCESS")  &&
+                        ToastMessageContent.getText().equals("Your address has been confirmed") ){
+                    ToastMessageCloseButton.click();
+                }
+
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Address Updated toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
+    public boolean isMinimumOrderThresholdToastMessageSeen(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("MINIMUM AMOUNT NOT MET") && tempXML.contains("does not meet our minimum threshold of $35.00") ) {
+                LOGGER.info("Toast message displayed -> " + "MINIMUM AMOUNT NOT MET" + "  ..does not meet our minimum threshold of $35.00");
+
+                if( ToastMessageTitle.getText().equals("MINIMUM AMOUNT NOT MET")  &&
+                        ToastMessageContent.getText().contains("does not meet our minimum threshold of $35.00") ){
+                    ToastMessageCloseButton.click();
+                }
+
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Minimum Amount Not Met toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
+    public boolean isDeliveryTimeWindowToastMessageSeen(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("DELIVERY TIME WINDOW NOT SELECTED") && tempXML.contains("You have not chosen a delivery time window") ) {
+                LOGGER.info("Toast message displayed -> " + "DELIVERY TIME WINDOW NOT SELECTED" + "You have not chosen a delivery time window");
+
+                if( ToastMessageTitle.getText().equals("DELIVERY TIME WINDOW NOT SELECTED")  &&
+                        ToastMessageContent.getText().equals("You have not chosen a delivery time window") ){
+                    ToastMessageCloseButton.click();
+                }
+
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Delivery Time Window Not Selected toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
+    @AndroidFindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup//android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='+']")
+    private WebElement plusIconAgainstItem;
+
+    public void increaseItemQuantityByOne(){
+        if(Utils.isClickable(getDriver(), plusIconAgainstItem, 5)) {
+            plusIconAgainstItem.click();
+        }
+    }
+
 }

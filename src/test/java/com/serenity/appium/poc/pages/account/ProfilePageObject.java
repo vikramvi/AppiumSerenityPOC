@@ -78,7 +78,10 @@ public class ProfilePageObject extends MobilePageObject {
             Utils.waitFor(50);
         }
 
-        LOGGER.error("Toast message did NOT display");
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display");
+        }
+
         return isToastMessageSeen;
     }
 
