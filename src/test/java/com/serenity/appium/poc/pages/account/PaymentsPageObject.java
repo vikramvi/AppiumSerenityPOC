@@ -113,7 +113,8 @@ public class PaymentsPageObject extends MobilePageObject {
     }
 
 
-    String xpathForIndividualCreditCardRow = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+//    String xpathForIndividualCreditCardRow = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+    String xpathForIndividualCreditCardRow = "//android.widget.Button[@content-desc='button-delete-payment']";
     public int getTotalNumberOfCreditCardsDisplayed(){
         if(Utils.isVisible(getDriver(), BUTTON_addNewPayment, 20)) {
             return getDriver().findElements(By.xpath(xpathForIndividualCreditCardRow)).size();
