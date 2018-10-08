@@ -595,12 +595,19 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void gotoHomeTab(){
         assertThat( navigationFooterPageObject.clickHomeButton() ).isTrue();
+        assertThat( myStoreHeaderPageObject.isMyOrdersPresent() ).isTrue();
+    }
+
+    @Step
+    public void gotoCartTab(){
+        assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+        assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
     }
 
     @Step
     public void gotoShopptingCartAndEmptyIt(){
         assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
-        assertThat( cartPageObject.deleteAllCartItemsOnebyOne() ).isTrue();
+        assertThat( cartPageObject.deleteAllCartItemsOneByOne() ).isTrue();
     }
 
     private String itemPriceDisplayedOnProductDetailsPage = null;
@@ -691,6 +698,26 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
+    public void verifyToastMessagesOnCartScreen(){
+        assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() );
+        //MOB-2247
+        deliveryAddressPageObject.addNewAddressForDelivery();
+        cartPageObject.isPageTitleCorrect();
+        cartPageObject.isAddressUpdatedToastMessageSeen();
+
+        cartPageObject.clickSecureCheckout();
+        assertThat( cartPageObject.isMinimumOrderThresholdToastMessageSeen() ).isTrue();
+
+        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.isPageTitleCorrect();
+        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.isPageTitleCorrect();
+
+        cartPageObject.clickSecureCheckout();
+        assertThat( cartPageObject.isDeliveryTimeWindowToastMessageSeen() ).isTrue();
+    }
+
+    @Step
     public void addNewCreditCardFromHomeMoreOptionsAccount(){
         navigationFooterPageObject.clickMoreMenuButton();
         navigationFooterMoreMenuPageObject.clickAccountButton();
@@ -773,13 +800,13 @@ public class AppSteps extends ScenarioSteps {
 
         cartPageObject.isPageTitleCorrect();
         assertThat( cartPageObject.getTopMostItemName() ).isEqualToIgnoringCase(itemName);
-        cartPageObject.deleteAllCartItemsOnebyOne();
+        cartPageObject.deleteAllCartItemsOneByOne();
     }
 
     @Step
     public void verifyProductPricesOnCartPageWithAndWithoutCertificate(){
       cartPageObject.checkPricesBeforeAndAfterApplyingCertificate(itemPriceDisplayedOnProductDetailsPage);
-      cartPageObject.deleteAllCartItemsOnebyOne();
+      cartPageObject.deleteAllCartItemsOneByOne();
     }
 
 }

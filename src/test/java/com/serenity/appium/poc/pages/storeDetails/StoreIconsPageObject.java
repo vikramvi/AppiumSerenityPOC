@@ -7,6 +7,8 @@ import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.serenity.appium.poc.pages.home.MyStoreHeaderPageObject;
+
 public class StoreIconsPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "touchableIcon-get-directions")
@@ -23,6 +25,14 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "button-shop-this-store")
     private WebElement ShopThisStoreButton;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.TextView[2][@text='ARE YOU SURE?']")
+    private WebElement ChangeStoreConfirmationDialogTitle;
+
+    @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"change-shopping-method\"]/android.widget.TextView[@text='CONTINUE']")
+    private WebElement ChangeStoreConfirmationDialogContinueButton;
+
+    private MyStoreHeaderPageObject myStoreHeaderPageObject;
 
     public boolean isChangeStoreIconPresent() {
         if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_changeStore, 5 )) {
@@ -51,7 +61,17 @@ public class StoreIconsPageObject extends MobilePageObject {
         try {
                 if(Utils.isVisible(getDriver(), ShopThisStoreButton, 8)) {
                     ShopThisStoreButton.click();
-                    return true;
+
+                    //temp fix MOB-2246
+                    if(Utils.isVisible(getDriver(), ChangeStoreConfirmationDialogTitle, 3)){
+                        ChangeStoreConfirmationDialogContinueButton.click();
+                    }
+
+                    if(myStoreHeaderPageObject.isMyOrdersPresent()) {
+                        return true;
+                    }else{
+                        return false;
+                    }
                 }
                 return false;
         } catch (Exception e) {

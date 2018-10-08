@@ -236,7 +236,7 @@ public class Utils {
     }
 
     public static boolean isPageTitleCorrectAfterPolling(WebElement element, String expectedTitle) {
-        boolean found = element.getText().equals(expectedTitle);
+        boolean found = false;
         int i = 0;
         while (i<12 && !found) {
             try {
