@@ -595,7 +595,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void gotoHomeTab(){
         assertThat( navigationFooterPageObject.clickHomeButton() ).isTrue();
-        assertThat( myStoreHeaderPageObject.isMyOrdersPresent() ).isTrue();
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
     }
 
     @Step
@@ -701,7 +701,7 @@ public class AppSteps extends ScenarioSteps {
     public void verifyToastMessagesOnCartScreen(){
         assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() );
         //MOB-2247
-        deliveryAddressPageObject.addNewAddressForDelivery();
+        assertThat( deliveryAddressPageObject.addNewAddressForDelivery() ).isTrue();
         cartPageObject.isPageTitleCorrect();
         cartPageObject.isAddressUpdatedToastMessageSeen();
 
@@ -807,6 +807,32 @@ public class AppSteps extends ScenarioSteps {
     public void verifyProductPricesOnCartPageWithAndWithoutCertificate(){
       cartPageObject.checkPricesBeforeAndAfterApplyingCertificate(itemPriceDisplayedOnProductDetailsPage);
       cartPageObject.deleteAllCartItemsOneByOne();
+    }
+
+    @Step
+    public void changePreferredStore(String searchToken, String storeName){
+        navigationFooterPageObject.clickMoreMenuButton();
+        assertThat( navigationFooterMoreMenuPageObject.clickAccountButton() ).isTrue();
+        accountOptionsPageObject.clickPreferencesButton();
+        preferencesPageObject.isPageTitleCorrect();
+
+        preferencesPageObject.clickPreferredStoreChangeButton();
+        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+
+        LOGGER.info("Entering search term then selecting the specified store in the search results list...");
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+        assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
+
+        storeSearchPageObject.clickFirstRowSelectStoreButton();
+        preferencesPageObject.isPageTitleCorrect();
+
+        preferencesPageObject.clickReturnButton();
+        accountOptionsPageObject.clickReturnButton();
+    }
+
+    @Step
+    public void isMoreRewardsSectionShouldDisplay(boolean shouldDisplay){
+        assertThat( myStoreHeaderPageObject.isMoreRewardsSectionDisplayed() ).isEqualTo(shouldDisplay);
     }
 
 }

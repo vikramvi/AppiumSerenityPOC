@@ -171,4 +171,8 @@ public class PreferencesPageObject extends MobilePageObject {
             return clickAndroidReturn();
         }
     }
+
+    public void clickPreferredStoreChangeButton(){
+        BUTTON_changePreferredStore.click();
+    }
 }
