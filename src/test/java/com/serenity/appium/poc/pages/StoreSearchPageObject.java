@@ -12,10 +12,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.concurrent.TimeUnit;
+
 
 public class StoreSearchPageObject extends MobilePageObject {
 
@@ -257,5 +256,12 @@ public class StoreSearchPageObject extends MobilePageObject {
         }
         return result;
     }
+
+    String XPathForSelectStoreButton = "//android.widget.Button[@content-desc='button-select-preferred-store'][1]";
+
+    public void clickFirstRowSelectStoreButton(){
+        getDriver().findElements(By.xpath(XPathForSelectStoreButton)).get(0).click();
+    }
+
 }
 

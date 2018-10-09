@@ -42,6 +42,9 @@ public class AccountOptionsPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "touchableIcon-rate-app")
     private WebElement BUTTON_rateApp;
 
+    @AndroidFindBy(accessibility = "button-floating-return")
+    private WebElement BUTTON_return;
+
     public AccountOptionsPageObject(WebDriver driver) {
         super(driver);
     }
@@ -107,5 +110,9 @@ public class AccountOptionsPageObject extends MobilePageObject {
 
     public boolean isPageTitleCorrect() {
         return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+    }
+
+    public void clickReturnButton(){
+        BUTTON_return.click();
     }
 }

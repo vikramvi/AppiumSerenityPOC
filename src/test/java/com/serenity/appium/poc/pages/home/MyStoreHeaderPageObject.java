@@ -3,6 +3,7 @@ package com.serenity.appium.poc.pages.home;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.pages.NavigationFooterMoreMenuPageObject;
 import com.serenity.appium.poc.pages.NavigationFooterPageObject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.StoreDataParser;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -37,6 +38,11 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-header-my orders")
     private WebElement BUTTON_myOrders;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text='&MORE REWARDS']")
+    private WebElement MoreRewardsSectionTitle;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[@text='WHAT CAN WE HELP YOU FIND?']")
+    private WebElement HomeTabSearchField;
 
     private NavigationFooterMoreMenuPageObject navigationFooterMoreMenuPageObject;
     private NavigationFooterPageObject navigationFooterPageObject;
@@ -47,8 +53,11 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isMyOrdersPresent() {
-        boolean result = Utils.isVisible(getDriver(), BUTTON_myOrders, 15);
-        return result;
+        return Utils.isVisible(getDriver(), BUTTON_myOrders, 15);
+    }
+
+    public boolean isSearchFieldPresent(){
+        return Utils.isVisible(getDriver(), HomeTabSearchField, 15);
     }
 
     public boolean clickTouchableStoreData() {
@@ -164,5 +173,23 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
 
 
         return false;
+    }
+
+    public boolean isMoreRewardsSectionDisplayed() {
+        boolean displayed = false;
+        int scrollDownCounter = 0;
+        if (isAndroid()) {
+            displayed = Utils.isVisible(getDriver(), MoreRewardsSectionTitle, 1);
+
+            while ( !displayed && (scrollDownCounter < 1) ) {
+                Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                displayed = Utils.isVisible(getDriver(), MoreRewardsSectionTitle, 1);
+                scrollDownCounter++;
+            }
+        }
+
+        //iOS TBD
+
+        return displayed;
     }
 }
