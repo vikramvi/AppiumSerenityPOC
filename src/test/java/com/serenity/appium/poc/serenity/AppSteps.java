@@ -748,8 +748,8 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyNumberOfCreditCardsDisplayedForNewSignUp(){
         navigationFooterPageObject.clickMoreMenuButton();
-//        assertThat( navigationFooterMoreMenuPageObject.clickAccountButton() ).isTrue();
-//        assertThat( accountOptionsPageObject.clickPaymentButton() ).isTrue();
+        assertThat( navigationFooterMoreMenuPageObject.clickAccountButton() ).isTrue();
+        assertThat( accountOptionsPageObject.clickPaymentButton() ).isTrue();
         assertThat( paymentsPageObject.getTotalNumberOfCreditCardsDisplayed()).isEqualTo(1);
     }
 
