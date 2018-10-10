@@ -30,6 +30,10 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-header-create account")
     private WebElement BUTTON_createAccount;
 
+    @iOSFindBy(accessibility = "button-header-my rewards")
+    @AndroidFindBy(accessibility = "button-header-my rewards")
+    private WebElement BUTTON_myRewards;
+
     @iOSFindBy(accessibility = "button-header-change store")
     @AndroidFindBy(accessibility = "button-header-change store")
     private WebElement BUTTON_changeStore;
@@ -97,7 +101,13 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
         }
         return false;
     }
-
+    public boolean isMyRewardsPresent() { return Utils.isVisible(getDriver(), BUTTON_myRewards, 5);}
+    public boolean clickMyRewards() {
+        if (isMyRewardsPresent()) {
+            return Utils.tryClicking(BUTTON_myRewards);
+        }
+        return false;
+    }
 
     public String getStoreDataForIos() {
         String result = noResultsFound;

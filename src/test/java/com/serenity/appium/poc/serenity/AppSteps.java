@@ -66,14 +66,25 @@ public class AppSteps extends ScenarioSteps {
     String wineName = "Krug Vintage";
 
     /// --> temporary sandbox driver
+
     public void tempDriver()  throws TesseractException {
+
+// ---------create accounts
+
+        for (int i=41; i<51; i++) {
+            String prefix = "coup" + i;
+            createSpecifiedUserFromHomepage(prefix + "@yopmail.com");
+            navigationFooterPageObject.clickMoreMenuButton();
+            navigationFooterMoreMenuPageObject.clickSignOutButton();
+        }
+
 //        ReadScreenText readScreenText = new ReadScreenText();
-        this.performLoginFromHomepage();
+//        this.performLoginFromHomepage();
 //        navigationFooterPageObject.clickBrowseButton();
 //        navigationFooterPageObject.clickHomeButton();
-        navigationFooterPageObject.clickMoreMenuButton();
+//        navigationFooterPageObject.clickMoreMenuButton();
 //        navigationFooterMoreMenuPageObject.clickSignOutButton();
-        navigationFooterMoreMenuPageObject.clickAccountButton();
+//        navigationFooterMoreMenuPageObject.clickAccountButton();
 
 
 // ----- A D D R E S S E S
@@ -100,8 +111,8 @@ public class AppSteps extends ScenarioSteps {
 
 
 // ----- P R E F E R E N C E S
-        accountOptionsPageObject.clickPreferencesButton();
-        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
+//        accountOptionsPageObject.clickPreferencesButton();
+//        assertThat(preferencesPageObject.isPageTitleCorrect()).isTrue();
 //        assertThat(PreferencesPageObject.Preferences.SPIRITS.isUnchecked(getDriver())).isTrue();
 //        assertThat(PreferencesPageObject.Preferences.SPIRITS.check(getDriver())).isTrue();
 //        try {
@@ -212,6 +223,23 @@ public class AppSteps extends ScenarioSteps {
         createAccountPageObject.enterRandomFirstName();
         createAccountPageObject.enterRandomLastName();
         createAccountPageObject.enterRandomEmail();
+        createAccountPageObject.enterDefaultPassword();
+        createAccountPageObject.enterDefaultPasswordConfirmation();
+        createAccountPageObject.enterFakePhoneNumber();
+        createAccountPageObject.clickAgeConfirmation();
+        createAccountPageObject.clickTermsConfirmation();
+        createAccountPageObject.clickAndroidCreateAccountButton();
+        assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
+    }
+
+    @Step
+    public void createSpecifiedUserFromHomepage(String email) {
+        LOGGER.info("Creating random user from homepage...");
+        assertThat(myStoreHeaderPageObject.clickCreateAccount()).isTrue();
+        createAccountPageObject.isPageTitleCorrect();
+        createAccountPageObject.enterFirstName("Joe");
+        createAccountPageObject.enterLastName("Hennessey");
+        createAccountPageObject.enterEmail(email);
         createAccountPageObject.enterDefaultPassword();
         createAccountPageObject.enterDefaultPasswordConfirmation();
         createAccountPageObject.enterFakePhoneNumber();

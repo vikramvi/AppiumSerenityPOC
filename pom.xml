@@ -18,6 +18,7 @@
         <serenity.cucumber.version>1.9.15</serenity.cucumber.version>   <!--  https://bintray.com/serenity/maven/serenity-cucumber/ -->
         <completeTestSuite>**/tests/*.java</completeTestSuite>
         <singleTestRun>**/tests/isolatedRun/*.java</singleTestRun>
+        <tempDriver>**/tests/tempDriver/*.java</tempDriver>
         <androidOnly>**/tests/androidOnly/*.java</androidOnly>
     </properties>
 
@@ -111,6 +112,7 @@
                     <forkCount>0</forkCount>
                     <includes>
                         <include>${completeTestSuite}</include>
+                        <!--<include>${tempDriver}</include>-->
                         <!--<include>${singleTestRun}</include>-->
                         <!--<include>${androidOnly}</include>-->
                     </includes>
