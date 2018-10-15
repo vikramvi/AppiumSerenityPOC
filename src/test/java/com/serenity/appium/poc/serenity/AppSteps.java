@@ -12,6 +12,7 @@ import com.serenity.appium.poc.utils.*;
 import net.sourceforge.tess4j.TesseractException;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -384,8 +385,8 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifySelectProductFromSearchResults(int productNumber) {
         LOGGER.info("Verifying product selection from search results...");
-        String expectedName = productSearchResultsPageObject.getAndroidProductName(productNumber);
-        assertThat(productSearchResultsPageObject.selectProductForAndroid(productNumber)).isTrue();
+        String expectedName = productSearchResultsPageObject.getProductName(productNumber);
+        assertThat(productSearchResultsPageObject.selectProduct(productNumber)).isTrue();
         String actualName = mainProductDetailsPageObject.getProductName();
         assertThat(actualName).isEqualToIgnoringCase(expectedName);
     }
@@ -861,6 +862,46 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void isMoreRewardsSectionShouldDisplay(boolean shouldDisplay){
         assertThat( myStoreHeaderPageObject.isMoreRewardsSectionDisplayed() ).isEqualTo(shouldDisplay);
+    }
+
+    @Step
+    public void verifyMaxListsDisplayedUnderMyListsSection(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        int listsCount = myListsPageObject.getListsCount();
+
+        if( listsCount < 4 ){
+            while(listsCount  != 4){
+                myListsPageObject.clickCreateListButton();
+                myListsPageObject.enterListName(listsCount + "_" + RandomStringUtils.randomAlphabetic(10));
+                myListsPageObject.clickListNameSaveButton();
+                listsCount++;
+            }
+        }
+
+        assertThat( navigationFooterPageObject.clickHomeButton() ).isTrue();
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        assertThat( listsSectionPageObject.getMyListsCount() ).isEqualTo(4);
+    }
+
+    @Step
+    public void verifyFavoriteItemCanBeAddedToMultipleLists(){
+        assertThat(searchSection.triggerSearchPage()).isTrue();
+        assertThat(productSearchPageObject.isSearchFieldPresent()).isTrue();
+
+        assertThat(productSearchPageObject.enterSearchTerm("Love Noir Pinot Noir")).isTrue();
+        assertThat(productSearchResultsPageObject.getResultsCount().length() > 0).isTrue();
+
+        //MOB-2284
+        productSearchResultsPageObject.clickHeartIconOfFirstSearchResultItem();
+        productSearchResultsPageObject.clickCheckboxAgainstTopXListsAndCloseDialog(2);
+
+        //MOB-2284
+        productSearchResultsPageObject.clickHeartIconOfFirstSearchResultItem();
+        productSearchResultsPageObject.clickCheckboxAgainstTopXListsAndCloseDialog(2);
     }
 
 }

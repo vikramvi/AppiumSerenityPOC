@@ -79,8 +79,6 @@ public class ListDetailsPageObject extends MobilePageObject{
                 List<String> itemsWithDuplicates = new ArrayList<>();
                 String lastItem = null;
 
-                System.out.println("test");
-
                 //initial screen
                 String XPATHPattern_FirstScreenItems = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[%d]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]";
                 for (int itemCount = 2; itemCount <= 4; itemCount++) {

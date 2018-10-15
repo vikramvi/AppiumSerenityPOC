@@ -311,6 +311,7 @@ public static String getRandomFirstName() {
     public static void setPlatform() {
         //String platform = System.getProperty("testEnvironment");
 
+        //ACHTUNG - Hard Coded To Be Removed
         String platform = "Android";
 
         switch (platform) {
