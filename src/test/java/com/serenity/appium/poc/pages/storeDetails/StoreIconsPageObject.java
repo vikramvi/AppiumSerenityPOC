@@ -1,6 +1,8 @@
 package com.serenity.appium.poc.pages.storeDetails;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.pages.NavigationFooterPageObject;
+import com.serenity.appium.poc.pages.orderingFlow.CartPageOject;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -26,16 +28,21 @@ public class StoreIconsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-shop-this-store")
     private WebElement ShopThisStoreButton;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.TextView[2][@text='ARE YOU SURE?']")
+    @AndroidFindBy(xpath = "//android.widget.Button[@content-desc='touchableIcon-bookmark-myStore']/android.widget.TextView[2][@text='SHOPPING NOW']")
+    private WebElement ShoppingNowButtonText;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.TextView[2][@text='CHANGING YOUR STORE?']")
     private WebElement ChangeStoreConfirmationDialogTitle;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"change-shopping-method\"]/android.widget.TextView[@text='CONTINUE']")
     private WebElement ChangeStoreConfirmationDialogContinueButton;
 
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
+    private NavigationFooterPageObject navigationFooterPageObject;
+    private CartPageOject cartPageOject;
 
     public boolean isChangeStoreIconPresent() {
-        if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_changeStore, 5 )) {
+        if(Utils.isVisible(getDriver(), TOUCHABLE_ICON_changeStore, 10 )) {
             return TOUCHABLE_ICON_changeStore.isDisplayed();
         }
         return false;
@@ -57,27 +64,29 @@ public class StoreIconsPageObject extends MobilePageObject {
         return TOUCHABLE_ICON_shopThisStore.isDisplayed();
     }
 
-    public boolean clickShopThisStoreIcon() {
-        try {
-                if(Utils.isVisible(getDriver(), ShopThisStoreButton, 8)) {
-                    ShopThisStoreButton.click();
+    public void clickShopThisStoreIcon() {
+         if(isChangeStoreIconPresent()) {
+             if (Utils.isVisible(getDriver(), ShoppingNowButtonText, 1)) {
+                 LOGGER.info("Already in expected store, no need to change");
+                 navigationFooterPageObject.clickHomeButton();
 
-                    //temp fix MOB-2246
-                    if(Utils.isVisible(getDriver(), ChangeStoreConfirmationDialogTitle, 3)){
-                        ChangeStoreConfirmationDialogContinueButton.click();
-                    }
+             }else if (Utils.isVisible(getDriver(), ShopThisStoreButton, 4)) {
 
-                    if(myStoreHeaderPageObject.isMyOrdersPresent()) {
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }
-                return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+                 ShopThisStoreButton.click();
+                 LOGGER.info("Clicked ShopThisStoreButton");
+
+
+                 //temp fix MOB-2246
+                 if (Utils.isVisible(getDriver(), ChangeStoreConfirmationDialogTitle, 3)) {
+                     ChangeStoreConfirmationDialogContinueButton.click();
+                     LOGGER.info("Clicked ChangeStoreConfirmationDialogContinueButton");
+                 }
+             }else{
+                 LOGGER.error("clickShopThisStoreIcon FAILED");
+             }
+         }else {
+             LOGGER.error("isChangeStoreIconPresent FAILED");
+         }
     }
 
     public StoreIconsPageObject(WebDriver driver) {

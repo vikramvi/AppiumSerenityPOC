@@ -25,6 +25,9 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[3]")
     private WebElement rewardAppliedText;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[1][contains(@text,'REWARD')]")
+    private WebElement MyRewardText;
+
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[4]")
     private WebElement cartItemPrice;
 
@@ -70,6 +73,9 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.widget.TextView[@text='SECURE CHECKOUT']")
     private WebElement SecureCheckoutButton;
 
+    @AndroidFindBy(accessibility = "button-change-store")
+    private WebElement ChangeStoreButton;
+
 
     public CartPageOject(WebDriver driver){
         super(driver);
@@ -81,6 +87,10 @@ public class CartPageOject extends MobilePageObject {
             return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
         }
         return false;
+    }
+
+    public boolean isMyRewardTextShown(){
+        return  Utils.isVisible(getDriver(), MyRewardText, 1);
     }
 
     public boolean clickMyRewardApply(){
@@ -446,6 +456,10 @@ public class CartPageOject extends MobilePageObject {
         if(Utils.isClickable(getDriver(), plusIconAgainstItem, 5)) {
             plusIconAgainstItem.click();
         }
+    }
+
+    public void doChangeStoreAction(){
+        ChangeStoreButton.click();
     }
 
 }

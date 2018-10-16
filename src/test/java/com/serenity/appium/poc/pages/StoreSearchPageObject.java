@@ -6,6 +6,7 @@ import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import org.jruby.RubyProcess;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -116,27 +117,29 @@ public class StoreSearchPageObject extends MobilePageObject {
                     System.out.println(">>>>> store not found!");
                 }
             } else {
+                    String xPathFirstStore = "//android.widget.Button[@content-desc='touchable-store-detail'][1]";
+                    if( !Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(xPathFirstStore)), 25) &&
+                        !Utils.isClickable(getDriver(), BUTTON_return, 25)){
+                        LOGGER.error("search page did not load completely");
+                        return false;
+                    }
 
-                new WebDriverWait(getDriver(), 20)
-                        .until(ExpectedConditions.visibilityOfElementLocated(By
-                                .xpath("(//android.widget.Button[@content-desc=\"touchable-store-detail\"])[1]")));
-
-                while ((!found) && (i<3)) {
-                    List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
-                    for (WebElement element:elements) {
-                        String storeName = element.getText();
-                        System.out.println("StoreName = " + storeName);
-                        if (storeName.equalsIgnoreCase(completeStoreName)) {
-                            element.click();
-                            found = true;
-                            break;
+                    while ((!found) && (i<3)) {
+                        List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
+                        for (WebElement element:elements) {
+                            String storeName = element.getText();
+                            System.out.println("StoreName = " + storeName);
+                            if (storeName.equalsIgnoreCase(completeStoreName)) {
+                                element.click();
+                                found = true;
+                                break;
+                            }
                         }
+                        if (!found) {
+                            Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                        }
+                        i++;
                     }
-                    if (!found) {
-                        Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
-                    }
-                    i++;
-                }
             }
             return found;
         } catch (Exception e) {

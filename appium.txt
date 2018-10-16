@@ -4,7 +4,7 @@
 automationName = "uiautomator2"
 platformName = "android"
 deviceName = "Nexus_5_API_23"
-app = "/Users/vikramanna/Documents/vikram/JoeUSA/AppiumSerenityPOC/app-releaseBeta.apk"
+app = "/Users/vikramanna/Documents/vikram/JoeUSA/AppiumSerenityPOC/app-releaseDev.apk"
 appActivity = "com.totalwine.app.MainActivity"
 ##### iOS CAPS #####
 ## https://github.com/appium/appium-xcuitest-driver ##

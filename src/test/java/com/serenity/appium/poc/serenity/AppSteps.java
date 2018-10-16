@@ -618,7 +618,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyShopThisStore() {
         LOGGER.info("Verifying clicking Shop This Store icon from store details page...");
-        assertThat(storeIconsPageObject.clickShopThisStoreIcon()).isTrue();
+        storeIconsPageObject.clickShopThisStoreIcon();
     }
 
     @Step
@@ -902,6 +902,21 @@ public class AppSteps extends ScenarioSteps {
         //MOB-2284
         productSearchResultsPageObject.clickHeartIconOfFirstSearchResultItem();
         productSearchResultsPageObject.clickCheckboxAgainstTopXListsAndCloseDialog(2);
+    }
+
+    @Step
+    public void changeStoreFromCartPage(String searchToken, String storeName){
+        cartPageObject.doChangeStoreAction();
+
+        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+        assertThat(storeSearchPageObject.enterSearchToken(searchToken)).isTrue();
+        assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
+    }
+
+    @Step
+    public void verifyRewardTextOnCartScreen(boolean expectedValue){
+        cartPageObject.isPageTitleCorrect();
+        assertThat( cartPageObject.isMyRewardTextShown() ).isEqualTo(expectedValue);
     }
 
 }
