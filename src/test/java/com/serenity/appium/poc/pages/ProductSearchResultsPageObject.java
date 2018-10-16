@@ -43,6 +43,9 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[2][contains(@text,'ITEM')]")
     private WebElement topRightCornderItemsCount;
 
+    @AndroidFindBy(accessibility = "button-floating-return")
+    private WebElement selectAListCloseButton;
+
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
     }
@@ -140,7 +143,56 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return false;
     }
 
-    //------------------ iOS -->
+    public boolean selectProduct(int productNumber) {
+        if (isAndroid()) {
+            return selectProductForAndroid(productNumber);
+        }else{
+            //iOS TBD
+        }
+
+        return false;
+    }
+
+    public String getProductName(int productNumber){
+        if (isAndroid()) {
+            return getAndroidProductName(productNumber);
+        }else{
+            return getIosProductNames(productNumber);
+        }
+    }
+
+    String XPathHeartIconOnFirstSearchItem = "//android.view.ViewGroup[contains(@content-desc, 'product-name')]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.Button";
+    String XPathSelectAListTitle = "//android.view.ViewGroup/android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[@text='SELECT A LIST']";
+    public boolean clickHeartIconOfFirstSearchResultItem(){
+
+        getDriver().findElement(By.xpath(XPathHeartIconOnFirstSearchItem)).click();
+
+        if(Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(XPathSelectAListTitle)), 5)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public void clickCheckboxAgainstTopXListsAndCloseDialog(int listCount){
+
+        String XPath_ForListCheckBoxPattern = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.Button/android.widget.TextView";
+
+        for(int count=1; count <= listCount; count++){
+            String XPath_ForListCheckBox = String.format(XPath_ForListCheckBoxPattern, count);
+
+            getDriver().findElement(By.xpath(XPath_ForListCheckBox)).click();
+
+            //MOB-2284
+            //Hard Coding - current after checking/ un-checking none of the parameters gets updated. This needs to be fixed
+            Utils.waitFor(2000);
+        }
+
+        selectAListCloseButton.click();
+        Utils.waitFor(2000);
+    }
+
+        //------------------ iOS -->
 
 //    private static String productNamesRegex = "((\\w+\\s?)+)\\!((\\w+\\s?)+)?";
     private static String productNamesRegex = "(product-name-|product-names-)((\\w+\\.?-?\\s?)+)\\!((\\w+\\.?-?\\s?)+)?";

@@ -236,7 +236,7 @@ public class BrowsePageObject extends MobilePageObject {
        return Utils.isVisible(getDriver(), selectAListDialogTitle_PostHeartIconClickAction, 15);
     }
 
-    public boolean addSelectedIconByClickingHeartIconToList(String listName){
+    public boolean addItemByClickingHeartIconToList(String listName){
         try{
                 String listNameXpathPreFix = "//android.widget.Button/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[";
                 String listNameXpathPostFix = "]/android.view.ViewGroup/android.widget.TextView";
@@ -245,7 +245,10 @@ public class BrowsePageObject extends MobilePageObject {
 
                 if (isSelectAListDialogTitle_PostHeartIconClickActionVisible()) {
 
-                    for (int listCount = 1; listCount <= 3; listCount++) {
+                    String XPath_CurrentViewLists = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+                    int listCountInCurrentView = getDriver().findElements(By.xpath(XPath_CurrentViewLists)).size();
+
+                    for (int listCount = 1; listCount <= listCountInCurrentView; listCount++) {
 
                         if (getDriver().findElement(By.xpath(listNameXpathPreFix + listCount + listNameXpathPostFix)).getText().equalsIgnoreCase(listName)) {
 
@@ -253,7 +256,7 @@ public class BrowsePageObject extends MobilePageObject {
 
                             //TEMP FIX
                             //Issue there is no attribute which changes after clicking on checkmark
-                            Thread.sleep(5000);
+                            Utils.waitFor(3000);
 
                             return true;
                         }

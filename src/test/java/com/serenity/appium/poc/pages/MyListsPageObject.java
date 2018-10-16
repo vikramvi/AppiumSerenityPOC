@@ -1,17 +1,20 @@
 package com.serenity.appium.poc.pages;
 
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class MyListsPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@content-desc=\"header-title\"]")
+    @AndroidFindBy(xpath="//android.widget.TextView[@content-desc='header-title' and @text='MY LISTS']")
     private WebElement MyListsScreenTitle;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='CREATE LIST']")
@@ -118,6 +121,51 @@ public class MyListsPageObject extends MobilePageObject {
         }
 
         return false;
+    }
+
+
+    private String XPath_listsCountInCurrentView = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+    public int getListsCount(){
+
+        List<String> items = new ArrayList<>();
+        List<String> itemsWithoutDuplicates = new ArrayList<>();
+        String lastItem = null;
+
+        //initial screen
+        int listsCountInCurrentScreen = getDriver().findElements(By.xpath(XPath_listsCountInCurrentView)).size();
+
+        String XPATHPattern_FirstScreenItems = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.TextView[1]";
+
+        for (int itemCount = 1; itemCount <= listsCountInCurrentScreen; itemCount++) {
+            String actualXPath = String.format(XPATHPattern_FirstScreenItems, itemCount);
+
+            items.add(getDriver().findElement(By.xpath(actualXPath)).getText());
+        }
+
+        for(int tryCount = 0; tryCount < 1; tryCount++) {
+            Scrolling.scrollDown(0.85, 0.15);
+            Utils.waitFor(1000);
+
+            listsCountInCurrentScreen = getDriver().findElements(By.xpath(XPath_listsCountInCurrentView)).size();
+
+
+            for (int itemCount = 2; itemCount <= listsCountInCurrentScreen; itemCount++) {
+                String actualXPath = String.format(XPATHPattern_FirstScreenItems, itemCount);
+
+                try {
+                    items.add(getDriver().findElement(By.xpath(actualXPath)).getText());
+                }catch (Exception e){
+                    break;
+                }
+
+            }
+
+        }
+
+        //removes duplicates
+        itemsWithoutDuplicates = items.stream().distinct().collect(Collectors.toList());
+
+        return itemsWithoutDuplicates.size();
     }
 
 }
