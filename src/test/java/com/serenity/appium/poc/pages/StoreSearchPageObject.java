@@ -77,6 +77,8 @@ public class StoreSearchPageObject extends MobilePageObject {
                 FIELD_geoSearch.sendKeys(token);
                 clickSearchButtonOnly();
             }
+
+            Utils.waitFor(1000);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
