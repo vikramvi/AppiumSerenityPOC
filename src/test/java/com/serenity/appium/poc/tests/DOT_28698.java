@@ -11,7 +11,7 @@ public class DOT_28698 extends WineAppTest{
     @Category({Regression1.class})
     public void DOT_28698_verifyCertificateUsageOnCheckoutScreen(){
         appSteps.completeQuickOnboarding();
-        String emailId = "jphtest@yopmail.com";
+        String emailId = "jphtest7@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
 
         appSteps.gotoShopptingCartAndEmptyIt();
