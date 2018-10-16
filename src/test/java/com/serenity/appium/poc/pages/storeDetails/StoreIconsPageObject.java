@@ -71,10 +71,8 @@ public class StoreIconsPageObject extends MobilePageObject {
                  navigationFooterPageObject.clickHomeButton();
 
              }else if (Utils.isVisible(getDriver(), ShopThisStoreButton, 4)) {
-
                  ShopThisStoreButton.click();
                  LOGGER.info("Clicked ShopThisStoreButton");
-
 
                  //temp fix MOB-2246
                  if (Utils.isVisible(getDriver(), ChangeStoreConfirmationDialogTitle, 3)) {

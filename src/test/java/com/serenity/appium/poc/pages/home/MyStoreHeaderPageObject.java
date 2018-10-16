@@ -156,7 +156,7 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     }
 
     public boolean isChangeStoreOptionPresent() {
-        return Utils.isVisible(getDriver(), BUTTON_changeStore, 20);
+        return Utils.isVisible(getDriver(), BUTTON_changeStore, 25);
     }
 
     public boolean clickChangeStore() {

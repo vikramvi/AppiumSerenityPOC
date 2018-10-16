@@ -9,7 +9,7 @@ public class DOT_26940 extends WineAppTest{
 
     @Test
     @Category({Regression1.class})
-    public void DOT_26741_verifyToastMessagesForMinimumThresholdForDeliveryAndToChooseTimeWindowForDelivery() {
+    public void DOT_26940_verifyToastMessagesForMinimumThresholdForDeliveryAndToChooseTimeWindowForDelivery() {
         appSteps.completeQuickOnboarding();
 
         String emailId = "jphtest@yopmail.com";

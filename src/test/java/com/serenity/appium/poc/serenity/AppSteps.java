@@ -683,7 +683,7 @@ public class AppSteps extends ScenarioSteps {
 
         String itemNameToBeAddedToNewlyCreatedList = browsePageObject.getFirtItemNameWithHeartIcon();
         browsePageObject.clickFirstItemHeartIcon();
-        browsePageObject.addSelectedIconByClickingHeartIconToList(newListName);
+        assertThat( browsePageObject.addItemByClickingHeartIconToList(newListName) ).isTrue();
 
         browsePageObject.clickViewAllButton();
         assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();

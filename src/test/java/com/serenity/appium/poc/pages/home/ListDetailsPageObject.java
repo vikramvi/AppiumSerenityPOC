@@ -17,7 +17,7 @@ public class ListDetailsPageObject extends MobilePageObject{
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView")
     private WebElement listTitle;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView")
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.view.ViewGroup/android.widget.TextView[@text='START BROWSING']")
     private WebElement StartBrowsingButton;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.Button/android.widget.TextView[2]")
