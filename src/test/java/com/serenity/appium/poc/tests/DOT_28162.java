@@ -19,7 +19,7 @@ public class DOT_28162 extends WineAppTest{
 
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
-        appSteps.verifyShopThisStore();
+        appSteps.performShopThisStoreAction();
 
         appSteps.verifyHomepageToProductSearch();
         appSteps.searchForProduct("Nemiroff Honey Pepper Vodka");
@@ -29,7 +29,7 @@ public class DOT_28162 extends WineAppTest{
         appSteps.verifyRewardTextOnCartScreen(true);
 
         appSteps.changeStoreFromCartPage("NY", "River Edge");
-        appSteps.verifyShopThisStore();
+        appSteps.performShopThisStoreAction();
         appSteps.verifyRewardTextOnCartScreen(false);
     }
 }

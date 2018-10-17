@@ -616,7 +616,7 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyShopThisStore() {
+    public void performShopThisStoreAction() {
         LOGGER.info("Verifying clicking Shop This Store icon from store details page...");
         storeIconsPageObject.clickShopThisStoreIcon();
     }

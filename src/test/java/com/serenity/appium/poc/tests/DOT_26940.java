@@ -19,7 +19,7 @@ public class DOT_26940 extends WineAppTest{
         appSteps.gotoHomeTab();
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Mountain View", "Mountain View");
-        appSteps.verifyShopThisStore();
+        appSteps.performShopThisStoreAction();
 
         String token = "Sweet Red Wine";
         appSteps.verifyHomepageToProductSearch();

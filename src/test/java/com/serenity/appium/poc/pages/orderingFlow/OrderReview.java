@@ -36,7 +36,10 @@ public class OrderReview extends MobilePageObject {
     }
 
     public boolean isOrderReviewPageTitleCorrect() {
-        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 15 )) {
+
+        //Info - isVisible condition passes even when the screen is still loading
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 25 ) &&
+           Utils.isClickable(getDriver(), AgreementAboutValidIdToVerifyAgeCardCheckbox, 25)) {
             return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
         }
         return false;

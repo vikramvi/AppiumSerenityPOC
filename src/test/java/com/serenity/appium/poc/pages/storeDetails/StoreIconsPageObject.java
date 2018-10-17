@@ -26,16 +26,16 @@ public class StoreIconsPageObject extends MobilePageObject {
     private WebElement TOUCHABLE_ICON_changeStore;
 
     @AndroidFindBy(accessibility = "button-shop-this-store")
-    private WebElement ShopThisStoreButton;
+    private WebElement shopThisStoreButton;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@content-desc='touchableIcon-bookmark-myStore']/android.widget.TextView[2][@text='SHOPPING NOW']")
-    private WebElement ShoppingNowButtonText;
+    private WebElement shoppingNowButtonText;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.widget.TextView[2][@text='CHANGING YOUR STORE?']")
-    private WebElement ChangeStoreConfirmationDialogTitle;
+    private WebElement changeStoreConfirmationDialogTitle;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"change-shopping-method\"]/android.widget.TextView[@text='CONTINUE']")
-    private WebElement ChangeStoreConfirmationDialogContinueButton;
+    private WebElement changeStoreConfirmationDialogContinueButton;
 
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private NavigationFooterPageObject navigationFooterPageObject;
@@ -66,17 +66,17 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     public void clickShopThisStoreIcon() {
          if(isChangeStoreIconPresent()) {
-             if (Utils.isVisible(getDriver(), ShoppingNowButtonText, 1)) {
+             if (Utils.isVisible(getDriver(), shoppingNowButtonText, 1)) {
                  LOGGER.info("Already in expected store, no need to change");
                  navigationFooterPageObject.clickHomeButton();
 
-             }else if (Utils.isVisible(getDriver(), ShopThisStoreButton, 4)) {
-                 ShopThisStoreButton.click();
+             }else if (Utils.isVisible(getDriver(), shopThisStoreButton, 4)) {
+                 shopThisStoreButton.click();
                  LOGGER.info("Clicked ShopThisStoreButton");
 
                  //temp fix MOB-2246
-                 if (Utils.isVisible(getDriver(), ChangeStoreConfirmationDialogTitle, 3)) {
-                     ChangeStoreConfirmationDialogContinueButton.click();
+                 if (Utils.isVisible(getDriver(), changeStoreConfirmationDialogTitle, 3)) {
+                     changeStoreConfirmationDialogContinueButton.click();
                      LOGGER.info("Clicked ChangeStoreConfirmationDialogContinueButton");
                  }
              }else{

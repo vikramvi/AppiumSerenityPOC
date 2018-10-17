@@ -12,7 +12,7 @@ public class DOT_25256 extends WineAppTest {
             appSteps.completeQuickOnboarding();
             appSteps.verifyChangeStoreLookupOption();
             appSteps.verifySelectStoreFromSearchResults("Mountain View", "Mountain View");
-            appSteps.verifyShopThisStore();
+            appSteps.performShopThisStoreAction();
             appSteps.verifyHomepageToProductSearch();
             String token = "MACALLAN \"M\" CRYSTAL DECANTER";
             appSteps.searchForProduct(token);

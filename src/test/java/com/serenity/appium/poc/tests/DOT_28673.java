@@ -17,6 +17,11 @@ public class DOT_28673 extends WineAppTest{
         appSteps.addNewCreditCardFromHomeMoreOptionsAccount();
 
         appSteps.gotoHomeTab();
+
+        appSteps.verifyChangeStoreLookupOption();
+        appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+        appSteps.performShopThisStoreAction();
+
         appSteps.verifyHomepageToProductSearch();
         appSteps.searchForProduct("Hennessy black");
         appSteps.verifySelectProductFromSearchResults(1);
