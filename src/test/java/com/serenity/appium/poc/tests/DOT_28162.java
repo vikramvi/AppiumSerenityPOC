@@ -9,7 +9,7 @@ public class DOT_28162 extends WineAppTest{
 
     @Test
     @Category({Regression1.class})
-    public void DOT_28162_verifyRedeemCertificateInCartOutsideOfandMoreArea() {
+    public void DOT_28162_verifyRedeemCertificateInCartOutsideOfAndMoreArea() {
         appSteps.completeQuickOnboarding();
         String emailId = "jphtest7@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
