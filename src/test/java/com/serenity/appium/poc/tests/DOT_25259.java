@@ -12,7 +12,7 @@ public class DOT_25259 extends WineAppTest {
             appSteps.completeQuickOnboarding();
             appSteps.verifyChangeStoreLookupOption();
             appSteps.verifySelectStoreFromSearchResults("Bellevue", "Bellevue");
-            appSteps.verifyShopThisStore();
+            appSteps.performShopThisStoreAction();
             appSteps.verifyHomepageToProductSearch();
             String token = "mascarade liqueur";
             appSteps.searchForProduct(token);

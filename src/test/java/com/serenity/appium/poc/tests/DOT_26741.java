@@ -19,7 +19,7 @@ public class DOT_26741 extends WineAppTest {
         appSteps.gotoHomeTab();
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Pleasanton", "Pleasanton");
-        appSteps.verifyShopThisStore();
+        appSteps.performShopThisStoreAction();
 
         String token = "Glen Single Malt Cigar";
         appSteps.verifyHomepageToProductSearch();

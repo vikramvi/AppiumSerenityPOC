@@ -19,7 +19,7 @@ public class DOT_28698 extends WineAppTest{
 
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Sacramento", "Sacramento (Arden)");
-        appSteps.verifyShopThisStore();
+        appSteps.performShopThisStoreAction();
 
         appSteps.verifyHomepageToProductSearch();
         appSteps.searchForProduct("108148750-1");
