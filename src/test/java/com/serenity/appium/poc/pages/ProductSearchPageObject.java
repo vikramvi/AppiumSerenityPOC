@@ -20,6 +20,9 @@ public class ProductSearchPageObject extends MobilePageObject {
     @iOSFindBy(accessibility="search view")
     private WebElement FIELD_searchProduct;
 
+    @AndroidFindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[@text='POPULAR SEARCH TERMS']")
+    private WebElement popularSearchTerms;
+
     public ProductSearchPageObject(WebDriver driver) { super(driver); }
 
     public boolean typeSearchTerm(String productName){
@@ -69,6 +72,19 @@ public class ProductSearchPageObject extends MobilePageObject {
     }
 
     public boolean isSearchFieldPresent() {
-        return Utils.isVisible(getDriver(), FIELD_searchProduct, 20);
+        if (!Utils.isVisible(getDriver(), popularSearchTerms, 20)) {
+            if (isAndroid()) {
+                //sometimes keyboard overlaps item search field which results in failure
+                if(!Utils.isVisible(getDriver(), FIELD_searchProduct, 3)) {
+                    LOGGER.info("Android Keyboard overlapping item search input field");
+                    ((AndroidDriver) ((WebDriverFacade) getDriver()).getProxiedDriver()).hideKeyboard();
+                    Utils.waitFor(500);
+                    return Utils.isVisible(getDriver(), FIELD_searchProduct, 3);
+                }
+            } else {
+                //iOS TDB
+            }
+        }
+        return true;
     }
 }

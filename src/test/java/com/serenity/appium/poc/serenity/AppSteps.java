@@ -720,7 +720,7 @@ public class AppSteps extends ScenarioSteps {
 
     @Step
     public void verifyItemNotEligibleForHomeDelivery_RemovalFromCart_AlongWithOtherItemsInCart(){
-        cartPageObject.selectContinueForChangingToDeliveryDialog();
+        assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() ).isTrue();
         deliveryAddressPageObject.addNewAddressForDelivery();
         cartPageObject.chooseProccedOnSomeItemsNotAvailableDialog();
         assertThat( cartPageObject.isContinueShoppingLinkShown() ).isTrue();

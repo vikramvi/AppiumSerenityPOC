@@ -244,7 +244,6 @@ public class CartPageOject extends MobilePageObject {
                     if (difference < 0.00001) {
                         return true;
                     } else {
-                        System.out.println("error 2");
                         LOGGER.error("COUPON could NOT be applied");
                     }
 

@@ -10,6 +10,11 @@ public class DOT_25261 extends WineAppTest {
     public void DOT_25261_verifyDepositLabelOnPrice() {
         try{
             appSteps.completeQuickOnboarding();
+
+            appSteps.verifyChangeStoreLookupOption();
+            appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+            appSteps.performShopThisStoreAction();
+
             appSteps.verifyHomepageToProductSearch();
             appSteps.searchForProduct("modelo especial 1/2 keg");
             appSteps.verifySearchResultCount(1);
