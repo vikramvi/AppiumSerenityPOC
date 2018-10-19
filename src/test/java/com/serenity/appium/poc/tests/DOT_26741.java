@@ -16,6 +16,8 @@ public class DOT_26741 extends WineAppTest {
         String emailId = "jphtest7@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
 
+        appSteps.gotoShopptingCartAndEmptyIt();
+
         appSteps.gotoHomeTab();
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Pleasanton", "Pleasanton");
