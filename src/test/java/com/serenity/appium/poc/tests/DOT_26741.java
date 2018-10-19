@@ -2,6 +2,7 @@ package com.serenity.appium.poc.tests;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.Regression1;
+import com.serenity.appium.poc.utils.Utils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -13,10 +14,11 @@ public class DOT_26741 extends WineAppTest {
     public void DOT_26741_verifySwitchToDeliveryOptionForItemWithOptionOnlyTobePickedFromShop(){
         appSteps.completeQuickOnboarding();
 
-        String emailId = "jphtest7@yopmail.com";
-        appSteps.performLoginFromHomepage(emailId);
+//        String emailId = "jphtest7@yopmail.com";
+//        appSteps.performLoginFromHomepage(emailId);
+        appSteps.performLoginFromHomepage(Utils.getRandomLoginId());
 
-        appSteps.gotoShopptingCartAndEmptyIt(); 
+        appSteps.gotoShopptingCartAndEmptyIt();
 
         appSteps.gotoHomeTab();
         appSteps.verifyChangeStoreLookupOption();

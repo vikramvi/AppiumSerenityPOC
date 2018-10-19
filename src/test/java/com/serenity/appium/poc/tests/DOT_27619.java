@@ -2,6 +2,7 @@ package com.serenity.appium.poc.tests;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.Regression1;
+import com.serenity.appium.poc.utils.Utils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -11,8 +12,8 @@ public class DOT_27619 extends WineAppTest{
     @Category({Regression1.class})
     public void DOT_27619_verifyCreationOfShoppingListFromListPage(){
         appSteps.completeQuickOnboarding();
-        String emailId = "jphtest7@yopmail.com";
-        appSteps.performLoginFromHomepage(emailId);
+//        String emailId = "jphtest7@yopmail.com";
+        appSteps.performLoginFromHomepage(Utils.getRandomLoginId());
 
         appSteps.gotoHomeTab();
         String newListName = "create_list_withMaxLength";

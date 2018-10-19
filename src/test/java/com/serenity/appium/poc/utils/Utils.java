@@ -255,6 +255,14 @@ public class Utils {
         Random random = new Random();
         return random.nextInt((max - min + 1)) + min;
     }
+    public static String getRandomLoginId() {
+        int randomInt = getRandomInteger(1, 100);
+        return String.format("appTest%d@yopmail.com", randomInt);
+    }
+    public static String getRandomLoginIdWithCertificate() {
+        int randomInt = getRandomInteger(2, 10);
+        return String.format("jphTest%d@yopmail.com", randomInt);
+    }
     private static int getRandomInteger(int max) {
         return getRandomInteger(0, max);
     }
