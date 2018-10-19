@@ -15,6 +15,11 @@ public class DOT_27621 extends WineAppTest{
         appSteps.performLoginFromHomepage(emailId);
 
         appSteps.gotoHomeTab();
+
+        appSteps.verifyChangeStoreLookupOption();
+        appSteps.verifySelectStoreFromSearchResults("Fremont", "Fremont");
+        appSteps.performShopThisStoreAction();
+
         appSteps.verifyMaxListsDisplayedUnderMyListsSection();
         appSteps.verifyFavoriteItemCanBeAddedToMultipleLists();
     }
