@@ -31,6 +31,9 @@ public class StoreSearchPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "button-floating-return")
     private WebElement BUTTON_return;
 
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='touchable-store-detail'][1]")
+    private WebElement firstStoreResult;
+
     public StoreSearchPageObject(WebDriver driver) {
         super(driver);
     }
@@ -118,8 +121,8 @@ public class StoreSearchPageObject extends MobilePageObject {
                     System.out.println(">>>>> store not found!");
                 }
             } else {
-                    String xPathFirstStore = "//android.widget.Button[@content-desc='touchable-store-detail'][1]";
-                    if( !Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(xPathFirstStore)), 25) &&
+
+                    if( !Utils.isVisible(getDriver(), firstStoreResult, 25) &&
                         !Utils.isClickable(getDriver(), BUTTON_return, 25)){
                         LOGGER.error("search page did not load completely");
                         return false;

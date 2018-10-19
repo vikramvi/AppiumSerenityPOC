@@ -75,7 +75,7 @@ public class StoreIconsPageObject extends MobilePageObject {
                  LOGGER.info("Clicked ShopThisStoreButton");
 
                  //temp fix MOB-2246
-                 if (Utils.isVisible(getDriver(), changeStoreConfirmationDialogTitle, 3)) {
+                 if (Utils.isVisible(getDriver(), changeStoreConfirmationDialogContinueButton, 3)) {
                      changeStoreConfirmationDialogContinueButton.click();
                      LOGGER.info("Clicked ChangeStoreConfirmationDialogContinueButton");
                  }

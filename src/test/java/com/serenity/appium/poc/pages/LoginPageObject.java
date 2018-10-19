@@ -75,7 +75,7 @@ public class LoginPageObject extends MobilePageObject {
 
     public boolean confirmHeader(){
 
-        if(Utils.isVisible(getDriver(), TEXT_header, 8)) {
+        if(Utils.isVisible(getDriver(), TEXT_header, 20)) {
             String actual = TEXT_header.getText();
             boolean result = actual.equals(expectedHeader);
             return result;
