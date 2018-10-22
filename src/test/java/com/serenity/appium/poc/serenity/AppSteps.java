@@ -72,9 +72,9 @@ public class AppSteps extends ScenarioSteps {
 
 // ---------create accounts
 
-        for (int i=91; i<101; i++) {
-//            String prefix = "coup" + i;
-            String prefix = "appTest" + i;
+        for (int i=41; i<51; i++) {
+            String prefix = "coupon" + i;
+//            String prefix = "appTest" + i;
             createSpecifiedUserFromHomepage(prefix + "@yopmail.com");
             navigationFooterPageObject.clickMoreMenuButton();
             navigationFooterMoreMenuPageObject.clickSignOutButton();

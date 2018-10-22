@@ -59,6 +59,7 @@ public class WineAppTest {
     public void appBaseState(){
         System.out.println(" -----------------------  appBaseState ----------------------- ");
         ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).activateApp("com.totalwine.app.dev");
+//        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).activateApp("com.totalwine.app.beta");
     }
 
 
@@ -68,6 +69,7 @@ public class WineAppTest {
         System.out.println(" -----------------------  putAppInBackgroundOrTerminate ----------------------- ");
 
         ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).terminateApp("com.totalwine.app.dev");
+//        ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).terminateApp("com.totalwine.app.beta");
 
         //((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).closeApp();
     }
