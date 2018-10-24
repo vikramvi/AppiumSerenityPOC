@@ -664,10 +664,8 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyNewListCreationFromMyListsScreenAndBrowseForSelectedList(String newListName){
         assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
-        listsSectionPageObject.clickViewAllListsButton();
 
         myListsPageObject.clickCreateListButton();
-
         myListsPageObject.enterListName(newListName);
         assertThat( myListsPageObject.clickListNameSaveButton() ).isTrue();
 

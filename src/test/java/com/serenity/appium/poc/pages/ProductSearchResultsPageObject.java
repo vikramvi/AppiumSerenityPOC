@@ -43,7 +43,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[2][contains(@text,'ITEM')]")
     private WebElement topRightCornderItemsCount;
 
-    @AndroidFindBy(accessibility = "button-floating-return")
+    @AndroidFindBy(accessibility = "button-floating-close-list-modal")
     private WebElement selectAListCloseButton;
 
     public ProductSearchResultsPageObject(WebDriver driver) {

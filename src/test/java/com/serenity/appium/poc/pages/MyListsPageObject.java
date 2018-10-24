@@ -17,13 +17,13 @@ public class MyListsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.widget.TextView[@content-desc='header-title' and @text='MY LISTS']")
     private WebElement MyListsScreenTitle;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='CREATE LIST']")
+    @AndroidFindBy(xpath="//android.widget.Button/android.widget.TextView[@text='CREATE LIST']")
     private WebElement CreateListButton;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.EditText")
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.view.ViewGroup/android.widget.EditText")
     private WebElement ListNameEditField;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.Button/android.widget.TextView[@text='SAVE']")
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.widget.Button/android.widget.TextView[@text='SAVE']")
     private WebElement SaveListNameButton;
 
 
