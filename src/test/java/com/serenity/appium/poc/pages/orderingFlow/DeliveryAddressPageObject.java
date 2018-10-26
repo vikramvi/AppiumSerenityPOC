@@ -61,4 +61,8 @@ public class DeliveryAddressPageObject extends MobilePageObject{
             return false;
     }
 
+    public void clickConfirmAddress(){
+        CONFIRM_ADDRESS.click();
+    }
+
 }

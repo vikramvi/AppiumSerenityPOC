@@ -34,7 +34,7 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView[2]")
     private WebElement TotalAmount;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView//android.widget.Button[2]/android.widget.TextView[@text='X']")
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.widget.Button/android.widget.TextView[@text='X']")
     private WebElement crossIcon;
 
     @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.view.ViewGroup[2]/android.widget.TextView[@text='Delete']")
@@ -319,9 +319,25 @@ public class CartPageOject extends MobilePageObject {
           return false;
     }
 
+    public boolean isSomeItemsNotAvailableTitleDialogShown(){
+         if( Utils.isVisible( getDriver(), SomeItemsNotAvailableTitle, 20) ){
+             return true;
+         }
+         return false;
+    }
+
     public boolean chooseProccedOnSomeItemsNotAvailableDialog(){
         if( Utils.isVisible( getDriver(), SomeItemsNotAvailableTitle, 20) ){
             SomeItemsNotAvailableProceedButton.click();
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean chooseCancelOnSomeItemsNotAvailableDialog(){
+        if( Utils.isVisible( getDriver(), SomeItemsNotAvailableTitle, 20) ){
+            SomeItemsNotAvailableCancelButton.click();
             return true;
         }
 

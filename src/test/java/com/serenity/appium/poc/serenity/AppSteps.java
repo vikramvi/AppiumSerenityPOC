@@ -918,4 +918,26 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.isMyRewardTextShown() ).isEqualTo(expectedValue);
     }
 
+    @Step
+    public void VerifyChangeToDelivery_And_ChooseCancelOption_ItemsNotAvailalbeDialog(){
+        assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() );
+        //MOB-2247
+        assertThat( deliveryAddressPageObject.addNewAddressForDelivery() ).isTrue();
+        assertThat( cartPageObject.chooseCancelOnSomeItemsNotAvailableDialog() ).isTrue();
+
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
+        deliveryAddressPageObject.clickConfirmAddress();
+    }
+
+    @Step
+    public void VerifyChooseProceedOption_ItemsNotAvailalbeDialog(){
+        assertThat( cartPageObject.isSomeItemsNotAvailableTitleDialogShown() ).isTrue();
+        assertThat( navigationFooterPageObject.isCartEmpty() ).isFalse();
+
+        cartPageObject.chooseProccedOnSomeItemsNotAvailableDialog();
+        cartPageObject.isContinueShoppingLinkShown();
+
+        assertThat( navigationFooterPageObject.isCartEmpty() ).isTrue();
+    }
+
 }
