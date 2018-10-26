@@ -35,6 +35,9 @@ public class NavigationFooterPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button[2]/android.widget.TextView[@text='VIEW CART']")
     private WebElement viewCartButton;
 
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc=\"tab-cart\"]/android.view.ViewGroup/android.widget.TextView")
+    private WebElement cartButtonItemNumber;
+
 
     public NavigationFooterPageObject(WebDriver driver) {
         super(driver);
@@ -105,5 +108,12 @@ public class NavigationFooterPageObject extends MobilePageObject {
 
     public void clickViewCartButton(){
          viewCartButton.click();
+    }
+
+    public boolean isCartEmpty(){
+        if(!Utils.isVisible(getDriver(), cartButtonItemNumber, 1)){
+            return true;
+        }
+        return false;
     }
 }
