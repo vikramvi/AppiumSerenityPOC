@@ -10,7 +10,7 @@ public class DOT_28164 extends WineAppTest {
 
     @Test
     @Category({Regression1.class})
-    public void DOT_28164_verify(){
+    public void DOT_28164_verifyMoreRewardsEligibilityAndInfoUnderMyOrders(){
         appSteps.completeQuickOnboarding();
         appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
