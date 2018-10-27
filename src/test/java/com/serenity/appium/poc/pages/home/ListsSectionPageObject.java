@@ -4,7 +4,6 @@ import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

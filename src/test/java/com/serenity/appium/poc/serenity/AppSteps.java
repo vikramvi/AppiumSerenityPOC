@@ -61,6 +61,7 @@ public class AppSteps extends ScenarioSteps {
     private DeliveryAddressPageObject deliveryAddressPageObject;
     private OrderReview orderReviewPageObject;
     private ListDetailsPageObject listDetailsPageObject;
+    private MoreRewardsSectionPageObject moreRewardsSectionPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -254,7 +255,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyHomepageToProductSearch() {
         LOGGER.info("Clicking search proxy on homepage to see product search page...");
-        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
         assertThat(productSearchPageObject.isSearchFieldPresent()).isTrue();
     }
@@ -938,6 +939,20 @@ public class AppSteps extends ScenarioSteps {
         cartPageObject.isContinueShoppingLinkShown();
 
         assertThat( navigationFooterPageObject.isCartEmpty() ).isTrue();
+    }
+
+    @Step
+    public void verifyAndMoreRewardSection(){
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
+        assertThat( moreRewardsSectionPageObject.isAndMoreRewardsSectionDisplayed() ).isTrue();
+    }
+
+    @Step
+    public void verifyRewardEligibility_and_ApplyReward(){
+        assertThat( cartPageObject.isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown() ).isTrue();
+        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.isRewardAppliedSuccessfully();
+        assertThat( cartPageObject.isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown() ).isFalse();
     }
 
 }
