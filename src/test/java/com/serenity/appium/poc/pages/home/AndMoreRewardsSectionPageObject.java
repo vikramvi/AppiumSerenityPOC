@@ -7,7 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class MoreRewardsSectionPageObject extends MobilePageObject{
+public class AndMoreRewardsSectionPageObject extends MobilePageObject{
 
     @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text='&MORE REWARDS']")
     private WebElement andMoreRewardsTitle;
@@ -16,7 +16,7 @@ public class MoreRewardsSectionPageObject extends MobilePageObject{
     private WebElement viewDetailsButton;
 
 
-    public MoreRewardsSectionPageObject(WebDriver driver) {
+    public AndMoreRewardsSectionPageObject(WebDriver driver) {
         super(driver);
     }
 

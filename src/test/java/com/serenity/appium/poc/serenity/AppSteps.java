@@ -61,7 +61,7 @@ public class AppSteps extends ScenarioSteps {
     private DeliveryAddressPageObject deliveryAddressPageObject;
     private OrderReview orderReviewPageObject;
     private ListDetailsPageObject listDetailsPageObject;
-    private MoreRewardsSectionPageObject moreRewardsSectionPageObject;
+    private AndMoreRewardsSectionPageObject andMoreRewardsSectionPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -946,7 +946,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyAndMoreRewardSection(){
         assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
-        assertThat( moreRewardsSectionPageObject.isAndMoreRewardsSectionDisplayed() ).isTrue();
+        assertThat( andMoreRewardsSectionPageObject.isAndMoreRewardsSectionDisplayed() ).isTrue();
     }
 
     @Step
