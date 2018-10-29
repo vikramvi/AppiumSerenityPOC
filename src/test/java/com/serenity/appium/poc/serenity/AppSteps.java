@@ -648,6 +648,7 @@ public class AppSteps extends ScenarioSteps {
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+        assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
     }
 
     @Step
@@ -730,6 +731,7 @@ public class AppSteps extends ScenarioSteps {
     public void verifyToastMessagesOnCartScreen(){
         assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() );
         //MOB-2247
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( deliveryAddressPageObject.addNewAddressForDelivery() ).isTrue();
         cartPageObject.isPageTitleCorrect();
         cartPageObject.isAddressUpdatedToastMessageSeen();

@@ -43,8 +43,14 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(accessibility="touchableIcon-option-picker")
     private WebElement ChooseDeliveryTimeControl;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]")
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]/android.widget.TextView[contains(@text,'Delivery')]")
     private WebElement SwitchToDeliveryLink;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]/android.widget.TextView[contains(@text,'Pickup')]")
+    private WebElement SwitchToPickupLink;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc=\"button-change-delivery-address\"]/android.widget.TextView[contains(@text,'Delivery to')]")
+    private WebElement DeliveryToLink;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[2][@text='CHANGING TO DELIVERY']")
     private WebElement ChangingToDeliveryPopUpTitle;
@@ -315,7 +321,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean clickSwitchToDeliveryLink(){
-        if( Utils.isVisible( getDriver(), SwitchToDeliveryLink, 10 ) ){
+        if( Utils.isVisible( getDriver(), SwitchToDeliveryLink, 1 ) ){
             SwitchToDeliveryLink.click();
             return true;
         }
@@ -323,9 +329,20 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
+    public boolean clickDeliverToLink(){
+        if( Utils.isVisible( getDriver(), SwitchToPickupLink, 1 ) ){
+            DeliveryToLink.click();
+            return true;
+        }
+        LOGGER.error("Switch to Pickup link is missing on CART screen");
+        return false;
+    }
+
     public boolean selectContinueForChangingToDeliveryDialog(){
           if(clickSwitchToDeliveryLink()){
               ChangingToDeliveryContinueButton.click();
+              return true;
+          }else if(clickDeliverToLink()){
               return true;
           }
           return false;
