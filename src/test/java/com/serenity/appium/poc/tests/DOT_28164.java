@@ -6,32 +6,33 @@ import com.serenity.appium.poc.utils.Utils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class DOT_26940 extends WineAppTest{
+public class DOT_28164 extends WineAppTest {
 
     @Test
     @Category({Regression1.class})
-    public void DOT_26940_verifyToastMessagesForMinimumThresholdForDeliveryAndToChooseTimeWindowForDelivery() {
+    public void DOT_28164_verifyMoreRewardsEligibilityAndInfoUnderMyOrders(){
         appSteps.completeQuickOnboarding();
+        appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
-//        String emailId = "jphtest@yopmail.com";
-        appSteps.performLoginFromHomepage(Utils.getRandomLoginId());
         appSteps.gotoShopptingCartAndEmptyIt();
-
         appSteps.gotoHomeTab();
+
         appSteps.verifyChangeStoreLookupOption();
-        appSteps.verifySelectStoreFromSearchResults("Mountain View", "Mountain View");
+        appSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
         appSteps.performShopThisStoreAction();
 
-        String token = "Sweet Red Wine";
+        appSteps.verifyAndMoreRewardSection();
+
         appSteps.verifyHomepageToProductSearch();
-        appSteps.searchForProduct(token);
+        appSteps.searchForProduct("94613750-1");
         appSteps.verifySelectProductFromSearchResults(1);
         appSteps.gotoCARTScreen();
 
-        //TEMP FIX MOB-2243
-        //appSteps.gotoHomeTab();
-        //appSteps.gotoCartTab();
+        appSteps.verifyRewardEligibility_and_ApplyReward();
 
-        appSteps.verifyToastMessagesOnCartScreen();
+        //WIP
+        //Place Order
+        //Check under My Orders
     }
+
 }

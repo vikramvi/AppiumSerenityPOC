@@ -61,6 +61,7 @@ public class AppSteps extends ScenarioSteps {
     private DeliveryAddressPageObject deliveryAddressPageObject;
     private OrderReview orderReviewPageObject;
     private ListDetailsPageObject listDetailsPageObject;
+    private AndMoreRewardsSectionPageObject andMoreRewardsSectionPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -254,7 +255,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void verifyHomepageToProductSearch() {
         LOGGER.info("Clicking search proxy on homepage to see product search page...");
-        assertThat(myStoreHeaderPageObject.isChangeStoreOptionPresent()).isTrue();
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
         assertThat(searchSection.triggerSearchPage()).isTrue();
         assertThat(productSearchPageObject.isSearchFieldPresent()).isTrue();
     }
@@ -647,6 +648,7 @@ public class AppSteps extends ScenarioSteps {
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+        assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
     }
 
     @Step
@@ -729,6 +731,7 @@ public class AppSteps extends ScenarioSteps {
     public void verifyToastMessagesOnCartScreen(){
         assertThat( cartPageObject.selectContinueForChangingToDeliveryDialog() );
         //MOB-2247
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( deliveryAddressPageObject.addNewAddressForDelivery() ).isTrue();
         cartPageObject.isPageTitleCorrect();
         cartPageObject.isAddressUpdatedToastMessageSeen();
@@ -938,6 +941,20 @@ public class AppSteps extends ScenarioSteps {
         cartPageObject.isContinueShoppingLinkShown();
 
         assertThat( navigationFooterPageObject.isCartEmpty() ).isTrue();
+    }
+
+    @Step
+    public void verifyAndMoreRewardSection(){
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
+        assertThat( andMoreRewardsSectionPageObject.isAndMoreRewardsSectionDisplayed() ).isTrue();
+    }
+
+    @Step
+    public void verifyRewardEligibility_and_ApplyReward(){
+        assertThat( cartPageObject.isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown() ).isTrue();
+        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.isRewardAppliedSuccessfully();
+        assertThat( cartPageObject.isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown() ).isFalse();
     }
 
 }

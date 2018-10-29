@@ -30,6 +30,9 @@ public class DeliveryAddressPageObject extends MobilePageObject{
     @AndroidFindBy(accessibility = "button-confirm-address")
     private WebElement CONFIRM_ADDRESS;
 
+    @AndroidFindBy(accessibility = "button-clear-form")
+    private WebElement clearFormButton;
+
     public DeliveryAddressPageObject(WebDriver driver){
         super(driver);
     }
@@ -49,6 +52,8 @@ public class DeliveryAddressPageObject extends MobilePageObject{
 
         Integer address1 = 1;
         addresses.put(address1, deliveryDetailAddress1);
+
+        clearFormButton.click();
 
             if(isPageTitleCorrect()){
                 INPUT_address1.sendKeys(addresses.get(address1)[0]);

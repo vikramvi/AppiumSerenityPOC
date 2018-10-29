@@ -43,8 +43,14 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(accessibility="touchableIcon-option-picker")
     private WebElement ChooseDeliveryTimeControl;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]")
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]/android.widget.TextView[contains(@text,'Delivery')]")
     private WebElement SwitchToDeliveryLink;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button[2]/android.widget.TextView[contains(@text,'Pickup')]")
+    private WebElement SwitchToPickupLink;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc=\"button-change-delivery-address\"]/android.widget.TextView[contains(@text,'Delivery to')]")
+    private WebElement DeliveryToLink;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[2][@text='CHANGING TO DELIVERY']")
     private WebElement ChangingToDeliveryPopUpTitle;
@@ -76,6 +82,9 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-change-store")
     private WebElement ChangeStoreButton;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[@text='Your subtotal must be greater than your Reward to apply.']")
+    private WebElement MyRewardText_ForSubtotal_LessThan_RewardToApply;
+
 
     public CartPageOject(WebDriver driver){
         super(driver);
@@ -93,19 +102,23 @@ public class CartPageOject extends MobilePageObject {
         return  Utils.isVisible(getDriver(), MyRewardText, 1);
     }
 
+    public boolean isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown(){
+        return  Utils.isVisible(getDriver(), MyRewardText_ForSubtotal_LessThan_RewardToApply, 1);
+    }
+
     public boolean clickMyRewardApply(){
         if( Utils.isVisible(getDriver(), rewardAppliedText, 3) && Utils.isVisible(getDriver(), MyReward_RemoveButton, 2) ){
-            System.out.println("clickMyRewardApply - 1 PASS");
+            LOGGER.info("clickMyRewardApply PASS - Reward is already applied, not doing any action atm");
             return true;
         }
 
         if(Utils.isVisible(getDriver(), MyReward_ApplyButton, 3 )){
             MyReward_ApplyButton.click();
-            System.out.println("clickMyRewardApply - 2 PASS");
+            LOGGER.info("clickMyRewardApply PASS - Reward has been explicitly applied");
             return true;
         }
 
-        System.out.println("clickMyRewardApply - 1 FAILED");
+        LOGGER.error("clickMyRewardApply FAILED");
         return false;
     }
 
@@ -244,7 +257,7 @@ public class CartPageOject extends MobilePageObject {
                     if (difference < 0.00001) {
                         return true;
                     } else {
-                        LOGGER.error("COUPON could NOT be applied");
+                        LOGGER.error("Reward could NOT be applied");
                     }
 
                 } else {
@@ -278,9 +291,14 @@ public class CartPageOject extends MobilePageObject {
             }
         }
 
-        String cartItemRows_xpath = "//android.view.ViewGroup/android.widget.Button[2]/android.widget.TextView[@text='X']";
+        String cartItemRows_xpath = "//android.view.ViewGroup/android.widget.Button/android.widget.TextView[@text='X']";
 
         int cartItems = getDriver().findElements(By.xpath(cartItemRows_xpath)).size();
+
+        if(cartItems == 0){
+          LOGGER.info("No Items Found in the Cart");
+          return true;
+        }
 
         for(int itemCount = 1; itemCount <= cartItems; itemCount++){
             crossIcon.click();
@@ -303,7 +321,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean clickSwitchToDeliveryLink(){
-        if( Utils.isVisible( getDriver(), SwitchToDeliveryLink, 10 ) ){
+        if( Utils.isVisible( getDriver(), SwitchToDeliveryLink, 1 ) ){
             SwitchToDeliveryLink.click();
             return true;
         }
@@ -311,9 +329,20 @@ public class CartPageOject extends MobilePageObject {
         return false;
     }
 
+    public boolean clickDeliverToLink(){
+        if( Utils.isVisible( getDriver(), SwitchToPickupLink, 1 ) ){
+            DeliveryToLink.click();
+            return true;
+        }
+        LOGGER.error("Switch to Pickup link is missing on CART screen");
+        return false;
+    }
+
     public boolean selectContinueForChangingToDeliveryDialog(){
           if(clickSwitchToDeliveryLink()){
               ChangingToDeliveryContinueButton.click();
+              return true;
+          }else if(clickDeliverToLink()){
               return true;
           }
           return false;
