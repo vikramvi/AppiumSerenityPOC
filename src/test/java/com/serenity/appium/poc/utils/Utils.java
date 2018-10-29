@@ -241,11 +241,11 @@ public class Utils {
         while (i<12 && !found) {
             try {
                 Thread.sleep(250);
+                String actual = element.getText();
+                found = actual.equals(expectedTitle);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String actual = element.getText();
-            found = actual.equals(expectedTitle);
             i++;
         }
         return found;
