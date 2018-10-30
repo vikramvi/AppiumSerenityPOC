@@ -139,7 +139,10 @@ public class PaymentsPageObject extends MobilePageObject {
     }
 
     public boolean isPageTitleCorrect() {
-        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 20)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
     }
 
     public boolean clickAndroidAddNewPaymentButton() {

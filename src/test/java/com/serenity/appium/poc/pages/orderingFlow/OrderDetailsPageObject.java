@@ -15,6 +15,9 @@ public class OrderDetailsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath = "android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]")
     private WebElement OrderId;
 
+    @AndroidFindBy( accessibility = "continue-shopping")
+    private WebElement continueShoppingButton;
+
     public OrderDetailsPageObject(WebDriver driver){
         super(driver);
     }
@@ -29,4 +32,9 @@ public class OrderDetailsPageObject extends MobilePageObject {
     public int getOrderId(){
         return Integer.parseInt( OrderId.getText() );
     }
+
+    public void clickContinueShoppingButton(){
+        continueShoppingButton.click();
+    }
+
 }

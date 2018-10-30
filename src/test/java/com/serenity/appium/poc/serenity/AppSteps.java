@@ -656,6 +656,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void gotoOrderReviewScreen(){
         cartPageObject.clickSecureCheckout();
+        assertThat( orderReviewPageObject.isOrderReviewPageTitleCorrect() ).isTrue();
     }
 
     @Step
@@ -784,7 +785,7 @@ public class AppSteps extends ScenarioSteps {
     public void completeOrderAndVerify(){
         orderReviewPageObject.isOrderReviewPageTitleCorrect();
         orderReviewPageObject.clickAgreeToShowAgeProofCheckbox();
-        orderReviewPageObject.completeOrderAndGotoViewDetailsScreen();
+        orderReviewPageObject.completeOrderAndGotoOrderDetailsScreen();
     }
 
     @Step
@@ -978,5 +979,23 @@ public class AppSteps extends ScenarioSteps {
 
         orderHistory.isPageTitleCorrect();
         orderHistory.tapOrderId(orderId);
+    }
+
+    @Step
+    public void verifyNavigationFooterInOrderingFlow(){
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isFalse();
+        orderReviewPageObject.clickPayment();
+
+        paymentsPageObject.isPageTitleCorrect();
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isFalse();
+        paymentsPageObject.clickReturnButton();
+
+        orderReviewPageObject.isOrderReviewPageTitleCorrect();
+        orderReviewPageObject.clickAgreeToShowAgeProofCheckbox();
+        orderReviewPageObject.completeOrderAndGotoOrderDetailsScreen();
+
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isTrue();
+        orderDetailsPageObject.clickContinueShoppingButton();
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
     }
 }
