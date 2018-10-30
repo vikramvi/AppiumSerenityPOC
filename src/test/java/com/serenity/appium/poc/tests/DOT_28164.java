@@ -15,6 +15,9 @@ public class DOT_28164 extends WineAppTest {
         appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
         appSteps.gotoShopptingCartAndEmptyIt();
+
+        appSteps.addNewCreditCardFromHomeMoreOptionsAccount();
+
         appSteps.gotoHomeTab();
 
         appSteps.verifyChangeStoreLookupOption();
@@ -30,9 +33,11 @@ public class DOT_28164 extends WineAppTest {
 
         appSteps.verifyRewardEligibility_and_ApplyReward();
 
+        appSteps.gotoOrderReviewScreen();
+        appSteps.completeOrderAndVerify();
+
+        appSteps.WIP();
         //WIP
-        //Place Order
-        //Check under My Orders
     }
 
 }

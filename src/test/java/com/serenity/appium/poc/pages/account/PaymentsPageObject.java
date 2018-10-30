@@ -16,6 +16,9 @@ public class PaymentsPageObject extends MobilePageObject {
     private WebElement TEXT_pageTitle;
     private static final String expectedTitle = "PAYMENTS";
 
+    @AndroidFindBy(accessibility = "button-delete-payment")
+    private WebElement BUTTON_DeleteCreditCard;
+
     @AndroidFindBy(accessibility = "text-confirmation-delete-card")
     private WebElement TEXT_deleteCreditCardConfirmation;
 
@@ -58,6 +61,60 @@ public class PaymentsPageObject extends MobilePageObject {
             WebElement element = driver.findElement(By.xpath(xpath));
             Utils.tryClicking(driver, element);
         }
+    }
+
+    public boolean deleteExistingCreditCardEntry(){
+        if( Utils.isClickable(getDriver(), BUTTON_DeleteCreditCard, 1)){
+            BUTTON_DeleteCreditCard.click();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCreditCardDeletionToastMessageDisplayed(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method deleted") ) {
+                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card deleted successfully");
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
+    public boolean isCreditCardAdditionToastMessageDisplayed(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method added") ) {
+                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card added successfully");
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
     }
 
     By BY_creditCardDeleteConfirmationText = MobileBy.AccessibilityId("text-confirmation-delete-card");
