@@ -993,4 +993,9 @@ public class AppSteps extends ScenarioSteps {
         orderDetailsPageObject.clickContinueShoppingButton();
         assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
     }
+
+    @Step
+    public void verifyProductLimitedAvailabilityMessage(){
+        assertThat( mainProductDetailsPageObject.scrollToProductAvailability() ).isTrue();
+    }
 }
