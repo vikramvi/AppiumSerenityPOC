@@ -163,6 +163,10 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
         return Utils.tryClicking(BUTTON_changeStore);
     }
 
+    public void clickMyOrders(){
+        Utils.tryClicking(BUTTON_myOrders);
+    }
+
     public boolean clickCreateAccount() {
         if(Utils.isVisible(getDriver(), BUTTON_createAccount, 20 )) {
             return Utils.tryClicking(BUTTON_createAccount);

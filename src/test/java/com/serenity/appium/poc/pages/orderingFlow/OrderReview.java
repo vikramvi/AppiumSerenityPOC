@@ -31,6 +31,9 @@ public class OrderReview extends MobilePageObject {
     @AndroidFindBy(accessibility = "order-details")
     WebElement ViewDetailsButton;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.widget.Button[2]/android.view.ViewGroup")
+    WebElement paymentSection;
+
     public OrderReview(WebDriver driver){
         super(driver);
     }
@@ -62,7 +65,7 @@ public class OrderReview extends MobilePageObject {
         return false;
     }
 
-    public boolean completeOrderAndGotoViewDetailsScreen(){
+    public boolean completeOrderAndGotoOrderDetailsScreen(){
         CompleteOrderButton.click();
 
         if(Utils.isVisible(getDriver(), YourOrderIsCompleteTitle, 20)){
@@ -70,6 +73,10 @@ public class OrderReview extends MobilePageObject {
             return true;
         }
         return false;
+    }
+
+    public void clickPayment(){
+        paymentSection.click();
     }
 
 }

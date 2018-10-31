@@ -16,6 +16,9 @@ public class PaymentsPageObject extends MobilePageObject {
     private WebElement TEXT_pageTitle;
     private static final String expectedTitle = "PAYMENTS";
 
+    @AndroidFindBy(accessibility = "button-delete-payment")
+    private WebElement BUTTON_DeleteCreditCard;
+
     @AndroidFindBy(accessibility = "text-confirmation-delete-card")
     private WebElement TEXT_deleteCreditCardConfirmation;
 
@@ -60,6 +63,72 @@ public class PaymentsPageObject extends MobilePageObject {
         }
     }
 
+    public boolean deleteAllExistingCreditCards(){
+        while( deleteExistingCreditCardEntry() ){
+            if( isCreditCardDeleteConfirmationTextPresent()) {
+                PaymentsPageObject.CreditCardDeleteConfirmation.CONFIRM.click(getDriver());
+                 if( !isCreditCardDeletionToastMessageDisplayed() ){
+                     return false;
+                 }
+            }
+        }
+        return true;
+    }
+
+    public boolean deleteExistingCreditCardEntry(){
+        if( Utils.isClickable(getDriver(), BUTTON_DeleteCreditCard, 1)){
+            BUTTON_DeleteCreditCard.click();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCreditCardDeletionToastMessageDisplayed(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method deleted") ) {
+                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card deleted successfully");
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
+    public boolean isCreditCardAdditionToastMessageDisplayed(){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method added") ) {
+                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card added successfully");
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display");
+        }
+
+        return isToastMessageSeen;
+    }
+
     By BY_creditCardDeleteConfirmationText = MobileBy.AccessibilityId("text-confirmation-delete-card");
     public boolean isCreditCardDeleteConfirmationTextPresent() {
         return Utils.isVisible(getDriver(), BY_creditCardDeleteConfirmationText, 3);
@@ -82,7 +151,10 @@ public class PaymentsPageObject extends MobilePageObject {
     }
 
     public boolean isPageTitleCorrect() {
-        return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 20)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
     }
 
     public boolean clickAndroidAddNewPaymentButton() {
@@ -112,8 +184,6 @@ public class PaymentsPageObject extends MobilePageObject {
         }
     }
 
-
-//    String xpathForIndividualCreditCardRow = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
     String xpathForIndividualCreditCardRow = "//android.widget.Button[@content-desc='button-delete-payment']";
     public int getTotalNumberOfCreditCardsDisplayed(){
         if(Utils.isVisible(getDriver(), BUTTON_addNewPayment, 20)) {

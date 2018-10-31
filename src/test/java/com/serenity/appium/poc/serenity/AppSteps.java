@@ -62,6 +62,8 @@ public class AppSteps extends ScenarioSteps {
     private OrderReview orderReviewPageObject;
     private ListDetailsPageObject listDetailsPageObject;
     private AndMoreRewardsSectionPageObject andMoreRewardsSectionPageObject;
+    private OrderDetailsPageObject orderDetailsPageObject;
+    private OrderHistory orderHistory;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -654,6 +656,7 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void gotoOrderReviewScreen(){
         cartPageObject.clickSecureCheckout();
+        assertThat( orderReviewPageObject.isOrderReviewPageTitleCorrect() ).isTrue();
     }
 
     @Step
@@ -753,6 +756,9 @@ public class AppSteps extends ScenarioSteps {
         navigationFooterPageObject.clickMoreMenuButton();
         navigationFooterMoreMenuPageObject.clickAccountButton();
         accountOptionsPageObject.clickPaymentButton();
+
+        assertThat( paymentsPageObject.deleteAllExistingCreditCards() ).isTrue();
+
         paymentsPageObject.clickAddNewPaymentButton();
 
         assertThat( updatePaymentPageObject.isAddNewPaymentScreenDisplayed() ).isTrue();
@@ -760,20 +766,21 @@ public class AppSteps extends ScenarioSteps {
         updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
         updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
 
-        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ADDRESS1, "1880 N. Congress Ave");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ADDRESS1, "1880 North Congress Ave");
         updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CITY, "Boynton Beach");
         updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.STATE, "FL");
         updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ZIP, "33426");
 
-        updatePaymentPageObject.clickAndroidUpdatePaymentButton();
+        updatePaymentPageObject.clickUpdatePaymentButton();
         assertThat(updatePaymentPageObject.isCreditCardAddedSuccessfully()).isTrue();
+        assertThat( paymentsPageObject.isCreditCardAdditionToastMessageDisplayed() );
     }
 
     @Step
     public void completeOrderAndVerify(){
         orderReviewPageObject.isOrderReviewPageTitleCorrect();
         orderReviewPageObject.clickAgreeToShowAgeProofCheckbox();
-        orderReviewPageObject.completeOrderAndGotoViewDetailsScreen();
+        orderReviewPageObject.completeOrderAndGotoOrderDetailsScreen();
     }
 
     @Step
@@ -957,4 +964,33 @@ public class AppSteps extends ScenarioSteps {
         assertThat( cartPageObject.isMyRewardText_ForSubTotal_LesserSubtotalThanRewardShown() ).isFalse();
     }
 
+    @Step
+    public void WIP(){
+        orderDetailsPageObject.isPageTitleCorrect();
+        int orderId = orderDetailsPageObject.getOrderId();
+
+        navigationFooterPageObject.clickHomeButton();
+        myStoreHeaderPageObject.clickMyOrders();
+
+        orderHistory.isPageTitleCorrect();
+        orderHistory.tapOrderId(orderId);
+    }
+
+    @Step
+    public void verifyNavigationFooterInOrderingFlow(){
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isFalse();
+        orderReviewPageObject.clickPayment();
+
+        paymentsPageObject.isPageTitleCorrect();
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isFalse();
+        paymentsPageObject.clickReturnButton();
+
+        orderReviewPageObject.isOrderReviewPageTitleCorrect();
+        orderReviewPageObject.clickAgreeToShowAgeProofCheckbox();
+        orderReviewPageObject.completeOrderAndGotoOrderDetailsScreen();
+
+        assertThat( navigationFooterPageObject.isHomeButtonPresent(1) ).isTrue();
+        orderDetailsPageObject.clickContinueShoppingButton();
+        assertThat( myStoreHeaderPageObject.isSearchFieldPresent() ).isTrue();
+    }
 }

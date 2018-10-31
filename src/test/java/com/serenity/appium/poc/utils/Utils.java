@@ -244,7 +244,7 @@ public class Utils {
                 String actual = element.getText();
                 found = actual.equals(expectedTitle);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             i++;
         }
