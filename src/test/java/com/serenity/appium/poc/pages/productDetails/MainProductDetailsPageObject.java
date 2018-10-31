@@ -2,6 +2,7 @@ package com.serenity.appium.poc.pages.productDetails;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.IosPdpDataParser;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -31,6 +32,16 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 
     @iOSFindBy(accessibility = "product-data-stream")
     private WebElement TEXT_iosProductDataStream;
+
+    @AndroidFindBy(xpath="//android.widget.Button[@content-desc=\"button-shopping-options\"]/android.widget.TextView[@text='CONTACT STORE']")
+    private WebElement BUTTON_ContactStore;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc=\"product-data-stream\"]/android.widget.TextView[@text='PRODUCT AVAILABILITY']")
+    private WebElement productAvailabilityHeader;
+
+    @AndroidFindBy(accessibility = "product-message-not-eligible-for-INSTORE_PICKUP")
+    private WebElement productAvailabilityMessage;
+
 
     public boolean clickReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -327,6 +338,40 @@ public class MainProductDetailsPageObject extends MobilePageObject {
 
     public MainProductDetailsPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean isProductAvailabilityMessageShown() {
+
+        if ( Utils.isVisible(getDriver(), productAvailabilityHeader, 1)){
+
+             if(Utils.isVisible(getDriver(), productAvailabilityMessage, 1 ) &&
+                 productAvailabilityMessage.getText().equals("Produced in very limited amounts. Not currently available.")) {
+                 return true;
+             }
+        }
+
+        return false;
+    }
+
+    public boolean scrollToProductAvailability() {
+
+        boolean displayed = false;
+        int scrollDownCounter = 0;
+
+        if (isAndroid()) {
+
+                displayed = isProductAvailabilityMessageShown();
+
+                while (!displayed && (scrollDownCounter < 2)) {
+                    Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                    displayed = isProductAvailabilityMessageShown();
+                    scrollDownCounter++;
+                }
+        }
+
+        //iOS TBD
+
+        return displayed;
     }
 
 }
