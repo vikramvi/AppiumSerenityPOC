@@ -63,6 +63,18 @@ public class PaymentsPageObject extends MobilePageObject {
         }
     }
 
+    public boolean deleteAllExistingCreditCards(){
+        while( deleteExistingCreditCardEntry() ){
+            if( isCreditCardDeleteConfirmationTextPresent()) {
+                PaymentsPageObject.CreditCardDeleteConfirmation.CONFIRM.click(getDriver());
+                 if( !isCreditCardDeletionToastMessageDisplayed() ){
+                     return false;
+                 }
+            }
+        }
+        return true;
+    }
+
     public boolean deleteExistingCreditCardEntry(){
         if( Utils.isClickable(getDriver(), BUTTON_DeleteCreditCard, 1)){
             BUTTON_DeleteCreditCard.click();
@@ -172,8 +184,6 @@ public class PaymentsPageObject extends MobilePageObject {
         }
     }
 
-
-//    String xpathForIndividualCreditCardRow = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
     String xpathForIndividualCreditCardRow = "//android.widget.Button[@content-desc='button-delete-payment']";
     public int getTotalNumberOfCreditCardsDisplayed(){
         if(Utils.isVisible(getDriver(), BUTTON_addNewPayment, 20)) {

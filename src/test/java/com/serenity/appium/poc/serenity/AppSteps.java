@@ -757,12 +757,7 @@ public class AppSteps extends ScenarioSteps {
         navigationFooterMoreMenuPageObject.clickAccountButton();
         accountOptionsPageObject.clickPaymentButton();
 
-        if(paymentsPageObject.deleteExistingCreditCardEntry()){
-            if(paymentsPageObject.isCreditCardDeleteConfirmationTextPresent()) {
-                PaymentsPageObject.CreditCardDeleteConfirmation.CONFIRM.click(getDriver());
-                assertThat( paymentsPageObject.isCreditCardDeletionToastMessageDisplayed() );
-            }
-        }
+        assertThat( paymentsPageObject.deleteAllExistingCreditCards() ).isTrue();
 
         paymentsPageObject.clickAddNewPaymentButton();
 
