@@ -995,7 +995,18 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyProductLimitedAvailabilityMessage(){
-        assertThat( mainProductDetailsPageObject.scrollToProductAvailability() ).isTrue();
+    public void verifyProductLimitedAvailabilityMessage() {
+        assertThat(mainProductDetailsPageObject.scrollToProductAvailability()).isTrue();
+    }
+
+    @Step
+    public void verifySellStrategyOnSearchResultsPage(String expectedSellStrategy){
+        productSearchResultsPageObject.isProductSearchResultsSellStrategyShown(expectedSellStrategy);
+    }
+
+    @Step
+    public void verifySellStrategyOnProductDetailsPage(String expectedSellStrategy){
+       assertThat( mainProductDetailsPageObject.clickProductImageToEnlarge() ).isTrue();
+       mainProductDetailsPageObject.isSellStrategyHeaderShown(expectedSellStrategy);
     }
 }

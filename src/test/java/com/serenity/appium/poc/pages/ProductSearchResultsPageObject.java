@@ -46,6 +46,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-floating-close-list-modal")
     private WebElement selectAListCloseButton;
 
+
     public ProductSearchResultsPageObject(WebDriver driver) {
         super(driver);
     }
@@ -568,6 +569,17 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
             if (getDriver().findElement(By.xpath("//android.widget.Button[@content-desc='button-apply']/android.widget.TextView")).getText().equalsIgnoreCase("DONE (" + expectedCount + ")")) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    String XPATH_Pattern = "//android.widget.ImageView[@content-desc=\"strategy-%s-%s\"]";
+    public boolean isProductSearchResultsSellStrategyShown(String expectedValue){
+        String[] splitString = expectedValue.split("\\s+");
+        String XPATH =  String.format(XPATH_Pattern, splitString[0].toLowerCase(), splitString[1].toLowerCase());
+
+        if( getDriver().findElements(By.xpath(XPATH)).size() > 0 ){
+            return true;
         }
         return false;
     }
