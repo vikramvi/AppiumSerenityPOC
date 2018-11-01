@@ -42,6 +42,9 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "product-message-not-eligible-for-INSTORE_PICKUP")
     private WebElement productAvailabilityMessage;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup")
+    private WebElement productImage;
+
 
     public boolean clickReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -372,6 +375,27 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         //iOS TBD
 
         return displayed;
+    }
+
+    public boolean clickProductImageToEnlarge(){
+        productImage.click();
+        Utils.waitFor(500);
+
+        if(!Utils.isVisible(getDriver(), TEXT_productName, 1)){
+            return true;
+        }
+        return false;
+    }
+
+    String XPATH_Pattern = "//android.widget.ImageView[@content-desc=\"strategy-%s-%s\"]";
+    public boolean isSellStrategyHeaderShown(String expectedValue){
+        String[] splitString = expectedValue.split("\\s+");
+        String XPATH =  String.format(XPATH_Pattern, splitString[0].toLowerCase(), splitString[1].toLowerCase());
+
+        if( getDriver().findElements(By.xpath(XPATH)).size() > 0 ){
+            return true;
+        }
+        return false;
     }
 
 }
