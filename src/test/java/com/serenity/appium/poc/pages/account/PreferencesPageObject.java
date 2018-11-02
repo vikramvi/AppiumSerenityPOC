@@ -35,6 +35,22 @@ public class PreferencesPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility =  "button-floating-return")
     private WebElement BUTTON_return;
 
+    @AndroidFindBy(accessibility = "text-preferred-store-title")
+    private WebElement preferredStoreTitle;
+
+    @AndroidFindBy(accessibility = "text-preferred-store-address1")
+    private WebElement preferredStoreAddress1;
+
+    @AndroidFindBy(accessibility = "text-preferred-store-address2")
+    private WebElement preferredStoreAddress2;
+
+    @AndroidFindBy(accessibility = "text-preferred-store-cityStateZip")
+    private WebElement preferredStoreCityStateZip;
+
+    @AndroidFindBy(accessibility = "text-preferred-store-hours")
+    private WebElement preferredStoreTimings;
+
+
     public PreferencesPageObject(WebDriver driver) {
         super(driver);
     }
@@ -174,5 +190,14 @@ public class PreferencesPageObject extends MobilePageObject {
 
     public void clickPreferredStoreChangeButton(){
         BUTTON_changePreferredStore.click();
+    }
+
+    public boolean checkForPreferredStoreLayout(){
+        if( preferredStoreTitle.isDisplayed() && preferredStoreAddress1.isDisplayed() &&
+            preferredStoreAddress2.isDisplayed() && preferredStoreCityStateZip.isDisplayed() &&
+            preferredStoreTimings.isDisplayed() ){
+            return true;
+        }
+        return false;
     }
 }
