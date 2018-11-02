@@ -649,7 +649,7 @@ public class AppSteps extends ScenarioSteps {
         itemPriceDisplayedOnProductDetailsPage = mainProductDetailsPageObject.getProductPrice();
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
         assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
-        assertThat( navigationFooterPageObject.clickShoppingCartButton() ).isTrue();
+        navigationFooterPageObject.clickViewCartButton();
         assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
     }
 
@@ -1008,5 +1008,10 @@ public class AppSteps extends ScenarioSteps {
     public void verifySellStrategyOnProductDetailsPage(String expectedSellStrategy){
        assertThat( mainProductDetailsPageObject.clickProductImageToEnlarge() ).isTrue();
        mainProductDetailsPageObject.isSellStrategyHeaderShown(expectedSellStrategy);
+    }
+
+    @Step
+    public void verifyPreferredStoreLayout(){
+       assertThat(  preferencesPageObject.checkForPreferredStoreLayout() ).isTrue();
     }
 }

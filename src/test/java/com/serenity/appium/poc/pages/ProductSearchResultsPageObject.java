@@ -40,8 +40,11 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "button-reset-password")
     private WebElement ResetButton;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[2][contains(@text,'ITEM')]")
-    private WebElement topRightCornderItemsCount;
+    @AndroidFindBy(accessibility = "count-search-results")
+    private WebElement topRightCornerItemsCount;
+
+    @AndroidFindBy(accessibility = "count-sorted-search-results")
+    private WebElement topRightCornerItemsCountWithFilter;
 
     @AndroidFindBy(accessibility = "button-floating-close-list-modal")
     private WebElement selectAListCloseButton;
@@ -509,7 +512,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
 
              if (getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).getText().contains(secondLevelFilter.toUpperCase())) {
 
-                 postApplyingThirdFilterCount = Integer.parseInt( topRightCornderItemsCount.getText().replaceAll("[^0-9]", "") );
+                 postApplyingThirdFilterCount = Integer.parseInt( topRightCornerItemsCountWithFilter.getText().replaceAll("[^0-9]", "") );
 
                  getDriver().findElement(By.xpath(String.format(xPathPattern_BeerSubCategory, countForBeerSubCategory))).click();
              } else {
