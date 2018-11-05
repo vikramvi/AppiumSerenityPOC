@@ -412,18 +412,18 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(accessibility = "touchableIcon-dismiss-toast")
     WebElement ToastMessageCloseButton;
 
-    public boolean isAddressUpdatedToastMessageSeen(){
+    public boolean verifyToastMessageAndClose(String title, String message){
         boolean isToastMessageSeen = false;
 
         for(int count=0; count < 40; count++){
 
             String tempXML = getDriver().getPageSource();
 
-            if( tempXML.contains("SUCCESS") && tempXML.contains("Your address has been confirmed") ) {
-                LOGGER.info("Toast message displayed -> " + "SUCCESS" + "  Your address has been confirmed");
+            if( tempXML.contains(title) && tempXML.contains(message) ) {
+                LOGGER.info("Toast message displayed -> " + title + "   " + message);
 
-                if( ToastMessageTitle.getText().equals("SUCCESS")  &&
-                        ToastMessageContent.getText().equals("Your address has been confirmed") ){
+                if( ToastMessageTitle.getText().equals(title)  &&
+                        ToastMessageContent.getText().equals(message) ){
                     ToastMessageCloseButton.click();
                 }
 
@@ -433,6 +433,13 @@ public class CartPageOject extends MobilePageObject {
 
             Utils.waitFor(50);
         }
+
+        return isToastMessageSeen;
+    }
+
+
+    public boolean isAddressUpdatedToastMessageSeen(){
+        boolean isToastMessageSeen =  verifyToastMessageAndClose("SUCCESS", "Your address has been confirmed");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Address Updated toast message did NOT display");
@@ -442,26 +449,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean isMinimumOrderThresholdToastMessageSeen(){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains("MINIMUM AMOUNT NOT MET") && tempXML.contains("does not meet our minimum threshold of $35.00") ) {
-                LOGGER.info("Toast message displayed -> " + "MINIMUM AMOUNT NOT MET" + "  ..does not meet our minimum threshold of $35.00");
-
-                if( ToastMessageTitle.getText().equals("MINIMUM AMOUNT NOT MET")  &&
-                        ToastMessageContent.getText().contains("does not meet our minimum threshold of $35.00") ){
-                    ToastMessageCloseButton.click();
-                }
-
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
+        boolean isToastMessageSeen = verifyToastMessageAndClose("MINIMUM AMOUNT NOT MET", "does not meet our minimum threshold of $35.00");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Minimum Amount Not Met toast message did NOT display");
@@ -471,26 +459,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean isDeliveryTimeWindowToastMessageSeen(){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains("DELIVERY TIME WINDOW NOT SELECTED") && tempXML.contains("You have not chosen a delivery time window") ) {
-                LOGGER.info("Toast message displayed -> " + "DELIVERY TIME WINDOW NOT SELECTED" + "You have not chosen a delivery time window");
-
-                if( ToastMessageTitle.getText().equals("DELIVERY TIME WINDOW NOT SELECTED")  &&
-                        ToastMessageContent.getText().equals("You have not chosen a delivery time window") ){
-                    ToastMessageCloseButton.click();
-                }
-
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
+        boolean isToastMessageSeen =  verifyToastMessageAndClose("DELIVERY TIME WINDOW NOT SELECTED", "You have not chosen a delivery time window");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Delivery Time Window Not Selected toast message did NOT display");
