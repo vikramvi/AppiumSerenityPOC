@@ -7,6 +7,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -16,6 +18,8 @@ import java.util.regex.Pattern;
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class Utils {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
     public static String getPlatform(AppiumDriver driver) {
         return String.valueOf(driver.getCapabilities().getCapability("platformName"));
     }
@@ -243,7 +247,7 @@ public class Utils {
                 Thread.sleep(250);
                 String actual = element.getText();
                 found = actual.equals(expectedTitle);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 //e.printStackTrace();
             }
             i++;
@@ -314,6 +318,29 @@ public static String getRandomFirstName() {
     public static String getRandomEmailAddress() {
         String random = RandomStringUtils.randomAlphabetic(10);
         return "jphtest" + random + "@yopmail.com";
+    }
+
+    public static boolean isToastMessageDisplayed(String title, String message){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 40; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains(title) && tempXML.contains(message) ) {
+                LOGGER.info("Toast message displayed 1: " + title + "  " + message);
+                isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display " + title + "  " + message);
+        }
+
+        return isToastMessageSeen;
     }
 
     public static void setPlatform() {

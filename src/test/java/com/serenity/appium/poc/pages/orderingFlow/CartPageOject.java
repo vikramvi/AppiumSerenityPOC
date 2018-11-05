@@ -1,14 +1,18 @@
 package com.serenity.appium.poc.pages.orderingFlow;
 
 import com.serenity.appium.poc.pages.MobilePageObject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class CartPageOject extends MobilePageObject {
 
@@ -85,6 +89,8 @@ public class CartPageOject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[@text='Your subtotal must be greater than your Reward to apply.']")
     private WebElement MyRewardText_ForSubtotal_LessThan_RewardToApply;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.Button")
+    private WebElement AddACouponAddButton;
 
     public CartPageOject(WebDriver driver){
         super(driver);
@@ -504,6 +510,59 @@ public class CartPageOject extends MobilePageObject {
 
     public void doChangeStoreAction(){
         ChangeStoreButton.click();
+    }
+
+    public List<String> getListOfItemsAddedToCart(){
+        try {
+            List<String> items = new ArrayList<>();
+            List<String> itemsWithDuplicates = new ArrayList<>();
+            String lastItem = null;
+
+            //initial screen
+            String XPATHPattern_FirstScreenItems = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.TextView[1]";
+            for (int itemCount = 2; itemCount <= 4; itemCount++) {
+                String actualXPath = String.format(XPATHPattern_FirstScreenItems, itemCount);
+
+                items.add(getDriver().findElement(By.xpath(actualXPath)).getText());
+            }
+
+            for(int tryCount = 1; tryCount < 3; tryCount++) {
+
+                if( Utils.isVisible(getDriver(), AddACouponAddButton, 1) ){
+                    break;
+                }
+
+                Scrolling.scrollDown(0.70, 0.20);
+                Utils.waitFor(1000);
+
+                //scroll down till end
+                String XPATHPattern_ScrolledScreenItems = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[%d]/android.view.ViewGroup/android.widget.TextView[1]";
+                for (int itemCount = 2; itemCount <= 4; itemCount++) {
+                    String actualXPath = String.format(XPATHPattern_ScrolledScreenItems, itemCount);
+
+                    try {
+                        items.add(getDriver().findElement(By.xpath(actualXPath)).getText());
+                    }catch (Exception e){
+                        break;
+                    }
+
+                }
+
+                if(items.get(items.size() -1).equals(lastItem)){
+                    break;
+                }else {
+                    lastItem = items.get(items.size() - 1);
+                }
+            }
+
+            //removes duplicates
+            itemsWithDuplicates = items.stream().distinct().collect(Collectors.toList());
+
+            return  itemsWithDuplicates;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
