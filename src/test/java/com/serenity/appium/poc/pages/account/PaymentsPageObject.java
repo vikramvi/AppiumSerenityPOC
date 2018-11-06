@@ -84,49 +84,11 @@ public class PaymentsPageObject extends MobilePageObject {
     }
 
     public boolean isCreditCardDeletionToastMessageDisplayed(){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method deleted") ) {
-                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card deleted successfully");
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
-
-        if(!isToastMessageSeen) {
-            LOGGER.error("Toast message did NOT display");
-        }
-
-        return isToastMessageSeen;
+        return Utils.isToastMessageDisplayed("SUCCESS", "Payment method deleted");
     }
 
     public boolean isCreditCardAdditionToastMessageDisplayed(){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains("SUCCESS") && tempXML.contains("Payment method added") ) {
-                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  Credit card added successfully");
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
-
-        if(!isToastMessageSeen) {
-            LOGGER.error("Toast message did NOT display");
-        }
-
-        return isToastMessageSeen;
+        return Utils.isToastMessageDisplayed("SUCCESS", "Payment method added");
     }
 
     By BY_creditCardDeleteConfirmationText = MobileBy.AccessibilityId("text-confirmation-delete-card");

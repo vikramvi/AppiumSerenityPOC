@@ -5,6 +5,7 @@ import com.serenity.appium.poc.pages.account.*;
 import com.serenity.appium.poc.pages.browse.BrowsePageObject;
 import com.serenity.appium.poc.pages.home.*;
 import com.serenity.appium.poc.pages.onboarding.*;
+import com.serenity.appium.poc.pages.productDetails.ItemAddedInterstitialPageObject;
 import com.serenity.appium.poc.pages.productDetails.MainProductDetailsPageObject;
 import com.serenity.appium.poc.pages.storeDetails.*;
 import com.serenity.appium.poc.pages.orderingFlow.*;
@@ -64,6 +65,7 @@ public class AppSteps extends ScenarioSteps {
     private AndMoreRewardsSectionPageObject andMoreRewardsSectionPageObject;
     private OrderDetailsPageObject orderDetailsPageObject;
     private OrderHistory orderHistory;
+    private ItemAddedInterstitialPageObject itemAddedInterstitialPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -648,8 +650,8 @@ public class AppSteps extends ScenarioSteps {
     public void gotoCARTScreen(){
         itemPriceDisplayedOnProductDetailsPage = mainProductDetailsPageObject.getProductPrice();
         assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
-        assertThat( navigationFooterPageObject.isPageTitleCorrect() ).isTrue();
-        navigationFooterPageObject.clickViewCartButton();
+        assertThat( itemAddedInterstitialPageObject.isPageTitleCorrect() ).isTrue();
+        itemAddedInterstitialPageObject.clickViewCartButton();
         assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
     }
 
@@ -833,8 +835,8 @@ public class AppSteps extends ScenarioSteps {
         String itemName = listDetailsPageObject.getFirstRowItemName();
         listDetailsPageObject.clickAddToCartForFirstRowItem();
 
-        navigationFooterPageObject.isPageTitleCorrect();
-        navigationFooterPageObject.clickViewCartButton();
+        itemAddedInterstitialPageObject.isPageTitleCorrect();
+        itemAddedInterstitialPageObject.clickViewCartButton();
 
         cartPageObject.isPageTitleCorrect();
         assertThat( cartPageObject.getTopMostItemName() ).isEqualToIgnoringCase(itemName);
@@ -1014,4 +1016,97 @@ public class AppSteps extends ScenarioSteps {
     public void verifyPreferredStoreLayout(){
        assertThat(  preferencesPageObject.checkForPreferredStoreLayout() ).isTrue();
     }
+
+    @Step
+    public void verifyUserIsOnHomeTab(){
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyCheckYourAreaForAvailabilityButtonAndClick(){
+        if(myStoreHeaderPageObject.isCheckYourAreaForAvailabilityButtonVisible()){
+            myStoreHeaderPageObject.clickCheckYourAreaForAvailabilityButton();
+            assertThat(true).isTrue();
+        }else{
+            assertThat(false).isTrue();
+        }
+    }
+
+    @Step
+    public void enterDeliveryUnavailableAddressAndConfirm(List<String> inputAddress){
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
+
+        deliveryAddressPageObject.clickClearFormButton();
+        Utils.waitFor(1000);
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STREET_ADDRESS, inputAddress.get(0) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.CITY, inputAddress.get(1) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STATE, inputAddress.get(2) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.ZIP_CODE, inputAddress.get(3) );
+
+        deliveryAddressPageObject.clickConfirmAddress();
+
+        assertThat( deliveryAddressPageObject.isDeliveryUnavailableDialogShown() ).isTrue();
+        deliveryAddressPageObject.clickTryAnotherAddressButton();
+    }
+
+    @Step
+    public void enterDeliveryAvailableAddressAndConfirm(List<String> inputAddress){
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
+
+        deliveryAddressPageObject.clickClearFormButton();
+        Utils.waitFor(1000);
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STREET_ADDRESS, inputAddress.get(0) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.CITY, inputAddress.get(1) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STATE, inputAddress.get(2) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.ZIP_CODE, inputAddress.get(3) );
+
+        deliveryAddressPageObject.clickConfirmAddress();
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyRentalAccessoriesAdditionToCartFromInterstitialPage(){
+        assertThat( mainProductDetailsPageObject.clickAddToCart() ).isTrue();
+
+        assertThat( itemAddedInterstitialPageObject.isPageTitleCorrect() ).isTrue();
+        itemAddedInterstitialPageObject.clickRentLeftSideItem();
+        itemAddedInterstitialPageObject.isToastMessageDisplayed();
+        assertThat( itemAddedInterstitialPageObject.isPageTitleCorrect() ).isTrue();
+
+        itemAddedInterstitialPageObject.clickRentRightSideItem();
+        itemAddedInterstitialPageObject.isToastMessageDisplayed();
+        assertThat( itemAddedInterstitialPageObject.isPageTitleCorrect() ).isTrue();
+
+        List<String> itemsFromItemAddedPage = itemAddedInterstitialPageObject.getListOfItemsFromInterstitialPage();
+
+        itemAddedInterstitialPageObject.clickViewCartButton();
+
+        assertThat( cartPageObject.isPageTitleCorrect() ).isTrue();
+        List<String> itemFromCartPage = cartPageObject.getListOfItemsAddedToCart();
+
+        assertThat( itemsFromItemAddedPage.size() == itemFromCartPage.size() && itemsFromItemAddedPage.containsAll(itemFromCartPage)).isTrue();
+    }
+
+    @Step
+    public void verifyToastMessageAndClose(String title, String message){
+        assertThat( Utils.verifyToastMessageAndClose(title, message)).isTrue();
+    }
+
+    @Step
+    public void verifyCheckYourAreaForAvailabilityButtonText(String expectedText){
+        assertThat( myStoreHeaderPageObject.getCheckYourAreaForAvailabilityButtonText().equals(expectedText.toUpperCase()) ).isTrue();
+    }
+
+    @Step
+    public void gotoDefaultShoppingListAndVerifyBrowseFlow(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
+
+        listDetailsPageObject.clickStartBrowsingButton();
+        assertThat( browsePageObject.isPageTitleCorrect() ).isTrue();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.serenity.appium.poc.pages;
 
-import com.serenity.appium.poc.utils.StoreDataParser;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -28,12 +27,6 @@ public class NavigationFooterPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "tab-more")
     @iOSFindBy(accessibility = "\uE82A MORE \uE82A MORE")
     private WebElement BUTTON_moreMenu;
-
-    @AndroidFindBy(accessibility = "header-title")
-    private WebElement TEXT_pageTitle;
-
-    @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Button[2]/android.widget.TextView[@text='VIEW CART']")
-    private WebElement viewCartButton;
 
     @AndroidFindBy(xpath="//android.widget.Button[@content-desc=\"tab-cart\"]/android.view.ViewGroup/android.widget.TextView")
     private WebElement cartButtonItemNumber;
@@ -95,19 +88,8 @@ public class NavigationFooterPageObject extends MobilePageObject {
         }
     }
 
-    public boolean isPageTitleCorrect() {
-        if(Utils.isVisible(getDriver(), TEXT_pageTitle, 10)) {
-            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, "ITEM ADDED");
-        }
-        return false;
-    }
-
     public boolean clickMoreMenuButton() {
         return Utils.tryClicking(BUTTON_moreMenu);
-    }
-
-    public void clickViewCartButton(){
-         viewCartButton.click();
     }
 
     public boolean isCartEmpty(){

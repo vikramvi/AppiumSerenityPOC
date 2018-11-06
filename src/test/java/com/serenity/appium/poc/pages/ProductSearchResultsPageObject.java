@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class ProductSearchResultsPageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc='search results count']/android.widget.TextView")
+    @AndroidFindBy(accessibility = "count-search-results")
     @iOSFindBy(accessibility = "search results count")
     private WebElement TEXT_searchResultsCount;
 

@@ -14,6 +14,9 @@ public class DOT_28897 extends WineAppTest {
         appSteps.completeQuickOnboarding();
         appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
+        appSteps.gotoShopptingCartAndEmptyIt();
+        appSteps.gotoHomeTab();
+
         appSteps.verifyChangeStoreLookupOption();
         appSteps.verifySelectStoreFromSearchResults("Boynton Beach", "Boynton Beach");
         appSteps.performShopThisStoreAction();
@@ -21,7 +24,7 @@ public class DOT_28897 extends WineAppTest {
         appSteps.verifyHomepageToProductSearch();
         appSteps.searchForProduct("29901-3");
         appSteps.verifySelectProductFromSearchResults(1);
-        //WIP
+        appSteps.verifyRentalAccessoriesAdditionToCartFromInterstitialPage();
     }
 
 }

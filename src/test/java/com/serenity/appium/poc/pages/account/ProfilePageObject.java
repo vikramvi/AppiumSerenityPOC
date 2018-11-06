@@ -63,26 +63,7 @@ public class ProfilePageObject extends MobilePageObject {
     }
 
     public boolean isToastMessageDisplayed(){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains("SUCCESS") && tempXML.contains("User updated successfully") ) {
-                LOGGER.info("Toast message displayed 1: " + "SUCCESS" + "  User updated successfully");
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
-
-        if(!isToastMessageSeen) {
-            LOGGER.error("Toast message did NOT display");
-        }
-
-        return isToastMessageSeen;
+        return Utils.isToastMessageDisplayed("SUCCESS", "User updated successfully" );
     }
 
     public ProfilePageObject(WebDriver driver) {
