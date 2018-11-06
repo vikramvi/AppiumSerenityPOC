@@ -19,7 +19,7 @@ public class DOT_25170 extends WineAppTest {
         appSteps.performShopThisStoreAction();
 
         appSteps.verifyHomepageToProductSearch();
-        appSteps.searchForProduct("Black Powder");
+        appSteps.searchForProduct("142350750-1");
 
         String expectedSellStrategy = "Spirits Direct";
         appSteps.verifySellStrategyOnSearchResultsPage(expectedSellStrategy);
