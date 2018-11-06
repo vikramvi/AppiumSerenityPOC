@@ -12,7 +12,8 @@ import org.openqa.selenium.By;
 
 public class BrowsePageObject extends MobilePageObject {
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView")
+//    @AndroidFindBy(xpath = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView")
+    @AndroidFindBy(accessibility = "text-search-page-title")
     private WebElement BrowsePageTitle;
 
     @AndroidFindBy(accessibility = "browse-card-wine")
@@ -28,16 +29,21 @@ public class BrowsePageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "browse-card-accessories")
     private WebElement TOUCHABLE_TEXT_accessories;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@text='HOT PRODUCTS']")
+//    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@text='HOT PRODUCTS']")
+    @AndroidFindBy(accessibility = "text-rich-relevance-title")
     private WebElement HotProductsTitle;
 
-    @AndroidFindBy(xpath="//android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]//android.widget.Button/android.widget.TextView")
+//    @AndroidFindBy(xpath="//android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]//android.widget.Button/android.widget.TextView")
+    @AndroidFindBy(xpath="(//android.view.ViewGroup[@content-desc='icon-heart-unfilled'])[1]")
+
     private WebElement HotProductsFirstItemHeartIcon;
 
-    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[@text='SELECT A LIST']")
+//    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.TextView[@text='SELECT A LIST']")
+    @AndroidFindBy(accessibility = "text-multiple-list-selection-modal-title")
     private WebElement selectAListDialogTitle_PostHeartIconClickAction;
 
-    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='VIEW ALL']")
+//    @AndroidFindBy(xpath="//android.widget.Button/android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='VIEW ALL']")
+    @AndroidFindBy(accessibility = "button-multiple-list-selection-modal-view-all-lists")
     private WebElement selectAListDialog_PostHeartIconClickAction_ViewAllButton;
 
 
