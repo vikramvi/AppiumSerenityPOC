@@ -403,43 +403,8 @@ public class CartPageOject extends MobilePageObject {
     }
 
 
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[1]/android.widget.TextView[2]")
-    WebElement ToastMessageTitle;
-
-    @AndroidFindBy(xpath="//android.view.ViewGroup[1]/android.widget.TextView[3]")
-    WebElement ToastMessageContent;
-
-    @AndroidFindBy(accessibility = "touchableIcon-dismiss-toast")
-    WebElement ToastMessageCloseButton;
-
-    public boolean verifyToastMessageAndClose(String title, String message){
-        boolean isToastMessageSeen = false;
-
-        for(int count=0; count < 40; count++){
-
-            String tempXML = getDriver().getPageSource();
-
-            if( tempXML.contains(title) && tempXML.contains(message) ) {
-                LOGGER.info("Toast message displayed -> " + title + "   " + message);
-
-                if( ToastMessageTitle.getText().equals(title)  &&
-                        ToastMessageContent.getText().equals(message) ){
-                    ToastMessageCloseButton.click();
-                }
-
-                isToastMessageSeen = true;
-                break;
-            }
-
-            Utils.waitFor(50);
-        }
-
-        return isToastMessageSeen;
-    }
-
-
     public boolean isAddressUpdatedToastMessageSeen(){
-        boolean isToastMessageSeen =  verifyToastMessageAndClose("SUCCESS", "Your address has been confirmed");
+        boolean isToastMessageSeen =  Utils.verifyToastMessageAndClose("SUCCESS", "Your address has been confirmed");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Address Updated toast message did NOT display");
@@ -449,7 +414,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean isMinimumOrderThresholdToastMessageSeen(){
-        boolean isToastMessageSeen = verifyToastMessageAndClose("MINIMUM AMOUNT NOT MET", "does not meet our minimum threshold of $35.00");
+        boolean isToastMessageSeen = Utils.verifyToastMessageAndClose("MINIMUM AMOUNT NOT MET", "does not meet our minimum threshold of $35.00");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Minimum Amount Not Met toast message did NOT display");
@@ -459,7 +424,7 @@ public class CartPageOject extends MobilePageObject {
     }
 
     public boolean isDeliveryTimeWindowToastMessageSeen(){
-        boolean isToastMessageSeen =  verifyToastMessageAndClose("DELIVERY TIME WINDOW NOT SELECTED", "You have not chosen a delivery time window");
+        boolean isToastMessageSeen =  Utils.verifyToastMessageAndClose("DELIVERY TIME WINDOW NOT SELECTED", "You have not chosen a delivery time window");
 
         if(!isToastMessageSeen) {
             LOGGER.error("Delivery Time Window Not Selected toast message did NOT display");

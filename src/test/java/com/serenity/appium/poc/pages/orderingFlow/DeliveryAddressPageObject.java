@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DeliveryAddressPageObject extends MobilePageObject{
@@ -32,6 +31,12 @@ public class DeliveryAddressPageObject extends MobilePageObject{
 
     @AndroidFindBy(accessibility = "button-clear-form")
     private WebElement clearFormButton;
+
+    @AndroidFindBy(xpath="//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup//android.widget.TextView[@text='DELIVERY UNAVAILABLE']")
+    private WebElement deliveryUnavailableDialogTitle;
+
+    @AndroidFindBy(accessibility = "try-another-delivery-address")
+    private WebElement tryAnotherAddressButton;
 
     public DeliveryAddressPageObject(WebDriver driver){
         super(driver);
@@ -70,4 +75,46 @@ public class DeliveryAddressPageObject extends MobilePageObject{
         CONFIRM_ADDRESS.click();
     }
 
+    public enum Field {STREET_ADDRESS, CITY, STATE, ZIP_CODE};
+
+    public void enterText(Field field, String text) {
+        WebElement element = getElement(field);
+        element.sendKeys(text);
+    }
+
+    private WebElement getElement(Field field) {
+        WebElement element = null;
+        switch (field) {
+            case STREET_ADDRESS:
+                element = INPUT_address1;
+                break;
+            case CITY:
+                element = INPUT_city;
+                break;
+            case STATE:
+                element = INPUT_state;
+                break;
+            case ZIP_CODE:
+                element = INPUT_zipcode;
+
+        }
+        return element;
+    }
+
+    public void clickClearFormButton(){
+        clearFormButton.click();
+    }
+
+    public boolean isDeliveryUnavailableDialogShown(){
+        if( Utils.isVisible(getDriver(),deliveryUnavailableDialogTitle, 10) ){
+            return true;
+        }
+        return false;
+    }
+
+    public void clickTryAnotherAddressButton(){
+        if(Utils.isVisible(getDriver(), tryAnotherAddressButton, 1)) {
+            tryAnotherAddressButton.click();
+        }
+    }
 }

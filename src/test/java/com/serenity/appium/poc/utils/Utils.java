@@ -3,6 +3,8 @@ package com.serenity.appium.poc.utils;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -330,6 +332,43 @@ public static String getRandomFirstName() {
             if( tempXML.contains(title) && tempXML.contains(message) ) {
                 LOGGER.info("Toast message displayed 1: " + title + "  " + message);
                 isToastMessageSeen = true;
+                break;
+            }
+
+            Utils.waitFor(50);
+        }
+
+        if(!isToastMessageSeen) {
+            LOGGER.error("Toast message did NOT display " + title + "  " + message);
+        }
+
+        return isToastMessageSeen;
+    }
+
+    static String XPATH_ToastMessageTitle   = "//android.view.ViewGroup[1]/android.widget.TextView[2]";
+    static String XPATH_ToastMessageContent = "//android.view.ViewGroup[1]/android.widget.TextView[3]";
+    static String ACCESSIBILITY_ID_ToastMessageCloseButton = "touchableIcon-dismiss-toast";
+
+    public static boolean verifyToastMessageAndClose(String title, String message){
+        boolean isToastMessageSeen = false;
+
+        for(int count=0; count < 80; count++){
+
+            String tempXML = getDriver().getPageSource();
+
+            if( tempXML.contains(title) && tempXML.contains(message) ) {
+                LOGGER.info("Toast message displayed -> " + title + "   " + message);
+
+                if( getDriver().findElement(By.xpath(XPATH_ToastMessageTitle)).getText().equals(title)  &&
+                        getDriver().findElement(By.xpath(XPATH_ToastMessageContent)).getText().equals(message) ){
+
+                    ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).findElementByAccessibilityId(ACCESSIBILITY_ID_ToastMessageCloseButton).click();
+
+                    isToastMessageSeen = true;
+                    break;
+                }
+
+                isToastMessageSeen = false;
                 break;
             }
 

@@ -1018,11 +1018,38 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterDeliveryAddress(){
-        deliveryAddressPageObject.enterText(DeliveryAddressPageObject.Field.STREET_ADDRESS, "6600 Rockledge Drive");
-        deliveryAddressPageObject.enterText(DeliveryAddressPageObject.Field.CITY, "Bethesda");
-        deliveryAddressPageObject.enterText(DeliveryAddressPageObject.Field.STATE, "MD");
-        deliveryAddressPageObject.enterText(DeliveryAddressPageObject.Field.ZIP_CODE, "20817");
+    public void verifyUserIsOnHomeTab(){
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
+    }
+
+    @Step
+    public void verifyCheckYourAreaForAvailabilityButtonAndClick(){
+        if(myStoreHeaderPageObject.isCheckYourAreaForAvailabilityButtonVisible()){
+            myStoreHeaderPageObject.clickCheckYourAreaForAvailabilityButton();
+            assertThat(true).isTrue();
+        }else{
+            assertThat(false).isTrue();
+        }
+    }
+
+    @Step
+    public void enterDeliveryAddressAndConfirm(List<String> inputAddress){
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
+
+        deliveryAddressPageObject.clickClearFormButton();
+        Utils.waitFor(1000);
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STREET_ADDRESS, inputAddress.get(0) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.CITY, inputAddress.get(1) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STATE, inputAddress.get(2) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.ZIP_CODE, inputAddress.get(3) );
+
+        deliveryAddressPageObject.clickConfirmAddress();
+
+        if(deliveryAddressPageObject.isDeliveryUnavailableDialogShown()) {
+            deliveryAddressPageObject.clickTryAnotherAddressButton();
+        }else{
+            assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
+        }
     }
 
     @Step
@@ -1047,4 +1074,15 @@ public class AppSteps extends ScenarioSteps {
 
         assertThat( itemsFromItemAddedPage.size() == itemFromCartPage.size() && itemsFromItemAddedPage.containsAll(itemFromCartPage)).isTrue();
     }
+
+    @Step
+    public void verifyToastMessageAndClose(String title, String message){
+        assertThat( Utils.verifyToastMessageAndClose(title, message)).isTrue();
+    }
+
+    @Step
+    public void verifyCheckYourAreaForAvailabilityButtonText(String expectedText){
+        assertThat( myStoreHeaderPageObject.getCheckYourAreaForAvailabilityButtonText().equals(expectedText.toUpperCase()) ).isTrue();
+    }
+
 }

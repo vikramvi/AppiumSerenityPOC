@@ -48,6 +48,12 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[@text='WHAT CAN WE HELP YOU FIND?']")
     private WebElement HomeTabSearchField;
 
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.view.ViewGroup/android.widget.TextView[@text='TOTAL WINE NOW DELIVERS!']")
+    private WebElement TWDeliveryHeadline;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup//android.widget.TextView[@text='CHECK YOUR AREA FOR AVAILABILITY' or contains(@text,'DELIVERING TO')]")
+    private WebElement TWCheckYourAreaForAvailabilityButton;
+
     private NavigationFooterMoreMenuPageObject navigationFooterMoreMenuPageObject;
     private NavigationFooterPageObject navigationFooterPageObject;
 
@@ -206,4 +212,20 @@ public class MyStoreHeaderPageObject extends MobilePageObject {
 
         return displayed;
     }
+
+    public boolean isCheckYourAreaForAvailabilityButtonVisible(){
+        if(Utils.isVisible(getDriver(), TWDeliveryHeadline, 2)){
+            return true;
+        }
+        return false;
+    }
+
+    public void clickCheckYourAreaForAvailabilityButton(){
+        TWCheckYourAreaForAvailabilityButton.click();
+    }
+
+    public String getCheckYourAreaForAvailabilityButtonText(){
+        return  TWCheckYourAreaForAvailabilityButton.getText();
+    }
+
 }
