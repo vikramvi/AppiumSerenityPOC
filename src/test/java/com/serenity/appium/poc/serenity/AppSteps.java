@@ -1085,4 +1085,16 @@ public class AppSteps extends ScenarioSteps {
         assertThat( myStoreHeaderPageObject.getCheckYourAreaForAvailabilityButtonText().equals(expectedText.toUpperCase()) ).isTrue();
     }
 
+    @Step
+    public void gotoDefaultShoppingListAndVerifyBrowseFlow(){
+        assertThat( listsSectionPageObject.isMyListsSectionDisplayed() ).isTrue();
+        listsSectionPageObject.clickViewAllListsButton();
+
+        assertThat( myListsPageObject.isMyListsScreenVisible() ).isTrue();
+        assertThat( myListsPageObject.clickArrowButtonAgainstParticularList("MY FAVORITES") ).isTrue();
+
+        listDetailsPageObject.clickStartBrowsingButton();
+        assertThat( browsePageObject.isPageTitleCorrect() ).isTrue();
+    }
+
 }

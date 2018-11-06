@@ -12,6 +12,9 @@ import org.openqa.selenium.By;
 
 public class BrowsePageObject extends MobilePageObject {
 
+    @AndroidFindBy(xpath = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView")
+    private WebElement BrowsePageTitle;
+
     @AndroidFindBy(accessibility = "browse-card-wine")
     @iOSFindBy(xpath = "//XCUIElementTypeOther[@name=\"WINE\"]")
     private WebElement TOUCHABLE_TEXT_wine;
@@ -38,9 +41,17 @@ public class BrowsePageObject extends MobilePageObject {
     private WebElement selectAListDialog_PostHeartIconClickAction_ViewAllButton;
 
 
-
     public BrowsePageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean isPageTitleCorrect() {
+        if( Utils.isVisible(getDriver(), BrowsePageTitle, 15)){
+            if(BrowsePageTitle.getText().contains("BROWSE PRODUCTS")){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isWineCardPresent() {
