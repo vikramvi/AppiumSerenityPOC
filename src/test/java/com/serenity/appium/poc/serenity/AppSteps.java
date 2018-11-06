@@ -1033,7 +1033,7 @@ public class AppSteps extends ScenarioSteps {
     }
 
     @Step
-    public void enterDeliveryAddressAndConfirm(List<String> inputAddress){
+    public void enterDeliveryUnavailableAddressAndConfirm(List<String> inputAddress){
         assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
 
         deliveryAddressPageObject.clickClearFormButton();
@@ -1045,11 +1045,23 @@ public class AppSteps extends ScenarioSteps {
 
         deliveryAddressPageObject.clickConfirmAddress();
 
-        if(deliveryAddressPageObject.isDeliveryUnavailableDialogShown()) {
-            deliveryAddressPageObject.clickTryAnotherAddressButton();
-        }else{
-            assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
-        }
+        assertThat( deliveryAddressPageObject.isDeliveryUnavailableDialogShown() ).isTrue();
+        deliveryAddressPageObject.clickTryAnotherAddressButton();
+    }
+
+    @Step
+    public void enterDeliveryAvailableAddressAndConfirm(List<String> inputAddress){
+        assertThat( deliveryAddressPageObject.isPageTitleCorrect() ).isTrue();
+
+        deliveryAddressPageObject.clickClearFormButton();
+        Utils.waitFor(1000);
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STREET_ADDRESS, inputAddress.get(0) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.CITY, inputAddress.get(1) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.STATE, inputAddress.get(2) );
+        deliveryAddressPageObject.enterText( DeliveryAddressPageObject.Field.ZIP_CODE, inputAddress.get(3) );
+
+        deliveryAddressPageObject.clickConfirmAddress();
+        assertThat(myStoreHeaderPageObject.isSearchFieldPresent()).isTrue();
     }
 
     @Step

@@ -22,10 +22,10 @@ public class DOT_26732 extends WineAppTest {
         appSteps.verifyUserIsOnHomeTab();
         appSteps.verifyCheckYourAreaForAvailabilityButtonAndClick();
         List<String> invalidAddress = Arrays.asList("6600 Rockledge Drive", "Bethesda", "MD", "20817");
-        appSteps.enterDeliveryAddressAndConfirm(invalidAddress);
+        appSteps.enterDeliveryUnavailableAddressAndConfirm(invalidAddress);
 
         List<String> validAddress = Arrays.asList("495 Viking Drive", "Pleasant Hill", "CA", "94523");
-        appSteps.enterDeliveryAddressAndConfirm(validAddress);
+        appSteps.enterDeliveryAvailableAddressAndConfirm(validAddress);
         appSteps.verifyToastMessageAndClose("SUCCESS", "Your address has been confirmed");
         appSteps.verifyUserIsOnHomeTab();
         appSteps.verifyCheckYourAreaForAvailabilityButtonText("DELIVERING TO " + "495 Viking Drive");
