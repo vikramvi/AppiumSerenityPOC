@@ -6,11 +6,10 @@ import com.serenity.appium.poc.utils.Utils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class DOT_28683 extends WineAppTest{
-
+public class DOT_28685 extends WineAppTest{
     @Test
     @Category({Regression1.class})
-    public void DOT_28683_verifyNoThirdPartyPickupForISPUserInWisconsin() {
+    public void DOT_28685_verifyNoThirdPartyPickupForISPUserInTennessee() {
         appSteps.completeQuickOnboarding();
         appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
@@ -18,7 +17,7 @@ public class DOT_28683 extends WineAppTest{
         appSteps.gotoHomeTab();
 
         appSteps.verifyChangeStoreLookupOption();
-        appSteps.verifySelectStoreFromSearchResults("Madison", "Madison");
+        appSteps.verifySelectStoreFromSearchResults("TN", "Knoxville");
         appSteps.performShopThisStoreAction();
 
         appSteps.verifyHomepageToProductSearch();
