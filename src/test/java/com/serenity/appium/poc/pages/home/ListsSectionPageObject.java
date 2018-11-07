@@ -11,10 +11,13 @@ import java.util.List;
 
 public class ListsSectionPageObject extends MobilePageObject{
 
-    @AndroidFindBy(xpath= "//android.view.ViewGroup/android.widget.TextView[@text='MY LISTS']")
+//    @AndroidFindBy(xpath= "//android.view.ViewGroup/android.widget.TextView[@text='MY LISTS']")
+    @AndroidFindBy(xpath= "//android.widget.TextView[@content-desc='header-title' and @text='MY LISTS']")
     private WebElement MyListsSectionTitle;
 
-    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+//    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+//    @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(accessibility = "link-shopping-list")
     private List<WebElement> listsCount;
 
     @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.Button/android.widget.TextView[@text='VIEW ALL']")

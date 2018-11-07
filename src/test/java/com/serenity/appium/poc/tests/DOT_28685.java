@@ -11,7 +11,7 @@ public class DOT_28685 extends WineAppTest{
     @Category({Regression1.class})
     public void DOT_28685_verifyNoThirdPartyPickupForISPUserInTennessee() {
         appSteps.completeQuickOnboarding();
-        appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
+        appSteps.performLoginFromHomepage(Utils.getRandomLoginId());
 
         appSteps.gotoShopptingCartAndEmptyIt();
         appSteps.gotoHomeTab();
