@@ -658,6 +658,17 @@ public class AppSteps extends ScenarioSteps {
     @Step
     public void gotoOrderReviewScreen(){
         cartPageObject.clickSecureCheckout();
+
+        int count = 0;
+        for( count = 0; count < 10; count++){
+            if(updatePaymentPageObject.isAddNewPaymentScreenDisplayed(2)){
+               addNewCreditCard();
+               break;
+            }
+            else if(orderReviewPageObject.isOrderReviewPageTitleCorrect(2)){
+                break;
+            }
+        }
         assertThat( orderReviewPageObject.isOrderReviewPageTitleCorrect() ).isTrue();
     }
 
@@ -1109,4 +1120,34 @@ public class AppSteps extends ScenarioSteps {
         assertThat( browsePageObject.isPageTitleCorrect() ).isTrue();
     }
 
+    @Step
+    public void verifyThirdPartyPickupOptionIsNotDisplayed(){
+        assertThat( orderReviewPageObject.isThirdPartyPickupOptionDisplayed() ).isFalse();
+    }
+
+    @Step
+    public void addNewCreditCard(){
+        assertThat( updatePaymentPageObject.isAddNewPaymentScreenDisplayed() ).isTrue();
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CARD_NUMBER, "5472063333333330");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.EXPIRATION, "12/19");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CVV, "120");
+
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ADDRESS1, "1880 North Congress Ave");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.CITY, "Boynton Beach");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.STATE, "FL");
+        updatePaymentPageObject.enterText(UpdatePaymentPageObject.Field.ZIP, "33426");
+
+        updatePaymentPageObject.clickUpdatePaymentButton();
+    }
+
+    @Step
+    public void verifyProductBrandCountryState(String productName, String countryStateName){
+        assertThat( mainProductDetailsPageObject.getProductName().contains(productName.toUpperCase()) ).isTrue();
+        assertThat( mainProductDetailsPageObject.getItemDetailsTableSectionContent().contains(countryStateName) ).isTrue();
+    }
+
+    @Step
+    public void clickPDPMagnifyingGlassIconToGoToSearchPage(){
+        mainProductDetailsPageObject.clickMagnifyingGlassIcon();
+    }
 }

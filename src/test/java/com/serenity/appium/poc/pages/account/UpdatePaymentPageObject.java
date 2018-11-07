@@ -3,10 +3,8 @@ package com.serenity.appium.poc.pages.account;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -76,6 +74,13 @@ public class UpdatePaymentPageObject extends MobilePageObject {
 
     public boolean isAddNewPaymentScreenDisplayed(){
         if( Utils.isVisible(getDriver(),paymentDetailsTitle, 10 ) && Utils.isVisible(getDriver(),billingAddressTitle, 10 ) ){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAddNewPaymentScreenDisplayed(int waitTime){
+        if( Utils.isVisible(getDriver(),paymentDetailsTitle, waitTime ) && Utils.isVisible(getDriver(),billingAddressTitle, waitTime ) ){
             return true;
         }
         return false;
