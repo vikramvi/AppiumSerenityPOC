@@ -1140,4 +1140,14 @@ public class AppSteps extends ScenarioSteps {
         updatePaymentPageObject.clickUpdatePaymentButton();
     }
 
+    @Step
+    public void verifyProductBrandCountryState(String productName, String countryStateName){
+        assertThat( mainProductDetailsPageObject.getProductName().contains(productName.toUpperCase()) ).isTrue();
+        assertThat( mainProductDetailsPageObject.getItemDetailsTableSectionContent().contains(countryStateName) ).isTrue();
+    }
+
+    @Step
+    public void clickPDPMagnifyingGlassIconToGoToSearchPage(){
+        mainProductDetailsPageObject.clickMagnifyingGlassIcon();
+    }
 }

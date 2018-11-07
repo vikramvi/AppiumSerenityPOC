@@ -45,6 +45,12 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     @AndroidFindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup")
     private WebElement productImage;
 
+    @AndroidFindBy(accessibility = "touchableIcon-search-products-product-detail")
+    private WebElement magnifyingGlassIcon;
+
+    @AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc='product-data-stream']/android.widget.TextView[4]")
+    private WebElement itemDetailsTableSection;
+
 
     public boolean clickReturn() {
         return Utils.tryClicking(BUTTON_return);
@@ -396,6 +402,14 @@ public class MainProductDetailsPageObject extends MobilePageObject {
             return true;
         }
         return false;
+    }
+
+    public void clickMagnifyingGlassIcon(){
+        magnifyingGlassIcon.click();
+    }
+
+    public String getItemDetailsTableSectionContent(){
+        return itemDetailsTableSection.getText();
     }
 
 }
