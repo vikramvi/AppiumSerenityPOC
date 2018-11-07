@@ -10,7 +10,7 @@ public class DOT_28687 extends WineAppTest {
 
     @Test
     @Category({Regression1.class})
-    public void DOT_28685_verifyPDPItemDetailsTable() {
+    public void DOT_28687_verifyPDPItemDetailsTable() {
         appSteps.completeQuickOnboarding();
 
         appSteps.verifyChangeStoreLookupOption();
