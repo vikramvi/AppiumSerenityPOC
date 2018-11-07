@@ -19,7 +19,10 @@ public class OrderReview extends MobilePageObject {
     @AndroidFindBy(accessibility = "text-card-expiration")
     WebElement CreditCardExpiryDisplayText;
 
-    @AndroidFindBy(xpath="//android.widget.TextView[contains(@text,'of at least 21 years of age')]")
+    @AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Select if someone else is picking up')]")
+    WebElement SelectIfSomeoneElseIsPickingUpCheckbox;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'of at least 21 years of age')]")
     WebElement AgreementAboutValidIdToVerifyAgeCardCheckbox;
 
     @AndroidFindBy(accessibility = "button-login")
@@ -48,6 +51,16 @@ public class OrderReview extends MobilePageObject {
         return false;
     }
 
+    public boolean isOrderReviewPageTitleCorrect(int waitTime) {
+
+        //Info - isVisible condition passes even when the screen is still loading
+        if(Utils.isVisible(getDriver(), TEXT_pageTitle, waitTime ) &&
+                Utils.isClickable(getDriver(), AgreementAboutValidIdToVerifyAgeCardCheckbox, waitTime)) {
+            return Utils.isPageTitleCorrectAfterPolling(TEXT_pageTitle, expectedTitle);
+        }
+        return false;
+    }
+
     public void verifyCreditCardLastFourDigits(String creditCardNumber){
         System.out.println(CreditCardLastFourDigitDisplayText.getText());
     }
@@ -60,6 +73,13 @@ public class OrderReview extends MobilePageObject {
         Scrolling.scrollDown();
         if(AgreementAboutValidIdToVerifyAgeCardCheckbox.isDisplayed()) {
             AgreementAboutValidIdToVerifyAgeCardCheckbox.click();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isThirdPartyPickupOptionDisplayed(){
+        if(Utils.isVisible(getDriver(), SelectIfSomeoneElseIsPickingUpCheckbox, 1)){
             return true;
         }
         return false;
