@@ -14,27 +14,36 @@ import java.util.stream.Collectors;
 
 public class ListDetailsPageObject extends MobilePageObject{
 
-//    @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView")
     @AndroidFindBy(accessibility = "text-list-title")
     private WebElement listTitle;
 
-//    @AndroidFindBy(xpath="//android.widget.ScrollView//android.view.ViewGroup/android.widget.TextView[@text='START BROWSING']")
+    @AndroidFindBy(accessibility =  "icon-edit-list-name")
+    private WebElement listEditButton;
+
+    @AndroidFindBy(accessibility = "text-shopping-list-modal-title")
+    private WebElement listEditDialogTitle;
+
+    @AndroidFindBy(accessibility = "input-shopping-list-name")
+    private WebElement listEditDialogInputField;
+
+    @AndroidFindBy(accessibility = "button-cancel-edit-or-create-shopping-list-name")
+    private WebElement listEditDialogCancelButton;
+
+    @AndroidFindBy(accessibility = "button-save-edit-or-create-shopping-list-name")
+    private WebElement listEditDialogSaveButton;
+
     @AndroidFindBy(accessibility = "button-start-browsing")
     private WebElement StartBrowsingButton;
 
-//    @AndroidFindBy(xpath="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.Button/android.widget.TextView[2]")
     @AndroidFindBy(accessibility = "button-delete-list")
     private WebElement DeleteListButton;
 
-//    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][2]/android.widget.TextView")
     @AndroidFindBy(accessibility = "approve-delete-list")
     private WebElement DeleteListConfirmationYesButton;
 
-//    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='shopping-list'][1]/android.widget.TextView")
     @AndroidFindBy(accessibility = "decline-delete-list")
     private WebElement DeleteListConfirmationNoButton;
 
-//    @AndroidFindBy(xpath="//android.widget.Button[@content-desc='button-floating-return']")
     @AndroidFindBy(accessibility = "button-floating-return")
     private WebElement ListDetailPageReturnButton;
 
@@ -45,6 +54,21 @@ public class ListDetailsPageObject extends MobilePageObject{
 
     public boolean isListDetailsScreenVisible(){
         return Utils.isVisible(getDriver(), listTitle, 20);
+    }
+
+    public void clickListEditButton(){
+        listEditButton.click();
+    }
+
+    public boolean enterNewListNameAndSave(String listNewName){
+        listEditDialogInputField.clear();
+        listEditDialogInputField.sendKeys(listNewName);
+        if(listEditDialogSaveButton.isEnabled()){
+            listEditDialogSaveButton.click();
+            Utils.waitFor(1000);
+            return listTitle.getText().equals(listNewName);
+        }
+        return false;
     }
 
     public boolean clickStartBrowsingButton(){

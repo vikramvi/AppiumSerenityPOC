@@ -1150,4 +1150,32 @@ public class AppSteps extends ScenarioSteps {
     public void clickPDPMagnifyingGlassIconToGoToSearchPage(){
         mainProductDetailsPageObject.clickMagnifyingGlassIcon();
     }
+
+    @Step
+    public void gotoAccessoriesItemDetailsPageAndVerifyItemDetailsTable(){
+        assertThat( browsePageObject.scrollToAccessoriesAndMore() ).isTrue();
+        browsePageObject.clickAccessoriesCard();
+        browsePageObject.clickAccessoriesAndMoreScreen_SeeAllAccessories();
+        Utils.selectProduct(1);
+
+        assertThat( mainProductDetailsPageObject.getProductName() ).isNotEmpty();
+        assertThat( mainProductDetailsPageObject.getItemDetailsTableSectionContent() ).isNotEmpty();
+    }
+
+    @Step
+    public void verifyShoppingListPageOfAllListsEditFunctionality(){
+        String defaultListName = "MY FAVORITES";
+
+        navigationFooterPageObject.clickMoreMenuButton();
+        navigationFooterMoreMenuPageObject.clickAccountButton();
+
+        accountOptionsPageObject.clickMyListsButton();
+        myListsPageObject.clickArrowButtonAgainstParticularList(defaultListName);
+
+        listDetailsPageObject.clickListEditButton();
+        assertThat( listDetailsPageObject.enterNewListNameAndSave(defaultListName) ).isTrue();
+
+        listDetailsPageObject.clickListEditButton();
+        assertThat( listDetailsPageObject.enterNewListNameAndSave(defaultListName) ).isTrue();
+    }
 }

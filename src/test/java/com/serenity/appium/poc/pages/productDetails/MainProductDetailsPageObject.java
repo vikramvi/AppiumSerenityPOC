@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 
 public class MainProductDetailsPageObject extends MobilePageObject {
 
-    @AndroidFindBy(accessibility =  "product-details-name")
+    @AndroidFindBy(accessibility = "product-details-name")
     @iOSFindBy(accessibility = "product-details-name")
     private WebElement TEXT_productName;
 
@@ -48,7 +48,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
     @AndroidFindBy(accessibility = "touchableIcon-search-products-product-detail")
     private WebElement magnifyingGlassIcon;
 
-    @AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc='product-data-stream']/android.widget.TextView[4]")
+    @AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc='product-data-stream']/android.widget.TextView[2]|android.widget.TextView[4]")
     private WebElement itemDetailsTableSection;
 
 

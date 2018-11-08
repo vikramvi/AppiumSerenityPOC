@@ -2,7 +2,6 @@ package com.serenity.appium.poc.tests;
 
 import com.serenity.appium.poc.WineAppTest;
 import com.serenity.appium.poc.utils.Regression1;
-import com.serenity.appium.poc.utils.Utils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
