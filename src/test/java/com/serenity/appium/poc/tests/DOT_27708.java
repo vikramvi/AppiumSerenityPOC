@@ -10,7 +10,7 @@ public class DOT_27708 extends WineAppTest {
 
     @Test
     @Category({Regression1.class, FindStore.class})
-    public void DOT_27708_verifyListItemCanBeAddedToCard(){
+    public void DOT_27708_verifyListItemCanBeAddedToCart(){
         appSteps.completeQuickOnboarding();
         String emailId = "twemailwith35items@yopmail.com";
         appSteps.performLoginFromHomepage(emailId);
