@@ -15,7 +15,7 @@ public class DOT_25255 extends WineAppTest {
         appSteps.performLoginFromHomepage(Utils.getRandomLoginIdWithCertificate());
 
         appSteps.verifyChangeStoreLookupOption();
-        appSteps.verifySelectStoreFromSearchResults("Sacramento, CA 1108", "Miami Beach");
+        appSteps.verifySelectStoreFromSearchResults("Sacramento", "Sacramento (Arden)");
         appSteps.performShopThisStoreAction();
 
         appSteps.verifyHomepageToProductSearch();
