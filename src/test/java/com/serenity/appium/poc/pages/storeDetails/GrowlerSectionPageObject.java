@@ -52,14 +52,14 @@ public class GrowlerSectionPageObject extends MobilePageObject {
         int i = 0;
         if (isAndroid()) {
             displayed = isFindOutMoreButtonDisplayed();
-            while (!displayed && (i<4)) {
+            while (!displayed && (i<5)) {
                 Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
                 displayed = isFindOutMoreButtonDisplayed();
                 i++;
             }
         } else {
             displayed = isFindOutMoreButtonDisplayed();
-            while (!displayed && (i<2)) {
+            while (!displayed && (i<3)) {
                 Scrolling.iosScroll(Scrolling.IosDirection.DOWN);
                 displayed = isFindOutMoreButtonDisplayed();
                 i++;
