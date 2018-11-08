@@ -1150,4 +1150,15 @@ public class AppSteps extends ScenarioSteps {
     public void clickPDPMagnifyingGlassIconToGoToSearchPage(){
         mainProductDetailsPageObject.clickMagnifyingGlassIcon();
     }
+
+    @Step
+    public void gotoAccessoriesItemDetailsPageAndVerifyItemDetailsTable(){
+        assertThat( browsePageObject.scrollToAccessoriesAndMore() ).isTrue();
+        browsePageObject.clickAccessoriesCard();
+        browsePageObject.clickAccessoriesAndMoreScreen_SeeAllAccessories();
+        Utils.selectProduct(1);
+
+        assertThat( mainProductDetailsPageObject.getProductName() ).isNotEmpty();
+        assertThat( mainProductDetailsPageObject.getItemDetailsTableSectionContent() ).isNotEmpty();
+    }
 }

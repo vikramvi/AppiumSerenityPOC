@@ -138,18 +138,9 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
         return result;
     }
 
-    public boolean selectProductForAndroid(int productNumber) {
-        String xpath = String.format(XPATH_PATTERN_productName, productNumber);
-
-        if( Utils.isVisible( getDriver(), getDriver().findElement(By.xpath(xpath)), 10 )){
-            return Utils.tryClicking(xpath);
-        }
-        return false;
-    }
-
     public boolean selectProduct(int productNumber) {
         if (isAndroid()) {
-            return selectProductForAndroid(productNumber);
+            return Utils.selectProductForAndroid(productNumber);
         }else{
             //iOS TBD
         }
@@ -209,7 +200,7 @@ public class ProductSearchResultsPageObject extends MobilePageObject {
                     String value = getAndroidProductName(i);
                     System.out.println(">>> index = " + i + ", value = " + value);
                     if (value.equalsIgnoreCase(productName)) {
-                        selectProductForAndroid(i);
+                        Utils.selectProductForAndroid(i);
                         found = true;
                         break;
                     }

@@ -382,6 +382,27 @@ public static String getRandomFirstName() {
         return isToastMessageSeen;
     }
 
+
+    private static String XPATH_PATTERN_productName = "(//android.widget.TextView[@content-desc=\"product-name\"])[%d]";
+    public static boolean selectProductForAndroid(int productNumber) {
+        String xpath = String.format(XPATH_PATTERN_productName, productNumber);
+
+        if( Utils.isVisible( getDriver(), getDriver().findElement(By.xpath(xpath)), 10 )){
+            return Utils.tryClicking(xpath);
+        }
+        return false;
+    }
+
+    public static boolean selectProduct(int productNumber) {
+        if (MobilePageObject.isAndroid()) {
+            return selectProductForAndroid(productNumber);
+        }else{
+            //iOS TBD
+        }
+
+        return false;
+    }
+
     public static void setPlatform() {
         //String platform = System.getProperty("testEnvironment");
 
