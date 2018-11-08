@@ -1161,4 +1161,21 @@ public class AppSteps extends ScenarioSteps {
         assertThat( mainProductDetailsPageObject.getProductName() ).isNotEmpty();
         assertThat( mainProductDetailsPageObject.getItemDetailsTableSectionContent() ).isNotEmpty();
     }
+
+    @Step
+    public void verifyShoppingListPageOfAllListsEditFunctionality(){
+        String defaultListName = "MY FAVORITES";
+
+        navigationFooterPageObject.clickMoreMenuButton();
+        navigationFooterMoreMenuPageObject.clickAccountButton();
+
+        accountOptionsPageObject.clickMyListsButton();
+        myListsPageObject.clickArrowButtonAgainstParticularList(defaultListName);
+
+        listDetailsPageObject.clickListEditButton();
+        assertThat( listDetailsPageObject.enterNewListNameAndSave(defaultListName) ).isTrue();
+
+        listDetailsPageObject.clickListEditButton();
+        assertThat( listDetailsPageObject.enterNewListNameAndSave(defaultListName) ).isTrue();
+    }
 }

@@ -36,7 +36,7 @@ public class AccountOptionsPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "touchableIcon-shoppingLists")
     @iOSFindBy(accessibility = "touchableIcon-shoppingLists")
-    private WebElement BUTTON_shoppingLists;
+    private WebElement BUTTON_MyLists;
 
     @AndroidFindBy(accessibility = "touchableIcon-rate-app")
     @iOSFindBy(accessibility = "touchableIcon-rate-app")
@@ -69,8 +69,8 @@ public class AccountOptionsPageObject extends MobilePageObject {
         return Utils.isVisible(getDriver(), BUTTON_notifications, 5);
     }
 
-    public boolean isShoppingListsButtonPresent() {
-        return Utils.isVisible(getDriver(), BUTTON_shoppingLists, 5);
+    public boolean isMyListsButtonPresent() {
+        return Utils.isVisible(getDriver(), BUTTON_MyLists, 5);
     }
 
     public boolean isRateThisAppButtonPresent() {
@@ -100,8 +100,8 @@ public class AccountOptionsPageObject extends MobilePageObject {
         return Utils.tryClicking(BUTTON_notifications);
     }
 
-    public boolean clickShoppingListsButton() {
-        return Utils.tryClicking(BUTTON_shoppingLists);
+    public boolean clickMyListsButton() {
+        return Utils.tryClicking(BUTTON_MyLists);
     }
 
     public boolean clickRateThisAppButton() {
