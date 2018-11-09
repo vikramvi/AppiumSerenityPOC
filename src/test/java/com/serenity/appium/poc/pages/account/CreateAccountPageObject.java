@@ -14,8 +14,6 @@ public class CreateAccountPageObject extends MobilePageObject {
     private WebElement TEXT_pageTitle;
     private static final String expectedTitle = "CREATE ACCOUNT";
 
-
-
     @iOSFindBy(accessibility = "ios-input-First-Name")
     @AndroidFindBy(accessibility = "android-input-First Name")
     private WebElement TEXT_firstName;

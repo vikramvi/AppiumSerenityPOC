@@ -28,10 +28,6 @@ public class DOT_26940 extends WineAppTest{
         appSteps.verifySelectProductFromSearchResults(1);
         appSteps.gotoCARTScreen();
 
-        //TEMP FIX MOB-2243
-        //appSteps.gotoHomeTab();
-        //appSteps.gotoCartTab();
-
         appSteps.verifyToastMessagesOnCartScreen();
     }
 }

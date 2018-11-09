@@ -32,7 +32,7 @@ public class AppSteps extends ScenarioSteps {
     private IosPlpProductSelector iosPlpProductSelector;
     private LocationPageObject locationPageObject;
     private LoginPageObject loginPageObject;
-    private LoyaltyPageObject loyaltyPageObject;
+    private GetMorePerksPageObject getMorePerksPageObject;
     private MainProductDetailsPageObject mainProductDetailsPageObject;
     private MobilePageObject mobilePageObject;
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
@@ -66,6 +66,8 @@ public class AppSteps extends ScenarioSteps {
     private OrderDetailsPageObject orderDetailsPageObject;
     private OrderHistory orderHistory;
     private ItemAddedInterstitialPageObject itemAddedInterstitialPageObject;
+    private LoyaltyPageObject loyaltyPageObject;
+    private AndMoreRewardsPageObject andMoreRewardsPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -175,7 +177,7 @@ public class AppSteps extends ScenarioSteps {
 
                 notificationPageObject.declineReceivingNotifications();
 
-                loyaltyPageObject.declineLoyaltyLogin();
+                getMorePerksPageObject.declineLoyaltyLogin();
 
                 isOnboardingCompleted = true;
             }
@@ -198,7 +200,7 @@ public class AppSteps extends ScenarioSteps {
             assertThat(splashPageObject.startOnboarding()).isTrue();
             assertThat(locationPageObject.declineLocationTracking()).isTrue();
             assertThat(notificationPageObject.declineReceivingNotifications()).isTrue();
-            assertThat(loyaltyPageObject.declineLoyaltyLogin()).isTrue();
+            assertThat(getMorePerksPageObject.declineLoyaltyLogin()).isTrue();
 
             isOnboardingCompleted = true;
         }
@@ -235,8 +237,22 @@ public class AppSteps extends ScenarioSteps {
         createAccountPageObject.enterFakePhoneNumber();
         createAccountPageObject.clickAgeConfirmation();
         createAccountPageObject.clickTermsConfirmation();
-        createAccountPageObject.clickAndroidCreateAccountButton();
+        createAccountPageObject.clickCreateAccountButton();
         assertThat(myStoreHeaderPageObject.isMyOrdersPresent()).isTrue();
+    }
+
+    @Step
+    public void createRandomUser(){
+        createAccountPageObject.isPageTitleCorrect();
+        createAccountPageObject.enterRandomFirstName();
+        createAccountPageObject.enterRandomLastName();
+        createAccountPageObject.enterRandomEmail();
+        createAccountPageObject.enterDefaultPassword();
+        createAccountPageObject.enterDefaultPasswordConfirmation();
+        createAccountPageObject.enterFakePhoneNumber();
+        createAccountPageObject.clickAgeConfirmation();
+        createAccountPageObject.clickTermsConfirmation();
+        createAccountPageObject.clickCreateAccountButton();
     }
 
     @Step
@@ -1177,5 +1193,17 @@ public class AppSteps extends ScenarioSteps {
 
         listDetailsPageObject.clickListEditButton();
         assertThat( listDetailsPageObject.enterNewListNameAndSave(defaultListName) ).isTrue();
+    }
+
+    @Step
+    public void verifyAndMoreRewardsFlowFromMoreTab(){
+        navigationFooterPageObject.clickMoreMenuButton();
+        navigationFooterMoreMenuPageObject.clickandMoreRewardsButton();
+        andMoreRewardsPageObject.isPageTitleCorrect();
+        andMoreRewardsPageObject.clickJoinNow();
+
+        createAccountPageObject.isPageTitleCorrect();
+        createRandomUser();
+        loyaltyPageObject.isPageTitleCorrect();
     }
 }
