@@ -3,6 +3,7 @@ package com.serenity.appium.poc.pages.storeDetails;
 import com.serenity.appium.poc.pages.MobilePageObject;
 import com.serenity.appium.poc.pages.NavigationFooterPageObject;
 import com.serenity.appium.poc.pages.orderingFlow.CartPageOject;
+import com.serenity.appium.poc.utils.Scrolling;
 import com.serenity.appium.poc.utils.Utils;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -36,6 +37,9 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"change-shopping-method\"]/android.widget.TextView[@text='CONTINUE']")
     private WebElement changeStoreConfirmationDialogContinueButton;
+
+    @AndroidFindBy(xpath="//android.widget.ScrollView//android.view.ViewGroup[2]/android.widget.Button/android.widget.TextView[@text='SEE ALL EVENTS']")
+    private WebElement seeAllEventsButton;
 
     private MyStoreHeaderPageObject myStoreHeaderPageObject;
     private NavigationFooterPageObject navigationFooterPageObject;
@@ -89,5 +93,26 @@ public class StoreIconsPageObject extends MobilePageObject {
 
     public StoreIconsPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean scrollToSeeAllEventsButton() {
+        boolean displayed = false;
+        int scrollDownCounter = 0;
+
+        if (isAndroid()) {
+            displayed = Utils.isVisible(getDriver(), seeAllEventsButton, 1);
+
+            while ( !displayed && (scrollDownCounter < 4) ) {
+                Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN, 0.85, 0.15);
+                displayed = Utils.isVisible(getDriver(), seeAllEventsButton, 1);
+                scrollDownCounter++;
+            }
+        }
+        //iOS TBD
+        return displayed;
+    }
+
+    public void clickSeeAllEventsButton(){
+        seeAllEventsButton.click();
     }
 }

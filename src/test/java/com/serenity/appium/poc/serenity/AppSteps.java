@@ -68,6 +68,7 @@ public class AppSteps extends ScenarioSteps {
     private ItemAddedInterstitialPageObject itemAddedInterstitialPageObject;
     private LoyaltyPageObject loyaltyPageObject;
     private AndMoreRewardsPageObject andMoreRewardsPageObject;
+    private ClassesAndEventsPageObject classesAndEventsPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -1205,5 +1206,29 @@ public class AppSteps extends ScenarioSteps {
         createAccountPageObject.isPageTitleCorrect();
         createRandomUser();
         loyaltyPageObject.isPageTitleCorrect();
+    }
+
+    @Step
+    public void verifyChangeStoreFlowFromViewAllEventsPage(){
+        String storeName = myStoreHeaderPageObject.getTitleFromStoreData();
+        myStoreHeaderPageObject.clickTouchableStoreData();
+        assertThat( storeIconsPageObject.scrollToSeeAllEventsButton() ).isTrue();
+        storeIconsPageObject.clickSeeAllEventsButton();
+
+
+        assertThat( classesAndEventsPageObject.isPageTitleCorrect() ).isTrue();
+        assertThat( classesAndEventsPageObject.getStoreName().contains(storeName.toUpperCase()) ).isTrue();
+        classesAndEventsPageObject.clickChangeButton();
+
+        assertThat(storeSearchPageObject.isSearchFieldPresent()).isTrue();
+        storeName = "Boynton Beach";
+        assertThat(storeSearchPageObject.enterSearchToken(storeName)).isTrue();
+        assertThat(storeSearchPageObject.selectStore(storeName)).isTrue();
+
+        //MOB-2436
+        Utils.waitFor(2000);
+        assertThat( classesAndEventsPageObject.isPageTitleCorrect() ).isTrue();
+        assertThat( classesAndEventsPageObject.getStoreName().contains(storeName.toUpperCase()) ).isTrue();
+
     }
 }
