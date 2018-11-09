@@ -128,20 +128,40 @@ public class StoreSearchPageObject extends MobilePageObject {
                         return false;
                     }
 
+                    String XPATH_ChangeButton = "//android.widget.Button[@content-desc='button-select-preferred-store'][%d]";
+                    int currentViewStoresCount = 1;
+
                     while ((!found) && (i<3)) {
+
                         List<WebElement> elements = getDriver().findElements(By.xpath(XPATH_androidStoreTitle));
+
                         for (WebElement element:elements) {
                             String storeName = element.getText();
                             System.out.println("StoreName = " + storeName);
                             if (storeName.equalsIgnoreCase(completeStoreName)) {
-                                element.click();
+
+                                //Workaround as tapping on Store Title does not work in all cases e.g. View All Events change store flow
+                                //MOB-2437
+                                XPATH_ChangeButton = String.format(XPATH_ChangeButton,currentViewStoresCount);
+                                try {
+                                    if (Utils.isVisible(getDriver(), getDriver().findElement(By.xpath(XPATH_ChangeButton)), 1)) {
+                                        getDriver().findElement(By.xpath(XPATH_ChangeButton)).click();
+                                    }
+                                }catch (Exception e){
+                                    element.click();
+                                }
+
                                 found = true;
                                 break;
                             }
+                            currentViewStoresCount++;
                         }
+
                         if (!found) {
                             Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
+                            currentViewStoresCount = 1;
                         }
+
                         i++;
                     }
             }

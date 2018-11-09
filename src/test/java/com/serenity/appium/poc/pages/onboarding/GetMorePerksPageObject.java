@@ -8,7 +8,7 @@ import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoyaltyPageObject extends MobilePageObject {
+public class GetMorePerksPageObject extends MobilePageObject {
 
     @AndroidFindBy(accessibility = "button-confirm-GET MORE PERKS")
     @iOSFindBy(accessibility = "button-confirm-GET MORE PERKS")
@@ -22,7 +22,7 @@ public class LoyaltyPageObject extends MobilePageObject {
     @iOSFindBy(accessibility = "link-decline-GET MORE PERKS")
     private WebElement LINK_noThanks;
 
-    public LoyaltyPageObject(WebDriver driver) {
+    public GetMorePerksPageObject(WebDriver driver) {
         super(driver);
     }
 
