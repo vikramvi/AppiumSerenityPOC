@@ -69,6 +69,7 @@ public class AppSteps extends ScenarioSteps {
     private LoyaltyPageObject loyaltyPageObject;
     private AndMoreRewardsPageObject andMoreRewardsPageObject;
     private ClassesAndEventsPageObject classesAndEventsPageObject;
+    private InventoryPageObject inventoryPageObject;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSteps.class);
 
@@ -1026,7 +1027,8 @@ public class AppSteps extends ScenarioSteps {
 
     @Step
     public void verifyProductLimitedAvailabilityMessage() {
-        assertThat(mainProductDetailsPageObject.scrollToProductAvailability()).isTrue();
+        assertThat( mainProductDetailsPageObject.scrollToProductAvailabilitySection() ).isTrue();
+        assertThat( mainProductDetailsPageObject.isProductLimitedAvailabilityMessageShown() ).isTrue();
     }
 
     @Step
@@ -1230,5 +1232,21 @@ public class AppSteps extends ScenarioSteps {
         assertThat( classesAndEventsPageObject.isPageTitleCorrect() ).isTrue();
         assertThat( classesAndEventsPageObject.getStoreName().contains(storeName.toUpperCase()) ).isTrue();
 
+    }
+
+    @Step
+    public void verifyChangeStoreFromProductDetailsAndChooseAnotherNearByStore(){
+        String expectedProduct = mainProductDetailsPageObject.getProductName();
+        mainProductDetailsPageObject.scrollToProductAvailabilitySection();
+        mainProductDetailsPageObject.clickAndroidChangeStoreButton();
+
+        assertThat( inventoryPageObject.isPageTitleCorrect() ).isTrue();
+        inventoryPageObject.getStoresCountFromInventoryPage();
+        String expectedCity = inventoryPageObject.getCityName();
+        inventoryPageObject.clickFirstStoreChangeButton();
+
+        assertThat( mainProductDetailsPageObject.getProductName() ).isEqualTo(expectedProduct);
+        mainProductDetailsPageObject.scrollToProductAvailabilitySection();
+        assertThat( mainProductDetailsPageObject.getAndroidIspStoreName() ).contains(expectedCity);
     }
 }

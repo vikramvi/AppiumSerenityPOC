@@ -149,9 +149,10 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         return message;
     }
 
-    private By BY_ispStoreName = MobileBy.AccessibilityId("store-name-for-isp");
+    @AndroidFindBy(accessibility = "store-name-for-isp")
+    private WebElement BY_ispStoreName;
     public String getAndroidIspStoreName() {
-        String message = getDriver().findElement(BY_ispStoreName).getText();
+        String message = BY_ispStoreName.getText();
         return message;
     }
 
@@ -349,7 +350,7 @@ public class MainProductDetailsPageObject extends MobilePageObject {
         super(driver);
     }
 
-    public boolean isProductAvailabilityMessageShown() {
+    public boolean isProductLimitedAvailabilityMessageShown() {
 
         if ( Utils.isVisible(getDriver(), productAvailabilityHeader, 1)){
 
@@ -358,22 +359,29 @@ public class MainProductDetailsPageObject extends MobilePageObject {
                  return true;
              }
         }
-
         return false;
     }
 
-    public boolean scrollToProductAvailability() {
+    public boolean isProductAvailabilityTitleShown() {
+        if ( Utils.isVisible(getDriver(), productAvailabilityHeader, 1) &&
+                Utils.isVisible(getDriver(), BY_ispStoreName, 1)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean scrollToProductAvailabilitySection() {
 
         boolean displayed = false;
         int scrollDownCounter = 0;
 
         if (isAndroid()) {
 
-                displayed = isProductAvailabilityMessageShown();
+                displayed = isProductAvailabilityTitleShown();
 
                 while (!displayed && (scrollDownCounter < 2)) {
                     Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
-                    displayed = isProductAvailabilityMessageShown();
+                    displayed = isProductAvailabilityTitleShown();
                     scrollDownCounter++;
                 }
         }
