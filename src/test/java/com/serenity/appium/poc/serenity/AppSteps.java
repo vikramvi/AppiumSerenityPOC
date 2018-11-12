@@ -86,7 +86,11 @@ public class AppSteps extends ScenarioSteps {
 //            String prefix = "appTest" + i;
             createSpecifiedUserFromHomepage(prefix + "@yopmail.com");
             navigationFooterPageObject.clickMoreMenuButton();
-            navigationFooterMoreMenuPageObject.clickSignOutButton();
+            if(navigationFooterMoreMenuPageObject.isSignOutButtonPresent()) {
+                navigationFooterMoreMenuPageObject.clickSignOutButton();
+            }else{
+                LOGGER.error("Sign Out Button is not seen.");
+            }
         }
 
 //        ReadScreenText readScreenText = new ReadScreenText();
