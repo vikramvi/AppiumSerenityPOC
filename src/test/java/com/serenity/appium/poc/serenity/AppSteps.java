@@ -81,15 +81,21 @@ public class AppSteps extends ScenarioSteps {
 
 // ---------create accounts
 
-        for (int i=41; i<51; i++) {
-            String prefix = "coupon" + i;
+        for (int i=31; i<51; i++) {
+            String prefix = "devcoup" + i;
+//            String prefix = "jphtest" + i;
 //            String prefix = "appTest" + i;
             createSpecifiedUserFromHomepage(prefix + "@yopmail.com");
-            navigationFooterPageObject.clickMoreMenuButton();
+            if (navigationFooterPageObject.isMoreMenuButtonPresent()) {
+                navigationFooterPageObject.clickMoreMenuButton();
+            } else {
+                throw new IllegalStateException("More menu button is not visible!");
+            }
+//            navigationFooterPageObject.clickMoreMenuButton();
             if(navigationFooterMoreMenuPageObject.isSignOutButtonPresent()) {
                 navigationFooterMoreMenuPageObject.clickSignOutButton();
             }else{
-                LOGGER.error("Sign Out Button is not seen.");
+                throw new IllegalStateException("Sign Out Button is not visible!");
             }
         }
 

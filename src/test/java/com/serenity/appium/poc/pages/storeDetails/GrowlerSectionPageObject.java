@@ -52,7 +52,8 @@ public class GrowlerSectionPageObject extends MobilePageObject {
         int i = 0;
         if (isAndroid()) {
             displayed = isFindOutMoreButtonDisplayed();
-            while (!displayed && (i<5)) {
+            while (!displayed && (i<6)) {
+                LOGGER.info("scrolling down, looking for Find Out More button...");
                 Scrolling.androidSwipe(Scrolling.AndroidDirection.DOWN);
                 displayed = isFindOutMoreButtonDisplayed();
                 i++;
@@ -74,9 +75,11 @@ public class GrowlerSectionPageObject extends MobilePageObject {
             if (isGrowlerStationSectionDisplayed()) {
                 BUTTON_findOutMore.click();
                 result = true;
+            } else {
+                LOGGER.error("Growler Station section not displayed!");
             }
         } catch (Exception e) {
-            System.out.println("Exception trying to click Find Out More in Growler section!");
+            LOGGER.error("Exception trying to click Find Out More in Growler section!");
         }
         return result;
     }
