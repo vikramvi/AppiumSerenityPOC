@@ -783,9 +783,11 @@ public class AppSteps extends ScenarioSteps {
         cartPageObject.clickSecureCheckout();
         assertThat( cartPageObject.isMinimumOrderThresholdToastMessageSeen() ).isTrue();
 
-        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.increaseItemQuantityByOne(); //Add 2nd
         cartPageObject.isPageTitleCorrect();
-        cartPageObject.increaseItemQuantityByOne();
+        cartPageObject.increaseItemQuantityByOne(); //Add 3rd
+        cartPageObject.isPageTitleCorrect();
+        cartPageObject.increaseItemQuantityByOne(); //Add 4th
         cartPageObject.isPageTitleCorrect();
 
         cartPageObject.clickSecureCheckout();

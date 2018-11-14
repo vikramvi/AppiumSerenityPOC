@@ -315,9 +315,11 @@ public class CartPageOject extends MobilePageObject {
                 if(isPageTitleCorrect()){
                     continue;
                 }else{
+                    LOGGER.error("deleteAllCartItemsOneByOne - Error 1");
                     return false;
                 }
             }else{
+                LOGGER.error("deleteAllCartItemsOneByOne - Error 2");
                 return false;
             }
 

@@ -359,8 +359,8 @@ public static String getRandomFirstName() {
             if( tempXML.contains(title) && tempXML.contains(message) ) {
                 LOGGER.info("Toast message displayed -> " + title + "   " + message);
 
-                if( getDriver().findElement(By.xpath(XPATH_ToastMessageTitle)).getText().equals(title)  &&
-                        getDriver().findElement(By.xpath(XPATH_ToastMessageContent)).getText().equals(message) ){
+                if( getDriver().findElement(By.xpath(XPATH_ToastMessageTitle)).getText().contains(title)  &&
+                        getDriver().findElement(By.xpath(XPATH_ToastMessageContent)).getText().contains(message) ){
 
                     ((AndroidDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).findElementByAccessibilityId(ACCESSIBILITY_ID_ToastMessageCloseButton).click();
 
